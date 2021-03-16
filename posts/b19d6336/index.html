@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="背景系统知识要理解，所有程序都在操作系统的限制下运行。此书是 redhat 红皮书，陈浩推荐阅读。 第一章：理解 linux 操作系统Linux 进程管理程序运行在图 1-1 环境中，每一个模块都有可能影响程序性能。linux 内核定义了进程的数据结构，对进程进行管理就是调度系统读取进程属性，执行调度并更新进程属性。进程和线程的区别，进程会拷贝父进程的资源（内存里面的字节码、静态变量、堆栈），便于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux性能和调优-理解操作系统">
+<meta property="og:url" content="http://blog.hhzzer.com/posts/b19d6336/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="背景系统知识要理解，所有程序都在操作系统的限制下运行。此书是 redhat 红皮书，陈浩推荐阅读。 第一章：理解 linux 操作系统Linux 进程管理程序运行在图 1-1 环境中，每一个模块都有可能影响程序性能。linux 内核定义了进程的数据结构，对进程进行管理就是调度系统读取进程属性，执行调度并更新进程属性。进程和线程的区别，进程会拷贝父进程的资源（内存里面的字节码、静态变量、堆栈），便于">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1595993266470-341e0dbc-b099-40b0-87cc-11201c3ed608.png#align=left&display=inline&height=445&margin=%5Bobject%20Object%5D&name=image.png&originHeight=445&originWidth=714&size=30518&status=done&style=none&width=714">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1595993365121-7ccfb7ec-2131-4f15-bb67-30316100c5ae.png#align=left&display=inline&height=567&margin=%5Bobject%20Object%5D&name=image.png&originHeight=567&originWidth=605&size=66392&status=done&style=none&width=605">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1595993570199-4d52ece2-6727-4eec-ba4d-77284b1ea704.png#align=left&display=inline&height=217&margin=%5Bobject%20Object%5D&name=image.png&originHeight=217&originWidth=664&size=32225&status=done&style=none&width=664">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596007809149-9bd7817a-807b-4431-8db5-8b288e033a1a.png#align=left&display=inline&height=339&margin=%5Bobject%20Object%5D&name=image.png&originHeight=339&originWidth=672&size=42960&status=done&style=none&width=672">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596008041252-45eed96a-8a98-40be-9538-3d77c1cf1cca.png#align=left&display=inline&height=411&margin=%5Bobject%20Object%5D&name=image.png&originHeight=411&originWidth=675&size=47160&status=done&style=none&width=675">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596008259465-ee1f4cef-0509-407b-8068-32651504a00b.png#align=left&display=inline&height=507&margin=%5Bobject%20Object%5D&name=image.png&originHeight=507&originWidth=482&size=51929&status=done&style=none&width=482">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596012385545-8373ac72-2c06-4026-afc7-1c9ede662cde.png#align=left&display=inline&height=481&margin=%5Bobject%20Object%5D&name=image.png&originHeight=481&originWidth=605&size=50297&status=done&style=none&width=605">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596013157915-03300206-822d-410c-900c-385c2722677f.png#align=left&display=inline&height=310&margin=%5Bobject%20Object%5D&name=image.png&originHeight=310&originWidth=634&size=30782&status=done&style=none&width=634">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596013292889-877101a8-4c4c-42a1-bcd9-767a4c0ab5f3.png#align=left&display=inline&height=458&margin=%5Bobject%20Object%5D&name=image.png&originHeight=458&originWidth=671&size=53189&status=done&style=none&width=671">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596013709737-cf4d2b53-1066-4408-bc57-24086c5ca77f.png#align=left&display=inline&height=228&margin=%5Bobject%20Object%5D&name=image.png&originHeight=228&originWidth=675&size=28006&status=done&style=none&width=675">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596416568808-ae01ed5f-dac0-4478-9f63-07a8f7c9bea3.png#align=left&display=inline&height=277&margin=%5Bobject%20Object%5D&name=image.png&originHeight=277&originWidth=669&size=31187&status=done&style=none&width=669">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596417249708-38a915d5-480f-4283-b760-b200bf05b4e3.png#align=left&display=inline&height=322&margin=%5Bobject%20Object%5D&name=image.png&originHeight=322&originWidth=680&size=46603&status=done&style=none&width=680">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596417469340-ff5b5c72-6260-4ec2-94bb-b00a5a708622.png#align=left&display=inline&height=514&margin=%5Bobject%20Object%5D&name=image.png&originHeight=514&originWidth=499&size=56977&status=done&style=none&width=499">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596417717791-da5f20bc-e24a-4908-aa0f-ce06e6e7d8c0.png#align=left&display=inline&height=424&margin=%5Bobject%20Object%5D&name=image.png&originHeight=424&originWidth=673&size=56466&status=done&style=none&width=673">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596418991238-c7e5f90c-894a-4749-8750-6fece4f07c43.png#align=left&display=inline&height=623&margin=%5Bobject%20Object%5D&name=image.png&originHeight=623&originWidth=628&size=57941&status=done&style=none&width=628">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596419163775-95142fac-10b7-4717-ab5d-5247ae11b71b.png#align=left&display=inline&height=154&margin=%5Bobject%20Object%5D&name=image.png&originHeight=154&originWidth=669&size=29760&status=done&style=none&width=669">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596419417938-c9c22665-43dc-40c0-8d7e-7d1b60eb6986.png#align=left&display=inline&height=470&margin=%5Bobject%20Object%5D&name=image.png&originHeight=470&originWidth=672&size=69398&status=done&style=none&width=672">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596419700186-e43c97e1-4b55-46af-91a0-8a6b7e393489.png#align=left&display=inline&height=253&margin=%5Bobject%20Object%5D&name=image.png&originHeight=253&originWidth=676&size=26500&status=done&style=none&width=676">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596419792255-619ec5b9-3fe8-49a9-8bf5-d3c7692d4d32.png#align=left&display=inline&height=363&margin=%5Bobject%20Object%5D&name=image.png&originHeight=363&originWidth=678&size=53630&status=done&style=none&width=678">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596420572459-d7497f44-f100-416d-8b93-6e946a8b5d52.png#align=left&display=inline&height=581&margin=%5Bobject%20Object%5D&name=image.png&originHeight=581&originWidth=670&size=70125&status=done&style=none&width=670">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596420697129-67d281bc-757f-4fe0-ae68-8ae74cab4ff1.png#align=left&display=inline&height=273&margin=%5Bobject%20Object%5D&name=image.png&originHeight=273&originWidth=679&size=42556&status=done&style=none&width=679">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596420796048-8c96d1ac-bf1b-4fe8-b296-820adce62bb2.png#align=left&display=inline&height=511&margin=%5Bobject%20Object%5D&name=image.png&originHeight=511&originWidth=543&size=63403&status=done&style=none&width=543">
+<meta property="og:updated_time" content="2021-03-16T03:55:44.617Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux性能和调优-理解操作系统">
+<meta name="twitter:description" content="背景系统知识要理解，所有程序都在操作系统的限制下运行。此书是 redhat 红皮书，陈浩推荐阅读。 第一章：理解 linux 操作系统Linux 进程管理程序运行在图 1-1 环境中，每一个模块都有可能影响程序性能。linux 内核定义了进程的数据结构，对进程进行管理就是调度系统读取进程属性，执行调度并更新进程属性。进程和线程的区别，进程会拷贝父进程的资源（内存里面的字节码、静态变量、堆栈），便于">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1595993266470-341e0dbc-b099-40b0-87cc-11201c3ed608.png#align=left&display=inline&height=445&margin=%5Bobject%20Object%5D&name=image.png&originHeight=445&originWidth=714&size=30518&status=done&style=none&width=714">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.hhzzer.com/posts/b19d6336/"/>
+
+
+
+
+
+  <title>linux性能和调优-理解操作系统 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蚂蚁的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-友链">
+          <a href="/links" rel="section">
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.hhzzer.com/posts/b19d6336/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mayi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">linux性能和调优-理解操作系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-29T11:22:00+08:00">
+                2020-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>系统知识要理解，所有程序都在操作系统的限制下运行。此书是 redhat 红皮书，陈浩推荐阅读。</p>
+<h2 id="第一章：理解-linux-操作系统"><a href="#第一章：理解-linux-操作系统" class="headerlink" title="第一章：理解 linux 操作系统"></a>第一章：理解 linux 操作系统</h2><h3 id="Linux-进程管理"><a href="#Linux-进程管理" class="headerlink" title="Linux 进程管理"></a>Linux 进程管理</h3><p>程序运行在图 1-1 环境中，每一个模块都有可能影响程序性能。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1595993266470-341e0dbc-b099-40b0-87cc-11201c3ed608.png#align=left&amp;display=inline&amp;height=445&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=445&amp;originWidth=714&amp;size=30518&amp;status=done&amp;style=none&amp;width=714" alt="image.png"><br>linux 内核定义了进程的数据结构，对进程进行管理就是调度系统读取进程属性，执行调度并更新进程属性。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1595993365121-7ccfb7ec-2131-4f15-bb67-30316100c5ae.png#align=left&amp;display=inline&amp;height=567&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=567&amp;originWidth=605&amp;size=66392&amp;status=done&amp;style=none&amp;width=605" alt="image.png"><br>进程和线程的区别，进程会拷贝父进程的资源（内存里面的字节码、静态变量、堆栈），便于独立管理。进程里面的多个线程，不拷贝线程资源，直接共享进程资源，程序需要注意线程安全，方式共享资源被同时更改导致不一致，主要通过锁机制。当前操作系统线程实现机制组要是 Native POSIX Thread Library (NPTL)，redhat 开发。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1595993570199-4d52ece2-6727-4eec-ba4d-77284b1ea704.png#align=left&amp;display=inline&amp;height=217&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=217&amp;originWidth=664&amp;size=32225&amp;status=done&amp;style=none&amp;width=664" alt="image.png"><br>kernel 调整动态优先级，用户调整静态优先级 nice。普通用户可在 19-0 之间调整，root 用户可调整到负值。-19 最大。<br>CPU 以时间片为单位进行上下文切换，让用户感觉可以同时运行多个进程。切换会有额外开销。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596007809149-9bd7817a-807b-4431-8db5-8b288e033a1a.png#align=left&amp;display=inline&amp;height=339&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=339&amp;originWidth=672&amp;size=42960&amp;status=done&amp;style=none&amp;width=672" alt="image.png"><br>中断处理程序处理硬中断、软中断。进程处于不可中断状态，不能做上下文切换。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596008041252-45eed96a-8a98-40be-9538-3d77c1cf1cca.png#align=left&amp;display=inline&amp;height=411&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=411&amp;originWidth=675&amp;size=47160&amp;status=done&amp;style=none&amp;width=675" alt="image.png"><br>Process memory segment 进程内存分段。内核为每个进程动态的分配内存。pmap 可查看进程内存分布。<br>Text segment：存储 CPU 可执行的字节码。<br>Data segment：存储静态变量，置零段，动态堆（地址值从低到高增长）。<br>Stack segment：存储本地变量，函数参数，函数返回值（从高到底增长）<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596008259465-ee1f4cef-0509-407b-8068-32651504a00b.png#align=left&amp;display=inline&amp;height=507&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=507&amp;originWidth=482&amp;size=51929&amp;status=done&amp;style=none&amp;width=482" alt="image.png"><br>CPU 任务调度<br><a href="http://baodunqiao.blog.sohu.com/104016437.html" target="_blank" rel="noopener">Ingo Molnar</a> 2005 年改变通用互斥锁机制，使得内核调度算法将为 O(1).</p>
+<h3 id="Linux-内存结构"><a href="#Linux-内存结构" class="headerlink" title="Linux 内存结构"></a>Linux 内存结构</h3><p>进程需要工作空间来完成任务，内存就是进程的工作空间。32 位系统，内核只能直接寻址 1G 空间，其他空间需要通过转换，64 位系统，内核能直接寻址 64G。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596012385545-8373ac72-2c06-4026-afc7-1c9ede662cde.png#align=left&amp;display=inline&amp;height=481&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=481&amp;originWidth=605&amp;size=50297&amp;status=done&amp;style=none&amp;width=605" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596013157915-03300206-822d-410c-900c-385c2722677f.png#align=left&amp;display=inline&amp;height=310&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=310&amp;originWidth=634&amp;size=30782&amp;status=done&amp;style=none&amp;width=634" alt="image.png"><br>数据在程序、内核、内存、磁盘中的流程图。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596013292889-877101a8-4c4c-42a1-bcd9-767a4c0ab5f3.png#align=left&amp;display=inline&amp;height=458&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=458&amp;originWidth=671&amp;size=53189&amp;status=done&amp;style=none&amp;width=671" alt="image.png"><br>一个页面就是物理内存或虚拟内存中一组连续的线性增加的地址。linux 内核以页面位单位管理内存。一个页面通常 4K。<br>A page is a group of contiguous linear addresses in physical memory (page frame) or virtual<br>memory.<br>伙伴系统分配内存，减少内存碎片，可分较大的连续内存地址。<br>   <img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596013709737-cf4d2b53-1066-4408-bc57-24086c5ca77f.png#align=left&amp;display=inline&amp;height=228&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=228&amp;originWidth=675&amp;size=28006&amp;status=done&amp;style=none&amp;width=675" alt="image.png"><br>kswapd 进程跟踪内存活动状态并标记，将标记为不活动的内存从新分配给用户进程。</p>
+<h3 id="Linux-文件系统"><a href="#Linux-文件系统" class="headerlink" title="Linux 文件系统"></a>Linux 文件系统</h3><p>虚拟文件系统作为用户进程和各种文件系统之间的抽象层。用户用相同的指令，操作不同的文件系统。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596416568808-ae01ed5f-dac0-4478-9f63-07a8f7c9bea3.png#align=left&amp;display=inline&amp;height=277&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=277&amp;originWidth=669&amp;size=31187&amp;status=done&amp;style=none&amp;width=669" alt="image.png"><br>非日志文件系统：一个写请求，内核将 meta 数据写入文件系统后，再将实际内容存储到具体的位置。当在写 meta 数据系统异常时，文件系统连续性会被破坏，需要使用 fsck 修复 meta 信息。<br>日志文件系统：在数据被真正写入文件系统前，先将数据变更写入日志区。由于多写一次日志，会有额外开销。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596417249708-38a915d5-480f-4283-b760-b200bf05b4e3.png#align=left&amp;display=inline&amp;height=322&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=322&amp;originWidth=680&amp;size=46603&amp;status=done&amp;style=none&amp;width=680" alt="image.png"><br>Ext2 文件系统<br>文件系统从 boot sector 开始，每个 block group 包含超级块（记录整个文件系统数据，每个 block group 都有。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596417469340-ff5b5c72-6260-4ec2-94bb-b00a5a708622.png#align=left&amp;display=inline&amp;height=514&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=514&amp;originWidth=499&amp;size=56977&amp;status=done&amp;style=none&amp;width=499" alt="image.png"><br>读文件过程，先从文件路径找到 i-node，再从 i-node 读取文件。每个 i-node 指向一个数据块。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596417717791-da5f20bc-e24a-4908-aa0f-ce06e6e7d8c0.png#align=left&amp;display=inline&amp;height=424&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=424&amp;originWidth=673&amp;size=56466&amp;status=done&amp;style=none&amp;width=673" alt="image.png"><br>Ext3 和 Ext2 最大的不同是，Ext2 不支持日志能力。<br>Ext3 的特点：</p>
+<ul>
+<li>可用性 由于支持日志记录，从故障恢复文件系统不需要执行 fsck，恢复时间从小时缩减到秒级。</li>
+<li>数据完整性 通过挂载文件系统日志模式，所有的元数据和真实数据都会以日志方式记录。</li>
+<li>速度 通过控制日志模式 data=writeback，到达文件系统就通知系统完成写，可以提升写入响应。对于重 IO 应用不建议用。。</li>
+<li>灵活性 Ext2 可以方便的升级到 Ext3，Ext3 通过禁用日志系统，挂载为 Ext2.</li>
+</ul>
+<p>Ext3 3 种模式：journal，将 meta 和 data 都通过日志方式写入。ordered，只将 meta 通过日志方式写入，数据直接写入。writeback，直接回写，速度最快。<br>JFS、XFS ： JFS 支持 64 位架构，支持大文件和分区。XFS 和 JFS 特点类似，大文件和大分区支持。</p>
+<h3 id="磁盘-IO-子系统"><a href="#磁盘-IO-子系统" class="headerlink" title="磁盘 IO 子系统"></a>磁盘 IO 子系统</h3><p>IO 子系统架构的基本概念<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596418991238-c7e5f90c-894a-4749-8750-6fece4f07c43.png#align=left&amp;display=inline&amp;height=623&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=623&amp;originWidth=628&amp;size=57941&amp;status=done&amp;style=none&amp;width=628" alt="image.png"><br>缓存技术：高等级内存缓存命中率越高，更快获取数据。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596419163775-95142fac-10b7-4717-ab5d-5247ae11b71b.png#align=left&amp;display=inline&amp;height=154&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=154&amp;originWidth=669&amp;size=29760&amp;status=done&amp;style=none&amp;width=669" alt="image.png"><br>刷新脏 buffer，内存数据中有变更，没有同步到磁盘，称为脏缓存，通过 sync，同步变更到磁盘。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596419417938-c9c22665-43dc-40c0-8d7e-7d1b60eb6986.png#align=left&amp;display=inline&amp;height=470&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=470&amp;originWidth=672&amp;size=69398&amp;status=done&amp;style=none&amp;width=672" alt="image.png"><br>block 是驱动器能读写的最小单位，小文件多，block 设置小，大文件多，block 设置大。<br>IO 电梯算法<br>IO 设备驱动<br>SCSI 驱动的结构<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596419700186-e43c97e1-4b55-46af-91a0-8a6b7e393489.png#align=left&amp;display=inline&amp;height=253&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=253&amp;originWidth=676&amp;size=26500&amp;status=done&amp;style=none&amp;width=676" alt="image.png"></p>
+<h3 id="网络子系统"><a href="#网络子系统" class="headerlink" title="网络子系统"></a>网络子系统</h3><p>网络层结构和网络操作概览<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596419792255-619ec5b9-3fe8-49a9-8bf5-d3c7692d4d32.png#align=left&amp;display=inline&amp;height=363&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=363&amp;originWidth=678&amp;size=53630&amp;status=done&amp;style=none&amp;width=678" alt="image.png"></p>
+<p>由于内核使用 buffer 来接收和发送数据，每种 buffer 的值在如下这些文件。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/proc/</span>sys<span class="regexp">/net/</span>core/rmem_max</span><br><span class="line"><span class="regexp">/proc/</span>sys<span class="regexp">/net/</span>core<span class="regexp">/rmem_defaul/</span>proc<span class="regexp">/sys/</span>net<span class="regexp">/core/</span>wmem_max</span><br><span class="line"><span class="regexp">/proc/</span>sys<span class="regexp">/net/</span>core<span class="regexp">/wmem_defaul/</span>proc<span class="regexp">/sys/</span>net<span class="regexp">/ipv4/</span>tcp_mem</span><br><span class="line"><span class="regexp">/proc/</span>sys<span class="regexp">/net/</span>ipv4/tcp_rmem</span><br><span class="line"><span class="regexp">/proc/</span>sys<span class="regexp">/net/</span>ipv4/tcp_wmem</span><br></pre></td></tr></table></figure>
+<p>sockt buffer 类型图解<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596420572459-d7497f44-f100-416d-8b93-6e946a8b5d52.png#align=left&amp;display=inline&amp;height=581&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=581&amp;originWidth=670&amp;size=70125&amp;status=done&amp;style=none&amp;width=670" alt="image.png"><br>网络数据包在 netfilter 中的流向<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596420697129-67d281bc-757f-4fe0-ae68-8ae74cab4ff1.png#align=left&amp;display=inline&amp;height=273&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=273&amp;originWidth=679&amp;size=42556&amp;status=done&amp;style=none&amp;width=679" alt="image.png"><br>TCP 3 次握手过程<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596420796048-8c96d1ac-bf1b-4fe8-b296-820adce62bb2.png#align=left&amp;display=inline&amp;height=511&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=511&amp;originWidth=543&amp;size=63403&amp;status=done&amp;style=none&amp;width=543" alt="image.png"></p>
+<h3 id="理解-linux-性能指标"><a href="#理解-linux-性能指标" class="headerlink" title="理解 linux 性能指标"></a>理解 linux 性能指标</h3><h4 id="处理器指标"><a href="#处理器指标" class="headerlink" title="处理器指标"></a>处理器指标</h4><ul>
+<li>CPU 利用率（CPU utiliization）</li>
+</ul>
+<p>每个 CPU 的工作负载</p>
+<ul>
+<li>用户时间（User time）</li>
+</ul>
+<p>CPU 花在用户进程上的时间，高比率用户时间是正常的，代表系统正在执行真正的任务。</p>
+<ul>
+<li>系统时间（System time）</li>
+</ul>
+<p>CPU 花在内核操作的时间，包括硬中断和软中断。网络和磁盘驱动瓶颈可能导致内核时间持续高比例。正常系统应该花费较少时间在内核操作上。</p>
+<ul>
+<li>等待（Waiting）</li>
+</ul>
+<p>CPU 花在 IO 等待上的时间，系统不应该 IO 等待上花费较多时间。</p>
+<ul>
+<li>空闲（Idle）</li>
+</ul>
+<p>CPU 花费在等待任务上的时间。</p>
+<ul>
+<li>Nice time</li>
+</ul>
+<p>CPU 花费在调整进程优先级的时间。</p>
+<ul>
+<li>Load average</li>
+</ul>
+<p>等待执行队列中进程数+ 等待不可中断任务进程数</p>
+<ul>
+<li>Runable processes,可运行进程数</li>
+</ul>
+<p>CPU 可运行的进程数，不应超过物理 CPU 数量的 10 倍，否者，表明存在 CPU 瓶颈。</p>
+<ul>
+<li>Blocked 阻塞进程数</li>
+</ul>
+<p>数量多可能是 IO 瓶颈</p>
+<ul>
+<li>Context switch 上下文切换</li>
+</ul>
+<p>进程间上下文切换的统计，高上下文切换可能是驱动或应用程序问题。</p>
+<ul>
+<li>interrupts 中断</li>
+</ul>
+<p>中断包括硬中断和软中断。中断是由 CPU 时钟引起的。高中断值表明软件瓶颈，内核软件或驱动软件。</p>
+<h4 id="内存指标"><a href="#内存指标" class="headerlink" title="内存指标"></a>内存指标</h4><ul>
+<li>Free memory 空闲内存</li>
+</ul>
+<p>由于 linux 系统会分配大量不用的内存作为文件系统缓存，所以，真实可用内存= Free + cache + buffer</p>
+<ul>
+<li>Swap Usage</li>
+</ul>
+<p>每秒 300-400 页的 swap 交换表明内存瓶颈。</p>
+<ul>
+<li>Buffer and Cache</li>
+</ul>
+<p>缓存块设备和文件系统的空间。</p>
+<ul>
+<li>SLabs</li>
+</ul>
+<p>内核占用的空间。</p>
+<ul>
+<li>Active versus inactive memory 活动和不活动内存</li>
+</ul>
+<p>不活动空间可能会被 kswapd 交换到 swap。</p>
+<h4 id="网络接口指标"><a href="#网络接口指标" class="headerlink" title="网络接口指标"></a>网络接口指标</h4><ul>
+<li>收发包数量</li>
+<li>收发字节数</li>
+<li>每秒冲突</li>
+<li>丢包率</li>
+<li>过载</li>
+</ul>
+<p>数据包操过网络 buffer 空间，结合丢包率查看。</p>
+<ul>
+<li>错误包</li>
+</ul>
+<p>可能和连线有关</p>
+<h4 id="块设备指标"><a href="#块设备指标" class="headerlink" title="块设备指标"></a>块设备指标</h4><ul>
+<li>Iowait IO 等待</li>
+<li>Average queue length 平均队列长度</li>
+</ul>
+<p>2-3 正常，超过可能 IO 瓶颈。</p>
+<ul>
+<li>Average wait 平均等待实际</li>
+</ul>
+<p>IO 请求到被执行的平均时间。</p>
+<ul>
+<li>Transfers per second 每秒 IO 数量</li>
+<li>Blocks read/wait per second 每秒块读写亮</li>
+<li>kb per second read/wait 每秒读写字节数</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://baodunqiao.blog.sohu.com/104016437.html" target="_blank" rel="noopener">http://baodunqiao.blog.sohu.com/104016437.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/617269ac/" rel="next" title="docker-daemon代理坑">
+                <i class="fa fa-chevron-left"></i> docker-daemon代理坑
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/e2fab0d/" rel="prev" title="Linux性能调优-监控和基准工具">
+                Linux性能调优-监控和基准工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">mayi</p>
+              <p class="site-description motion-element" itemprop="description">做一个有钱有趣的人。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">356</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章：理解-linux-操作系统"><span class="nav-number">2.</span> <span class="nav-text">第一章：理解 linux 操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-进程管理"><span class="nav-number">2.1.</span> <span class="nav-text">Linux 进程管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-内存结构"><span class="nav-number">2.2.</span> <span class="nav-text">Linux 内存结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-文件系统"><span class="nav-number">2.3.</span> <span class="nav-text">Linux 文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#磁盘-IO-子系统"><span class="nav-number">2.4.</span> <span class="nav-text">磁盘 IO 子系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络子系统"><span class="nav-number">2.5.</span> <span class="nav-text">网络子系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解-linux-性能指标"><span class="nav-number">2.6.</span> <span class="nav-text">理解 linux 性能指标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#处理器指标"><span class="nav-number">2.6.1.</span> <span class="nav-text">处理器指标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存指标"><span class="nav-number">2.6.2.</span> <span class="nav-text">内存指标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络接口指标"><span class="nav-number">2.6.3.</span> <span class="nav-text">网络接口指标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#块设备指标"><span class="nav-number">2.6.4.</span> <span class="nav-text">块设备指标</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260628156&web_id=1260628156" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

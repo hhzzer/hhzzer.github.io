@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="搭建类似于网易源的服务器，方面内网服务器安装和更新软件包。  结论一台centos7.2的服务器，可以同时提供yum源服务和apt源服务。都是使用apache提供web服务。同步其他yum源服务器使用reposync，同步其他apt源服务器使用apt-mirror. 使用软件和用途Apache 用于提供web服务。遇到问题2个:更改/目录，默认列出目录内容。第一个问题修改httpd.conf,第">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos7.2搭建yun源和apt源服务器">
+<meta property="og:url" content="http://blog.hhzzer.com/posts/e3441294/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="搭建类似于网易源的服务器，方面内网服务器安装和更新软件包。  结论一台centos7.2的服务器，可以同时提供yum源服务和apt源服务。都是使用apache提供web服务。同步其他yum源服务器使用reposync，同步其他apt源服务器使用apt-mirror. 使用软件和用途Apache 用于提供web服务。遇到问题2个:更改/目录，默认列出目录内容。第一个问题修改httpd.conf,第">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-24T05:54:38.156Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="centos7.2搭建yun源和apt源服务器">
+<meta name="twitter:description" content="搭建类似于网易源的服务器，方面内网服务器安装和更新软件包。  结论一台centos7.2的服务器，可以同时提供yum源服务和apt源服务。都是使用apache提供web服务。同步其他yum源服务器使用reposync，同步其他apt源服务器使用apt-mirror. 使用软件和用途Apache 用于提供web服务。遇到问题2个:更改/目录，默认列出目录内容。第一个问题修改httpd.conf,第">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.hhzzer.com/posts/e3441294/"/>
+
+
+
+
+
+  <title>centos7.2搭建yun源和apt源服务器 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蚂蚁的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-友链">
+          <a href="/links" rel="section">
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.hhzzer.com/posts/e3441294/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mayi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">centos7.2搭建yun源和apt源服务器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-14T08:26:57+08:00">
+                2017-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>搭建类似于网易源的服务器，方面内网服务器安装和更新软件包。</p>
+</blockquote>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>一台centos7.2的服务器，可以同时提供yum源服务和apt源服务。都是使用apache提供web服务。同步其他yum源服务器使用reposync，同步其他apt源服务器使用apt-mirror.</p>
+<h2 id="使用软件和用途"><a href="#使用软件和用途" class="headerlink" title="使用软件和用途"></a>使用软件和用途</h2><p>Apache 用于提供web服务。<br>遇到问题2个:更改/目录，默认列出目录内容。第一个问题修改httpd.conf,第二个问题除了修改httpd.conf，还需移除welcome.conf。</p>
+<p>apt-mirror 用于同步镜像其他apt服务器，使用rpm包安装。配置文件apt-mirror.conf需要修改同步文件保存位置、同步软件包位数amd64以及同步源url。</p>
+<p>reposync 通过使用yum的方式同步yum仓库。参数—repoid指定.repo中[]的内容。-p指定同步保存位置。-n同步较新的。</p>
+<p>createrepo用于生产rpm包的依赖数据信息。<br>createrpeo -pod /fo/os/x86_64  /fo/os/x86_64/ 表示对os软件包生成数据包依赖信息并放在那个目录。createrepo -g *comg.xml /fo/os/x86_64/ 用于生产yum grouplist信息。xml文件在网易镜像下载保存到任意位置即可。</p>
+<h2 id="安装规划"><a href="#安装规划" class="headerlink" title="安装规划"></a>安装规划</h2><p>操作系统：centos7.2 x64，2c4G，100G系统盘，500G数据盘。分区lvm格式，数据盘单独一个lv，挂载在 /data目录。</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">tree -L 3 /data</span><br><span class="line">./</span><br><span class="line">|<span class="string">--website</span></span><br><span class="line"><span class="string">  </span>|<span class="string">--centos</span></span><br><span class="line"><span class="string">  </span>|<span class="string">  </span>|<span class="string">--6</span></span><br><span class="line"><span class="string">  </span>|<span class="string">  </span>|<span class="string">--7</span></span><br><span class="line"><span class="string">  </span>|<span class="string">  </span>|<span class="string">--RPM-GPG-KEY-CentOS-6</span></span><br><span class="line"><span class="string">  </span>|<span class="string">  </span>|<span class="string">--RPM-GPG-KEY-CentOS-7</span></span><br><span class="line"><span class="string">  </span>|<span class="string">--CentOS-Base.repo</span></span><br><span class="line"><span class="string">  </span>|<span class="string">--epel</span></span><br><span class="line"><span class="string">  </span>|<span class="string">  </span>|<span class="string">--6</span></span><br><span class="line"><span class="string">  </span>|<span class="string">  </span>|<span class="string">--7</span></span><br><span class="line"><span class="string">  </span>|<span class="string">--sources.list</span></span><br><span class="line"><span class="string">  </span>|<span class="string">--ubuntu</span></span><br><span class="line"><span class="string">     </span>|<span class="string">--dists</span></span><br><span class="line"><span class="string">     </span>|<span class="string">--pool</span></span><br></pre></td></tr></table></figure>
+<p>apache 根目录设置为/data/website</p>
+<h2 id="实施过程"><a href="#实施过程" class="headerlink" title="实施过程"></a>实施过程</h2><h3 id="设置wget代理和yum代理"><a href="#设置wget代理和yum代理" class="headerlink" title="设置wget代理和yum代理"></a>设置wget代理和yum代理</h3><p>由于部署的源服务器无法直接访问外网，通过代理服务器访问。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/yum.conf</span><br><span class="line">#添加内容 proxy=http:<span class="comment">//172.x.x.x:3128</span></span><br><span class="line">vi ~/.wgetrc</span><br><span class="line">#添加内容 http-proxy=<span class="number">172</span><span class="selector-class">.x</span><span class="selector-class">.x</span><span class="selector-class">.x</span>.:<span class="number">3128</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h3><p>mkdir -p /data/website/{centos,epel}</p>
+<h3 id="安装apt-mirror并同步镜像"><a href="#安装apt-mirror并同步镜像" class="headerlink" title="安装apt-mirror并同步镜像"></a>安装apt-mirror并同步镜像</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">wget <span class="string">http:</span><span class="comment">//dl.fedoraproject.org/pub/epel/6/x86_64/Packages/a/apt-mirror-0.5.1-1.git420c3ec.el6.noarch.rpm</span></span><br><span class="line">yum install apt-mirror*</span><br></pre></td></tr></table></figure>
+<p>vi /etc/apt-mirror.list<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> base_path      /<span class="keyword">data</span>/apt-<span class="keyword">source</span></span><br><span class="line"># <span class="keyword">set</span> mirror_path  $base_path/mirror</span><br><span class="line"># <span class="keyword">set</span> skel_path    $base_path/skel</span><br><span class="line"># <span class="keyword">set</span> var_path     $base_path/<span class="keyword">var</span></span><br><span class="line"># defultarch不配置会自动检测，centos上会检测失败为i386，所以指定amd64.</span><br><span class="line"><span class="keyword">set</span> defaultarch  amd64</span><br><span class="line"># <span class="keyword">set</span> nthreads     <span class="number">20</span></span><br><span class="line"></span><br><span class="line">deb <span class="keyword">http</span>://mirrors<span class="number">.163</span>.com/ubuntu/ trusty <span class="keyword">main</span> <span class="keyword">restricted</span> universe multiverse</span><br><span class="line">deb <span class="keyword">http</span>://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-<span class="keyword">security</span> <span class="keyword">main</span> <span class="keyword">restricted</span> universe multiverse</span><br><span class="line">deb <span class="keyword">http</span>://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-updates <span class="keyword">main</span> <span class="keyword">restricted</span> universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src <span class="keyword">http</span>://mirrors<span class="number">.163</span>.com/ubuntu/ trusty <span class="keyword">main</span> <span class="keyword">restricted</span> universe multiverse</span><br><span class="line">deb-src <span class="keyword">http</span>://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-<span class="keyword">security</span> <span class="keyword">main</span> <span class="keyword">restricted</span> universe multiverse</span><br><span class="line">deb-src <span class="keyword">http</span>://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-updates <span class="keyword">main</span> <span class="keyword">restricted</span> universe multiverse</span><br><span class="line"></span><br><span class="line">clean <span class="keyword">http</span>://mirrors<span class="number">.163</span>.com/ubuntu</span><br></pre></td></tr></table></figure></p>
+<p>同步163的ubuntu1404镜像,会启动20个线程，同步完成大概164G。<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">apt-mirror</span></span><br></pre></td></tr></table></figure></p>
+<p>同步完成后将下载的文件移动到/data/website/在原位置创建链接文件。<br>原因是apache不能显示链接目录，目前还没解决。这种方案也可行，定时同步也简单。<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv <span class="regexp">/data/</span>apt-<span class="keyword">source</span><span class="regexp">/mirror/mi</span>rrors.<span class="number">163</span>.com<span class="regexp">/ubuntu /</span>data<span class="regexp">/website/</span></span><br><span class="line">ln -s <span class="regexp">/data/</span>website<span class="regexp">/ubuntu/</span> <span class="regexp">/data/</span>apt-<span class="keyword">source</span><span class="regexp">/mirror/mi</span>rrors.<span class="number">163</span>.com<span class="regexp">/</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="同步yum包并生成软件仓库"><a href="#同步yum包并生成软件仓库" class="headerlink" title="同步yum包并生成软件仓库"></a>同步yum包并生成软件仓库</h3><p>安装软件包<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> yum-utils</span><br></pre></td></tr></table></figure></p>
+<p>配置本机的repo，需要配置centos6和centos7的，配置文件如下<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[base]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Base</span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=os&amp;infra=<span class="variable">$infra</span></span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/</span></span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#released updates</span></span><br><span class="line"><span class="section">[updates]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Updates</span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=updates&amp;infra=<span class="variable">$infra</span></span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#additional packages that may be useful</span></span><br><span class="line"><span class="section">[extras]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Extras</span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=extras&amp;infra=<span class="variable">$infra</span></span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#additional packages that extend functionality of existing packages</span></span><br><span class="line"><span class="section">[centosplus]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Plus</span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=centosplus&amp;infra=<span class="variable">$infra</span></span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">gpgkey</span>=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## centos6</span></span><br><span class="line"><span class="section">[base6]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="number">6</span>-os-cmiot.local</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.<span class="number">163</span>.com/centos/<span class="number">6</span>/os/x<span class="number">86_64</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-<span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#released updates</span></span><br><span class="line"><span class="section">[updates6]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="number">6</span>-updates-cmiot.local</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.<span class="number">163</span>.com/centos/<span class="number">6</span>/updates/x<span class="number">86_64</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-<span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#additional packages that may be useful</span></span><br><span class="line"><span class="section">[extras6]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="number">6</span>-extras-cmiot.local</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.<span class="number">163</span>.com/centos/<span class="number">6</span>/extras/x<span class="number">86_64</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-<span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="section">[epel6]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="number">6</span>-epel-cmiot.local</span><br><span class="line"><span class="attr">baseurl</span>=https://mirrors.aliyun.com/epel/<span class="number">6</span>/x<span class="number">86_64</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>使用<code>yum repolist</code>查看是否生效，然后使用reposync同步<br>repolist 类似如下<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yum repolist</span><br><span class="line">repo id                                                              repo name                                                                                          status</span><br><span class="line">base/<span class="number">7</span>/x86_64                                                        CentOS-<span class="number">7</span> - Base                                                                                     <span class="number">9</span>,<span class="number">591</span></span><br><span class="line">base6                                                                CentOS-<span class="number">6</span>-os-cmiot<span class="selector-class">.local</span>                                                                             <span class="number">6</span>,<span class="number">706</span></span><br><span class="line">epel/x86_64                                                          Extra Packages <span class="keyword">for</span> Enterprise Linux <span class="number">7</span> - x86_64                                                     <span class="number">12</span>,<span class="number">136</span></span><br><span class="line">epel6                                                                CentOS-<span class="number">6</span>-epel-cmiot<span class="selector-class">.local</span>                                                                          <span class="number">12</span>,<span class="number">444</span></span><br><span class="line">extras/<span class="number">7</span>/x86_64                                                      CentOS-<span class="number">7</span> - Extras                                                                                     <span class="number">326</span></span><br><span class="line">extras6                                                              CentOS-<span class="number">6</span>-extras-cmiot<span class="selector-class">.local</span>                                                                            <span class="number">46</span></span><br><span class="line">updates/<span class="number">7</span>/x86_64                                                     CentOS-<span class="number">7</span> - Updates                                                                                  <span class="number">1</span>,<span class="number">540</span></span><br><span class="line">updates6                                                             CentOS-<span class="number">6</span>-updates-cmiot<span class="selector-class">.local</span>                                                                          <span class="number">834</span></span><br><span class="line">repolist: <span class="number">43</span>,<span class="number">623</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#同步centos7</span></span><br><span class="line">reposync -n  <span class="attribute">--repoid</span>=extras  <span class="attribute">--repoid</span>=updates <span class="attribute">--repoid</span>=base -p /data/website/centos/7</span><br><span class="line">reposync -n  <span class="attribute">--repoid</span>=epel -p /data/website/epel/7/</span><br><span class="line"><span class="comment">#同步centos6</span></span><br><span class="line">reposync -n  <span class="attribute">--repoid</span>=extras6  <span class="attribute">--repoid</span>=updates6 <span class="attribute">--repoid</span>=base6 -p /data/website/centos/6</span><br><span class="line">reposync -n  <span class="attribute">--repoid</span>=epel6 -p /data/website/epel/6/</span><br></pre></td></tr></table></figure>
+<p>生成仓库数据文件<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">createrepo  <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">7</span><span class="meta-keyword">/os/</span>x86_64 <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">7</span><span class="meta-keyword">/os/</span>x86_64</span><br><span class="line">wget http:<span class="comment">//mirrors.163.com/centos/7/os/x86_64/repodata/38b60f66d52704cffb8696750b2b6552438c1ace283bc2cf22408b0ba0e4cbfa-c7-x86_64-comps.xml -P /tmp</span></span><br><span class="line">createrepo -g <span class="meta-keyword">/tmp/</span><span class="number">38</span>b\*-comps.xml <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos7/</span>os/x86_64 </span><br><span class="line"></span><br><span class="line">createrepo  <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">7</span><span class="meta-keyword">/updates/</span>x86_64 <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">7</span><span class="meta-keyword">/updates/</span>x86_64</span><br><span class="line">createrepo  <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">7</span><span class="meta-keyword">/extras/</span>x86_64 <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">7</span><span class="meta-keyword">/extras/</span>x86_64</span><br><span class="line">createrepo  <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/epel/</span><span class="number">7</span>/x86_64 <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/epel/</span><span class="number">7</span>/x86_64</span><br><span class="line"><span class="meta">#6类似，下载的comps.xml到6的位置下载。</span></span><br></pre></td></tr></table></figure></p>
+<p>下载key文件<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget <span class="symbol">http:</span>/<span class="regexp">/mirrors.163.com/centos</span><span class="regexp">/7/os</span><span class="regexp">/x86_64/</span>RPM-GPG-KEY-CentOS-<span class="number">7</span> -P /data/website/centos/</span><br><span class="line">wget <span class="symbol">http:</span>/<span class="regexp">/mirrors.163.com/centos</span><span class="regexp">/6/os</span><span class="regexp">/x86_64/</span>RPM-GPG-KEY-CentOS-<span class="number">6</span> -P /data/website/centos/</span><br></pre></td></tr></table></figure></p>
+<h3 id="设置apache"><a href="#设置apache" class="headerlink" title="设置apache"></a>设置apache</h3><p>httpd.conf文件内容类似如下<br><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute"><span class="nomarkup">DocumentRoot</span></span> <span class="string">"/data/website"</span></span><br><span class="line"><span class="section">&lt;Directory "/data/website"&gt;</span></span><br><span class="line">  <span class="attribute"><span class="nomarkup">Options</span></span> Indexes FollowSymLinks</span><br><span class="line">  <span class="attribute"><span class="nomarkup">Options</span></span> Indexes</span><br><span class="line">  <span class="attribute">AllowOverride</span> <span class="literal">All</span></span><br><span class="line">  <span class="attribute"><span class="nomarkup">Order</span></span> allow,deny</span><br><span class="line">  <span class="attribute">IndexOptions</span> Charset=UTF-8</span><br><span class="line">  <span class="attribute"><span class="nomarkup">Allow</span></span> from <span class="literal">all</span></span><br><span class="line">  <span class="attribute">Require</span> <span class="literal">all</span> granted</span><br><span class="line"><span class="section">&lt;/Directory&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>删除welcome配置，达到访问服务器地址直接现实站点根目录<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/httpd/conf.d/welcome<span class="selector-class">.conf</span> /etc/httpd/conf.d/welcome<span class="selector-class">.conf</span><span class="selector-class">.bak</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="每天定时自动同步"><a href="#每天定时自动同步" class="headerlink" title="每天定时自动同步"></a>每天定时自动同步</h2><p>auto-update.sh</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#同步ubuntu</span></span><br><span class="line">apt-mirror</span><br><span class="line"><span class="meta">#同步centos7</span></span><br><span class="line">reposync -n  --repoid=extras  --repoid=updates --repoid=base -p <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">7</span></span><br><span class="line">reposync -n  --repoid=epel -p <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/epel/</span><span class="number">7</span>/</span><br><span class="line"><span class="meta">#同步centos6</span></span><br><span class="line">reposync -n  --repoid=extras6  --repoid=updates6 --repoid=base6 -p <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">6</span></span><br><span class="line">reposync -n  --repoid=epel6 -p <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/epel/</span><span class="number">6</span>/</span><br><span class="line">createrepo --update <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">7</span><span class="meta-keyword">/os/</span>x86_64/</span><br><span class="line">createrepo --update <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">7</span><span class="meta-keyword">/updates/</span>x86_64/</span><br><span class="line">createrepo --update <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">7</span><span class="meta-keyword">/extras/</span>x86_64/</span><br><span class="line">createrepo --update <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">6</span><span class="meta-keyword">/os/</span>x86_64/</span><br><span class="line">createrepo --update <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">6</span><span class="meta-keyword">/updates/</span>x86_64/</span><br><span class="line">createrepo --update <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/centos/</span><span class="number">6</span><span class="meta-keyword">/extras/</span>x86_64/</span><br><span class="line">createrepo --update <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/epel/</span><span class="number">7</span>/x86_64/</span><br><span class="line">createrepo --update <span class="meta-keyword">/data/</span>website<span class="meta-keyword">/epel/</span><span class="number">7</span>/x86_64/</span><br></pre></td></tr></table></figure>
+<h2 id="用户端yum源文件和apt文件"><a href="#用户端yum源文件和apt文件" class="headerlink" title="用户端yum源文件和apt文件"></a>用户端yum源文件和apt文件</h2><p>centos6、7文件”CentOS-Base.repo”<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[base]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Base - cmiot.local</span><br><span class="line"><span class="attr">baseurl</span>=http://server-ip/centos/<span class="variable">$releasever</span>/os/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://server-ip/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#released updates</span></span><br><span class="line"><span class="section">[updates]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Updates - cmiot.local</span><br><span class="line"><span class="attr">baseurl</span>=http://server-ip/centos/<span class="variable">$releasever</span>/updates/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http:/server-ip/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#additional packages that may be useful</span></span><br><span class="line"><span class="section">[extras]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Extras - cmiot.local</span><br><span class="line"><span class="attr">baseurl</span>=http://server-ip/centos/<span class="variable">$releasever</span>/extras/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://server-ip/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="section">[epel]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Extras - cmiot.local</span><br><span class="line"><span class="attr">baseurl</span>=http://server-ip/epel/<span class="variable">$releasever</span>/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>ubuntu1404x64 sources.list<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">deb [arch=amd64] http:<span class="regexp">//i</span>p<span class="regexp">/ubuntu/</span> trusty main restricted universe multiverse</span><br><span class="line">deb [arch=amd64] http:<span class="regexp">//i</span>p<span class="regexp">/ubuntu/</span> trusty-security main restricted universe multiverse</span><br><span class="line">deb [arch=amd64] http:<span class="regexp">//i</span>p<span class="regexp">/ubuntu/</span> trusty-updates main restricted universe multiverse</span><br><span class="line">deb-src [arch=amd64] http:<span class="regexp">//i</span>p<span class="regexp">/ubuntu/</span> trusty main restricted universe multiverse</span><br><span class="line">deb-src [arch=amd64] http:<span class="regexp">//i</span>p<span class="regexp">/ubuntu/</span> trusty-security main restricted universe multiverse</span><br><span class="line">deb-src [arch=amd64] http:<span class="regexp">//i</span>p<span class="regexp">/ubuntu/</span> trusty-updates main restricted universe multiverse</span><br></pre></td></tr></table></figure></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://haibing.org/?p=213" target="_blank" rel="noopener">http://haibing.org/?p=213</a><br><a href="https://centos.pkgs.org/6/epel-x86_64/apt-mirror-0.5.1-1.git420c3ec.el6.noarch.rpm.html" target="_blank" rel="noopener">https://centos.pkgs.org/6/epel-x86_64/apt-mirror-0.5.1-1.git420c3ec.el6.noarch.rpm.html</a><br><a href="http://mirrors.163.com" target="_blank" rel="noopener">http://mirrors.163.com</a><br><a href="http://www.linuxidc.com/Linux/2014-08/105415.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2014-08/105415.htm</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/a7550009/" rel="next" title="keepalived原理分析和应用">
+                <i class="fa fa-chevron-left"></i> keepalived原理分析和应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/21327cf1/" rel="prev" title="如何做决策-教练思维">
+                如何做决策-教练思维 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">mayi</p>
+              <p class="site-description motion-element" itemprop="description">做一个有钱有趣的人。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">356</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">1.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用软件和用途"><span class="nav-number">2.</span> <span class="nav-text">使用软件和用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装规划"><span class="nav-number">3.</span> <span class="nav-text">安装规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实施过程"><span class="nav-number">4.</span> <span class="nav-text">实施过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置wget代理和yum代理"><span class="nav-number">4.1.</span> <span class="nav-text">设置wget代理和yum代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建目录"><span class="nav-number">4.2.</span> <span class="nav-text">创建目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装apt-mirror并同步镜像"><span class="nav-number">4.3.</span> <span class="nav-text">安装apt-mirror并同步镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步yum包并生成软件仓库"><span class="nav-number">4.4.</span> <span class="nav-text">同步yum包并生成软件仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置apache"><span class="nav-number">4.5.</span> <span class="nav-text">设置apache</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#每天定时自动同步"><span class="nav-number">5.</span> <span class="nav-text">每天定时自动同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户端yum源文件和apt文件"><span class="nav-number">6.</span> <span class="nav-text">用户端yum源文件和apt文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">7.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260628156&web_id=1260628156" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

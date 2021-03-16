@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 Controlling Services and Daemonssystemctl 管理两种模块，.service,.socket，模块有8种状态，loaded active(running) active(exited) active(waiting) inactive enabled disabled static. 不只是两种模块，还包括.target .device .mount .a">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RH254-RHEL7学习笔记">
+<meta property="og:url" content="http://blog.hhzzer.com/posts/2f15b166/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="1 Controlling Services and Daemonssystemctl 管理两种模块，.service,.socket，模块有8种状态，loaded active(running) active(exited) active(waiting) inactive enabled disabled static. 不只是两种模块，还包括.target .device .mount .a">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-24T05:54:37.641Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RH254-RHEL7学习笔记">
+<meta name="twitter:description" content="1 Controlling Services and Daemonssystemctl 管理两种模块，.service,.socket，模块有8种状态，loaded active(running) active(exited) active(waiting) inactive enabled disabled static. 不只是两种模块，还包括.target .device .mount .a">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.hhzzer.com/posts/2f15b166/"/>
+
+
+
+
+
+  <title>RH254-RHEL7学习笔记 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蚂蚁的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-友链">
+          <a href="/links" rel="section">
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.hhzzer.com/posts/2f15b166/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mayi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RH254-RHEL7学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-21T09:23:07+08:00">
+                2017-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-Controlling-Services-and-Daemons"><a href="#1-Controlling-Services-and-Daemons" class="headerlink" title="1 Controlling Services and Daemons"></a>1 Controlling Services and Daemons</h2><p>systemctl 管理两种模块，<code>.service</code>,<code>.socket</code>，模块有8种状态，loaded active(running) active(exited) active(waiting) inactive enabled disabled static.</p>
+<p>不只是两种模块，还包括.target .device .mount .automount .path .scope .slice .swap .timer<br>示例代码<br><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">systemctl </span><span class="string">status </span><span class="string">sshd.</span><span class="string">service </span><span class="comment">#查看服务状态，-l，详细日志。</span></span><br><span class="line"><span class="string">ps </span>-<span class="string">up </span><span class="string">pid </span><span class="comment">#查看进程资源使用</span></span><br><span class="line"><span class="string">systemctl </span><span class="built_in">--type=service</span> <span class="comment">#查看启动的服务， --all 所有安装了的服务</span></span><br><span class="line"><span class="string">systemctl </span><span class="string">is-active </span><span class="string">sshd</span></span><br><span class="line"><span class="string">systemctl </span><span class="string">is-enabled </span><span class="string">sshd</span></span><br><span class="line"><span class="string">systemctl </span><span class="built_in">list-units</span> <span class="built_in">--type=service</span> <span class="comment">#查看所有加载的单元，--all,显示不活动的。</span></span><br><span class="line"><span class="string">systemctl </span><span class="built_in">list-unit-files</span> <span class="built_in">--type=service</span> <span class="comment">#显示所有的units，所有状态（disabled,enabled,static-静态的，需要其他uinit调用启动）</span></span><br><span class="line"><span class="string">systemctl </span><span class="built_in">--failed</span> <span class="built_in">--type=service</span> <span class="comment">#查看启动失败的服务</span></span><br><span class="line"><span class="string">systemctl </span><span class="string">mask </span><span class="string">UNIT </span><span class="comment">#完全禁止开机启动或手动开启某服务 unmask 解除</span></span><br><span class="line"><span class="string">systemctl </span><span class="built_in">list-dependencies</span> <span class="string">UNIT </span><span class="comment">#查看服务单元依赖 --reverse 查看启动此服务需要先启动哪些服务。</span></span><br></pre></td></tr></table></figure></p>
+<p>.target表示组件应该达到某种状态。<br><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">systemctl </span><span class="built_in">get-default</span> <span class="comment">#查看目前状态</span></span><br><span class="line"><span class="string">tree </span>/<span class="string">etc/</span><span class="string">systemd/</span><span class="string">system/</span><span class="string">multi-user.</span><span class="string">target.</span><span class="string">wants </span><span class="comment">#查看multi-user模式下启动的服务。</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="2-Managing-IPv6-Networking"><a href="#2-Managing-IPv6-Networking" class="headerlink" title="2 Managing IPv6 Networking"></a>2 Managing IPv6 Networking</h2><h2 id="3-Configuring-Link-Aggregation-and-Bridging"><a href="#3-Configuring-Link-Aggregation-and-Bridging" class="headerlink" title="3 Configuring Link Aggregation and Bridging"></a>3 Configuring Link Aggregation and Bridging</h2><p>做物理机网卡绑定需要此章内容，相关命令nmcil teamdctl teamd,需要使用NetworkManager。<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">nmcli con add type team con-name team0 ifname team0 config '&#123;<span class="string">"runner"</span>:&#123;<span class="string">"name"</span>:<span class="string">"activebackup"</span>&#125;&#125;'</span><br><span class="line">nmcli con mod team0 ipv4.addresses '<span class="number">192.168</span>.<span class="number">0.100</span>/<span class="number">24</span>'</span><br><span class="line">nmcli con mod team0 ipv4.method manual</span><br><span class="line">nmcli con add type team-slave con-name team0-port1 ifname eno1 master team0</span><br><span class="line">nmcli con add type team-slave con-name team0-port2 ifname eno2 master team0</span><br><span class="line">teamdctl team0 <span class="keyword">state</span></span><br><span class="line">ping -I team0 <span class="number">192.168</span>.<span class="number">0.254</span></span><br><span class="line"><span class="comment">#验证主备</span></span><br><span class="line">nmcli dev dis eno1</span><br><span class="line">teamdctl team0 <span class="keyword">state</span></span><br><span class="line">ping gw</span><br><span class="line">nmcli con up team0-port1</span><br><span class="line">nmcli dev dis eno2</span><br><span class="line">teamdctl team0 <span class="keyword">state</span></span><br><span class="line">ping gw</span><br><span class="line">nmcli con up team0-port2</span><br><span class="line">teamdctl team0 <span class="keyword">state</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="4-Network-Port-Security"><a href="#4-Network-Port-Security" class="headerlink" title="4 Network Port Security"></a>4 Network Port Security</h2><h2 id="5-Managing-DNS-for-Servers"><a href="#5-Managing-DNS-for-Servers" class="headerlink" title="5 Managing DNS for Servers"></a>5 Managing DNS for Servers</h2><p>host -v -t A <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> #查询百度域名ip信息<br>host -v -t PTR 183.232.231.173<br>getent hosts example.com<br>gethostip example.com<br>dig</p>
+<h2 id="6-Configuring-Email-Transmission"><a href="#6-Configuring-Email-Transmission" class="headerlink" title="6 Configuring Email Transmission"></a>6 Configuring Email Transmission</h2><h2 id="7-Providing-Remote-Block-Storage"><a href="#7-Providing-Remote-Block-Storage" class="headerlink" title="7 Providing Remote Block Storage"></a>7 Providing Remote Block Storage</h2><h2 id="8-Providing-File-based-Storage"><a href="#8-Providing-File-based-Storage" class="headerlink" title="8 Providing File-based Storage"></a>8 Providing File-based Storage</h2><h2 id="9-Configuring-MariaDB-Databases"><a href="#9-Configuring-MariaDB-Databases" class="headerlink" title="9 Configuring MariaDB Databases"></a>9 Configuring MariaDB Databases</h2><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">yum groupinstall mariadb mariadb-client -y</span><br><span class="line">systemctl start mariadb</span><br><span class="line">mysql_secure_installation</span><br><span class="line">MariaDB&gt;create user john@localhost identified by <span class="string">'john-password'</span> ;<span class="comment">#@后面为允许连接地址</span></span><br><span class="line">MariaDB&gt;grant insert,update,delete,<span class="keyword">select</span> on inventory.* to john@localhosts;<span class="comment">#为用户赋权</span></span><br><span class="line">MariaDB&gt;flush privileges;</span><br><span class="line">firewall-cmd --permanent --add-service=mysql</span><br><span class="line">firewall-cmd --reload</span><br><span class="line"><span class="comment">#数据库逻辑备份,特点1）通过查询数据库获得数据结构2）高适应性，可恢复到不同类型数据库3）备份慢4）数据库必须在线5）备份不包括配置文件和日志文件。</span></span><br><span class="line">mysqldump -u root -p inventory &gt; <span class="regexp">/buckup/inventory</span>.dump</span><br><span class="line"><span class="comment">#数据库物理备份，特点1）raw拷贝数据库目录和文件2）输出更完整3）备份包括日志和配置文件4）恢复到类似配置硬件和软件上5）速度快6）可离线或锁表备份。</span></span><br><span class="line">mysqladmin variables | grep datadir</span><br><span class="line">df /var/<span class="class"><span class="keyword">lib</span>/<span class="title">mysql</span></span></span><br><span class="line">vgdisplay vg0 |grep Free</span><br><span class="line">mariadb&gt;flush tables <span class="keyword">with</span> read lock</span><br><span class="line">copy -r /var/<span class="class"><span class="keyword">lib</span>/<span class="title">mysql</span> /<span class="title">mysqlback</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="10-Providing-Apache-HTTPD-Web-Service"><a href="#10-Providing-Apache-HTTPD-Web-Service" class="headerlink" title="10 Providing Apache HTTPD Web Service"></a>10 Providing Apache HTTPD Web Service</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> httpd httpd-<span class="keyword">manual</span></span><br><span class="line">systemctl <span class="keyword">start</span> httpd.service</span><br><span class="line">systemctl <span class="keyword">enable</span> httpd.service</span><br><span class="line">firewall-cmd <span class="comment">--permanent --add-service=http</span></span><br><span class="line">firewall-cmd <span class="comment">--reload</span></span><br></pre></td></tr></table></figure>
+<h2 id="11-Writing-Bash-Scripts"><a href="#11-Writing-Bash-Scripts" class="headerlink" title="11 Writing Bash Scripts"></a>11 Writing Bash Scripts</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> HOST <span class="keyword">in</span> host1 host2 host3;<span class="built_in">echo</span> <span class="variable">$HOST</span>;<span class="keyword">done</span></span><br><span class="line"><span class="keyword">for</span> HOST <span class="keyword">in</span> host&#123;1,2,3&#125;;<span class="keyword">do</span> <span class="built_in">echo</span> <span class="variable">$HOST</span>;<span class="keyword">done</span></span><br><span class="line"><span class="keyword">for</span> HOST <span class="keyword">in</span> host&#123;1..4&#125;;<span class="keyword">do</span> <span class="built_in">echo</span> <span class="variable">$HOST</span>;<span class="keyword">done</span></span><br><span class="line"><span class="keyword">for</span> PACKAGE <span class="keyword">in</span> $(rpm -qa | grep kernel);<span class="keyword">do</span> <span class="built_in">echo</span> <span class="string">"<span class="variable">$PACKAGE</span> was installed on <span class="variable">$(date -d @$(rpm -q --qf "%&#123;INSTALLTIME&#125;\n" $PACKAGE)</span>)"</span>;<span class="keyword">done</span></span><br><span class="line">seq <span class="comment">#产生一个序列，并从大到小打印出来</span></span><br><span class="line">bash -x ./filesize <span class="comment">#执行shell时打印详细步骤 -v类似</span></span><br></pre></td></tr></table></figure>
+<h2 id="12-Bash-conditionals-and-Control-Structures"><a href="#12-Bash-conditionals-and-Control-Structures" class="headerlink" title="12 Bash conditionals and Control Structures"></a>12 Bash conditionals and Control Structures</h2><p>$0 脚本本身 ${1..10},外部变量，$* 变量作为一个word，$@ 输入作为多个变量 $# 变量个数<br>shell 退出码 保存在$? 中，<code>echo $?</code>查看。退出码在0-255之间，0是正常退出。可在shell中使用“exit 0”设置退出码。</p>
+<p>输入测试 [<item1> &lt;比较符&gt; <item2>],<code>[abc==def];echo $?</code>.-z 字符串是否为空 -n 字符串不为空。<code>STRING=&#39;&#39;;[-z &quot;$STRING&quot;];echo $?</code>,还有文件和目录判断，可判断一个文件是否为0字节，是否可执行。判断的与运算符”&amp;&amp;”,或运算符”||”</item2></item1></p>
+<p>条件判断结构 ：if/then,if/then/else,if/then/elif/then/else,case in.case语句中的判断条件可以使用|或运算符。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#case example</span></span><br><span class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></span><br><span class="line">  start)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line">  stop)</span><br><span class="line">    rm -f <span class="variable">$lockfile</span></span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">  restart)</span><br><span class="line">    restart</span><br><span class="line">    ;;</span><br><span class="line">  reload)</span><br><span class="line">    reload</span><br><span class="line">    ;;</span><br><span class="line">  status)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line">  *)</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Usage: <span class="variable">$0</span> (start|stop|restart|reload|status)"</span></span><br><span class="line">    ;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="13-Configuring-the-Shell-Environment"><a href="#13-Configuring-the-Shell-Environment" class="headerlink" title="13 Configuring the Shell Environment"></a>13 Configuring the Shell Environment</h2><p>vi /etc/profile vi ~/.bashrc</p>
+<h2 id="14-Linux-Containers-and-Docker"><a href="#14-Linux-Containers-and-Docker" class="headerlink" title="14 Linux Containers and Docker"></a>14 Linux Containers and Docker</h2><h2 id="15-Comprehensive-Review"><a href="#15-Comprehensive-Review" class="headerlink" title="15 Comprehensive Review"></a>15 Comprehensive Review</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/d028ae50/" rel="next" title="RH134-RHEL7学习笔记">
+                <i class="fa fa-chevron-left"></i> RH134-RHEL7学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/71493813/" rel="prev" title="《从一到无穷大》读书笔记">
+                《从一到无穷大》读书笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">mayi</p>
+              <p class="site-description motion-element" itemprop="description">做一个有钱有趣的人。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">356</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Controlling-Services-and-Daemons"><span class="nav-number">1.</span> <span class="nav-text">1 Controlling Services and Daemons</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Managing-IPv6-Networking"><span class="nav-number">2.</span> <span class="nav-text">2 Managing IPv6 Networking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Configuring-Link-Aggregation-and-Bridging"><span class="nav-number">3.</span> <span class="nav-text">3 Configuring Link Aggregation and Bridging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Network-Port-Security"><span class="nav-number">4.</span> <span class="nav-text">4 Network Port Security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Managing-DNS-for-Servers"><span class="nav-number">5.</span> <span class="nav-text">5 Managing DNS for Servers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Configuring-Email-Transmission"><span class="nav-number">6.</span> <span class="nav-text">6 Configuring Email Transmission</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Providing-Remote-Block-Storage"><span class="nav-number">7.</span> <span class="nav-text">7 Providing Remote Block Storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Providing-File-based-Storage"><span class="nav-number">8.</span> <span class="nav-text">8 Providing File-based Storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Configuring-MariaDB-Databases"><span class="nav-number">9.</span> <span class="nav-text">9 Configuring MariaDB Databases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Providing-Apache-HTTPD-Web-Service"><span class="nav-number">10.</span> <span class="nav-text">10 Providing Apache HTTPD Web Service</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-Writing-Bash-Scripts"><span class="nav-number">11.</span> <span class="nav-text">11 Writing Bash Scripts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Bash-conditionals-and-Control-Structures"><span class="nav-number">12.</span> <span class="nav-text">12 Bash conditionals and Control Structures</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-Configuring-the-Shell-Environment"><span class="nav-number">13.</span> <span class="nav-text">13 Configuring the Shell Environment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-Linux-Containers-and-Docker"><span class="nav-number">14.</span> <span class="nav-text">14 Linux Containers and Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-Comprehensive-Review"><span class="nav-number">15.</span> <span class="nav-text">15 Comprehensive Review</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260628156&web_id=1260628156" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="笔者不喜欢先解释事物是如何工作的，然后再解释它的功能并教人们如何使用它 。就像学习开车，你不想知道引擎盖下是什么，你首先想要学习怎样从 A 点开到 B 。只有在你学会了如何做到这后，你才会对汽车如何使这成为可能产生兴趣。毕竟，知道引擎盖下面是什么，可能在有 天它抛锚后你被困在路边时，会帮助你让车再次移动。   docker 基础docker 运行命令 12345678# busybox 一层镜像">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s in action 读书笔记-使用docker和k8s">
+<meta property="og:url" content="http://blog.hhzzer.com/posts/19cc250a/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="笔者不喜欢先解释事物是如何工作的，然后再解释它的功能并教人们如何使用它 。就像学习开车，你不想知道引擎盖下是什么，你首先想要学习怎样从 A 点开到 B 。只有在你学会了如何做到这后，你才会对汽车如何使这成为可能产生兴趣。毕竟，知道引擎盖下面是什么，可能在有 天它抛锚后你被困在路边时，会帮助你让车再次移动。   docker 基础docker 运行命令 12345678# busybox 一层镜像">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106585/1614739766723-8564256d-c0db-492a-aec0-264fd243e07e.png#align=left&display=inline&height=433&margin=%5Bobject%20Object%5D&name=image.png&originHeight=433&originWidth=577&size=240231&status=done&style=none&width=577">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106585/1614756375367-52952522-8441-4d37-9de2-8a8f5a0f2892.png#align=left&display=inline&height=624&margin=%5Bobject%20Object%5D&name=image.png&originHeight=624&originWidth=778&size=362808&status=done&style=none&width=778">
+<meta property="og:updated_time" content="2021-03-16T03:55:47.564Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="k8s in action 读书笔记-使用docker和k8s">
+<meta name="twitter:description" content="笔者不喜欢先解释事物是如何工作的，然后再解释它的功能并教人们如何使用它 。就像学习开车，你不想知道引擎盖下是什么，你首先想要学习怎样从 A 点开到 B 。只有在你学会了如何做到这后，你才会对汽车如何使这成为可能产生兴趣。毕竟，知道引擎盖下面是什么，可能在有 天它抛锚后你被困在路边时，会帮助你让车再次移动。   docker 基础docker 运行命令 12345678# busybox 一层镜像">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/106585/1614739766723-8564256d-c0db-492a-aec0-264fd243e07e.png#align=left&display=inline&height=433&margin=%5Bobject%20Object%5D&name=image.png&originHeight=433&originWidth=577&size=240231&status=done&style=none&width=577">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.hhzzer.com/posts/19cc250a/"/>
+
+
+
+
+
+  <title>k8s in action 读书笔记-使用docker和k8s | 蚂蚁的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蚂蚁的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-友链">
+          <a href="/links" rel="section">
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.hhzzer.com/posts/19cc250a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mayi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">k8s in action 读书笔记-使用docker和k8s</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-03T10:48:42+08:00">
+                2021-03-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>笔者不喜欢先解释事物是如何工作的，然后再解释它的功能并教人们如何使用它 。就像学习开车，你不想知道引擎盖下是什么，你首先想要学习怎样从 A 点开到 B 。只有在你学会了如何做到这后，你才会对汽车如何使这成为可能产生兴趣。毕竟，知道引擎盖下面是什么，可能在有 天它抛锚后你被困在路边时，会帮助你让车再次移动。</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106585/1614739766723-8564256d-c0db-492a-aec0-264fd243e07e.png#align=left&amp;display=inline&amp;height=433&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=433&amp;originWidth=577&amp;size=240231&amp;status=done&amp;style=none&amp;width=577" alt="image.png"></p>
+<h3 id="docker-基础"><a href="#docker-基础" class="headerlink" title="docker 基础"></a>docker 基础</h3><p>docker 运行命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> busybox 一层镜像，包含很多标准的UNIX命令。</span><br><span class="line">hhzzer@admin-PC:~/nodejs-app$ docker run busybox echo "hello world"</span><br><span class="line">Unable to find image 'busybox:latest' locally</span><br><span class="line">latest: Pulling from library/busybox</span><br><span class="line">e5d9363303dd: Pull complete</span><br><span class="line">Digest: sha256:c5439d7db88ab5423999530349d327b04279ad3161d7596d2126dfb5b02bfd1f</span><br><span class="line">Status: Downloaded newer image for busybox:latest</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<p>编译简单 nodejs 应用并打包成镜像执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">hhzzer@admin-PC:~/nodejs-app$ cat app.js</span><br><span class="line">const http = require('http');</span><br><span class="line">const os = require('os');</span><br><span class="line">console.log("kubia server starting ...");</span><br><span class="line"></span><br><span class="line">var handler = function(request, response) &#123;</span><br><span class="line">          console.log("Recived request from " + request.connection.remoteAddress);</span><br><span class="line">          response.writeHead(200);</span><br><span class="line">          response.end("You've hit " + os.hostname() + "\n");</span><br><span class="line">&#125;;</span><br><span class="line">var www = http.createServer(handler);</span><br><span class="line">www.listen(8080);</span><br><span class="line"></span><br><span class="line">hhzzer@admin-PC:~/nodejs-app$ cat app.js</span><br><span class="line">const http = require('http');</span><br><span class="line">const os = require('os');</span><br><span class="line">console.log("kubia server starting ...");</span><br><span class="line"></span><br><span class="line">var handler = function(request, response) &#123;</span><br><span class="line">          console.log("Recived request from " + request.connection.remoteAddress);</span><br><span class="line">          response.writeHead(200);</span><br><span class="line">          response.end("You've hit " + os.hostname() + "\n");</span><br><span class="line">&#125;;</span><br><span class="line">var www = http.createServer(handler);</span><br><span class="line">www.listen(8080);</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 使用docker built -t tagname . 打包</span><br><span class="line">hhzzer@admin-PC:~/nodejs-app$ docker build -t kubia .</span><br><span class="line">Sending build context to Docker daemon  3.072kB</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 运行打包的镜像 -d 为后台运行容器并打印出容器id</span><br><span class="line">hhzzer@admin-PC:~/nodejs-app$ docker run --name kubia-container -p 8080:8080 -d kubia</span><br><span class="line">15924bc23a69938a3a4f2b23f2b4bf5689ea91f5650d46a0239558bc0a963c10</span><br><span class="line"><span class="meta">#</span> 检查容器运行状态</span><br><span class="line">hhzzer@admin-PC:~/nodejs-app$ docker logs 15924bc23a69</span><br><span class="line">kubia server starting ...</span><br><span class="line">Recived request from ::ffff:172.17.0.1</span><br><span class="line"><span class="meta">#</span> curl命令测试容器提供的http服务</span><br><span class="line">hhzzer@admin-PC:~/nodejs-app$ curl localhost:8080</span><br><span class="line">You ve hit 15924bc23a69</span><br><span class="line"><span class="meta">#</span> 进入容器内部查看</span><br><span class="line">hhzzer@admin-PC:~/nodejs-app$ docker exec -it 15924bc23a69 bash</span><br><span class="line">root@15924bc23a69:/#</span><br><span class="line"><span class="meta">#</span> 停止容器</span><br><span class="line">docker container stop 15924bc23a69</span><br><span class="line"><span class="meta">#</span> 删除容器</span><br><span class="line">docker container rm  15924bc23a69</span><br><span class="line"><span class="meta">#</span> 查看所有容器</span><br><span class="line">docker container ls -a</span><br><span class="line"><span class="meta">#</span> 查看容器详细信息</span><br><span class="line">docker inspect container 15924bc23a69</span><br></pre></td></tr></table></figure>
+<p>把镜像推送到 docker hub</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker login</span><br><span class="line">docker tag kubia hhzzer/kubia</span><br><span class="line">docker push hhzzer/kubia</span><br><span class="line"><span class="meta">#</span> 在任意其他电脑运行自己的容器</span><br><span class="line">docker run -p 8080:8080 -d luksa/kubia</span><br></pre></td></tr></table></figure>
+<h3 id="k8s-基础"><a href="#k8s-基础" class="headerlink" title="k8s 基础"></a>k8s 基础</h3><p>windows 环境使用 minikube 搭建单机 k8s 集群。<a href="https://developer.aliyun.com/article/221687" target="_blank" rel="noopener">参考链接</a><br>管理员权限命令行执行如下命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.\minikube.exe start  --image-mirror-country cn --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.16.0.iso  --registry-mirror=https://reg-mirror.qiniu.com --vm-driver="hyperv" --hyperv-virtual-switch="MinikubeSwitch" --memory=2048</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 启动过程</span><br><span class="line">* Microsoft Windows 10 Pro 10.0.19041 Build 19041 上的 minikube v1.16.0</span><br><span class="line">* 根据用户配置使用 hyperv 驱动程序</span><br><span class="line">* 正在使用镜像存储库 registry.cn-hangzhou.aliyuncs.com/google_containers</span><br><span class="line">* Starting control plane node minikube in cluster minikube</span><br><span class="line">* Creating hyperv VM (CPUs=2, Memory=2048MB, Disk=20000MB) ...</span><br><span class="line">! This VM is having trouble accessing https://registry.cn-hangzhou.aliyuncs.com/google_containers</span><br><span class="line">* To pull new external images, you may need to configure a proxy: https://minikube.sigs.k8s.io/docs/reference/networking/proxy/</span><br><span class="line">* 正在 Docker 20.10.0 中准备 Kubernetes v1.20.0…</span><br><span class="line">  - Generating certificates and keys ...</span><br><span class="line">  - Booting up control plane ...</span><br><span class="line">  - Configuring RBAC rules ...</span><br><span class="line">* Verifying Kubernetes components...</span><br><span class="line">* Enabled addons: storage-provisioner, default-storageclass</span><br><span class="line">* Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default</span><br></pre></td></tr></table></figure>
+<p>wsl2-ubuntu 安装 kubectl 并设置命令补全</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">wget https://storage.googleapis.com/kubernetes-release/release/v1.20.0/kubernetes-client-linux-amd64.tar.gz</span><br><span class="line">tar xzvf kubernetes-client-linux-amd64.tar.gz</span><br><span class="line">sudo cp kubernetes/client/bin/kubectl /usr/bin/</span><br><span class="line"><span class="meta">#</span> 配置kubectl</span><br><span class="line">mkdir .kube</span><br><span class="line">cp /mnt/c/Users/admin/.kube/config ~/.kube/</span><br><span class="line">cp /mnt/c/Users/admin/.minikube/profiles/minikube/client.* ~/.kube/</span><br><span class="line">cp /mnt/c/Users/admin/.minikube/ca.crt ~/.kube/</span><br><span class="line"><span class="meta">#</span> 修改config中ca、clinet证书路径。</span><br><span class="line">hhzzer@admin-PC:~/nodejs-app$ grep hhzzer ~/.kube/config</span><br><span class="line">    certificate-authority: /home/hhzzer/.kube/ca.crt</span><br><span class="line">    client-certificate: /home/hhzzer/.kube/client.crt</span><br><span class="line">    client-key: /home/hhzzer/.kube/client.key</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> kubectl 命令补全</span><br><span class="line">source &lt;(kubectl completion bash)</span><br><span class="line"><span class="meta">#</span> 可添加到用户bash配置文件中，登陆自动导入环境变量</span><br><span class="line">echo 'source &lt;(kubectl completion bash)' &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
+<p>查看 k8s 集群基本信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hhzzer@admin-PC:~$ kubectl cluster-info</span><br><span class="line">Kubernetes control plane is running at https://172.20.134.184:8443</span><br><span class="line">KubeDNS is running at https://172.20.134.184:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy</span><br><span class="line"></span><br><span class="line">To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.</span><br><span class="line"></span><br><span class="line">hhzzer@admin-PC:~$ kubectl get nodes</span><br><span class="line">NAME       STATUS   ROLES                  AGE   VERSION</span><br><span class="line">minikube   Ready    control-plane,master   4h    v1.20.0</span><br><span class="line"></span><br><span class="line">kubectl describe node</span><br></pre></td></tr></table></figure>
+<p>使用 k8s 部署应用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 新版本kubectl run 只能运行一个pod，不能通过参数运行rc。</span><br><span class="line">kubectl run kubia --image=hhzzer/kubia --port=8080 --generator=run/v1</span><br><span class="line">hhzzer@admin-PC:~$ kubectl get pods</span><br><span class="line">NAME    READY   STATUS              RESTARTS   AGE</span><br><span class="line">kubia   0/1     ContainerCreating   0          10s</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 通过dry-run=client -o yaml 可以输出kubectl命令对应的yaml文件。观察文件可知是创建了一个pod。</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  creationTimestamp: null</span><br><span class="line">  labels:</span><br><span class="line">    run: kubia</span><br><span class="line">  name: kubia</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - image: hhzzer/kubia</span><br><span class="line">    name: kubia</span><br><span class="line">    ports:</span><br><span class="line">    - containerPort: 8080</span><br><span class="line">    resources: &#123;&#125;</span><br><span class="line">  dnsPolicy: ClusterFirst</span><br><span class="line">  restartPolicy: Always</span><br><span class="line">status: &#123;&#125;</span><br><span class="line"><span class="meta">#</span> 使用kubectl create deployment 部署应用。</span><br><span class="line">kubectl create deployment kubia --image=hhzzer/kubia --port=8080 --dry-run=client -o yaml</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  creationTimestamp: null</span><br><span class="line">  labels:</span><br><span class="line">    app: kubia</span><br><span class="line">  name: kubia</span><br><span class="line">spec:</span><br><span class="line">  replicas: 1</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: kubia</span><br><span class="line">  strategy: &#123;&#125;</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        app: kubia</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - image: hhzzer/kubia</span><br><span class="line">        name: kubia</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 8080</span><br><span class="line">        resources: &#123;&#125;</span><br><span class="line">status: &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 真正运行deployment, 由container组成pod，由pod组成rs（副本集），由rs组成deployment。</span><br><span class="line">kubectl create deployment kubia --image=hhzzer/kubia --port=8080</span><br><span class="line">hhzzer@admin-PC:~$ kubectl get deployments.apps</span><br><span class="line">NAME    READY   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">kubia   1/1     1            1           13s</span><br><span class="line">hhzzer@admin-PC:~$ kubectl get rs</span><br><span class="line">NAME               DESIRED   CURRENT   READY   AGE</span><br><span class="line">kubia-864b87d69f   1         1         1       3m15s</span><br><span class="line">hhzzer@admin-PC:~$ kubectl get pods</span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE</span><br><span class="line">kubia-864b87d69f-qsxwx   1/1     Running   0          3m36s</span><br><span class="line"><span class="meta">#</span> 使用expose暴露服务</span><br><span class="line">hhzzer@admin-PC:~$ kubectl expose deployment kubia --port=8080 --target-port=8080 --dry-run</span><br><span class="line">=client -o yaml</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  creationTimestamp: null</span><br><span class="line">  labels:</span><br><span class="line">    app: kubia</span><br><span class="line">  name: kubia</span><br><span class="line">spec:</span><br><span class="line">  ports:</span><br><span class="line">  - port: 8080</span><br><span class="line">    protocol: TCP</span><br><span class="line">    targetPort: 8080</span><br><span class="line">  selector:</span><br><span class="line">    app: kubia</span><br><span class="line">status:</span><br><span class="line">  loadBalancer: &#123;&#125;</span><br><span class="line"><span class="meta">#</span> 因为默认暴露方式为ClusterIP，只能在minikube中访问</span><br><span class="line">minikube中执行</span><br><span class="line">curl http://10.111.84.19:8080</span><br><span class="line">You ve hit kubia-864b87d69f-qsxwx</span><br><span class="line"><span class="meta">#</span> 修改成NodePort，使得在集群外部可以访问。</span><br><span class="line">hhzzer@admin-PC:~$ kubectl expose deployment kubia --name kubia-http --port=8080 --target-p</span><br><span class="line">ort=8080 --type=NodePort --dry-run=client -o yaml</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  creationTimestamp: null</span><br><span class="line">  labels:</span><br><span class="line">    app: kubia</span><br><span class="line">  name: kubia-http</span><br><span class="line">spec:</span><br><span class="line">  ports:</span><br><span class="line">  - port: 8080</span><br><span class="line">    protocol: TCP</span><br><span class="line">    targetPort: 8080</span><br><span class="line">  selector:</span><br><span class="line">    app: kubia</span><br><span class="line">  type: NodePort</span><br><span class="line">status:</span><br><span class="line">  loadBalancer: &#123;&#125;</span><br><span class="line"></span><br><span class="line">hhzzer@admin-PC:~$ kubectl expose deployment kubia --name kubia-http --port=8080 --target-p</span><br><span class="line">ort=8080 --type=NodePort</span><br><span class="line">service/kubia-http exposed</span><br><span class="line"><span class="meta">#</span> 通过minikube查看服务暴露在node的哪个端口</span><br><span class="line">C:\Users\admin\云原生&gt;minikube.exe service kubia-http</span><br><span class="line">|-----------|------------|-------------|-----------------------------|</span><br><span class="line">| NAMESPACE |    NAME    | TARGET PORT |             URL             |</span><br><span class="line">|-----------|------------|-------------|-----------------------------|</span><br><span class="line">| default   | kubia-http |        8080 | http://172.20.134.184:31425 |</span><br><span class="line">|-----------|------------|-------------|-----------------------------|</span><br><span class="line">* 正通过默认浏览器打开服务 default/kubia-http...</span><br><span class="line"><span class="meta">#</span> 在集群外部访问测试，可以访问成功，证明服务暴露ok。</span><br><span class="line">hhzzer@admin-PC:~$ curl http://172.20.134.184:31425</span><br><span class="line">You've hit kubia-864b87d69f-qsxwx</span><br></pre></td></tr></table></figure>
+<p>应用弹性伸缩</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">hhzzer@admin-PC:~$ kubectl scale deployment kubia --replicas=3</span><br><span class="line">deployment.apps/kubia scaled</span><br><span class="line">hhzzer@admin-PC:~$ kubectl get deployments.apps kubia</span><br><span class="line">NAME    READY   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">kubia   3/3     3            3           23m</span><br><span class="line">hhzzer@admin-PC:~$ kubectl get pods</span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE</span><br><span class="line">kubia-864b87d69f-5z9mn   1/1     Running   0          23s</span><br><span class="line">kubia-864b87d69f-dkp6m   1/1     Running   0          24s</span><br><span class="line">kubia-864b87d69f-qsxwx   1/1     Running   0          23m</span><br><span class="line"><span class="meta">#</span> 服务测试，发现服务能负载到3个pod</span><br><span class="line">hhzzer@admin-PC:~$ curl http://172.20.134.184:31425</span><br><span class="line">You've hit kubia-864b87d69f-5z9mn</span><br><span class="line">hhzzer@admin-PC:~$ curl http://172.20.134.184:31425</span><br><span class="line">You've hit kubia-864b87d69f-qsxwx</span><br><span class="line">hhzzer@admin-PC:~$ curl http://172.20.134.184:31425</span><br><span class="line">You've hit kubia-864b87d69f-qsxwx</span><br><span class="line">hhzzer@admin-PC:~$ curl http://172.20.134.184:31425</span><br><span class="line">You've hit kubia-864b87d69f-dkp6m</span><br><span class="line"><span class="meta">#</span> 检查pod分布</span><br><span class="line">hhzzer@admin-PC:~$ kubectl get pods -o wide</span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE     IP           NODE       NOMINATED NODE   READINESS GATES</span><br><span class="line">kubia-864b87d69f-5z9mn   1/1     Running   0          3m30s   172.17.0.5   minikube   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">kubia-864b87d69f-dkp6m   1/1     Running   0          3m31s   172.17.0.4   minikube   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">kubia-864b87d69f-qsxwx   1/1     Running   0          27m     172.17.0.3   minikube   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106585/1614756375367-52952522-8441-4d37-9de2-8a8f5a0f2892.png#align=left&amp;display=inline&amp;height=624&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=624&amp;originWidth=778&amp;size=362808&amp;status=done&amp;style=none&amp;width=778" alt="image.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/96cc0f4e/" rel="next" title="云原生时代的运维新归宿">
+                <i class="fa fa-chevron-left"></i> 云原生时代的运维新归宿
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/1e07607b/" rel="prev" title="k8s in action  pods">
+                k8s in action  pods <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">mayi</p>
+              <p class="site-description motion-element" itemprop="description">做一个有钱有趣的人。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">356</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-基础"><span class="nav-number">1.</span> <span class="nav-text">docker 基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s-基础"><span class="nav-number">2.</span> <span class="nav-text">k8s 基础</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260628156&web_id=1260628156" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

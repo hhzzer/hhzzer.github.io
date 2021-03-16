@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="学习命令12345echo &amp;gt;&amp;gt; file #add content to file&amp;amp;&amp;amp; #link commandecho monitor:monitor-passwd|chpasswd #change user passwdsed -i &apos;/^root/ a\app     ALL=(ALL)      ALL&apos; $file # add something afte">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell-learn">
+<meta property="og:url" content="http://blog.hhzzer.com/posts/6cfebbd/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="学习命令12345echo &amp;gt;&amp;gt; file #add content to file&amp;amp;&amp;amp; #link commandecho monitor:monitor-passwd|chpasswd #change user passwdsed -i &apos;/^root/ a\app     ALL=(ALL)      ALL&apos; $file # add something afte">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-24T05:54:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="shell-learn">
+<meta name="twitter:description" content="学习命令12345echo &amp;gt;&amp;gt; file #add content to file&amp;amp;&amp;amp; #link commandecho monitor:monitor-passwd|chpasswd #change user passwdsed -i &apos;/^root/ a\app     ALL=(ALL)      ALL&apos; $file # add something afte">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.hhzzer.com/posts/6cfebbd/"/>
+
+
+
+
+
+  <title>shell-learn | 蚂蚁的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蚂蚁的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-友链">
+          <a href="/links" rel="section">
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.hhzzer.com/posts/6cfebbd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mayi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">shell-learn</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-03T21:51:43+08:00">
+                2017-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="学习命令"><a href="#学习命令" class="headerlink" title="学习命令"></a>学习命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> &gt;&gt; file <span class="comment">#add content to file</span></span><br><span class="line">&amp;&amp; <span class="comment">#link command</span></span><br><span class="line"><span class="built_in">echo</span> monitor:monitor-passwd|chpasswd <span class="comment">#change user passwd</span></span><br><span class="line">sed -i <span class="string">'/^root/ a\app     ALL=(ALL)      ALL'</span> <span class="variable">$file</span> <span class="comment"># add something after a line</span></span><br><span class="line">host -I <span class="comment">#get host ip</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="批量执行命令"><a href="#批量执行命令" class="headerlink" title="批量执行命令"></a>批量执行命令</h2><ul>
+<li>安装<br>wget <a href="http://10.x.0.x:8000/ubuntu-set.tar" target="_blank" rel="noopener">http://10.x.0.x:8000/ubuntu-set.tar</a> &amp;&amp; tar -xf ubuntu-set.tar &amp;&amp; cd ubuntu-set &amp;&amp; ./install-all.sh</li>
+<li>检查<br>cd ubuntu-set &amp;&amp; ./check.sh</li>
+</ul>
+<h2 id="修改root密码"><a href="#修改root密码" class="headerlink" title="修改root密码"></a>修改root密码</h2><p>ip=$(hostname -I |awk ‘{print $1}’|sed ‘s/.//g’) &amp;&amp; pass=abcd$ip &amp;&amp; echo root:$pass|chpasswd</p>
+<h2 id="配置源"><a href="#配置源" class="headerlink" title="配置源"></a>配置源</h2><p>sources-add.sh</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/apt/sources.<span class="keyword">list</span> /etc/apt/sources.<span class="keyword">list</span>.bak</span><br><span class="line"><span class="keyword">echo</span> <span class="comment">"deb http://172.27.2.100/ubuntu/ trusty main restricted universe multiverse</span></span><br><span class="line"><span class="comment">" &gt;/etc/apt/sources.list</span></span><br><span class="line"><span class="keyword">echo</span> <span class="comment">"deb http://172.27.2.100/ubuntu/ trusty-security main restricted universe m</span></span><br><span class="line">ultiverse<span class="comment">" &gt;&gt;/etc/apt/sources.list</span></span><br><span class="line"><span class="keyword">echo</span> <span class="comment">"deb http://172.27.2.100/ubuntu/ trusty-updates main restricted universe mu</span></span><br><span class="line">ltiverse<span class="comment">" &gt;&gt;/etc/apt/sources.list</span></span><br><span class="line"><span class="keyword">echo</span> <span class="comment">"deb http://172.27.2.100/ubuntu/ trusty-proposed main restricted universe m</span></span><br><span class="line">ultiverse<span class="comment">" &gt;&gt;/etc/apt/sources.list</span></span><br><span class="line"><span class="keyword">echo</span> <span class="comment">"deb http://172.27.2.100/ubuntu/ trusty-backports main restricted universe</span></span><br><span class="line">multiverse<span class="comment">" &gt;&gt;/etc/apt/sources.list</span></span><br><span class="line"><span class="keyword">echo</span> <span class="comment">"deb-src http://172.27.2.100/ubuntu/ trusty main restricted universe multiv</span></span><br><span class="line">erse<span class="comment">" &gt;&gt;/etc/apt/sources.list</span></span><br><span class="line"><span class="keyword">echo</span> <span class="comment">"deb-src http://172.27.2.100/ubuntu/ trusty-security main restricted univer</span></span><br><span class="line"><span class="keyword">se</span> multiverse<span class="comment">" &gt;&gt;/etc/apt/sources.list</span></span><br><span class="line"><span class="keyword">echo</span> <span class="comment">"deb-src http://172.27.2.100/ubuntu/ trusty-updates main restricted univers</span></span><br><span class="line"><span class="keyword">e</span> multiverse<span class="comment">" &gt;&gt;/etc/apt/sources.list</span></span><br><span class="line"><span class="keyword">echo</span> <span class="comment">"deb-src http://172.27.2.100/ubuntu/ trusty-proposed main restricted univer</span></span><br><span class="line"><span class="keyword">se</span> multiverse<span class="comment">" &gt;&gt;/etc/apt/sources.list</span></span><br><span class="line"><span class="keyword">echo</span> <span class="comment">"deb-src http://172.27.2.100/ubuntu/ trusty-backports main restricted unive</span></span><br><span class="line">rse multiverse<span class="comment">" &gt;&gt;/etc/apt/sources.list</span></span><br><span class="line">#more /etc/apt/sources.<span class="keyword">list</span></span><br><span class="line">apt-<span class="built_in">get</span> <span class="keyword">update</span></span><br><span class="line">apt-<span class="built_in">get</span> install <span class="keyword">make</span> xinetd zlib1g-dev -<span class="keyword">y</span></span><br></pre></td></tr></table></figure>
+<h2 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h2><p>user-add.sh<br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">groupadd -g 1002 monitor</span><br><span class="line">useradd -d /home/monitor -g 1002 -s /bin/bash -m monitor</span><br><span class="line">groupadd -g 1001 app</span><br><span class="line">useradd -d /home/app -g 1001 -s /bin/bash -m app</span><br><span class="line">groupadd -g 2000 aiuap</span><br><span class="line">useradd -d /home/aiuap -g 2000 -s /bin/bash -m aiuap</span><br><span class="line">echo monitor:monitor-passwd|chpasswd</span><br><span class="line">echo app:monitor-passwd|chpasswd</span><br><span class="line">echo aiuap:monitor-passwd|chpasswd</span><br></pre></td></tr></table></figure></p>
+<h2 id="用户添加到sudoers"><a href="#用户添加到sudoers" class="headerlink" title="用户添加到sudoers"></a>用户添加到sudoers</h2><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">file=<span class="string">"/etc/sudoers"</span></span><br><span class="line">sed -i '/^root/ a\app     ALL=<span class="params">(ALL)</span>      ALL' $file</span><br><span class="line">sed -i '/^app/ a\aiuap ALL=NOPASSWD:<span class="string">/usr/sbin/useradd</span>,<span class="string">/usr/sbin/userdel</span>,<span class="string">/usr/sbi</span></span><br><span class="line">n/usermod,<span class="string">/usr/bin/passwd</span>,<span class="string">/usr/sbin/groupadd</span>,<span class="string">/usr/sbin/groupdel</span>,<span class="string">/bin/cat</span>,<span class="string">/usr/bi</span></span><br><span class="line">n/smbpasswd,<span class="string">/usr/bin/pdbedit</span>,<span class="string">/bin/chown</span>,<span class="string">/usr/bin/quota</span>,<span class="string">/usr/sbin/repquota</span>,<span class="string">/usr/s</span></span><br><span class="line">bin/setquota,<span class="string">/sbin/quotacheck</span>' $file</span><br><span class="line"><span class="comment">#more $file</span></span><br></pre></td></tr></table></figure>
+<h2 id="升级openssl"><a href="#升级openssl" class="headerlink" title="升级openssl"></a>升级openssl</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">apt-get <span class="keyword">install</span> make zlib1g-dev -y</span><br><span class="line">wget <span class="keyword">http</span>://<span class="number">172.27</span><span class="number">.2</span><span class="number">.101</span>/<span class="keyword">data</span>/openssh/<span class="number">7.3</span>/openssh<span class="number">-7.3</span>p1.tar.gz</span><br><span class="line">wget <span class="keyword">http</span>://<span class="number">172.27</span><span class="number">.2</span><span class="number">.101</span>/<span class="keyword">data</span>/openssh/<span class="number">7.3</span>/openssl<span class="number">-1.0</span><span class="number">.1</span>u.tar.gz</span><br><span class="line">tar xzvf openssl<span class="number">-1.0</span><span class="number">.1</span>u.tar.gz</span><br><span class="line">cd openssl<span class="number">-1.0</span><span class="number">.1</span>u</span><br><span class="line">./config <span class="keyword">shared</span> zlib</span><br><span class="line">make</span><br><span class="line">make <span class="keyword">test</span></span><br><span class="line">make <span class="keyword">install</span></span><br><span class="line">mv /usr/<span class="keyword">bin</span>/openssl /tmp/<span class="number">2</span></span><br><span class="line">cp -r /usr/<span class="keyword">include</span>/openssl/ /tmp/openssl-<span class="keyword">old</span></span><br><span class="line">rm -rf /usr/<span class="keyword">include</span>/openssl</span><br><span class="line"><span class="keyword">ln</span> -s /usr/<span class="keyword">local</span>/ssl/<span class="keyword">bin</span>/openssl /usr/<span class="keyword">bin</span>/openssl</span><br><span class="line"><span class="keyword">ln</span> -s /usr/<span class="keyword">local</span>/ssl/<span class="keyword">include</span>/openssl/ /usr/<span class="keyword">include</span>/openssl</span><br><span class="line">echo <span class="string">"/usr/local/ssl/lib"</span> &gt;&gt; /etc/ld.so.conf</span><br><span class="line">ldconfig -v</span><br><span class="line">echo <span class="string">`openssl version -a`</span></span><br></pre></td></tr></table></figure>
+<h2 id="升级openssh"><a href="#升级openssh" class="headerlink" title="升级openssh"></a>升级openssh</h2><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/tmp</span></span><br><span class="line">cp <span class="string">/etc/ssh/sshd_config</span> <span class="string">/root/sshd_config</span></span><br><span class="line">tar zxvf openssh-7.3p1.tar.gz</span><br><span class="line"><span class="keyword">cd</span> openssh-7.3p1</span><br><span class="line"><span class="string">./configure</span> <span class="params">--prefix=/usr</span> <span class="params">--sysconfdir=/etc/ssh</span> <span class="params">--without-zlib-version-check</span> <span class="params">--w</span></span><br><span class="line">ith-ssl-dir=<span class="string">/usr/local/ssl</span> <span class="params">--without-openssl-header-check</span></span><br><span class="line">make    </span><br><span class="line">make install  </span><br><span class="line"><span class="comment">#service ssh restart</span></span><br><span class="line"><span class="keyword">echo</span> ssh -V</span><br></pre></td></tr></table></figure>
+<h2 id="设置history"><a href="#设置history" class="headerlink" title="设置history"></a>设置history</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">"HISTFILESIZE=2000"</span> &gt;&gt;/etc/profile</span><br><span class="line">echo <span class="string">"HISTSIZE=2000"</span> &gt;&gt;/etc/profile</span><br><span class="line">echo <span class="string">"HISTTIMEFORMAT="</span>%Y%m%d-%H%M%S: <span class="string">""</span> &gt;&gt;/etc/profile</span><br><span class="line">echo <span class="string">"export HISTTIMEFORMAT"</span> &gt;&gt;/etc/profile</span><br></pre></td></tr></table></figure>
+<h2 id="设置网卡绑定"><a href="#设置网卡绑定" class="headerlink" title="设置网卡绑定"></a>设置网卡绑定</h2><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">apt-get install ifenslave -y</span><br><span class="line">rm /etc/network/interfaces.bak</span><br><span class="line">cp /etc/network/interfaces /etc/network/interfaces.bak</span><br><span class="line">echo <span class="string">"bonding mode=1 miimon=100"</span>&gt;&gt;/etc/modules</span><br><span class="line"><span class="keyword">file</span>=<span class="string">"/etc/network/interfaces"</span></span><br><span class="line">ip=<span class="symbol">$</span>(ifconfig |grep <span class="string">"Bcast"</span> |awk <span class="string">'&#123;print $2&#125;'</span> |awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>)</span><br><span class="line">#echo <span class="symbol">$</span>ip</span><br><span class="line">#echo <span class="symbol">$</span><span class="keyword">file</span></span><br><span class="line">echo <span class="string">"auto bond0"</span> &gt;<span class="symbol">$</span><span class="keyword">file</span></span><br><span class="line">echo <span class="string">"iface bond0 inet static"</span> &gt;&gt;<span class="symbol">$</span><span class="keyword">file</span></span><br><span class="line">echo <span class="string">"address "</span><span class="symbol">$</span>ip &gt;&gt;<span class="symbol">$</span><span class="keyword">file</span></span><br><span class="line">echo <span class="string">"netmask 255.255.0.0"</span>&gt;&gt;<span class="symbol">$</span><span class="keyword">file</span></span><br><span class="line">echo <span class="string">"gateway 10.252.0.254"</span>&gt;&gt;<span class="symbol">$</span><span class="keyword">file</span></span><br><span class="line">echo <span class="string">"post-up ifenslave bond0 p4p1 p4p2"</span>&gt;&gt;<span class="symbol">$</span><span class="keyword">file</span></span><br><span class="line">echo <span class="string">"pre-down inenslave -d bond0 p4p1 p4p2"</span>&gt;&gt;<span class="symbol">$</span><span class="keyword">file</span></span><br><span class="line">echo <span class="symbol">$</span><span class="keyword">file</span></span><br></pre></td></tr></table></figure>
+<h2 id="配置nagios监控"><a href="#配置nagios监控" class="headerlink" title="配置nagios监控"></a>配置nagios监控</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">apt-get <span class="keyword">install</span> xinetd -y</span><br><span class="line">wget <span class="keyword">http</span>://<span class="number">172.27</span><span class="number">.2</span><span class="number">.101</span>/<span class="keyword">data</span>/nagios/nagios-plugins<span class="number">-2.0</span><span class="number">.3</span>.tar.gz</span><br><span class="line">wget <span class="keyword">http</span>://<span class="number">172.27</span><span class="number">.2</span><span class="number">.101</span>/<span class="keyword">data</span>/nagios/nrpe<span class="number">-2.15</span>.tar.gz</span><br><span class="line">wget <span class="keyword">http</span>://<span class="number">172.27</span><span class="number">.2</span><span class="number">.101</span>/<span class="keyword">data</span>/nagios/<span class="keyword">Sys</span>-<span class="keyword">Statistics</span>-Linux<span class="number">-0.66</span>.tar.gz</span><br><span class="line">wget <span class="keyword">http</span>://<span class="number">172.27</span><span class="number">.2</span><span class="number">.101</span>/<span class="keyword">data</span>/nagios/check_linux_stats.pl</span><br><span class="line">useradd -s /sbin/nologin nagios</span><br><span class="line">mkdir /usr/<span class="keyword">local</span>/nagios</span><br><span class="line">chown -R nagios.nagios /usr/<span class="keyword">local</span>/nagios</span><br><span class="line"></span><br><span class="line">tar zxvf nagios-plugins<span class="number">-2.0</span><span class="number">.3</span>.tar.gz</span><br><span class="line">cd nagios-plugins<span class="number">-2.0</span><span class="number">.3</span></span><br><span class="line">./configure <span class="comment">--prefix=/usr/local/nagios</span></span><br><span class="line">make &amp;&amp; make <span class="keyword">install</span></span><br><span class="line">cd /tmp</span><br><span class="line"></span><br><span class="line">tar zxvf nrpe<span class="number">-2.15</span>.tar.gz</span><br><span class="line">cd nrpe<span class="number">-2.15</span></span><br><span class="line">./configure <span class="comment">--with-ssl=/usr/local/ssl --with-ssl-lib=/usr/local/ssl/lib</span></span><br><span class="line">make all</span><br><span class="line">make <span class="keyword">install</span>-<span class="keyword">plugin</span></span><br><span class="line">make <span class="keyword">install</span>-daemon</span><br><span class="line">make <span class="keyword">install</span>-daemon-config</span><br><span class="line">#apt-<span class="keyword">get</span> <span class="keyword">install</span> xinetd</span><br><span class="line">make <span class="keyword">install</span>-xinetd</span><br><span class="line">sed -i.bak <span class="string">'/only/ s/127.0.0.1/127.0.0.1 192.168.12.36/'</span> /etc/xinetd.d/nrpe</span><br><span class="line">#service xinetd restart</span><br><span class="line">netstat -an|grep <span class="number">5666</span></span><br><span class="line">/usr/<span class="keyword">local</span>/nagios/libexec/check_nrpe -H <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">cd /tmp</span><br><span class="line">cp check_linux_stats.pl /usr/<span class="keyword">local</span>/nagios/libexec</span><br><span class="line">chmod <span class="number">755</span> /usr/<span class="keyword">local</span>/nagios/libexec/check_linux_stats.pl</span><br><span class="line">chown nagios.nagios /usr/<span class="keyword">local</span>/nagios/libexec/check_linux_stats.pl</span><br><span class="line">#ll /usr/<span class="keyword">local</span>/nagios/libexec/check_linux_stats.pl</span><br><span class="line">cd /tmp</span><br><span class="line">tar zxvf <span class="keyword">Sys</span>-<span class="keyword">Statistics</span>-Linux<span class="number">-0.66</span>.tar.gz</span><br><span class="line">cd <span class="keyword">Sys</span>-<span class="keyword">Statistics</span>-Linux<span class="number">-0.66</span></span><br><span class="line"></span><br><span class="line">perl Makefile.PL</span><br><span class="line">make</span><br><span class="line">make <span class="keyword">test</span></span><br><span class="line">make <span class="keyword">install</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#cd /usr/<span class="keyword">local</span>/nagios/etc</span><br><span class="line">#vi nrpe.cfg</span><br><span class="line">nrpe=<span class="string">"/usr/local/nagios/etc/nrpe.cfg"</span></span><br><span class="line"># <span class="keyword">Check</span> disk <span class="keyword">usage</span> <span class="keyword">on</span> /, /home,/<span class="keyword">var</span>,/data01,/data02,/data03,/data04,/data05,/dat</span><br><span class="line">a06,/data07,/data08,/data09,/data10,/data11,/data12</span><br><span class="line">echo <span class="string">"command[check_disk]=/usr/local/nagios/libexec/check_linux_stats.pl -D -w 3</span></span><br><span class="line"><span class="string">0 -c 15 -p /usr/local/etc/nrpe.cfg /,/home,/var,/data01,/data02,/data03,/data04,</span></span><br><span class="line"><span class="string">/data05,/data06,/data07,/data08,/data09,/data10,/data11,/data12 -u %"</span>&gt;&gt;$nrpe</span><br><span class="line"># <span class="keyword">Check</span> <span class="keyword">load</span> average</span><br><span class="line">echo <span class="string">"command[check_load]=/usr/local/nagios/libexec/check_linux_stats.pl -L -w 10,8,5 -c 20,18,15"</span>&gt;&gt;$nrpe</span><br><span class="line"># <span class="keyword">Check</span> <span class="keyword">memory</span> &amp; swap <span class="keyword">usage</span></span><br><span class="line">echo <span class="string">"command[check_mem]=/usr/local/nagios/libexec/check_linux_stats.pl -M -w 80,25 -c 90,50"</span>&gt;&gt;$nrpe</span><br><span class="line"># <span class="keyword">Check</span> cpu <span class="keyword">usage</span></span><br><span class="line">echo <span class="string">"command[check_cpu]=/usr/local/nagios/libexec/check_linux_stats.pl -C -w 80 -c 90 -s 5"</span>&gt;&gt;$nrpe</span><br><span class="line"># <span class="keyword">Check</span> <span class="keyword">open</span> files</span><br><span class="line">echo <span class="string">"command[check_open_file]=/usr/local/nagios/libexec/check_linux_stats.pl -F -w 10000,250000 -c"</span>&gt;&gt;$nrpe <span class="number">95000</span>,<span class="number">950000</span></span><br><span class="line"># <span class="keyword">Check</span> io disk <span class="keyword">on</span> device sda1, sda3 <span class="keyword">and</span> sda4</span><br><span class="line">echo <span class="string">"command[check_io]=/usr/local/nagios/libexec/check_linux_stats.pl -I -w 2000,600 -c 3000,800 -p"</span>&gt;&gt;$nrpe sda1,sda2,sda3,sda4 -s <span class="number">5</span></span><br><span class="line"># <span class="keyword">Check</span> processes</span><br><span class="line">echo <span class="string">"command[check_procs]=/usr/local/nagios/libexec/check_linux_stats.pl -P -w 10000 -c 15000"</span>&gt;&gt;$nrpe</span><br><span class="line"># <span class="keyword">Check</span> network <span class="keyword">usage</span> <span class="keyword">on</span> eth0</span><br><span class="line">echo <span class="string">"command[check_net]=/usr/local/nagios/libexec/check_linux_stats.pl -N -w 1000000 -c 9500000 -p"</span>&gt;&gt;$nrpe eth0 -s <span class="number">5</span></span><br><span class="line"># <span class="keyword">Check</span> socket <span class="keyword">usage</span></span><br><span class="line">echo <span class="string">"command[check_socket]=/usr/local/nagios/libexec/check_linux_stats.pl -S -w 5000 -c 10000"</span>&gt;&gt;$nrpe</span><br><span class="line"># <span class="keyword">Check</span> uptime</span><br><span class="line">echo <span class="string">"command[check_uptime]=/usr/local/nagios/libexec/check_linux_stats.pl -U -w 5"</span>&gt;&gt;$nrpe</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/5284ce98/" rel="next" title="zabbix3.0添加邮件和微信报警">
+                <i class="fa fa-chevron-left"></i> zabbix3.0添加邮件和微信报警
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/9ff1b579/" rel="prev" title="ansible安装与使用">
+                ansible安装与使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">mayi</p>
+              <p class="site-description motion-element" itemprop="description">做一个有钱有趣的人。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">356</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#学习命令"><span class="nav-number">1.</span> <span class="nav-text">学习命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量执行命令"><span class="nav-number">2.</span> <span class="nav-text">批量执行命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改root密码"><span class="nav-number">3.</span> <span class="nav-text">修改root密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置源"><span class="nav-number">4.</span> <span class="nav-text">配置源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加用户"><span class="nav-number">5.</span> <span class="nav-text">添加用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户添加到sudoers"><span class="nav-number">6.</span> <span class="nav-text">用户添加到sudoers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级openssl"><span class="nav-number">7.</span> <span class="nav-text">升级openssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级openssh"><span class="nav-number">8.</span> <span class="nav-text">升级openssh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置history"><span class="nav-number">9.</span> <span class="nav-text">设置history</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置网卡绑定"><span class="nav-number">10.</span> <span class="nav-text">设置网卡绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置nagios监控"><span class="nav-number">11.</span> <span class="nav-text">配置nagios监控</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260628156&web_id=1260628156" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

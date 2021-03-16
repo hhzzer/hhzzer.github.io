@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="工具概览性能监控工具   Tool 用途     top 处理器活动   vmstat 系统活动，硬件和系统信息   uptime，w 平均系统负载   ps，pstree 显示进程   free 内存使用   iostat 平均 CPU 负载，磁盘活动   sar 收集并报告系统活动   mpstat 多处理器   netstat 网络统计   iptraf 实时网络统计   tcpdump，e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux性能调优-监控和基准工具">
+<meta property="og:url" content="http://blog.hhzzer.com/posts/e2fab0d/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="工具概览性能监控工具   Tool 用途     top 处理器活动   vmstat 系统活动，硬件和系统信息   uptime，w 平均系统负载   ps，pstree 显示进程   free 内存使用   iostat 平均 CPU 负载，磁盘活动   sar 收集并报告系统活动   mpstat 多处理器   netstat 网络统计   iptraf 实时网络统计   tcpdump，e">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596443635694-a8f40f48-a97c-4f46-a5e1-c47bfb973361.png#align=left&display=inline&height=243&margin=%5Bobject%20Object%5D&name=image.png&originHeight=243&originWidth=675&size=41212&status=done&style=none&width=675">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596445355001-67d70e84-7689-45e5-ba80-a4fa5f76badc.png#align=left&display=inline&height=267&margin=%5Bobject%20Object%5D&name=image.png&originHeight=267&originWidth=654&size=140231&status=done&style=none&width=654">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596445803857-279d6949-5446-4d7d-bc17-cf4e6a0f1221.png#align=left&display=inline&height=127&margin=%5Bobject%20Object%5D&name=image.png&originHeight=127&originWidth=675&size=18928&status=done&style=none&width=675">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596445768181-ea0ca7cd-dbd6-4170-810f-2e85f21788f7.png#align=left&display=inline&height=465&margin=%5Bobject%20Object%5D&name=image.png&originHeight=465&originWidth=688&size=61089&status=done&style=none&width=688">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596446117173-2d272bf7-34cc-40de-8cb3-2b8892b5b30e.png#align=left&display=inline&height=255&margin=%5Bobject%20Object%5D&name=image.png&originHeight=255&originWidth=667&size=31518&status=done&style=none&width=667">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596446369761-540a4ea4-8594-4604-be98-b86b83c8a5e1.png#align=left&display=inline&height=137&margin=%5Bobject%20Object%5D&name=image.png&originHeight=137&originWidth=801&size=22655&status=done&style=none&width=801">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596447192565-c2719627-6f8c-4c46-81fa-23965b76525a.png#align=left&display=inline&height=184&margin=%5Bobject%20Object%5D&name=image.png&originHeight=184&originWidth=665&size=34213&status=done&style=none&width=665">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596447421483-eec4da9c-706a-4ba0-ba40-c2c54b59b34b.png#align=left&display=inline&height=361&margin=%5Bobject%20Object%5D&name=image.png&originHeight=361&originWidth=675&size=66735&status=done&style=none&width=675">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596448342456-21301193-cf82-42de-acf4-958c9e509986.png#align=left&display=inline&height=592&margin=%5Bobject%20Object%5D&name=image.png&originHeight=592&originWidth=299&size=30758&status=done&style=none&width=299">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596449579466-14f8026f-74da-4382-a25c-2fc4f517055f.png#align=left&display=inline&height=698&margin=%5Bobject%20Object%5D&name=image.png&originHeight=698&originWidth=644&size=115044&status=done&style=none&width=644">
+<meta property="og:updated_time" content="2021-03-16T03:55:44.608Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux性能调优-监控和基准工具">
+<meta name="twitter:description" content="工具概览性能监控工具   Tool 用途     top 处理器活动   vmstat 系统活动，硬件和系统信息   uptime，w 平均系统负载   ps，pstree 显示进程   free 内存使用   iostat 平均 CPU 负载，磁盘活动   sar 收集并报告系统活动   mpstat 多处理器   netstat 网络统计   iptraf 实时网络统计   tcpdump，e">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2020/png/106585/1596443635694-a8f40f48-a97c-4f46-a5e1-c47bfb973361.png#align=left&display=inline&height=243&margin=%5Bobject%20Object%5D&name=image.png&originHeight=243&originWidth=675&size=41212&status=done&style=none&width=675">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.hhzzer.com/posts/e2fab0d/"/>
+
+
+
+
+
+  <title>Linux性能调优-监控和基准工具 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蚂蚁的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-友链">
+          <a href="/links" rel="section">
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.hhzzer.com/posts/e2fab0d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mayi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux性能调优-监控和基准工具</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-03T16:00:18+08:00">
+                2020-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="工具概览"><a href="#工具概览" class="headerlink" title="工具概览"></a>工具概览</h3><h4 id="性能监控工具"><a href="#性能监控工具" class="headerlink" title="性能监控工具"></a>性能监控工具</h4><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>top</td>
+<td>处理器活动</td>
+</tr>
+<tr>
+<td>vmstat</td>
+<td>系统活动，硬件和系统信息</td>
+</tr>
+<tr>
+<td>uptime，w</td>
+<td>平均系统负载</td>
+</tr>
+<tr>
+<td>ps，pstree</td>
+<td>显示进程</td>
+</tr>
+<tr>
+<td>free</td>
+<td>内存使用</td>
+</tr>
+<tr>
+<td>iostat</td>
+<td>平均 CPU 负载，磁盘活动</td>
+</tr>
+<tr>
+<td>sar</td>
+<td>收集并报告系统活动</td>
+</tr>
+<tr>
+<td>mpstat</td>
+<td>多处理器</td>
+</tr>
+<tr>
+<td>netstat</td>
+<td>网络统计</td>
+</tr>
+<tr>
+<td>iptraf</td>
+<td>实时网络统计</td>
+</tr>
+<tr>
+<td>tcpdump，ethereal</td>
+<td>详细网络流量分析</td>
+</tr>
+<tr>
+<td>nmon</td>
+<td>收集并报告系统活动</td>
+</tr>
+<tr>
+<td>strace</td>
+<td>系统调用</td>
+</tr>
+<tr>
+<td>Proc file system</td>
+<td>内核变量数据</td>
+</tr>
+</tbody>
+</table>
+<h4 id="基准工具"><a href="#基准工具" class="headerlink" title="基准工具"></a>基准工具</h4><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Imbench</td>
+<td>系统微型基准</td>
+</tr>
+<tr>
+<td>iozone</td>
+<td>文件系统基准</td>
+</tr>
+<tr>
+<td>netperf</td>
+<td>网络性能基准</td>
+</tr>
+</tbody>
+</table>
+<h3 id="监控工具详解"><a href="#监控工具详解" class="headerlink" title="监控工具详解"></a>监控工具详解</h3><h4 id="top"><a href="#top" class="headerlink" title="top"></a>top</h4><p>top 命令显示处理器实际的活动。默认以 CPU 使用率排序（P）、累计运行时间（T）和内存占用排序（M）。<br>c 命令切换显示进程详细路径。</p>
+<h4 id="vmstat"><a href="#vmstat" class="headerlink" title="vmstat"></a>vmstat</h4><p>vmstat 提供关于进程、内存、分页、IO 块，traps 和 CPU 活动信息。可选参数 -m 内核内存分配情况，-a 活动、不活动内存页。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596443635694-a8f40f48-a97c-4f46-a5e1-c47bfb973361.png#align=left&amp;display=inline&amp;height=243&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=243&amp;originWidth=675&amp;size=41212&amp;status=done&amp;style=none&amp;width=675" alt="image.png"><br>r：等待执行的进程数<br>b: 不可中断进程数<br>swpd: 虚拟内存使用<br>si: 磁盘交换到内存（KBps），so 内存交换到磁盘<br>bi:块请求到块设备数（blocks/s）,bo: 从块设备收到的块数量<br>in:每秒中断数<br>cs:每秒上下文切换数</p>
+<h4 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596445355001-67d70e84-7689-45e5-ba80-a4fa5f76badc.png#align=left&amp;display=inline&amp;height=267&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=267&amp;originWidth=654&amp;size=140231&amp;status=done&amp;style=none&amp;width=654" alt="image.png"><br>ps -eFy<br>RSS 物理内存使用量,SZ = code+data+stack 内存用量，WCHAN 进程休眠在内核哪个函数，- 正在运行 * 多线程。</p>
+<h4 id="free"><a href="#free" class="headerlink" title="free"></a>free</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596445803857-279d6949-5446-4d7d-bc17-cf4e6a0f1221.png#align=left&amp;display=inline&amp;height=127&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=127&amp;originWidth=675&amp;size=18928&amp;status=done&amp;style=none&amp;width=675" alt="image.png"><br>输出图解<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596445768181-ea0ca7cd-dbd6-4170-810f-2e85f21788f7.png#align=left&amp;display=inline&amp;height=465&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=465&amp;originWidth=688&amp;size=61089&amp;status=done&amp;style=none&amp;width=688" alt="image.png"></p>
+<h4 id="iostat"><a href="#iostat" class="headerlink" title="iostat"></a>iostat</h4><p><code>iostat</code>系统启动以来的统计数据<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596446117173-2d272bf7-34cc-40de-8cb3-2b8892b5b30e.png#align=left&amp;display=inline&amp;height=255&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=255&amp;originWidth=667&amp;size=31518&amp;status=done&amp;style=none&amp;width=667" alt="image.png"><br><code>iostat -d -x sdb 1</code><br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596446369761-540a4ea4-8594-4604-be98-b86b83c8a5e1.png#align=left&amp;display=inline&amp;height=137&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=137&amp;originWidth=801&amp;size=22655&amp;status=done&amp;style=none&amp;width=801" alt="image.png"><br>rrqm/s, wrqm/s: 每秒读写合并数<br>r/s,w/s:每秒读写请求数<br>rsec/s,wsec/s:每秒读写扇区数<br>rkB/s,wkB/s:每秒设备读写量<br>avgrq-sz: 平均请求大小，单位扇区<br>avgqu-sz: 每个请求的平均队列长度<br>await: 内核状态 CPU 利用率<br>svctm: 每个 IO 的平均服务时间<br>%util: IO 请求提交到设备的 CPU 使用时间比例，100%表示设备饱和了，CPU 提交到设备，设备处理不过来。</p>
+<h4 id="mpstat"><a href="#mpstat" class="headerlink" title="mpstat"></a>mpstat</h4><p>多核处理器统计信息，查看应用是否负载到多核<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596447192565-c2719627-6f8c-4c46-81fa-23965b76525a.png#align=left&amp;display=inline&amp;height=184&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=184&amp;originWidth=665&amp;size=34213&amp;status=done&amp;style=none&amp;width=665" alt="image.png"></p>
+<h4 id="pmap"><a href="#pmap" class="headerlink" title="pmap"></a>pmap</h4><p>显示进程的内存分布</p>
+<h4 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h4><p><code>netstat -natuw</code><br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596447421483-eec4da9c-706a-4ba0-ba40-c2c54b59b34b.png#align=left&amp;display=inline&amp;height=361&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=361&amp;originWidth=675&amp;size=66735&amp;status=done&amp;style=none&amp;width=675" alt="image.png"></p>
+<h4 id="strace"><a href="#strace" class="headerlink" title="strace"></a>strace</h4><p>strace 命令拦截并记录进程调用的 system calls、收到的信号。<br><code>strace -p &lt;pid&gt;</code> 监控进程<br><code>strace -c &lt;command&gt;</code> 每一个系统调用花费的时间</p>
+<h4 id="proc-file-system"><a href="#proc-file-system" class="headerlink" title="proc file system"></a>proc file system</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596448342456-21301193-cf82-42de-acf4-958c9e509986.png#align=left&amp;display=inline&amp;height=592&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=592&amp;originWidth=299&amp;size=30758&amp;status=done&amp;style=none&amp;width=299" alt="image.png"><br>在/proc 目录中的文件记录了系统相关信息。<br>数字目录： 表示进程 PID<br>bus：总线系统信息，例如 PCI 总线和 USB 接口<br>irq：中断信息<br>net：网络子系统信息<br>scsi：scsi 子系统信息<br>sys：可调整的内核参数<br>tty：虚拟终端和物理设备的关联信息。</p>
+<h3 id="基准工具详解"><a href="#基准工具详解" class="headerlink" title="基准工具详解"></a>基准工具详解</h3><p>基准工具包含这几个功能模块：</p>
+<ul>
+<li>生成负载</li>
+<li>监控性能</li>
+<li>监控系统利用率</li>
+<li>出报告</li>
+</ul>
+<p>LMbench 检查上下文切换，本地通信，内存带宽和文件操作。<br>IOzone 测试磁盘 IO<br>netperf 测试 TCP/IP 性能<br>你必须指基准工具的特点，选择适合你需求的工具。其他有用工具列表<br><img src="https://cdn.nlark.com/yuque/0/2020/png/106585/1596449579466-14f8026f-74da-4382-a25c-2fc4f517055f.png#align=left&amp;display=inline&amp;height=698&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=698&amp;originWidth=644&amp;size=115044&amp;status=done&amp;style=none&amp;width=644" alt="image.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/b19d6336/" rel="next" title="linux性能和调优-理解操作系统">
+                <i class="fa fa-chevron-left"></i> linux性能和调优-理解操作系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/3218d94/" rel="prev" title="程序员如何把控自己的职业-读后感">
+                程序员如何把控自己的职业-读后感 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">mayi</p>
+              <p class="site-description motion-element" itemprop="description">做一个有钱有趣的人。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">356</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#工具概览"><span class="nav-number">1.</span> <span class="nav-text">工具概览</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#性能监控工具"><span class="nav-number">1.1.</span> <span class="nav-text">性能监控工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基准工具"><span class="nav-number">1.2.</span> <span class="nav-text">基准工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监控工具详解"><span class="nav-number">2.</span> <span class="nav-text">监控工具详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#top"><span class="nav-number">2.1.</span> <span class="nav-text">top</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vmstat"><span class="nav-number">2.2.</span> <span class="nav-text">vmstat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ps"><span class="nav-number">2.3.</span> <span class="nav-text">ps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#free"><span class="nav-number">2.4.</span> <span class="nav-text">free</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iostat"><span class="nav-number">2.5.</span> <span class="nav-text">iostat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mpstat"><span class="nav-number">2.6.</span> <span class="nav-text">mpstat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pmap"><span class="nav-number">2.7.</span> <span class="nav-text">pmap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#netstat"><span class="nav-number">2.8.</span> <span class="nav-text">netstat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#strace"><span class="nav-number">2.9.</span> <span class="nav-text">strace</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#proc-file-system"><span class="nav-number">2.10.</span> <span class="nav-text">proc file system</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基准工具详解"><span class="nav-number">3.</span> <span class="nav-text">基准工具详解</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260628156&web_id=1260628156" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
