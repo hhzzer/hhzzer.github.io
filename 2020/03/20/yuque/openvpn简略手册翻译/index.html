@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OpenVPN 2.4.8 x86_64-redhat-linux-gnu [Fedora EPEL patched] [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH&#x2F;PKTINFO] [AEAD] built on Nov  1 2019 OpenVPN 2.4.8 x86_64-redhat-linux-gnu [Fedora EPEL pat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openvpn简略手册翻译">
+<meta property="og:url" content="http://example.com/2020/03/20/yuque/openvpn%E7%AE%80%E7%95%A5%E6%89%8B%E5%86%8C%E7%BF%BB%E8%AF%91/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="OpenVPN 2.4.8 x86_64-redhat-linux-gnu [Fedora EPEL patched] [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH&#x2F;PKTINFO] [AEAD] built on Nov  1 2019 OpenVPN 2.4.8 x86_64-redhat-linux-gnu [Fedora EPEL pat">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-20T02:10:05.000Z">
+<meta property="article:modified_time" content="2022-06-29T03:46:40.478Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2020/03/20/yuque/openvpn%E7%AE%80%E7%95%A5%E6%89%8B%E5%86%8C%E7%BF%BB%E8%AF%91/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2020/03/20/yuque/openvpn%E7%AE%80%E7%95%A5%E6%89%8B%E5%86%8C%E7%BF%BB%E8%AF%91/","path":"2020/03/20/yuque/openvpn简略手册翻译/","title":"openvpn简略手册翻译"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>openvpn简略手册翻译 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenVPN-2-4-8-x86-64-redhat-linux-gnu-Fedora-EPEL-patched-SSL-OpenSSL-LZO-LZ4-EPOLL-PKCS11-MH-PKTINFO-AEAD-built-on-Nov-1-2019"><span class="nav-number">1.</span> <span class="nav-text">OpenVPN 2.4.8 x86_64-redhat-linux-gnu [Fedora EPEL patched] [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH&#x2F;PKTINFO] [AEAD] built on Nov  1 2019</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/03/20/yuque/openvpn%E7%AE%80%E7%95%A5%E6%89%8B%E5%86%8C%E7%BF%BB%E8%AF%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="openvpn简略手册翻译 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          openvpn简略手册翻译
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-03-20 10:10:05" itemprop="dateCreated datePublished" datetime="2020-03-20T10:10:05+08:00">2020-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>OpenVPN 2.4.8 x86_64-redhat-linux-gnu [Fedora EPEL patched] [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH/PKTINFO] [AEAD] built on Nov  1 2019</p>
+<h3 id="OpenVPN-2-4-8-x86-64-redhat-linux-gnu-Fedora-EPEL-patched-SSL-OpenSSL-LZO-LZ4-EPOLL-PKCS11-MH-PKTINFO-AEAD-built-on-Nov-1-2019"><a href="#OpenVPN-2-4-8-x86-64-redhat-linux-gnu-Fedora-EPEL-patched-SSL-OpenSSL-LZO-LZ4-EPOLL-PKCS11-MH-PKTINFO-AEAD-built-on-Nov-1-2019" class="headerlink" title="OpenVPN 2.4.8 x86_64-redhat-linux-gnu [Fedora EPEL patched] [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH/PKTINFO] [AEAD] built on Nov  1 2019"></a>OpenVPN 2.4.8 x86_64-redhat-linux-gnu [Fedora EPEL patched] [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH/PKTINFO] [AEAD] built on Nov  1 2019</h3><p>常规选项:<br>–config file   : 从文件中读取配置选项。<br>–help          : 显示选项。<br>–version       : 显示版权和版本信息。<br>隧道选项:      <br>–local host    : 本地主机名或 IP 地址。等同于–bind。<br>–remote host [port]: 远程主机名或 IP 地址。<br>–remote-random : 如果设置了 mulitiple –remote 选项，则随机选择一个。<br>–remote-random-hostname : 向远程 DNS 名称添加随机字符串。<br>–mode m        : 主要模式，m =’p2p’（默认，点对点）或’server’。<br>–proto p       : 使用协议 p 与对等方进行通信。<br>                 p = udp（默认），tcp-server 或 tcp-client<br>–proto-force p : 仅选择在连接配置文件中列出的协议 p。<br>                 p = udp6，tcp6-server 或 tcp6-client（ipv6）<br>–connect-retry n [m] : 对于客户端，两次重试连接之间等待的秒数（默认=5）。<br>                  重试等待时间成指数增长，最大为 m（默认= 300）。<br>–connect-retry-max n: 最大连接尝试次数，默认为无限。<br>–http-proxy s p [up] [auth]: 通过 HTTP 代理连接到远程主机。<br>                 s 表示代理 ip 地址，p 表示代理端口。<br>                  如果代理需要身份验证，up 为认证文件或’stdin’。<br>                  认证文件，一行用户，一行密码， ‘stdin’ 从控制台输入。<br>                  如果添加 auth =’ntlm’,’代理需要 NTLM 身份验证。<br>–http-proxy s p ‘auto [-nct]’ : 与上述指令类似，但根据需要自动确定身份验证方法<br>                  并查询用户名/密码。auto-nct 禁用弱代理授权方法。<br>–http-proxy-option type [parm] : 设置扩展的 HTTP 代理选项。可重复设置多个选项。<br>                 VERSION version（默认= 1.0）<br>                 AGENT user-agent<br>–socks-proxy s [p] [up]: 通过 Socks5 代理连接到远程主机<br>                 s 代理地址，p 代理端口（默认端口= 1080）。<br>                  如果代理需要身份验证，up 为认证文件或’stdin’。<br>                  认证文件，一行用户，一行密码， ‘stdin’ 从控制台输入。<br>–socks-proxy-retry : Socks 代理错误时无限重试。<br>–resolv-retry n: 如果远程主机名解析失败，重试时间间隔 n 秒。（默认情况下处于禁用状态）。<br>                  设置 n =“ infinite”，一直重试。<br>–float         : 允许远程更改其 IP 地址/端口，例如通过<br>                DHCP（如果不使用–remote 参数，则为默认设置）。<br>–ipchange cmd  : 在远程 IP 地址初始过程中设置或则改变 IP。例:cmd ip port<br>–port port     : 本地和远程的 TCP / UDP 端口号。<br>–lport 端口     : 本地的 TCP / UDP 端口号（默认= 1194）。等同–bind。<br>–rport 端口     : 远程的 TCP / UDP 端口号（默认= 1194）。<br>–bind          : 绑定到本地地址和端口。 （这是默认设置，除非<br>                 –proto tcp-client 或–http-proxy 或–socks-proxy）。<br>–nobind        : 不要绑定到本地地址和端口。<br>–dev tunX|tapX : tun / tap 设备。动态设备可以省略 X。<br>–dev-type dt   : 我们使用哪种设备类型？ （dt = tun 或 tap）。使用<br>                  仅当–dev 使用 tun/tap 设备时，设备名不以 tun 或 tap 开头。<br>–dev-node node : 显式设置设备节点，而不是使用/dev/net/tun，/dev/tun，/dev/tap 等<br>–lladdr hw     : 设置 tap device 的链路层地址。<br>–topology t    : 设置–dev tun 拓扑:’net30’，’p2p’或’subnet’。<br>–iproute cmd   : 使用此命令代替默认的/sbin/ip。<br>–ifconfig l rn : TUN:配置设备以使用 IP 地址 l 作为本地<br>                  端点，rn 作为远程端点。 对端 l＆rn 应该调换。 l＆rn 必须使用子网之外的私有地址。<br>                 TAP:将设备配置为使用 l 作为本地端点和 rn 作为子网掩码。<br>–ifconfig-ipv6 l r: 配置设备以将 IPv6 地址 l 用作本地<br>                  端点（as a/ 64）和 r 作为远程端点<br>–ifconfig-noexec : 实际上不执行 ifconfig / netsh 命令，而是<br>                通过环境将–ifconfig 参数传递给脚本。<br>–ifconfig-nowarn : 不发出警告,如果位于此侧的–ifconfig 选项与远端不匹配。<br>–route network [netmask] [gateway] [metric]:<br>                  连接成功后将路由添加到路由表<br>                  可以指定多个路由。<br>                  网络掩码默认值:255.255.255.255<br>                  网关默认值:取自–route-gateway 或–ifconfig<br>                  使用默认值可保留空白或设置为’nil’。<br>–route-ipv6 网络/位[网关] [指标]:<br>                连接后将 IPv6 路由添加到路由表<br>                成立。可以指定多个路由。<br>                网关默认值:取自–ifconfig-ipv6 中的“ remote”<br>–route-gateway gw |’dhcp’:指定用于–route 的默认网关。<br>–route-metric m:指定用于–route 的默认度量。<br>–route-delay n [w]:连接启动后延迟 n 秒，之后<br>                添加路线（可能为 0）。如果未指定，路线将<br>                在 tun / tap 打开后立即添加。在 Windows 上，等待<br>                TUN / TAP 适配器最多需要 w 秒钟才能出现。<br>–route-up cmd:添加路由后运行命令 cmd。<br>–route-pre-down cmd:在删除路由之前运行命令 cmd。<br>–route-noexec:不自动添加路由。而是将路线传递给<br>                –route-up 使用环境变量的脚本。<br>–route-nopull:与–client 或–pull 一起使用时，接受推送的选项<br>                由服务器除路由和 dhcp 选项外。<br>–allow-pull-fqdn:允许客户端从服务器提取 DNS 名称以用于<br>                  –ifconfig，-route 和–route-gateway。<br>–redirect-gateway [标志]:自动执行路由<br>                命令通过<br>                VPN。如果两个 OpenVPN 服务器都直接位于，则添加“本地”标志<br>                通过公共子网（例如 WiFi）连接。<br>                添加’def1’标志以使用 0.0.0.0/1 设置默认路由<br>                和 128.0.0.0/1，而不是 0.0.0.0/0。添加’bypass-dhcp’<br>                标记，以绕过隧道添加到 DHCP 服务器的直接路由。<br>                添加“ bypass-dns”标志以类似地绕过 DNS 隧道。<br>–redirect-private [flags]:与–redirect-gateway 类似，但实际上省略了更改<br>                默认网关。在推送专用子网时很有用。<br>–client-nat snat | dnat 网络子网掩码别名:在客户端上添加 1-to-1 NAT 规则。<br>–push-peer-info :（仅限客户端）将客户端信息推送到服务器。<br>–setenv 名称值:设置自定义环境变量以传递给脚本。<br>–setenv FORWARD_COMPATIBLE 1:放松配置文件语法检查以允许<br>                将来的 OpenVPN 版本的指令将被忽略。<br>–ignore-unkown-option opt1 opt2 …:放宽配置文件语法。允许<br>                这些选项在未知时将被忽略<br>–script-security level:级别可以是:<br>                0-严格不调用外部程序<br>                1-（默认）仅调用诸如 ifconfig 之类的内置函数<br>                2-允许调用内置函数和脚本<br>                3-允许密码通过 env 传递给脚本<br>–shaper n:将对等输出限制为每秒 n 个字节。<br>–keepalive n m:用于在服务器模式下设置超时的帮助程序选项。发送<br>                每 n 秒执行一次 ping 操作，如果未收到 ping 命令，请重新启动<br>                持续 m 秒。<br>–inactive n [bytes]:在 tun / tap 设备上活动 n 秒后退出<br>                产生组合的输入/输出字节计数&lt;字节。<br>–ping-exit n:如果经过 n 秒却没有接收到远程 ping，则退出。<br>–ping-restart n:如果 n 秒钟过去而没有接收到远程 ping，则重新启动。<br>–ping-timer-rem:仅当我们有一个–ping-exit /-ping-restart 计时器时，<br>                远程地址。<br>–ping n:每 n 秒通过 TCP / UDP 端口 ping 通一次远程。<br>–multihome:配置多宿主 UDP 服务器。<br>–fast-io :（实验性）优化 TUN / TAP / UDP 写入。<br>–remap-usr1 s:在 SIGUSR1 信号上，重新映射信号（s =’SIGHUP’或’SIGTERM’）。<br>–persist-tun:在 SIGUSR1 或–ping-restart 中保持 tun / tap 设备处于打开状态。<br>–persist-remote-ip:在 SIGUSR1 或–ping-restart 中保留远程 IP 地址。<br>–persist-local-ip:在 SIGUSR1 或–ping-restart 中保留本地 IP 地址。<br>–persist-key:不要在 SIGUSR1 或–ping-restart 中重新读取密钥文件。<br>–passtos:TOS 直通（仅适用于 IPv4）。<br>–tun-mtu n:将 tun / tap 设备 MTU 设为 n 并推导<br>                来自它的 TCP / UDP MTU（默认值= 1500）。<br>–tun-mtu-extra n:假设 tun / tap 设备可能返回的次数<br>                比读取时的 tun-mtu 大小大 n 个字节<br>                （默认 TUN = 0 TAP = 32）。<br>–link-mtu n:将 TCP / UDP 设备的 MTU 设为 n 并推导 tun MTU<br>                从中。<br>–mtu-disc type:我们应该在 TCP / UDP 通道上执行路径 MTU 发现吗？<br>                ‘否’-永不发送 DF（不分割）帧<br>                ‘也许’-使用每个路线的提示<br>                ‘是’-始终为 DF（不碎片）<br>–mtu-test:凭经验测量并报告 MTU。<br>–fragment max:启用内部数据报分段，以便没有 UDP<br>                  发送大于最大字节的数据报。<br>                  每个数据报增加 4 个字节的开销。<br>–mssfix [n]:设置 TCP MSS 的上限，默认= tun-mtu 大小<br>                或–fragment max 值，以较低者为准。<br>–sndbuf size:设置 TCP / UDP 发送缓冲区的大小。<br>–rcvbuf size:设置 TCP / UDP 接收缓冲区的大小。<br>–mark value:使用值标记发送的加密数据包。标记值<br>                可以在策略路由和数据包过滤器规则中匹配。<br>–txqueuelen n:将 tun / tap TX 队列长度设置为 n（仅 Linux）。<br>–memstats 文件:将实时使用情况统计信息写入内存映射的二进制文件。<br>–mlock:禁用分页-确保关键材料和隧道<br>                数据将永远不会写入磁盘。<br>–up cmd:成功打开 tun 设备后运行命令 cmd。<br>                执行为:cmd tun / tap-dev tun-mtu link-mtu <br>                            ifconfig-local-ip ifconfig-remote-ip<br>                （–user 或–group 之前的 UID / GID 更改）<br>–up-delay:延迟 tun / tap 打开和可能的–up 脚本执行<br>                直到与对等方建立 TCP / UDP 连接之后。<br>–down cmd:在 tun 设备关闭后运行命令 cmd。<br>                （发布–user /-group UID / GID 更改和/或–chroot）<br>                （命令参数与–up 选项相同）<br>–down-pre:在 TUN / TAP 关闭之前运行–down 命令。<br>–up-restart:对所有重新启动（包括那些重新启动）运行向上/向下命令<br>                由–ping-restart 或 SIGUSR1 引起<br>–user 用户:初始化后将 UID 设置为 user。<br>–group group:初始化后将 GID 设置为 group。<br>–chroot dir:初始化后，Chroot 到此目录。<br>–setcon 上下文:初始化后应用此 SELinux 上下文。<br>–cd dir:初始化之前更改到此目录。<br>–daemon [name]:初始化后成为守护程序。<br>                可选的“名称”参数将被传递<br>                作为系统记录器的程序名称。<br>–syslog [名称]:输出到 syslog，但不成为守护程序。<br>                有关“名称”参数的描述，请参见上面的–daemon。<br>–inetd [名称] [‘wait’|’nowait’]:作为 inetd 或 xinetd 服务器运行。<br>                有关“名称”参数的描述，请参见上面的–daemon。<br>–log 文件:将日志输出到打开时创建/截断的文件。<br>–log-append file:将日志追加到文件，如果不存在则创建文件。<br>–suppress-timestamps:不要将时间戳记录到 stdout / stderr。<br>–machine-sensitive-output:始终将时间戳记和消息标志记录到 stdout / stderr。<br>–writepid file:将主进程 ID 写入文件。<br>–nice n:更改进程优先级（&gt; 0 =较低，&lt;0 =较高）。<br>–echo [parms …]:回显参数以记录输出。<br>–verb n:将输出详细程度设置为 n（默认值= 1）:<br>                （如果希望获得良好的总结，建议使用 3 级<br>                发生的事情而不会被输出淹没）。<br>              :0-除致命错误外无输出<br>              :1-启动信息+连接启动的消息+<br>                      非致命加密和净错误<br>              :2,3-显示 TLS 协商和路由信息<br>              :4-显示参数<br>              :5-在控制台上为发送的每个数据包显示’RrWw’字符<br>                      并从 TCP / UDP（caps）或 tun / tap（lc）接收<br>              :6 到 11-调试消息越来越冗长<br>–mute n:最多记录 n 个相同类别的连续消息。<br>–status file n:每 n 秒将运行状态写入文件一次。<br>–status-version [n]:选择状态文件格式的版本号。<br>                当前，n 可以是 1、2 或 3（默认值= 1）。<br>–disable-occ:禁用同级之间的选项一致性检查。<br>–gremlin mask:特殊压力测试模式（仅用于调试）。<br>–compress alg:使用压缩算法 alg<br>–comp-lzo:使用 LZO 压缩-每次最多可以增加 1 个字节<br>                不可压缩数据包。<br>–comp-noadapt:–comp-lzo 时不使用自适应压缩<br>                已指定。<br>–management ip port [pass]:启用 ip:port 上的 TCP 服务器进行处理<br>                管理功能。通过是密码文件<br>                或“ stdin”从控制台进行提示。<br>                要在 Unix 域套接字上侦听，请指定路径名<br>                代替 ip 并使用“ unix”作为端口号。<br>–management-client:管理接口将作为 TCP 客户端连接到<br>                    ip / port 而不是作为 TCP 服务器进行侦听。<br>–management-query-passwords:私钥的查询管理通道<br>                和 auth-user-pass 密码。<br>–management-query-proxy:查询管理通道以获取代理信息。<br>–management-query-remote:–remote 指令的查询管理通道。<br>–management-hold:以休眠状态启动 OpenVPN，直到客户端<br>                  管理界面的显式启动它。<br>–management-signal:发生管理断开事件时，发出 SIGUSR1。<br>–management-forget-disconnect:断开管理时忘记密码<br>                                事件发生。<br>–management-up-down:将隧道的上/下事件报告给管理界面。<br>–management-log-cache n:缓存 n 行日志文件历史以供使用<br>                通过管理渠道。<br>–management-client-user u:当管理接口是 unix 套接字时，仅<br>                            允许来自用户 u 的连接。<br>–management-client-group g:当管理接口是 unix 套接字时，仅<br>                            允许来自组 g 的连接。<br>–management-client-auth:赋予管理接口客户端责任<br>                          在客户证书后对客户进行身份验证<br>                            已验证。<br>–management-client-pf:管理接口客户端必须指定一个数据包<br>                        每个连接客户端的过滤文件。<br>–plugin m [str]:加载插件模块 m，并将 str 作为参数传递<br>                为其初始化功能。<br>多客户端服务器选项（使用–mode 服务器时）:<br>–server network netmask:帮助程序选项，可轻松配置服务器模式。<br>–server-ipv6 network / bits:配置 IPv6 服务器模式。<br>–server-bridge [IP 网络掩码池-开始-IP 池-结束-IP]:<br>                  轻松配置以太网桥接服务器模式。<br>–push“ option”:将配置文件选项推回对等体以进行远程<br>                执行。对等方必须在其配置文件中指定–pull。<br>–push-reset:不继承特定的全局推送列表<br>                客户实例。<br>–ifconfig-pool start-IP end-IP [网络掩码]:预留子网池<br>                动态分配给连接的客户端。<br>–ifconfig-pool-linear :（不提倡）使用单个地址代替<br>                / 30 个子网<br>在调谐模式下。与不兼容<br>                Windows 客户端。<br>–ifconfig-pool-persist 文件[秒]:持久/不持久 ifconfig-pool<br>                数据以秒为间隔（默认值= 600）到文件。<br>                如果 seconds = 0，则文件将被视为只读。<br>–ifconfig-ipv6-pool 基本 IP /位:预留一个 IPv6 网络块<br>                动态分配给连接的客户端。<br>–ifconfig-push local remote-netmask:将 ifconfig 选项推送到远程，<br>                覆盖–ifconfig-pool 动态分配。<br>                仅在客户端特定的配置文件中有效。<br>–ifconfig-ipv6-push local / bits remote:将 ifconfig-ipv6 选项推送到<br>                远程，将覆盖–ifconfig-ipv6-pool 分配。<br>                仅在客户端特定的配置文件中有效。<br>–iroute network [网络掩码]:将子网路由到客户端。<br>–iroute-ipv6 网络/位:将 IPv6 子网路由到客户端。<br>                仅设置内部路由。<br>                仅在客户端特定的配置文件中有效。<br>–disable:客户端被禁用。<br>                仅在客户端特定的配置文件中有效。<br>–client-cert-not-required:（不推荐）不需要客户端证书，客户端<br>                将使用用户名/密码进行身份验证。<br>–verify-client-cert [无|可选|要求]:不执行，可选或<br>                强制性客户证书验证。<br>                默认是要求客户端提供证书。<br>–username-as-common-name:对于 auth-user-pass 身份验证，请使用<br>                经过身份验证的用户名作为通用名，<br>                而不是客户端证书中的通用名称。<br>–auth-user-pass-verify cmd 方法:查询客户端的用户名/密码和<br>                运行命令 cmd 进行验证。如果 method =’via-env’，则通过<br>                用户/通过环境通过，如果 method =’via-file’，则通过<br>                用户/通过临时文件传递。<br>–auth-gen-token [lifetime]生成一个随机的认证令牌，该令牌被推送<br>                每个客户，替换密码。什么时候有用<br>                基于 OTP 的两因素身份验证机制正在使用中，<br>                –reneg- *选项已启用。 （可选）以秒为单位的生命周期<br>                可以设置生成的令牌。<br>–opt-verify:使用不兼容选项连接的客户端<br>                与那些服务器将被断开连接。<br>–auth-user-pass-optional:允许不连接的客户端进行连接<br>                指定用户名/密码。<br>–no-name-remapping :（不建议使用）允许公用名和 X509 主题包含<br>                    任何可打印的字符。<br>–client-to-client:内部路由客户端到客户端的流量。<br>–duplicate-cn:允许多个具有相同通用名称的客户端<br>                同时连接。<br>–client-connect cmd:在客户端连接上运行命令 cmd。<br>–client-disconnect cmd:在客户端断开连接时运行命令 cmd。<br>–client-config-dir dir:自定义客户端配置文件的目录。<br>–ccd-exclusive:除非找到自定义客户端配置，否则拒绝连接。<br>–tmp-dir dir:临时目录，用于–client-connect 返回文件和插件通信。<br>–hash-size r v:将实际地址哈希表的大小设置为 r，<br>                虚拟地址表<br>–bcast-buffers n:分配 n 个广播缓冲区。<br>–tcp-queue-limit n:排队的 TCP 输出数据包的最大数量。<br>–tcp-nodelay:在服务器上设置 TCP_NODELAY 套接字标志的宏<br>                并将其推送到连接客户端。<br>–learn-address cmd:运行命令 cmd 以验证客户端虚拟地址。<br>–connect-freq n s:每秒最多允许 n 个新连接。<br>–max-clients n:最多允许 n 个同时连接的客户端。<br>–max-routes-per-client n:每个客户端最多允许 n 条内部路由。<br>–stale-routes-check n [t]:删除具有上一个活动时间戳记的路由<br>                            早于 n 秒。每 t 运行一次此检查<br>                            秒（默认为 n）。<br>–explicit-exit-notify [n]:在 UDP 服务器模式下，在退出/重新启动时发送[RESTART]命令到已连接<br>                            客户。 n = 1-重新连接到同一服务器，<br>                           2-前进到下一个服务器，默认= 1。<br>–port-share 主机端口[dir]:以 TCP 模式运行时，代理传入的 HTTPS<br>                到 host:port 上的 Web 服务器的会话。 dir 指定一个<br>                写入原始 IP:端口数据的可选目录。<br>客户端选项（连接到多客户端服务器时）:<br>–client:帮助程序选项，可轻松配置客户端模式。<br>–auth-user-pass [up]:使用用户名/密码与服务器进行身份验证。<br>                up 是第一行包含用户名的文件，<br>                第二个是密码。如果密码或两者兼而有之<br>                用户名和密码被省略 OpenVPN 将提示<br>                从控制台为他们。<br>–pull:从对等方接受某些配置文件选项，就好像它们<br>                是本地配置文件的一部分。必须指定<br>                连接到“-模式服务器”远程主机时。<br>–pull-filter accept | ignore | reject t:过滤从<br>                服务器是否以文本 t 开头。动作标志接受，<br>                忽略或拒绝导致该选项被允许，删除或<br>                错误拒绝。可以多次指定，并且<br>                每个过滤器均按出现顺序应用。<br>–auth-retry t:如何处理身份验证失败。设置为<br>                无（默认），互动或无互动。<br>–static-challenge t e:使用以下命令启用静态质询/响应协议<br>                质询文本 t，其中 e 表示回显标记（0 | 1）<br>–connect-timeout n:轮询可能的远程服务器以连接到时<br>                以循环方式，花费不超过 n 秒<br>                在尝试下一个服务器之前等待响应。<br>–allow-recursive-routing:设置此选项后，OpenVPN 将不会删除<br>                目的地与主机相同的传入 tun 数据包。<br>–explicit-exit-notify [n]:退出/重启时，发送退出信号至<br>                服务器/远程。 n =重试次数，默认= 1。<br>数据通道加密选项（对等方之间必须兼容）:<br>（这些选项对于“静态密钥”和“ TLS”模式均有意义）<br>–secret f [d]:启用静态密钥加密模式（非 TLS）。<br>                使用共享的秘密文件 f，使用–genkey 生成。<br>                可选的 d 参数控制键的方向性。<br>                如果指定了 d，则对每个使用单独的键<br>                方向，在连接的一侧设置 d = 0，<br>                另一边的 d = 1<br>–auth alg:使用消息使用 HMAC 验证数据包<br>                摘要算法 alg（默认= SHA1）。<br>                （通常每个数据包增加 16 或 20 个字节）<br>                设置 alg = none 可禁用身份验证。<br>–cipher alg:使用密码算法 alg 加密数据包<br>                （默认= BF-CBC）。<br>                设置 alg = none 禁用加密。<br>–ncp-ciphers list:允许协商的密码列表。<br>–ncp-disable:禁用密码协商。<br>–prng alg [nsl]:对于 PRNG，请使用摘要算法 alg，然后<br>                 nonce_secret_len = nsl。设置 alg = none 禁用 PRNG。<br>–keysize n :（不建议使用）密码密钥的大小（以位为单位）（可选）。<br>                如果未指定，则默认为特定于密码的默认值。<br>–engine [name]:启用 OpenSSL 硬件加密引擎功能。<br>–no-replay :（不建议使用）禁用重放保护。<br>–mute-replay-warnings:将重放警告的输出静音到日志文件。<br>–replay-window n [t]:使用大小为 n 的重放保护滑动窗口<br>                        时间窗口为 t 秒<br>                        默认值 n = 64 t = 15<br>–no-iv:禁用密码 IV-仅在 CBC 模式密码中允许。<br>–replay-persist 文件:跨会话的持久重播保护状态<br>                使用文件。<br>–test-crypto:对启用的加密功能进行自检。<br>                仅用于调试。<br>TLS 密钥协商选项:<br>（这些选项仅对 TLS 模式有意义）<br>–tls-server:启用 TLS 并在 TLS 握手期间承担服务器角色。<br>–tls-client:启用 TLS 并在 TLS 握手期间承担客户端角色。<br>–key-method m :（不提倡）数据通道密钥交换方法。 m 应该是一个方法<br>                数字，例如 1（默认），2 等。<br>–ca 文件:.pem 格式的证书颁发机构文件，包含<br>                根证书。<br>–capath dir:可信证书（CA 和 CRL）的目录。<br>–dh 文件:包含 Diffie Hellman 参数的文件<br>                .pem 格式（仅适用于–tls-server）。<br>                使用“ openssl dhparam -out dh1024.pem 1024”生成。<br>–cert 文件:.pem 格式的本地证书-必须签名<br>                由–ca 文件中的证书颁发机构颁发。<br>–extra-certs 文件:一个或多个完成证书链的 PEM 证书。<br>–key 文件:.pem 格式的本地私钥。<br>–tls-version-min &lt;版本&gt; [‘或-最高’]:设置我们的最小 TLS 版本<br>  会接受同龄人。如果版本无法识别和“或最高”<br>  指定，要求 SSL 实施支持的最大 TLS 版本。<br>–tls-version-max &lt;版本&gt;:设置我们将使用的最大 TLS 版本。<br>–pkcs12 文件:包含本地私钥，本地证书的 PKCS＃12 文件<br>                以及根 CA 证书（可选）。<br>–x509-username-field:x509 证书中包含用户名的字段。<br>                      主题字段中的默认值为 CN。<br>–verify-hash hash [算法]:指定 1 级证书的指纹。<br>                          有效的算法标志为 SHA1 和 SHA256。<br>–tls-cipher l:由 l 分隔的允许的 TLS 密码列表 l（可选）。<br>              :使用–show-tls 查看支持的 TLS 密码的列表。<br>–tls-cert-profile p:设置允许的证书加密算法配置文件<br>                （默认=旧版）。<br>–tls-timeout n:TLS 控制信道上的数据包重传超时<br>                如果在 n 秒内没有来自远程的 ACK（默认值= 2）。<br>–reneg-bytes n:重新协商数据通道。发送 n 个字节并接收后的密钥。<br>–reneg-pkts n:重新协商数据通道。发送和接收 n 个数据包后输入密钥。<br>–reneg-sec n:重新协商数据通道。 n 秒后键入键（默认值= 3600）。<br>–hand-window n:数据通道密钥交换必须在 n 秒内完成<br>                任何对等方发起握手的次数（默认为 60）。<br>–tran-window n:过渡窗口-旧密钥可以存活这么多秒<br>                开始新的密钥重新协商之后（默认值= 3600）。<br>–single-session:仅允许一个会话（重新启动时重置状态）。<br>–tls-exit:在 TLS 协商失败时退出。<br>–tls-auth f [d]:在 TLS 的顶部添加一个附加的身份验证层<br>                控制通道以防止对 TLS 堆栈的攻击<br>                和 DoS 攻击。<br>                f（必需）是共享秘密密钥文件。<br>                可选的 d 参数控制键的方向性，<br>                有关更多信息，请参见–secret 选项。<br>–tls-crypt 密钥:在顶部添加经过身份验证的加密的附加层<br>                TLS 控制通道以隐藏 TLS 证书，<br>                提供基本的量子后安全性并防范<br>                TLS 堆栈攻击和 DoS 攻击。<br>                key（必填）提供预共享的密钥文件。<br>                有关更多信息，请参见–secret 选项。<br>–askpass [file]:在进行守护之前，通过控制 tty 获取 PEM 密码。<br>–auth-nocache:不要缓存–askpass 或–auth-user-pass 密码。<br>–crl-verify crl [‘dir’]:对照 CRL 检查对等证书。<br>–tls-verify cmd:运行命令 cmd 以验证 X509 名称。<br>                待处理的 TLS 连接，否则已通过所有其他连接<br>                认证测试。 cmd 应该返回 0 以允许<br>                TLS 握手继续进行，或 1 失败。 （cmd 是<br>                执行为“ cmd certificate_depth subject”）<br>–tls-export-cert [目录]:以 PEM 格式获取对等证书并将其存储<br>                在[目录]中的 openvpn 临时文件中。同行证书是<br>                存储在 tls-verify 脚本执行之前，之后删除。<br>–verify-x509-name 名称:仅接受来自具有 X509 主题的主机的连接<br>                DN 名称。远程主机还必须通过所有其他测试<br>                验证。<br>–ns-cert-type t :（不推荐）要求对等证书与<br>                显式的 nsCertType 指定 t =’client’| ‘服务器’。<br>–x509-track x:将对等 X509 属性 x 保存在环境中，以供使用<br>                插件和管理界面。<br>–keying-material-exporter 标签 len:保存导出的键控材料（RFC5705）<br>                在标签中使用 len 字节（最少 16 个字节），由插件使用。<br>–remote-cert-ku v …:要求对等证书与<br>                显式键用法，可以指定多个值。<br>                值应以十六进制格式给出。<br>–remote-cert-eku oid:要求对等证书与<br>                显式扩展密钥用法。扩展密钥用法可以编码<br>                作为对象标识符或 OpenSSL 字符串表示形式。<br>–remote-cert-tls t:要求对等证书使用显式签名<br>                基于 RFC3280 TLS 规则的密钥用法和扩展密钥用法。<br>                t =’客户’| ‘服务器’。<br>PKCS＃11 选项:<br>–pkcs11-providers 提供程序…:要加载的 PKCS＃11 提供程序。<br>–pkcs11-protected-authentication [0 | 1] …:使用 PKCS＃11 保护的身份验证<br>                            路径。为每个提供者设置。<br>–pkcs11-private-mode hex …:PKCS＃11 私钥模式掩码。<br>                            0:尝试自动确定（默认）。<br>                            1:使用标志。<br>                            2:使用 SignRecover。<br>                            4:使用解密。<br>                            8:使用展开。<br>–pkcs11-cert-private [0 | 1] …:设置是否应在登录之前执行<br>                                可以访问证书。为每个提供者设置。<br>–pkcs11-pin-cache seconds:缓存 PIN 的秒数。默认值为-1<br>                                缓存直到令牌被删除。<br>–pkcs11-id-management:从管理界面获取身份。<br>–pkcs11-id serialized-id’id’:要使用的身份，使用独立的–show-pkcs11-ids<br>SSL 库信息:<br>–show-ciphers:显示与–cipher 选项一起使用的密码算法。<br>–show-digests:显示与–auth 选项一起使用的消息摘要算法。<br>–show-engines:显示硬件加密加速器引擎（如果可用）。<br>–show-tls:显示所有 TLS 密码（TLS 仅用作控制通道）。<br>生成随机密钥（仅适用于非 TLS 静态密钥加密模式）:<br>–genkey:生成一个随机密钥用作共享密钥，<br>                与–secret 选项一起使用。<br>–secret file:将密钥写入文件。<br>调整/点击配置模式（适用于 Linux 2.4+）:<br>–mktun:创建一个持久隧道。<br>–rmtun:删除持久隧道。<br>–dev tunX | tapX:tun / tap 设备<br>–dev-type dt:设备类型。有关详细信息，请参见上面的隧道选项。<br>–user 用户:要设置特权的用户。<br>–group group:要设置特权的组。<br>PKCS＃11 独立选项:<br>–show-pkcs11-id 提供者[cert_private]:显示 PKCS＃11 可用的 ID。<br>                                          可以在此之前添加–verb 选项。<br>常规独立选项:<br>–show-gateway:显示有关默认网关的信息。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/03/06/yuque/win10%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8docker-desktop%E8%B8%A9%E5%9D%91/" rel="prev" title="win10安装使用docker-desktop踩坑">
+                  <i class="fa fa-chevron-left"></i> win10安装使用docker-desktop踩坑
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/05/26/yuque/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E5%AD%A6%E4%B9%A0/" rel="next" title="系统设计学习">
+                  系统设计学习 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

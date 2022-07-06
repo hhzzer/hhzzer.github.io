@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="使用atom一段时间后，发现启动速度和命令行查看不习惯，尝试一下vim+markdown插件如何？  安装 安装vim插件管理工具Vundle  git clone https:&#x2F;&#x2F;github.com&#x2F;VundleVim&#x2F;Vundle.vim.git ~&#x2F;.vim&#x2F;bundle&#x2F;Vundle.vim 修改vimrc,如下内容添加在配置文件末尾sudo &#x2F;etc&#x2F;vim&#x2F;vimrc 123456">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu系统使用vim编辑预览markdown文件">
+<meta property="og:url" content="http://example.com/2017/02/17/vim-markdown-plug/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="使用atom一段时间后，发现启动速度和命令行查看不习惯，尝试一下vim+markdown插件如何？  安装 安装vim插件管理工具Vundle  git clone https:&#x2F;&#x2F;github.com&#x2F;VundleVim&#x2F;Vundle.vim.git ~&#x2F;.vim&#x2F;bundle&#x2F;Vundle.vim 修改vimrc,如下内容添加在配置文件末尾sudo &#x2F;etc&#x2F;vim&#x2F;vimrc 123456">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-02-17T07:56:00.000Z">
+<meta property="article:modified_time" content="2017-06-16T08:19:09.000Z">
+<meta property="article:author" content="mayi">
+<meta property="article:tag" content="ubuntu">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2017/02/17/vim-markdown-plug/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2017/02/17/vim-markdown-plug/","path":"2017/02/17/vim-markdown-plug/","title":"ubuntu系统使用vim编辑预览markdown文件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ubuntu系统使用vim编辑预览markdown文件 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">3.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/02/17/vim-markdown-plug/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ubuntu系统使用vim编辑预览markdown文件 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ubuntu系统使用vim编辑预览markdown文件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-02-17 15:56:00" itemprop="dateCreated datePublished" datetime="2017-02-17T15:56:00+08:00">2017-02-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>使用atom一段时间后，发现启动速度和命令行查看不习惯，尝试一下vim+markdown插件如何？</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li>安装vim插件管理工具Vundle</li>
+</ol>
+<p><code>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</code></p>
+<p>修改vimrc,如下内容添加在配置文件末尾<code>sudo /etc/vim/vimrc</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">set nocompatible    &quot; be iMproved, required</span><br><span class="line">filetype off &quot; required</span><br><span class="line">&quot; 启用vundle来管理vim插件</span><br><span class="line">set rtp+=~/.vim/bundle/Vundle.vim</span><br><span class="line">call vundle#begin()</span><br><span class="line">&quot; 安装插件写在这之后</span><br><span class="line">&quot; let Vundle manage Vundle, required</span><br><span class="line">Plugin &#x27;VundleVim/Vundle.vim&#x27;</span><br><span class="line">Plugin &#x27;suan/vim-instant-markdown&#x27;</span><br><span class="line">&quot; 安装插件写在这之前</span><br><span class="line">call vundle#end() &quot; required</span><br><span class="line">filetype plugin on </span><br><span class="line">&quot; required&quot; 常用命令</span><br><span class="line">&quot; :PluginList - 查看已经安装的插件</span><br><span class="line">&quot; :PluginInstall - 安装插件</span><br><span class="line">&quot; :PluginUpdate - 更新插件</span><br><span class="line">&quot; :PluginSearch - 搜索插件，例如 :PluginSearch xml就能搜到xml相关的插件</span><br><span class="line">&quot; :PluginClean - 删除插件，把安装插件对应行删除，然后执行这个命令即可</span><br><span class="line">&quot; h: vundle - 获取帮助</span><br></pre></td></tr></table></figure>
+<p>打开vim<code>sudo vim</code>，在命令模式执行<code>PluginInstall</code>，即可安装成功。</p>
+<span id="more"></span>
+<ol start="2">
+<li>安装其他插件<br>待安装插件写在配置文件<code>Plugin &#39;VundleVim/vundle.vim&#39;</code>之后，并在vim命令模式执行<code>PluginInstall</code>即可。</li>
+<li>语法高亮插件<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Plugin &#x27;godlygeek/tabular&#x27;</span><br><span class="line">Plugin &#x27;plasticboy/vim-markdown&#x27;</span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2></li>
+</ol>
+<p>使用vim打开一个.md文件后，会默认打开一个浏览器窗口，时时现实vim编辑内容。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.linuxdiyf.com/linux/22869.html">http://www.linuxdiyf.com/linux/22869.html</a><br><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/24aefcd4ca93">http://www.jianshu.com/p/24aefcd4ca93</a><br><a target="_blank" rel="noopener" href="https://mikecoder.cn/?post=131">https://mikecoder.cn/?post=131</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ubuntu/" rel="tag"># ubuntu</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/02/14/2016%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" rel="prev" title="2016年终总结">
+                  <i class="fa fa-chevron-left"></i> 2016年终总结
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/02/23/%E6%89%B9%E9%87%8F%E6%A3%80%E6%B5%8Bip%E5%BD%92%E5%B1%9E%E8%BF%90%E8%90%A5%E5%95%86/" rel="next" title="批量查询ip归属运营商">
+                  批量查询ip归属运营商 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

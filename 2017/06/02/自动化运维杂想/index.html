@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近在学习了ansible，通过ad-hoc命令和playbook方式获取主机软硬件信息、安装软件包都很方便。不足之处是编写的脚本经常需要变化，同事之间共享麻烦，没有执行记录等。ansible tower收费产品可能对于一个运维团队来说，是一个不错的产品。 也了解了腾讯蓝鲸运维平台，其中的配置管理模块和job模块比较好用。配置管理模块有业务视图和三方视图，能记录查询一个业务的结构和资源使用情况，比">
+<meta property="og:type" content="article">
+<meta property="og:title" content="运维杂想">
+<meta property="og:url" content="http://example.com/2017/06/02/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E6%9D%82%E6%83%B3/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="最近在学习了ansible，通过ad-hoc命令和playbook方式获取主机软硬件信息、安装软件包都很方便。不足之处是编写的脚本经常需要变化，同事之间共享麻烦，没有执行记录等。ansible tower收费产品可能对于一个运维团队来说，是一个不错的产品。 也了解了腾讯蓝鲸运维平台，其中的配置管理模块和job模块比较好用。配置管理模块有业务视图和三方视图，能记录查询一个业务的结构和资源使用情况，比">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-06-02T06:13:10.000Z">
+<meta property="article:modified_time" content="2017-06-16T08:19:09.000Z">
+<meta property="article:author" content="mayi">
+<meta property="article:tag" content="其他">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2017/06/02/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E6%9D%82%E6%83%B3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2017/06/02/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E6%9D%82%E6%83%B3/","path":"2017/06/02/自动化运维杂想/","title":"运维杂想"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>运维杂想 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/02/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E6%9D%82%E6%83%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="运维杂想 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          运维杂想
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-06-02 14:13:10" itemprop="dateCreated datePublished" datetime="2017-06-02T14:13:10+08:00">2017-06-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>最近在学习了ansible，通过ad-hoc命令和playbook方式获取主机软硬件信息、安装软件包都很方便。不足之处是编写的脚本经常需要变化，同事之间共享麻烦，没有执行记录等。ansible tower收费产品可能对于一个运维团队来说，是一个不错的产品。</p>
+<p>也了解了腾讯蓝鲸运维平台，其中的配置管理模块和job模块比较好用。配置管理模块有业务视图和三方视图，能记录查询一个业务的结构和资源使用情况，比使用excel好。job模块是结合配置管理的，可在job模块执行临时、定期、定时脚本。脚本变更历史、执行情况都能记录。前提是每台主机需要安装agent，目前还没找到agent安装方法。</p>
+<p>想结合这两个产品，用蓝鲸的配置管理和job模块，但使用asible免agent的方式执行命令，不知可行不？《Ansible权威指南》后面几章讲述了类似方法，后面仔细学习下。</p>
+<p>查询zabbix获取vcenter告警信息时意外想到使用命令行管理vmware虚拟机，找到两篇文章<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/1302_yuanlin_perlvm/">linux</a>，<a target="_blank" rel="noopener" href="http://www.361way.com/powercli-deploy-vmware/4877.html">windows</a>,都可以实现，自己在测试linux机器上安装了，但没有可供测试的ESXi主机，遂搁置。ansible 也有模块操作vsphere,<a target="_blank" rel="noopener" href="http://everythingshouldbevirtual.com/creating-vsphere-vms-using-ansible">ansible创建vmware</a>.发现上面链接的两个地方有大量运维干货，也是意外的惊喜。ibm的比较有逻辑，361way的实践性强。其中一篇<a target="_blank" rel="noopener" href="http://www.361way.com/awk-sed-convert-oneline/5127.html">多行合并一行</a>有用，在使用nmap时就想过，这篇算是解决方案了。zabbix获取vcenter告警信息还没有解决方案，猜想可以通过<a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/3.0/manual/vm_monitoring">虚拟机监控</a>来实现。</p>
+<p>团队可以使用seafile来共享资源和共同编写团队wiki，记录经验。</p>
+<p>django也想学习，太贪婪。想想吴军的关于工作和职业的思考，工作是拿钱给你必须做的事情，职业是自我发展的。有利于职业发展的，不管有钱没钱，都要去做，做好了，有经验了，自己就升值了。赚钱的方式就是让自己值钱并把自己放在合适的位置。知识分为术和道两类，有了心法，各种技术万变不离其中。</p>
+<p>看了一篇<a target="_blank" rel="noopener" href="http://ce.sysu.edu.cn/hope/UploadFiles/Education/2012/2/201202142337246457.pdf">VMware vSphere 基础</a>,对VMware的虚拟化有了进一步认识。VMware虚拟化了3样东西：计算、存储、网络。通过主机迁移、存储迁移、网络端口组，手动管理虚拟机。vcenter有资源调度策略，使用主机迁移、存储迁移、分布式交换机方法，可根据策略（节能、负载均衡）动态调整虚拟机及存储位置。</p>
+<p><a target="_blank" rel="noopener" href="http://www.361way.com/linux-monitor-benchmark-tuning/3745.html">三张图看遍Linux性能监控、测试、优化工具</a>这篇文章应该是linux知识的“道”。监控linux主机时，不知道哪些指标，可以仔细看。内核下接设备驱动，上接系统调用。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%B6%E4%BB%96/" rel="tag"># 其他</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/06/01/ansible-playbook%E5%AE%89%E8%A3%85zabbix-agent/" rel="prev" title="ansible-playbook安装zabbix-agent">
+                  <i class="fa fa-chevron-left"></i> ansible-playbook安装zabbix-agent
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/06/05/vmware%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/" rel="next" title="vmware PowerCLI命令笔记">
+                  vmware PowerCLI命令笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

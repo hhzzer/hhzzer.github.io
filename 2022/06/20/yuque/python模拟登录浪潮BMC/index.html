@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="背景服务器带外密码经常不正确，需要有一个工具去巡检服务器带外的登录信息是否准确，考虑使用 python requests 去模拟登录。 页面分析浏览器设置chrome 浏览器访问带外地址，F12 开启调试模式，勾选“Preserve log”，记录跳转日志。 输入错误的密码，观察页面跳转输入错误密码后，发现有 3 个请求页面randomtag 页面，使用 get 方法，返回一个随机 tag红色 s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python模拟登录浪潮BMC">
+<meta property="og:url" content="http://example.com/2022/06/20/yuque/python%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E6%B5%AA%E6%BD%AEBMC/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="背景服务器带外密码经常不正确，需要有一个工具去巡检服务器带外的登录信息是否准确，考虑使用 python requests 去模拟登录。 页面分析浏览器设置chrome 浏览器访问带外地址，F12 开启调试模式，勾选“Preserve log”，记录跳转日志。 输入错误的密码，观察页面跳转输入错误密码后，发现有 3 个请求页面randomtag 页面，使用 get 方法，返回一个随机 tag红色 s">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FhU3ozhge7NRZ65PEi1aqX8lyUzh.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//Fsa1aVTc2X684yjrCGjsF390557p.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FksX6BT8ELB_-pA6xnC8D0yfeOyT.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FoatGRyio3TZxN6Rom9x6GYAvzLy.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FiTaMSO2LIVzxBRAXEFD8kZNMB4G.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FnyYUC91eP75WDs1y9IxIWcEmN4g.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FlZARZlErTjqRiviPFYksWITvOe9.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FlsfhC9PA1a9xqgqStX7munvQG04.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//Fs_4dlrhTmUn49OVUbpBHP5pOfIm.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//Fl7J8Q0wBTF58yk77UAoGJeU73Qs.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FvNW3AdpEN7ELGtO9EQZFC--l7aQ.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FlVUxucslGVH4-inmxcKwX-paYJa.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//Fr4S7tHvQsq79VyWjCv8Qs7RLl5H.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FnbyKfhkk4h64pZYKrNu8DNjsQMT.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FsSdXRcqHMbjg3bkF9dbRoDAAQJT.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FmyHLbN8m6UUK6fNQ17rUGFJ72Aq.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FqWfvX_hnhDK1JZmSk4RXNrjaivy.png">
+<meta property="article:published_time" content="2022-06-20T07:16:19.000Z">
+<meta property="article:modified_time" content="2022-06-29T03:46:49.765Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://huilu-blog.colinspace.com//FhU3ozhge7NRZ65PEi1aqX8lyUzh.png">
+
+
+<link rel="canonical" href="http://example.com/2022/06/20/yuque/python%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E6%B5%AA%E6%BD%AEBMC/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/06/20/yuque/python%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E6%B5%AA%E6%BD%AEBMC/","path":"2022/06/20/yuque/python模拟登录浪潮BMC/","title":"python模拟登录浪潮BMC"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>python模拟登录浪潮BMC | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">页面分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.1.</span> <span class="nav-text">浏览器设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E9%94%99%E8%AF%AF%E7%9A%84%E5%AF%86%E7%A0%81%EF%BC%8C%E8%A7%82%E5%AF%9F%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC"><span class="nav-number">2.2.</span> <span class="nav-text">输入错误的密码，观察页面跳转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%AD%A3%E7%A1%AE%E7%99%BB%E5%BD%95%E4%BF%A1%E6%81%AF%EF%BC%8C%E8%A7%82%E5%AF%9F%E9%A1%B5%E9%9D%A2"><span class="nav-number">2.3.</span> <span class="nav-text">输入正确登录信息，观察页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="nav-number">2.4.</span> <span class="nav-text">加密数据分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99"><span class="nav-number">3.</span> <span class="nav-text">代码编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%85%E5%AE%8C%E6%88%90"><span class="nav-number">4.</span> <span class="nav-text">待完成</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/20/yuque/python%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E6%B5%AA%E6%BD%AEBMC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="python模拟登录浪潮BMC | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python模拟登录浪潮BMC
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-20 15:16:19" itemprop="dateCreated datePublished" datetime="2022-06-20T15:16:19+08:00">2022-06-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 11:46:49" itemprop="dateModified" datetime="2022-06-29T11:46:49+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>服务器带外密码经常不正确，需要有一个工具去巡检服务器带外的登录信息是否准确，考虑使用 python requests 去模拟登录。</p>
+<h2 id="页面分析"><a href="#页面分析" class="headerlink" title="页面分析"></a>页面分析</h2><h3 id="浏览器设置"><a href="#浏览器设置" class="headerlink" title="浏览器设置"></a>浏览器设置</h3><p>chrome 浏览器访问带外地址，F12 开启调试模式，勾选“Preserve log”，记录跳转日志。<br><img src="http://huilu-blog.colinspace.com//FhU3ozhge7NRZ65PEi1aqX8lyUzh.png"></p>
+<h3 id="输入错误的密码，观察页面跳转"><a href="#输入错误的密码，观察页面跳转" class="headerlink" title="输入错误的密码，观察页面跳转"></a>输入错误的密码，观察页面跳转</h3><p>输入错误密码后，发现有 3 个请求页面<br>randomtag 页面，使用 get 方法，返回一个随机 tag<br><img src="http://huilu-blog.colinspace.com//Fsa1aVTc2X684yjrCGjsF390557p.png"><br><img src="http://huilu-blog.colinspace.com//FksX6BT8ELB_-pA6xnC8D0yfeOyT.png"><br>红色 session 页面<br>使用 delete 方法，删除存在的 session，删除失败。<br><img src="http://huilu-blog.colinspace.com//FoatGRyio3TZxN6Rom9x6GYAvzLy.png"><br>第二个 session<br>post 请求，ajax 请求。post 数据中需要 4 个字段，用户名、密码加密过，login_tag 为 randomtag 请求的返回值。<br>response 内容为认证信息，其中的 CSRFToken 字段需要注意。<br><img src="http://huilu-blog.colinspace.com//FiTaMSO2LIVzxBRAXEFD8kZNMB4G.png"><br><img src="http://huilu-blog.colinspace.com//FnyYUC91eP75WDs1y9IxIWcEmN4g.png"><br><img src="http://huilu-blog.colinspace.com//FlZARZlErTjqRiviPFYksWITvOe9.png"><br><img src="http://huilu-blog.colinspace.com//FlsfhC9PA1a9xqgqStX7munvQG04.png"></p>
+<h3 id="输入正确登录信息，观察页面"><a href="#输入正确登录信息，观察页面" class="headerlink" title="输入正确登录信息，观察页面"></a>输入正确登录信息，观察页面</h3><p>最开始依然有 3 个请求页面，user 页面应该是登录成功后的页面。<br><img src="http://huilu-blog.colinspace.com//Fs_4dlrhTmUn49OVUbpBHP5pOfIm.png"><br>user 页面为 get 请求，请求头包含了 CSRFToken.返回值看不了，可以看看 user 后面的页面。<br><img src="http://huilu-blog.colinspace.com//Fl7J8Q0wBTF58yk77UAoGJeU73Qs.png"><br>调试工具选择 Fetch/XHR,排除 js，png 的请求。<br><img src="http://huilu-blog.colinspace.com//FvNW3AdpEN7ELGtO9EQZFC--l7aQ.png"><br>查看 chassis-status 请求，get 请求，带 CSRFTokent，返回 json 格式文本。登录成功后可以请求这个页面，能获取期望的值，表明登录成功，获取失败，表明登录失败。<br><img src="http://huilu-blog.colinspace.com//FlVUxucslGVH4-inmxcKwX-paYJa.png"><br><img src="http://huilu-blog.colinspace.com//Fr4S7tHvQsq79VyWjCv8Qs7RLl5H.png"></p>
+<h3 id="加密数据分析"><a href="#加密数据分析" class="headerlink" title="加密数据分析"></a>加密数据分析</h3><p>查看 session 页面提交的 post 数据，发现加密的用户名和密码，多次输入相同的内容，密文不变。表示加密和时间无关。<br>观察输入框页面源码，页面 submit 提交按钮点击后，执行 doValidate()函数。<br><img src="http://huilu-blog.colinspace.com//FnbyKfhkk4h64pZYKrNu8DNjsQMT.png"><br>doValidate（）函数在 signin.js 中，包含了 login 的 ajax 请求函数。<br><img src="http://huilu-blog.colinspace.com//FsSdXRcqHMbjg3bkF9dbRoDAAQJT.png"><br>查看 js 文件，有 signin.js Blowfish.js 两个文件。<br><img src="http://huilu-blog.colinspace.com//FmyHLbN8m6UUK6fNQ17rUGFJ72Aq.png"><br>signin.js 中有加密的函数。Blowfish.js 是一个加密算法，signin 应该引用了加密算法。算法看不懂。</p>
+<p>要完全解密，手动制作密码表，把数字，大小写字母，特殊字符输入到用户名输入框，得到对应关系。<br>也可以把有的用户名，密码都在输入框中加密，获得对应关系，直接在程序中做转换。</p>
+<h2 id="代码编写"><a href="#代码编写" class="headerlink" title="代码编写"></a>代码编写</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> tcpping <span class="keyword">import</span> tcpping</span><br><span class="line"><span class="keyword">import</span> urllib3</span><br><span class="line"></span><br><span class="line">urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check_langchao</span>(<span class="params">ip, user, pwd</span>):</span><br><span class="line">    ping_flag = tcpping(ip, <span class="number">443</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> ping_flag:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;ping error:&#x27;</span> + ip)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;ping check success&#x27;</span>)</span><br><span class="line">        session = requests.session()</span><br><span class="line">        hd1 = &#123;</span><br><span class="line">            <span class="string">&quot;Accept&quot;</span>: <span class="string">&#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,&#x27;</span></span><br><span class="line">            <span class="string">&#x27;*/*;q=0.8,application/signed-exchange;v=b3;q=0.9&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;Accept-Encoding&quot;</span>: <span class="string">&#x27;gzip, deflate, br&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;Accept-Language&quot;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;Cache-Control&quot;</span>: <span class="string">&#x27;max-age=0&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;Connection&quot;</span>: <span class="string">&#x27;keep-alive&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;User-Agent&quot;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span></span><br><span class="line">            <span class="string">&#x27;Chrome/102.0.0.0 Safari/537.36 &#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        url1 = <span class="string">&#x27;https://&#x27;</span> + ip + <span class="string">&#x27;/index.html&#x27;</span></span><br><span class="line">        url2 = <span class="string">&#x27;https://&#x27;</span> + ip + <span class="string">&#x27;/api/randomtag&#x27;</span></span><br><span class="line">        session.get(url1, headers=hd1, verify=<span class="literal">False</span>)</span><br><span class="line">        random_code = session.get(url2, headers=hd1, verify=<span class="literal">False</span>).json()[<span class="string">&#x27;random&#x27;</span>]</span><br><span class="line">        <span class="built_in">print</span>(random_code)</span><br><span class="line">        url3 = <span class="string">&#x27;https://&#x27;</span> + ip + <span class="string">&#x27;/api/session&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> user == <span class="string">&#x27;admin&#x27;</span>:</span><br><span class="line">            username = <span class="string">&quot;用户名密文&quot;</span></span><br><span class="line">            <span class="keyword">if</span> pwd == <span class="string">&#x27;pwd&#x27;</span>:</span><br><span class="line">                password = <span class="string">&quot;密码密文&quot;</span></span><br><span class="line">                login_data = &#123;</span><br><span class="line">                    <span class="string">&quot;username&quot;</span>: username,</span><br><span class="line">                    <span class="string">&quot;password&quot;</span>: password,</span><br><span class="line">                    <span class="string">&quot;encrypt_flag&quot;</span>: <span class="number">1</span>,</span><br><span class="line">                    <span class="string">&quot;login_tag&quot;</span>: random_code</span><br><span class="line">                &#125;</span><br><span class="line">                hd3 = &#123;</span><br><span class="line">                    <span class="string">&#x27;Accept&#x27;</span>: <span class="string">&#x27;application/json, text/javascript, */*; q=0.01&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;Accept-Encoding&#x27;</span>: <span class="string">&#x27;gzip, deflate, br&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;Accept-Language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;Connection&#x27;</span>: <span class="string">&#x27;keep-alive&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;Content-Length&#x27;</span>: <span class="string">&#x27;82&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded; charset=UTF-8&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span></span><br><span class="line">                    <span class="string">&#x27;Chrome/102.0.0.0 Safari/537.36&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;X-Requested-With&#x27;</span>: <span class="string">&#x27;XMLHttpRequest&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">                re3 = session.post(url3, data=login_data, headers=hd3, verify=<span class="literal">False</span>)</span><br><span class="line">                <span class="keyword">if</span> re3.status_code == <span class="number">200</span>:</span><br><span class="line">                    csrf_token = re3.json()[<span class="string">&quot;CSRFToken&quot;</span>]</span><br><span class="line">                    <span class="built_in">print</span>(csrf_token)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;get csrf_token error&#x27;</span>)</span><br><span class="line">                    url4 = <span class="string">&#x27;https://&#x27;</span> + ip + <span class="string">&#x27;/api/session/settings/active-sessions&#x27;</span></span><br><span class="line">                    hd4 = &#123;</span><br><span class="line">                        <span class="string">&#x27;Accept&#x27;</span>: <span class="string">&#x27;*/*&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;Accept-Encoding&#x27;</span>: <span class="string">&#x27;gzip, deflate, br&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;Accept-Language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;Connection&#x27;</span>: <span class="string">&#x27;keep-alive&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span></span><br><span class="line">                        <span class="string">&#x27;Chrome/102.0.0.0 Safari/537.36&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;X-CSRFTOKEN&#x27;</span>: csrf_token,</span><br><span class="line">                        <span class="string">&#x27;X-Requested-With&#x27;</span>: <span class="string">&#x27;XMLHttpRequest&#x27;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    re4 = session.get(url4, headers=hd4, verify=<span class="literal">False</span>)</span><br><span class="line">                    <span class="keyword">if</span> re4.status_code == <span class="number">200</span>:</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&#x27;login success,server ip:&#123;&#125;,client_ip&#123;&#125;,user:&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(ip, re4.json()[<span class="number">0</span>][<span class="string">&#x27;client_ip&#x27;</span>],</span><br><span class="line">                                                                                      re4.json()[<span class="number">0</span>][<span class="string">&#x27;user_name&#x27;</span>]), )</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&#x27;get sessions ok&#x27;</span>)</span><br><span class="line">                        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&#x27;get sessions error&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    check_langchao(<span class="string">&#x27;ip&#x27;</span>, <span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;pwd&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>运行结果<br><img src="http://huilu-blog.colinspace.com//FqWfvX_hnhDK1JZmSk4RXNrjaivy.png"></p>
+<h2 id="待完成"><a href="#待完成" class="headerlink" title="待完成"></a>待完成</h2><p>从文件中读取服务器 ip、厂家、用户、密码，循环调用检测函数，输出检测结果。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/10/yuque/%E3%80%8A%E8%BD%AF%E6%8A%80%E8%83%BD%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B01-%E4%BA%8B%E4%B8%9A/" rel="prev" title="《软技能》读书笔记1-事业">
+                  <i class="fa fa-chevron-left"></i> 《软技能》读书笔记1-事业
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/20/yuque/%E3%80%8A%E8%BD%AF%E6%8A%80%E8%83%BD%E3%80%8B%E4%B9%A6%E6%91%98/" rel="next" title="《软技能》书摘">
+                  《软技能》书摘 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

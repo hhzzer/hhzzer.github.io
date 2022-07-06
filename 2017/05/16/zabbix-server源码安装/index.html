@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="安装详细步骤 按照centos7安装mysql安装完mysql 按照本文安装剩余步骤。  配置mysql下载zabbix源码到&#x2F;tmp&#x2F;ansible zs  -a &quot;wget http:&#x2F;&#x2F;192.168.x.x:8000&#x2F;zabbix-3.0.9.tar.gz -O &#x2F;tmp&#x2F;zabbix-3.0.9.tar.gz&quot; 1234567891011121314#启动数据库，创建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos7.2 安装zabbix-server">
+<meta property="og:url" content="http://example.com/2017/05/16/zabbix-server%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="安装详细步骤 按照centos7安装mysql安装完mysql 按照本文安装剩余步骤。  配置mysql下载zabbix源码到&#x2F;tmp&#x2F;ansible zs  -a &quot;wget http:&#x2F;&#x2F;192.168.x.x:8000&#x2F;zabbix-3.0.9.tar.gz -O &#x2F;tmp&#x2F;zabbix-3.0.9.tar.gz&quot; 1234567891011121314#启动数据库，创建">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-05-16T01:27:51.000Z">
+<meta property="article:modified_time" content="2017-06-16T08:19:09.000Z">
+<meta property="article:author" content="mayi">
+<meta property="article:tag" content="zabbix">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2017/05/16/zabbix-server%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2017/05/16/zabbix-server%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/","path":"2017/05/16/zabbix-server源码安装/","title":"centos7.2 安装zabbix-server"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>centos7.2 安装zabbix-server | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">安装详细步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEmysql"><span class="nav-number">1.1.</span> <span class="nav-text">配置mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%B9%B6%E5%AE%89%E8%A3%85server"><span class="nav-number">1.2.</span> <span class="nav-text">编译并安装server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%89%8D%E7%AB%AF%E7%95%8C%E9%9D%A2"><span class="nav-number">1.3.</span> <span class="nav-text">安装前端界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%A5%E9%94%99%E5%A4%84%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">报错处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E4%BE%9D%E8%B5%96%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.</span> <span class="nav-text">软件依赖查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/16/zabbix-server%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="centos7.2 安装zabbix-server | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          centos7.2 安装zabbix-server
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-16 09:27:51" itemprop="dateCreated datePublished" datetime="2017-05-16T09:27:51+08:00">2017-05-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="安装详细步骤"><a href="#安装详细步骤" class="headerlink" title="安装详细步骤"></a>安装详细步骤</h2><ol>
+<li>按照<a target="_blank" rel="noopener" href="http://blog.hhzzer.com/2017/05/16/centos7%E5%AE%89%E8%A3%85mysql/">centos7安装mysql</a>安装完mysql</li>
+<li>按照本文安装剩余步骤。</li>
+</ol>
+<h3 id="配置mysql"><a href="#配置mysql" class="headerlink" title="配置mysql"></a>配置mysql</h3><p>下载zabbix源码到/tmp/<br><code>ansible zs  -a &quot;wget http://192.168.x.x:8000/zabbix-3.0.9.tar.gz -O /tmp/zabbix-3.0.9.tar.gz&quot;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#启动数据库，创建用户和数据库</span><br><span class="line">systemctl start mysqld</span><br><span class="line">ps -ef | grep mysqld</span><br><span class="line">mysql -u root -p</span><br><span class="line">mysql&gt;create database zabbix character set utf8 collate utf8_bin;</span><br><span class="line">mysql&gt;CREATE USER &#x27;zabbix&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;xxxxxx&#x27;;</span><br><span class="line">mysql&gt;grant all on zabbix.*  to &#x27;zabbix&#x27;@&#x27;localhost&#x27;;</span><br><span class="line">mysql&gt;flush privileges;</span><br><span class="line">#初始化zabbix数据库</span><br><span class="line">tar -xvf /tmp/zabbix-3.0.9.tar.gz</span><br><span class="line">cd /tmp/zabbix-3.0.9/</span><br><span class="line">mysql -u zabbix -p zabbix &lt; database/mysql/schema.sql</span><br><span class="line">mysql -u zabbix -p zabbix &lt; database/mysql/images.sql</span><br><span class="line">mysql -u zabbix -p zabbix &lt; database/mysql/data.sql</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="编译并安装server"><a href="#编译并安装server" class="headerlink" title="编译并安装server"></a>编译并安装server</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">yum install libxml2-devel curl-devel net-snmp-devel OpenIPMI-devel -y</span><br><span class="line">cd /tmp/zabbix-3.0.9/</span><br><span class="line">./configure --enable-server --enable-agent --with-mysql --with-net-snmp --with-libcurl --with-libxml2 --with-openipmi  --prefix=/apps/svr/zabbix</span><br><span class="line">make install</span><br><span class="line">#添加用户和组</span><br><span class="line">groupadd zabbix</span><br><span class="line">useradd -g zabbix zabbix</span><br><span class="line">chown -R zabbix /apps/svr/zabbix</span><br><span class="line">chmod 777 /tmp/zabbix_server.log</span><br><span class="line">vi /apps/svr/zabbix/etc/zabbix_server.conf #修改DBPassword为mysql设置的密码</span><br><span class="line">#启动zabbix_server服务</span><br><span class="line">/apps/svr/zabbix/sbin/zabbix_server -c /apps/svr/zabbix/etc/zabbix_server.conf</span><br><span class="line">#查看启动日志,类似如下表明启动成功。</span><br><span class="line">tail -f /tmp/zabbix_server.log</span><br><span class="line">17315:20170518:135832.205 server #17 started [timer #1]</span><br><span class="line"> 17321:20170518:135832.205 server #23 started [history syncer #4]</span><br><span class="line"> 17319:20170518:135832.205 server #21 started [history syncer #2]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="安装前端界面"><a href="#安装前端界面" class="headerlink" title="安装前端界面"></a>安装前端界面</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 安装前端需要软件</span><br><span class="line">yum install httpd  php php-gd  php-ctype  php-mbstring php-xmlwriter php-xmlreader php-bcmath php-mysql -y</span><br><span class="line">#启动apache</span><br><span class="line">service httpd start</span><br><span class="line">#将前端文件移动到apache目录</span><br><span class="line">cp -r /tmp/zabbix-3.0.9/frontends/php/ /var/www/html/</span><br><span class="line">mv /var/www/html/php /var/www/html/zabbix</span><br><span class="line">#浏览器打开serverip/zabbix,查看自检</span><br><span class="line">copy /etc/php.ini /etc/php.ini.bak</span><br><span class="line">vi /etc/php.ini</span><br><span class="line"></span><br><span class="line">post_max_size=16M</span><br><span class="line">max_execution_time=300</span><br><span class="line">max_input_time=300</span><br><span class="line">date.timezone=Asia/Chongqing</span><br><span class="line"># 输入mysql用户zabbix的密码</span><br><span class="line"># 手动下载zabbix.conf.php，并将文件上传到server /var/www/html/zabbix/conf/</span><br><span class="line"># 上传后点击完成，跳转到登录界面，输入默认用户Admin，密码 zabbix即可登录。</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="报错处理"><a href="#报错处理" class="headerlink" title="报错处理"></a>报错处理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE USER &#x27;zabbix&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;zabbix&#x27;;</span><br><span class="line">ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.</span><br><span class="line">重设密码</span><br><span class="line"> set password = password(&quot;复杂密码&quot;)</span><br><span class="line">mysql&gt;CREATE USER &#x27;zabbix&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;zabbix&#x27;;</span><br><span class="line"># 报错 Please use mysql_upgrade to fix this error</span><br><span class="line"> mysql_upgrade -u root -p</span><br><span class="line"></span><br><span class="line"> 编译zabbix源码报错“MySQL library not found”</span><br><span class="line"> rpm -ivh mysql-community-devel-*   </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="软件依赖查询"><a href="#软件依赖查询" class="headerlink" title="软件依赖查询"></a>软件依赖查询</h2><ul>
+<li>数据库</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Software</th>
+<th>Version</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MySQL</td>
+<td>5.0.3 or later</td>
+<td>Required if MySQL is used as Zabbix backend database. InnoDB engine is required.</td>
+</tr>
+</tbody></table>
+<ul>
+<li>前端</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Software</th>
+<th>Version</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Apache</td>
+<td>1.3.12 or later</td>
+<td></td>
+</tr>
+<tr>
+<td>PHP</td>
+<td>5.4.0 or later</td>
+<td>PHP v7 is not supported yet.</td>
+</tr>
+<tr>
+<td>PHP</td>
+<td>extensions:</td>
+<td></td>
+</tr>
+<tr>
+<td>gd</td>
+<td>2.0 or later</td>
+<td>PHP GD extension must support PNG images (–with-png-dir), JPEG (–with-jpeg-dir) images and FreeType 2 (–with-freetype-dir).</td>
+</tr>
+<tr>
+<td>bcmath</td>
+<td></td>
+<td>php-bcmath (–enable-bcmath)</td>
+</tr>
+<tr>
+<td>ctype</td>
+<td></td>
+<td>php-ctype (–enable-ctype)</td>
+</tr>
+<tr>
+<td>libXML</td>
+<td>2.6.15 or later</td>
+<td>php-xml or php5-dom, if provided as a separate package by the distributor.</td>
+</tr>
+<tr>
+<td>xmlreader</td>
+<td></td>
+<td>php-xmlreader, if provided as a separate package by the distributor.</td>
+</tr>
+<tr>
+<td>xmlwriter</td>
+<td></td>
+<td>php-xmlwriter, if provided as a separate package by the distributor.</td>
+</tr>
+<tr>
+<td>session</td>
+<td></td>
+<td>php-session, if provided as a separate package by the distributor.</td>
+</tr>
+<tr>
+<td>sockets</td>
+<td></td>
+<td>php-net-socket (–enable-sockets). Required for user script support.</td>
+</tr>
+<tr>
+<td>mbstring</td>
+<td></td>
+<td>php-mbstring (–enable-mbstring)</td>
+</tr>
+<tr>
+<td>gettext</td>
+<td></td>
+<td>php-gettext (–with-gettext). Required for translations to work.</td>
+</tr>
+<tr>
+<td>mysqli</td>
+<td></td>
+<td>Required if MySQL is used as Zabbix backend database.</td>
+</tr>
+</tbody></table>
+<ul>
+<li>server端可选</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Software</th>
+<th>Discription</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OpenIPMI</td>
+<td>Required for IPMI support.</td>
+</tr>
+<tr>
+<td>libssh2</td>
+<td>Required for SSH support. Version 1.0 or higher.</td>
+</tr>
+<tr>
+<td>fping</td>
+<td>Required for ICMP ping items.</td>
+</tr>
+<tr>
+<td>libcurl</td>
+<td>Required for web monitoring, VMware monitoring and SMTP authentication. For SMTP authentication, version 7.20.0 or higher is required.</td>
+</tr>
+<tr>
+<td>libiksemel</td>
+<td>Required for Jabber support.</td>
+</tr>
+<tr>
+<td>libxml2</td>
+<td>Required for VMware monitoring.</td>
+</tr>
+<tr>
+<td>net-snmp</td>
+<td>Required for SNMP support.</td>
+</tr>
+</tbody></table>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/starof/p/4680083.html">https://www.cnblogs.com/starof/p/4680083.html</a><br><a target="_blank" rel="noopener" href="http://www.infocool.net/kb/Mysql/201612/246832.html">http://www.infocool.net/kb/Mysql/201612/246832.html</a><br><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/d7b9c468f20d">http://www.jianshu.com/p/d7b9c468f20d</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/zabbix/" rel="tag"># zabbix</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/05/15/%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85zabbix-agentd/" rel="prev" title="使用ansible批量安装zabbix_agentd">
+                  <i class="fa fa-chevron-left"></i> 使用ansible批量安装zabbix_agentd
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/05/16/centos7%E5%AE%89%E8%A3%85mysql/" rel="next" title="centos7安装mysql">
+                  centos7安装mysql <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

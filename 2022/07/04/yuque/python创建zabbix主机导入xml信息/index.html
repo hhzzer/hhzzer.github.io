@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2017-08-14使用 python xml.etree.ElementTree 模块创建可导入 zabbix 的主机列表文档，加快监控添加效率。 问题来源工作中需要批量添加大量主机到 zabbix 监控。虽然 zabbix 自动发现功能自动添加，但是添加的无描述信息，监控组无法通过告警信息快速联系责任人，所以监控主机需要手工添加。zabbix 系统中添加监控信息的途径有：1）自动发现添">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python创建zabbix主机导入xml信息">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/python%E5%88%9B%E5%BB%BAzabbix%E4%B8%BB%E6%9C%BA%E5%AF%BC%E5%85%A5xml%E4%BF%A1%E6%81%AF/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2017-08-14使用 python xml.etree.ElementTree 模块创建可导入 zabbix 的主机列表文档，加快监控添加效率。 问题来源工作中需要批量添加大量主机到 zabbix 监控。虽然 zabbix 自动发现功能自动添加，但是添加的无描述信息，监控组无法通过告警信息快速联系责任人，所以监控主机需要手工添加。zabbix 系统中添加监控信息的途径有：1）自动发现添">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T07:52:11.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.570Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/python%E5%88%9B%E5%BB%BAzabbix%E4%B8%BB%E6%9C%BA%E5%AF%BC%E5%85%A5xml%E4%BF%A1%E6%81%AF/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/python%E5%88%9B%E5%BB%BAzabbix%E4%B8%BB%E6%9C%BA%E5%AF%BC%E5%85%A5xml%E4%BF%A1%E6%81%AF/","path":"2022/07/04/yuque/python创建zabbix主机导入xml信息/","title":"python创建zabbix主机导入xml信息"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>python创建zabbix主机导入xml信息 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%9D%A5%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">问题来源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IOP%EF%BC%88input%E3%80%81process%E3%80%81output%EF%BC%89%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">IOP（input、process、output）分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">遇到的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E7%BB%AD%E6%94%B9%E8%BF%9B"><span class="nav-number">5.</span> <span class="nav-text">后续改进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">6.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/python%E5%88%9B%E5%BB%BAzabbix%E4%B8%BB%E6%9C%BA%E5%AF%BC%E5%85%A5xml%E4%BF%A1%E6%81%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="python创建zabbix主机导入xml信息 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python创建zabbix主机导入xml信息
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 15:52:11 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:52:11+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2017-08-14<br>使用 python xml.etree.ElementTree 模块创建可导入 zabbix 的主机列表文档，加快监控添加效率。</p>
+<h2 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h2><p>工作中需要批量添加大量主机到 zabbix 监控。虽然 zabbix 自动发现功能自动添加，但是添加的无描述信息，监控组无法通过告警信息快速联系责任人，所以监控主机需要手工添加。zabbix 系统中添加监控信息的途径有：1）自动发现添加 2）web 界面手动一台一台添加 3）编辑 xml 文件，批量导入 4）使用 api 导入。本文完成第三种模式的添加。</p>
+<h2 id="IOP（input、process、output）分析"><a href="#IOP（input、process、output）分析" class="headerlink" title="IOP（input、process、output）分析"></a>IOP（input、process、output）分析</h2><p>创建 xml 文件有两种方法：一是引用一个 xml 模板，解析其中的结构，然后复用解析的元素;二是从零生成一个满足导入需求的 xml 文件。第一种操作快，但涉及的流程复杂，第二种为笨办法，但流程清晰，故采用从零创建。</p>
+<ul>
+<li>input<br>input 为一个 ip 列表，可以是一个范围</li>
+<li>process<br>分析了 zabbix 导出的 xml 结构，发现主机信息在 xml 文件中部子节点中。故先创建主 xml 结构，然后通过循环创建子节点。子节点创建定义一个函数方便调用。</li>
+<li>output<br>输出为一个 xml 文件</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> xml.etree.ElementTree <span class="keyword">as</span> xml</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">createXML</span>(<span class="params">filename</span>):</span><br><span class="line">    root = xml.Element(<span class="string">&quot;zabbix_export&quot;</span>)</span><br><span class="line">    z_version=xml.SubElement(root,<span class="string">&quot;version&quot;</span>)</span><br><span class="line">    z_version.text=<span class="string">&quot;3.0&quot;</span></span><br><span class="line">    z_date = xml.SubElement(root,<span class="string">&quot;date&quot;</span>)</span><br><span class="line">    z_date.text=<span class="string">&quot;2017-08-11T08:50:11Z&quot;</span></span><br><span class="line">    z_groups = xml.SubElement(root,<span class="string">&quot;groups&quot;</span>)</span><br><span class="line">    g_group = xml.SubElement(z_groups,<span class="string">&quot;group&quot;</span>)</span><br><span class="line">    g_name = xml.SubElement(g_group,<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    g_name.text = <span class="string">&quot;Linux servers&quot;</span></span><br><span class="line">    z_hosts = xml.SubElement(root,<span class="string">&quot;hosts&quot;</span>)</span><br><span class="line">    <span class="comment">#hosts_host = xml.SubElement(z_hosts,&quot;host&quot;)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ip <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">3</span>):</span><br><span class="line">        host=createHost(<span class="built_in">str</span>(ip))</span><br><span class="line">        z_hosts.append(host)</span><br><span class="line">    tree = xml.ElementTree(root)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(filename,<span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> fh:</span><br><span class="line">        tree.write(fh)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">createHost</span>(<span class="params">ip</span>):</span><br><span class="line">    ip_addr = <span class="string">&quot;192.168.200.&quot;</span> + ip</span><br><span class="line">    host_top=xml.Element(<span class="string">&quot;host&quot;</span>)</span><br><span class="line">    host_ip=xml.SubElement(host_top,<span class="string">&quot;host&quot;</span>)</span><br><span class="line">    host_ip.text=ip_addr</span><br><span class="line">    host_name = xml.SubElement(host_top,<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    host_name.text=<span class="string">u&quot;abcd中文&quot;</span>+<span class="string">&quot;(&quot;</span>+ip_addr+<span class="string">u&quot;)中文-name&quot;</span></span><br><span class="line">    h_description=xml.SubElement(host_top,<span class="string">&quot;description&quot;</span>)</span><br><span class="line">    h_proxy = xml.SubElement(host_top,<span class="string">&quot;proxy&quot;</span>)</span><br><span class="line">    h_status = xml.SubElement(host_top,<span class="string">&quot;status&quot;</span>)</span><br><span class="line">    h_status.text=<span class="string">&quot;0&quot;</span></span><br><span class="line">    h_ipmi_authtype=xml.SubElement(host_top,<span class="string">&quot;ipmi_authtype&quot;</span>)</span><br><span class="line">    h_ipmi_authtype.text=<span class="string">&quot;-1&quot;</span></span><br><span class="line">    h_ipmi_privileg=xml.SubElement(host_top,<span class="string">&quot;ipmi_privilege&quot;</span>)</span><br><span class="line">    h_ipmi_privileg.text=<span class="string">&quot;2&quot;</span></span><br><span class="line">    h_ipmi_username=xml.SubElement(host_top,<span class="string">&quot;ipmi_username&quot;</span>)</span><br><span class="line">    h_ipmi_password=xml.SubElement(host_top,<span class="string">&quot;ipmi_password&quot;</span>)</span><br><span class="line">    h_tls_connect=xml.SubElement(host_top,<span class="string">&quot;tls_connect&quot;</span>)</span><br><span class="line">    h_tls_connect.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    h_tls_accept=xml.SubElement(host_top,<span class="string">&quot;tls_accept&quot;</span>)</span><br><span class="line">    h_tls_accept.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    h_tls_issuer=xml.SubElement(host_top,<span class="string">&quot;tls_issuer&quot;</span>)</span><br><span class="line">    h_tls_subject=xml.SubElement(host_top,<span class="string">&quot;tls_subject&quot;</span>)</span><br><span class="line">    h_tls_psk_identity=xml.SubElement(host_top,<span class="string">&quot;tls_psk_identity&quot;</span>)</span><br><span class="line">    h_tls_psk=xml.SubElement(host_top,<span class="string">&quot;tls_psk&quot;</span>)</span><br><span class="line">    h_templates=xml.SubElement(host_top,<span class="string">&quot;templates&quot;</span>)</span><br><span class="line">    t_template=xml.SubElement(h_templates,<span class="string">&quot;template&quot;</span>)</span><br><span class="line">    t_name=xml.SubElement(t_template,<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    t_name.text=<span class="string">&quot;Linux-Templates&quot;</span></span><br><span class="line">    h_groups = xml.SubElement(host_top,<span class="string">&quot;groups&quot;</span>)</span><br><span class="line">    g_group = xml.SubElement(h_groups,<span class="string">&quot;group&quot;</span>)</span><br><span class="line">    g_name=xml.SubElement(g_group,<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    g_name.text=<span class="string">&quot;Linux servers&quot;</span></span><br><span class="line">    h_interfaces=xml.SubElement(host_top,<span class="string">&quot;interfaces&quot;</span>)</span><br><span class="line">    i_interface=xml.SubElement(h_interfaces,<span class="string">&quot;interface&quot;</span>)</span><br><span class="line">    i_default=xml.SubElement(i_interface,<span class="string">&quot;default&quot;</span>)</span><br><span class="line">    i_default.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    i_type=xml.SubElement(i_interface,<span class="string">&quot;type&quot;</span>)</span><br><span class="line">    i_type.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    i_useip=xml.SubElement(i_interface,<span class="string">&quot;useip&quot;</span>)</span><br><span class="line">    i_useip.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    i_ip=xml.SubElement(i_interface,<span class="string">&quot;ip&quot;</span>)</span><br><span class="line">    i_ip.text=ip_addr</span><br><span class="line">    i_dns=xml.SubElement(i_interface,<span class="string">&quot;dns&quot;</span>)</span><br><span class="line">    i_port=xml.SubElement(i_interface,<span class="string">&quot;port&quot;</span>)</span><br><span class="line">    i_port.text=<span class="string">&quot;10050&quot;</span></span><br><span class="line">    i_bulk=xml.SubElement(i_interface,<span class="string">&quot;bulk&quot;</span>)</span><br><span class="line">    i_bulk.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    i_interface_ref=xml.SubElement(i_interface,<span class="string">&quot;interface_ref&quot;</span>)</span><br><span class="line">    i_interface_ref.text=<span class="string">&quot;if1&quot;</span></span><br><span class="line">    h_applications=xml.SubElement(host_top,<span class="string">&quot;applications&quot;</span>)</span><br><span class="line">    h_items=xml.SubElement(host_top,<span class="string">&quot;items&quot;</span>)</span><br><span class="line">    h_discovery_rules=xml.SubElement(host_top,<span class="string">&quot;discovery_rules&quot;</span>)</span><br><span class="line">    h_macros=xml.SubElement(host_top,<span class="string">&quot;macros&quot;</span>)</span><br><span class="line">    h_inventory=xml.SubElement(host_top,<span class="string">&quot;inventory&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> host_top</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    createXML(<span class="string">&quot;appt.xml&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ol>
+<li>导入的 xml 模块需要使用 python2.7 环境，python3.5 环境报错</li>
+<li>“Invalid tag “/zabbix_export/version”: ”发现 version 版本写的“3”，而模板是“3.0”,改为 3.0 后问题解决</li>
+<li>中文编码问题，生成 xml 文件中有中文字符会报错。程序运行为 ubuntu，python 文件编码为 utf-8,python 内部编码为 unicode。应该把中文字符转换为 unicode 后能解决。解决办法：python 文件采用 utf-8,在文件头添加“#-<em>- coding: UTF-8 -</em>-”解决“None-ASSIC”问题，中文字符采用”u’中文’”模式，解决“UnicodeDecodeError”</li>
+<li>port 标签忘赋值，添加后导入不报错。</li>
+</ol>
+<h2 id="后续改进"><a href="#后续改进" class="headerlink" title="后续改进"></a>后续改进</h2><p>ansible 上有添加 zabbix 监控主机的模块，应该使用 api 实现的。后期要么使用 ansible 的 zabbix 模板，要么自己封装 api。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.blog.pythonlibrary.org/2013/04/30/python-101-intro-to-xml-parsing-with-elementtree/">http://www.blog.pythonlibrary.org/2013/04/30/python-101-intro-to-xml-parsing-with-elementtree/</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/zabbix/"># zabbix</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E4%B8%BA%E4%BB%80%E4%B9%88%E7%89%9B%E4%BA%BA%E7%A6%BB%E5%BC%80%E5%A4%A7%E5%9E%8B%E6%8A%80%E6%9C%AF%E5%85%AC%E5%8F%B8-%E7%BF%BB%E8%AF%91/" rel="prev" title="为什么牛人离开大型技术公司-翻译">
+                  <i class="fa fa-chevron-left"></i> 为什么牛人离开大型技术公司-翻译
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E3%80%8A%E9%98%BF%E9%87%8C%E9%93%81%E5%86%9B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="next" title="《阿里铁军》读书笔记">
+                  《阿里铁军》读书笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2017-07-19 1 Automating Installation with Kickstartlinux 系统安装过程中的人工选项会保存在&#x2F;root&#x2F;中，名称”anaconda-ks.cfg”,如果需要批量安装物理机，可以安装好一台后，将此文件替换为 iso 镜像中的 ks 文件，然后就不需要手动选择了。目前主要通过 consle 装刀片，没有 dhcp 这些环境，定制化 iso">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RH134-RHEL7学习笔记">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/RH134-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2017-07-19 1 Automating Installation with Kickstartlinux 系统安装过程中的人工选项会保存在&#x2F;root&#x2F;中，名称”anaconda-ks.cfg”,如果需要批量安装物理机，可以安装好一台后，将此文件替换为 iso 镜像中的 ks 文件，然后就不需要手动选择了。目前主要通过 consle 装刀片，没有 dhcp 这些环境，定制化 iso">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T06:57:54.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.573Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/RH134-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/RH134-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/","path":"2022/07/04/yuque/RH134-RHEL7学习笔记/","title":"RH134-RHEL7学习笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RH134-RHEL7学习笔记 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Automating-Installation-with-Kickstart"><span class="nav-number">1.</span> <span class="nav-text">1 Automating Installation with Kickstart</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-grep-%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">2 grep 中使用正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BD%BF%E7%94%A8-vim-%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">3 使用 vim 编辑文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-scheduling-future-linux-tasks"><span class="nav-number">4.</span> <span class="nav-text">4 scheduling future linux tasks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%AE%A1%E7%90%86-linxu-%E8%BF%9B%E7%A8%8B%E4%BC%98%E5%85%88%E7%BA%A7-managing-priority-of-linux-processes"><span class="nav-number">5.</span> <span class="nav-text">5 管理 linxu 进程优先级 managing priority of linux processes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E7%94%A8-ACL-%E6%8E%A7%E5%88%B6%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">6.</span> <span class="nav-text">6 用 ACL 控制文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Managing-Selinux-security"><span class="nav-number">7.</span> <span class="nav-text">7 Managing Selinux security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Connecting-to-Network-defined-users-and-groups"><span class="nav-number">8.</span> <span class="nav-text">8 Connecting to Network-defined users and groups</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-adding-disks-partitions-and-file-systems-to-a-linux-systems"><span class="nav-number">9.</span> <span class="nav-text">9 adding disks,partitions,and file systems to a linux systems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Managing-Logical-Volume-Management-LVM-Storage"><span class="nav-number">10.</span> <span class="nav-text">10 Managing Logical Volume Management(LVM) Storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-NFS"><span class="nav-number">11.</span> <span class="nav-text">11 NFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-SMB"><span class="nav-number">12.</span> <span class="nav-text">12 SMB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-Controlling-and-Troubleshooting-boot-progress"><span class="nav-number">13.</span> <span class="nav-text">13 Controlling and Troubleshooting boot progress</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-Firewalld"><span class="nav-number">14.</span> <span class="nav-text">14 Firewalld</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-review-of-total"><span class="nav-number">15.</span> <span class="nav-text">15 review of total</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/RH134-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RH134-RHEL7学习笔记 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RH134-RHEL7学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 14:57:54 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T14:57:54+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2017-07-19</p>
+<h2 id="1-Automating-Installation-with-Kickstart"><a href="#1-Automating-Installation-with-Kickstart" class="headerlink" title="1 Automating Installation with Kickstart"></a>1 Automating Installation with Kickstart</h2><p>linux 系统安装过程中的人工选项会保存在/root/中，名称”anaconda-ks.cfg”,如果需要批量安装物理机，可以安装好一台后，将此文件替换为 iso 镜像中的 ks 文件，然后就不需要手动选择了。<strong>目前主要通过 consle 装刀片，没有 dhcp 这些环境，定制化 iso 比较可行。</strong><br>可以用图形工具”system-config-kiskstar”和文本编辑器编写 ks 文件，带函数检查的文本编辑器“ksvalidator”.在系统安装选择界面按 tab，参数输入”ks=cdrom:/dir/file”，即可选择不同的 ks 文件。<br>更大规模的自动化部署物理机，需要用到 PXE 和 kickstart。cobber 是一个 linux 环境下的集成 PXE 需要的 dhcp、tftp 服务器的一个自动化部署环境。</p>
+<h2 id="2-grep-中使用正则表达式"><a href="#2-grep-中使用正则表达式" class="headerlink" title="2 grep 中使用正则表达式"></a>2 grep 中使用正则表达式</h2><p>^ $ . [] *<br>grep 参数</p>
+<table>
+<thead>
+<tr>
+<th><strong>Option</strong></th>
+<th><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-i</td>
+<td>use the regular expression provided，忽略大小写</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>display lines DO NOT contain matches</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>recursively to a group of file or directories,递归查询</td>
+</tr>
+<tr>
+<td>-A 1</td>
+<td>显示匹配行及后 1 行</td>
+</tr>
+<tr>
+<td>-B 1</td>
+<td>显示匹配行及前 1 行</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>大量匹配规则</td>
+</tr>
+</tbody></table>
+<p>示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">grep -i <span class="string">&#x27;cat&#x27;</span> file</span><br><span class="line">grep -i -v <span class="string">&#x27;cat&#x27;</span> file</span><br><span class="line">grep -v <span class="string">&#x27;^[#;]&#x27;</span> file</span><br><span class="line">grep -e <span class="string">&#x27;cat&#x27;</span> -e <span class="string">&#x27;dog&#x27;</span> file</span><br><span class="line">grep <span class="string">&#x27;^Apr 1 15:5[34].*ERROR&#x27;</span> /var/log/messages | head -n <span class="number">1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-使用-vim-编辑文件"><a href="#3-使用-vim-编辑文件" class="headerlink" title="3 使用 vim 编辑文件"></a>3 使用 vim 编辑文件</h2><p>vim3 中模式 command、insert/Replace、Ex<br>vimtutor ,1 小时快速了解。<br>模式切换</p>
+<table>
+<thead>
+<tr>
+<th><strong>key</strong></th>
+<th><strong>result</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>i</td>
+<td>switch to insert mode,and 光标移动到当前字符前一个</td>
+</tr>
+<tr>
+<td>a</td>
+<td>switch to insert mode,光标移动到当前字符后一个</td>
+</tr>
+<tr>
+<td>I</td>
+<td>移动到当前行开头并进入插入模式</td>
+</tr>
+<tr>
+<td>A</td>
+<td>移动到当前行末尾，进入插入模式</td>
+</tr>
+<tr>
+<td>R</td>
+<td>进入替换模式</td>
+</tr>
+<tr>
+<td>o</td>
+<td>在当前行后，新起一行</td>
+</tr>
+<tr>
+<td>O</td>
+<td>在当前行前新起一行</td>
+</tr>
+</tbody></table>
+<p>移动,移动符前可加数字</p>
+<table>
+<thead>
+<tr>
+<th><strong>key</strong></th>
+<th><strong>result</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>h</td>
+<td>left one</td>
+</tr>
+<tr>
+<td>l</td>
+<td>right one</td>
+</tr>
+<tr>
+<td>j</td>
+<td>down one line</td>
+</tr>
+<tr>
+<td>k</td>
+<td>up one line</td>
+</tr>
+<tr>
+<td>^</td>
+<td>move to the begin of the line</td>
+</tr>
+<tr>
+<td>$</td>
+<td>move to the end of the line</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>move to the fist line of the document</td>
+</tr>
+<tr>
+<td>G</td>
+<td>move to the last line of the document</td>
+</tr>
+<tr>
+<td>w</td>
+<td>move to the beginning of next wold</td>
+</tr>
+<tr>
+<td>b</td>
+<td>move to the beginning of previous word</td>
+</tr>
+<tr>
+<td>)</td>
+<td>move cursor to the beginning of current or previous sentence</td>
+</tr>
+<tr>
+<td>)</td>
+<td>move cursor to the beginning of next sentence</td>
+</tr>
+<tr>
+<td>}</td>
+<td>begin next paragraph</td>
+</tr>
+<tr>
+<td>{</td>
+<td>begin previous paragraph</td>
+</tr>
+</tbody></table>
+<p>替换文本<br>c，change the word,cw\ciw\caw,change current word.cc,change current line.c$,change current to end.c^,change current to begin.r,command mode replace a letter.- change the case.<br>delete text<br>d,x.x delete the cursor letter.<br>Copy and Paste<br>y,p,<br>vim 有 10 个粘贴版，从 0-9,最近一次为 0.要复制其中一次内容输入“1p，及粘贴上上次的复制内容。v 模式下复制选定内容。<br>Visual Mode<br>ex mode 替换文件<br>:%s/fox/firefox/g</p>
+<h2 id="4-scheduling-future-linux-tasks"><a href="#4-scheduling-future-linux-tasks" class="headerlink" title="4 scheduling future linux tasks"></a>4 scheduling future linux tasks</h2><p>one-time tasks use at</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">```python</span><br><span class="line">echo &quot;date &gt;/tmp/data&quot; | at now +3min</span><br><span class="line">at -q x teatime tomorrow</span><br><span class="line">&gt; echo &quot;date &gt;/tmp/date&quot;</span><br><span class="line">&gt;ctrl+d</span><br><span class="line"></span><br><span class="line">atq #查看at任务</span><br><span class="line">at -c id #查看任务详情</span><br><span class="line">atrm id #删除任务</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Scheduling recurring jobs with cron<br>cron have 6 ,minutes\hours\day-of-month\month\day-of-week\command</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">crontab -l</span><br><span class="line">crontab -e</span><br><span class="line">crontab -r</span><br><span class="line">crontab filename</span><br><span class="line">*/<span class="number">7</span> <span class="comment">#每隔多久</span></span><br><span class="line"><span class="number">0</span> <span class="number">9</span> <span class="number">2</span> <span class="number">2</span> * /usr/local/<span class="built_in">bin</span>/yearly_bakcup <span class="comment">#在每年2月2日9点执行备份</span></span><br><span class="line">*/<span class="number">7</span> <span class="number">9</span>-<span class="number">16</span> * Jul <span class="number">5</span> echo <span class="string">&quot;chime&quot;</span> <span class="comment">#在每年jul的每个星期6,9-16点之间每隔7分钟执行echo</span></span><br><span class="line"><span class="comment">#ubuntu 开启cron日志</span></span><br><span class="line">sudo vi /etc/rsyslog.d/<span class="number">50</span>-default.conf</span><br><span class="line">sudo service rsyslog restart</span><br><span class="line">sudo service cron restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-管理-linxu-进程优先级-managing-priority-of-linux-processes"><a href="#5-管理-linxu-进程优先级-managing-priority-of-linux-processes" class="headerlink" title="5 管理 linxu 进程优先级 managing priority of linux processes"></a>5 管理 linxu 进程优先级 managing priority of linux processes</h2><h2 id="6-用-ACL-控制文件权限"><a href="#6-用-ACL-控制文件权限" class="headerlink" title="6 用 ACL 控制文件权限"></a>6 用 ACL 控制文件权限</h2><p>getfacl file #显示文件的权限</p>
+<h2 id="7-Managing-Selinux-security"><a href="#7-Managing-Selinux-security" class="headerlink" title="7 Managing Selinux security"></a>7 Managing Selinux security</h2><p>ls -Z<br>getenforce #显示当前 selinux 状态<br>getsebool -a</p>
+<h2 id="8-Connecting-to-Network-defined-users-and-groups"><a href="#8-Connecting-to-Network-defined-users-and-groups" class="headerlink" title="8 Connecting to Network-defined users and groups"></a>8 Connecting to Network-defined users and groups</h2><h2 id="9-adding-disks-partitions-and-file-systems-to-a-linux-systems"><a href="#9-adding-disks-partitions-and-file-systems-to-a-linux-systems" class="headerlink" title="9 adding disks,partitions,and file systems to a linux systems"></a>9 adding disks,partitions,and file systems to a linux systems</h2><p>fdisk\gdsiak\mkfs<br>mkswap /dev/sdb1<br>swapon /dev/sdb1</p>
+<h2 id="10-Managing-Logical-Volume-Management-LVM-Storage"><a href="#10-Managing-Logical-Volume-Management-LVM-Storage" class="headerlink" title="10 Managing Logical Volume Management(LVM) Storage"></a>10 Managing Logical Volume Management(LVM) Storage</h2><h2 id="11-NFS"><a href="#11-NFS" class="headerlink" title="11 NFS"></a>11 NFS</h2><h2 id="12-SMB"><a href="#12-SMB" class="headerlink" title="12 SMB"></a>12 SMB</h2><h2 id="13-Controlling-and-Troubleshooting-boot-progress"><a href="#13-Controlling-and-Troubleshooting-boot-progress" class="headerlink" title="13 Controlling and Troubleshooting boot progress"></a>13 Controlling and Troubleshooting boot progress</h2><p>redhat7 重置 root 密码<br>开机按 r 任意键，linux16 行末加入 rd.break</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mount -oremount,rw /sysroot</span><br><span class="line">chroot /sysroot</span><br><span class="line">echo redhat | passwd --stdin root</span><br><span class="line">touch /.autorelabel <span class="comment">#selinux</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="14-Firewalld"><a href="#14-Firewalld" class="headerlink" title="14 Firewalld"></a>14 Firewalld</h2><h2 id="15-review-of-total"><a href="#15-review-of-total" class="headerlink" title="15 review of total"></a>15 review of total</h2><p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E5%85%8B%E9%9A%86%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%90%8E%E5%BF%AB%E9%80%9F%E4%BF%AE%E6%94%B9ip/" rel="prev" title="克隆虚拟机后快速修改ip">
+                  <i class="fa fa-chevron-left"></i> 克隆虚拟机后快速修改ip
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/RH254-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="RH254-RHEL7学习笔记">
+                  RH254-RHEL7学习笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

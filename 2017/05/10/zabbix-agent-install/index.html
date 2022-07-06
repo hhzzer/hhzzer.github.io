@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="zabbix agent 基本信息zabbix版本 3.0 官方文档上介绍，zabbix_agentd 安装是使用yum或apt安装，都需要配置好源。安装好后还需修改zabbix_agentd.conf文件。为了实现方便的一键安装，结合网上的方法，实现了一键安装。 zabbix官网上有编译好的agent包，所以可以直接绿色安装。agent包下载后解压包含内容如下 12345678910111213">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zabbix agent 绿色安装">
+<meta property="og:url" content="http://example.com/2017/05/10/zabbix-agent-install/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="zabbix agent 基本信息zabbix版本 3.0 官方文档上介绍，zabbix_agentd 安装是使用yum或apt安装，都需要配置好源。安装好后还需修改zabbix_agentd.conf文件。为了实现方便的一键安装，结合网上的方法，实现了一键安装。 zabbix官网上有编译好的agent包，所以可以直接绿色安装。agent包下载后解压包含内容如下 12345678910111213">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-05-10T02:13:29.000Z">
+<meta property="article:modified_time" content="2017-06-16T08:19:09.000Z">
+<meta property="article:author" content="mayi">
+<meta property="article:tag" content="zabbix">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2017/05/10/zabbix-agent-install/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2017/05/10/zabbix-agent-install/","path":"2017/05/10/zabbix-agent-install/","title":"zabbix agent 绿色安装"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>zabbix agent 绿色安装 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#zabbix-agent-%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">zabbix agent 基本信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zabbix-agent%E5%BF%85%E5%A4%87%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">zabbix agent必备文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">自动安装脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/10/zabbix-agent-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="zabbix agent 绿色安装 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          zabbix agent 绿色安装
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-10 10:13:29" itemprop="dateCreated datePublished" datetime="2017-05-10T10:13:29+08:00">2017-05-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="zabbix-agent-基本信息"><a href="#zabbix-agent-基本信息" class="headerlink" title="zabbix agent 基本信息"></a>zabbix agent 基本信息</h2><p>zabbix版本 3.0</p>
+<p>官方文档上介绍，zabbix_agentd 安装是使用yum或apt安装，都需要配置好源。安装好后还需修改zabbix_agentd.conf文件。为了实现方便的一键安装，结合网上的方法，实现了一键安装。</p>
+<p>zabbix官网上有编译好的agent包，所以可以直接绿色安装。agent包下载后解压包含内容如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[app@zabbix-server zabbix_agent]$ tree ./</span><br><span class="line">./</span><br><span class="line">├── bin</span><br><span class="line">│?? ├── zabbix_get  #zabbix获取数据接口</span><br><span class="line">│?? └── zabbix_sender #zabbix发送数据接口</span><br><span class="line">├── conf</span><br><span class="line">│?? ├── zabbix_agentd</span><br><span class="line">│?? │?? ├── userparameter_examples.conf</span><br><span class="line">│?? │?? └── userparameter_mysql.conf</span><br><span class="line">│?? └── zabbix_agentd.conf #zabbix_agentd配置文件</span><br><span class="line">├── sbin</span><br><span class="line">│?? └── zabbix_agentd #zabbix_agentd执行文件</span><br><span class="line">└── zabbix_agents_3.0.4.linux2_6_23.amd64.tar.gz</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="zabbix-agent必备文件"><a href="#zabbix-agent必备文件" class="headerlink" title="zabbix agent必备文件"></a>zabbix agent必备文件</h2><p><a target="_blank" rel="noopener" href="http://www.zabbix.com/downloads/3.0.4/zabbix_agents_3.0.4.linux2_6_23.amd64.tar.gz">linux2_6_23X64预编译文件下载地址</a></p>
+<p>安装agent必须的文件这个压缩包中两个文件，一个是<code>/sbin/zabbix_agentd</code>,另一个是<code>/conf/zabbix_agentd.conf</code>.<br>另外缺少的是控制zabbix_agentd启动停止的文件缺失。<br>因为<del>官方编译时</del>服务控制脚本指定了目录，故需要将下载的文件复制到如下目录<br><code>/usr/local/zabbix/sbin/zabbix_agentd</code><br><code>/usr/local/etc/zabbix_agentd.conf</code><br>agetd执行文件下载下来，放到上面的目录，更改用户和添加执行权限即可。<br>conf文件可以自己编写简化版如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#name /usr/local/etc/zabbix_agentd.conf</span><br><span class="line">Server=192.168.12.205</span><br><span class="line">Hostname=192.168.94.212</span><br><span class="line">BufferSize=1024</span><br><span class="line">DebugLevel=2</span><br><span class="line">LogFile=/tmp/zabbix_agentd.log</span><br><span class="line">LogFileSize=1024</span><br><span class="line">EnableRemoteCommands=1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>另一个控制文件放置在<br><code>/etc/init.d/</code>,名称为zabbix_agentd(和下载下来的同名，但内容不一样。)<br>/etc/init.d/zabbix_agentd 内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"> #chkconfig: 345 95 95</span><br><span class="line"> #description:Zabbix agent</span><br><span class="line"> # Zabbix</span><br><span class="line"> # Copyright (C) 2001-2013 Zabbix SIA</span><br><span class="line"> #</span><br><span class="line"> # This program is free software; you can redistribute it and/or modify</span><br><span class="line"> # it under the terms of the GNU General Public License as published by</span><br><span class="line"> # the Free Software Foundation; either version 2 of the License, or</span><br><span class="line"> # (at your option) any later version.</span><br><span class="line"> #</span><br><span class="line"> # This program is distributed in the hope that it will be useful,</span><br><span class="line"> # but WITHOUT ANY WARRANTY; without even the implied warranty of</span><br><span class="line"> # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the</span><br><span class="line"> # GNU General Public License for more details.</span><br><span class="line"> #</span><br><span class="line"> # You should have received a copy of the GNU General Public License</span><br><span class="line"> # along with this program; if not, write to the Free Software</span><br><span class="line"> # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.</span><br><span class="line"> # Start/Stop the Zabbix agent daemon.</span><br><span class="line"> # Place a startup script in /sbin/init.d, and link to it from /sbin/rc[023].d</span><br><span class="line"> SERVICE=&quot;Zabbix agent&quot;</span><br><span class="line"> DAEMON=/usr/local/zabbix/sbin/zabbix_agentd</span><br><span class="line"> PIDFILE=/tmp/zabbix_agentd.pid</span><br><span class="line"> BASEDIR=/usr/local/zabbix</span><br><span class="line"> ZABBIX_AGENTD=$BASEDIR/sbin/zabbix_agentd</span><br><span class="line"> case $1 in</span><br><span class="line">   &#x27;start&#x27;)</span><br><span class="line">     if [ -x $&#123;DAEMON&#125; ]</span><br><span class="line">     then</span><br><span class="line">       $DAEMON</span><br><span class="line">       # Error checking here would be good...</span><br><span class="line">       echo &quot;$&#123;SERVICE&#125; started.&quot;</span><br><span class="line">  else</span><br><span class="line">       echo &quot;Can&#x27;t find file $&#123;DAEMON&#125;.&quot;</span><br><span class="line">       echo &quot;$&#123;SERVICE&#125; NOT started.&quot;</span><br><span class="line">     fi</span><br><span class="line">   ;;</span><br><span class="line">   &#x27;stop&#x27;)</span><br><span class="line">     if [ -s $&#123;PIDFILE&#125; ]</span><br><span class="line">     then</span><br><span class="line">       if kill `cat $&#123;PIDFILE&#125;` &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">       then</span><br><span class="line">         echo &quot;$&#123;SERVICE&#125; stoped.&quot;</span><br><span class="line">         rm -f $&#123;PIDFILE&#125;</span><br><span class="line">       fi</span><br><span class="line">     fi</span><br><span class="line">   ;;</span><br><span class="line">   &#x27;restart&#x27;)</span><br><span class="line">     $0 stop</span><br><span class="line">     sleep 10</span><br><span class="line">     $0 start</span><br><span class="line">   ;;</span><br><span class="line">   *)</span><br><span class="line">     echo &quot;Usage: $0 start|stop|restart&quot;</span><br><span class="line">     ;;</span><br><span class="line"> esac</span><br></pre></td></tr></table></figure>
+
+<h2 id="自动安装脚本"><a href="#自动安装脚本" class="headerlink" title="自动安装脚本"></a>自动安装脚本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">groupadd zabbix</span><br><span class="line">useradd -s /sbin/nologin -M -g zabbix zabbix</span><br><span class="line">mkdir /usr/local/zabbix/sbin/ -p</span><br><span class="line">cat &gt; /usr/local/etc/zabbix_agentd.conf &lt;&lt;EOF</span><br><span class="line">Server=192.168.12.205</span><br><span class="line">Hostname=192.168.12.30</span><br><span class="line">BufferSize=1024</span><br><span class="line">DebugLevel=2</span><br><span class="line">LogFileSize=1024</span><br><span class="line">LogFile=/tmp/zabbix_agentd.log</span><br><span class="line">EnableRemoteCommands=1</span><br><span class="line">EOF</span><br><span class="line">wget -P /etc/init.d/ http://192.168.12.205:8000/zabbix_agentd</span><br><span class="line">wget -P /usr/local/zabbix/sbin/ http://192.168.12.205:8000/sbin/zabbix_agentd</span><br><span class="line">chmod +x /etc/init.d/zabbix_agentd</span><br><span class="line">chmod +x /usr/local/zabbix/sbin/zabbix_agentd</span><br><span class="line">service zabbix_agentd start &amp;&amp; chkconfig zabbix_agentd on</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>参考：<a target="_blank" rel="noopener" href="https://zhangge.net/5030.html">https://zhangge.net/5030.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/zabbix/" rel="tag"># zabbix</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/05/09/ubuntu%E4%B8%8A%E5%AD%A6%E4%B9%A0ansible/" rel="prev" title="ubuntu上学习ansible">
+                  <i class="fa fa-chevron-left"></i> ubuntu上学习ansible
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/05/10/zabbix%E6%A8%A1%E6%9D%BF%E9%85%8D%E7%BD%AE/" rel="next" title="zabbix 监控linux主机模板配置">
+                  zabbix 监控linux主机模板配置 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

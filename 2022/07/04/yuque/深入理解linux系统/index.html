@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="别人要求“深入理解 linux 系统,熟悉 apache、Nginx、tomcat、keepalive、hadoop 等常用工具”，我就来边学边写，深入理解。 深入理解 linux 系统linux 是一种操作系统，操作系统作用是管理计算机硬件资源，提供系统调用便于用户使用计算机资源。计算机硬件资源包括 cpu、内存、磁盘、网络、输入输出。操作系统要控制 cpu，包括使用 cpu 进行运算和切换 c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解linux系统">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3linux%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="别人要求“深入理解 linux 系统,熟悉 apache、Nginx、tomcat、keepalive、hadoop 等常用工具”，我就来边学边写，深入理解。 深入理解 linux 系统linux 是一种操作系统，操作系统作用是管理计算机硬件资源，提供系统调用便于用户使用计算机资源。计算机硬件资源包括 cpu、内存、磁盘、网络、输入输出。操作系统要控制 cpu，包括使用 cpu 进行运算和切换 c">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T08:30:05.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.565Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3linux%E7%B3%BB%E7%BB%9F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3linux%E7%B3%BB%E7%BB%9F/","path":"2022/07/04/yuque/深入理解linux系统/","title":"深入理解linux系统"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>深入理解linux系统 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-linux-%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">深入理解 linux 系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apache"><span class="nav-number">2.</span> <span class="nav-text">apache</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number"></span> <span class="nav-text">参考链接</span></a></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3linux%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="深入理解linux系统 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深入理解linux系统
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 16:30:05 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:30:05+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>别人要求“深入理解 linux 系统,熟悉 apache、Nginx、tomcat、keepalive、hadoop 等常用工具”，我就来边学边写，深入理解。</p>
+<h3 id="深入理解-linux-系统"><a href="#深入理解-linux-系统" class="headerlink" title="深入理解 linux 系统"></a>深入理解 linux 系统</h3><p>linux 是一种操作系统，操作系统作用是管理计算机硬件资源，提供系统调用便于用户使用计算机资源。计算机硬件资源包括 cpu、内存、磁盘、网络、输入输出。操作系统要控制 cpu，包括使用 cpu 进行运算和切换 cpu 运算内容。操作系统控制存储器，存储器包括寄存器、cpu 缓存、内存、磁盘及其他外部设备。操作系统为存储器存储空间编号，cpu 内部的寄存器有固定的编号，数量少；cpu 缓存和内存需要编号才能被 cpu 指令读写。每一个地址编码位数由系统总线宽度控制，总线宽度表示 cpu 一次能读取二进制位的个数。不同位数总线决定了 cpu 内存寻址空间即可用最大内存数，8 位能识别 2^8(256bit),16 位内存上限 64kbit,32 位内存上限 4Gbit(2^30*4),64 位内存上限 2^14P。cpu 的寻址空间需要保留一部分给硬件（显存地址）。操作系统格式化磁盘，用于保存文件系统在磁盘中。不同的文件系统有不同的地址编码方式和读写模式，fat32 链式寻址，ext2 采用门牌号方式通过 inode 标注存储块。<br>计算机的硬件按照处理器指令集不同分为精简指令和复杂指令计算机。intel、AMD 采用精简指令，ARM 采用另一套。不管 cpu 指令集类型，所有计算机都是冯诺依曼计算机，即面向存储器编程的计算机特点是<strong>共享数据，串行执行</strong>。其他还有量子计算机、并行计算机等，非主流。<br>linux 系统是由内核-系统调用-用户界面三层组成，像半径不同的三个同心球，内核在最里面。中间层是系统调用，将内核整理的计算资源（cup、内存、磁盘、IO）封装成方便的调用的方式。最外层是用户空间，用户通过系统调用使用计算资源。常用 linux 发行版本有 redhat、centos、debain、ubuntu、suse、fadra，都是基于相同的内核进行剪裁再加上软件管理软件（apt、yum）发行一个开箱即用的系统。<br>linux 内核分为 5 个子系统，进程管理、内存管理、虚拟文件系统（将硬盘、输入输出设备、显示设备抽象为文件操作接口）、网络子系统、IPC 进程见通信。</p>
+<h3 id="apache"><a href="#apache" class="headerlink" title="apache"></a>apache</h3><p>apache 是一个软件基金会，最著名的软件就是<a target="_blank" rel="noopener" href="http://httpd.apache.org/docs/2.4/">Apache HTTP Server</a>.<br>[源码安装过程]</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>信息源<a target="_blank" rel="noopener" href="https://www.lagou.com/jobs/3278242.html">https://www.lagou.com/jobs/3278242.html</a><br>linux 架构：<a target="_blank" rel="noopener" href="http://www.codesec.net/view/352057.html">http://www.codesec.net/view/352057.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E6%8A%80%E8%83%BD%E6%A0%91/"># 技能树</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E5%87%BA%E7%A7%9F%E8%BD%A6%E5%8F%B8%E6%9C%BA%E5%92%8C%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA/" rel="prev" title="出租车司机和看不见的客人">
+                  <i class="fa fa-chevron-left"></i> 出租车司机和看不见的客人
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/httpd%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/" rel="next" title="httpd源码安装">
+                  httpd源码安装 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

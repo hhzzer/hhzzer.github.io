@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="问题业务服务器每天在固定的时间段负载高 2cpu，load &gt;4 ,持续 10 分钟，导致网络响应时间长，产生异常告警。需要分析原因，排除问题。 处理通过 uptime，top 查看到的 load average 字段即为系统负载，反应系统总体运行情况。负载高低判断标准与 CPU 核数相关，系统运行良好情况下 负载&lt;CPU 核数。 12[app@localhost ~]$ uptime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux服务器负载高排查">
+<meta property="og:url" content="http://example.com/2018/10/11/yuque/linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B4%9F%E8%BD%BD%E9%AB%98%E6%8E%92%E6%9F%A5/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="问题业务服务器每天在固定的时间段负载高 2cpu，load &gt;4 ,持续 10 分钟，导致网络响应时间长，产生异常告警。需要分析原因，排除问题。 处理通过 uptime，top 查看到的 load average 字段即为系统负载，反应系统总体运行情况。负载高低判断标准与 CPU 核数相关，系统运行良好情况下 负载&lt;CPU 核数。 12[app@localhost ~]$ uptime">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-11T07:04:37.000Z">
+<meta property="article:modified_time" content="2022-06-29T03:46:40.486Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2018/10/11/yuque/linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B4%9F%E8%BD%BD%E9%AB%98%E6%8E%92%E6%9F%A5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2018/10/11/yuque/linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B4%9F%E8%BD%BD%E9%AB%98%E6%8E%92%E6%9F%A5/","path":"2018/10/11/yuque/linux服务器负载高排查/","title":"linux服务器负载高排查"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>linux服务器负载高排查 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%90%AB%E4%B9%89"><span class="nav-number">3.</span> <span class="nav-text">参数含义</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/10/11/yuque/linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B4%9F%E8%BD%BD%E9%AB%98%E6%8E%92%E6%9F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="linux服务器负载高排查 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux服务器负载高排查
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-11 15:04:37" itemprop="dateCreated datePublished" datetime="2018-10-11T15:04:37+08:00">2018-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>业务服务器每天在固定的时间段负载高 2cpu，load &gt;4 ,持续 10 分钟，导致网络响应时间长，产生异常告警。需要分析原因，排除问题。</p>
+<h2 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h2><p>通过 uptime，top 查看到的 load average 字段即为系统负载，反应系统总体运行情况。负载高低判断标准与 CPU 核数相关，系统运行良好情况下 负载&lt;CPU 核数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[app@localhost ~]$ uptime</span><br><span class="line"> 15:07:27 up 23 days, 46 min,  7 users,  load average: 0.00, 0.02, 0.05</span><br></pre></td></tr></table></figure>
+
+<p>cpu 负载是系统的综合指标，主要是由于 CPU 使用、内存使用、IO 消耗三部分构成。任意一项使用过多，都将导致服务器负载的急剧攀升。分析哪个因素导致负载高，可使用 vmstat 命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># vmstat [options] [delay [count]]</span><br><span class="line">[app@localhost ~]$ vmstat 1 5</span><br><span class="line">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----</span><br><span class="line"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</span><br><span class="line"> 2  0  12056 236804      0 677688    0    0     0     6   21   12  1  0 98  0  0</span><br><span class="line"> 0  0  12056 236804      0 677688    0    0     0     0  160  285  1  0 99  0  0</span><br><span class="line"> 0  0  12056 236804      0 677688    0    0     0   284  172  305  0  2 91  7  0</span><br><span class="line"> 0  0  12056 236804      0 677688    0    0     0     0  156  263  1  0 99  0  0</span><br><span class="line"> 0  0  12056 236804      0 677688    0    0     0     0  137  234  0  0 100  0  0</span><br></pre></td></tr></table></figure>
+
+<p>观察 zabix 监控，发现异常时间点 cpu us 较高，可能由于用户程序繁忙，导致 cpu 利用率高，导致负载高，导致网络延迟大。</p>
+<h2 id="参数含义"><a href="#参数含义" class="headerlink" title="参数含义"></a>参数含义</h2><p>procs<br>r 列：表示运行和等待 CPU 时间片的进程数，如果长期大于 1，说明 CPU 不足，需要添加 CPU。<br>b 列：表示在等待资源的进程数，比如正在等待 I/O、或则内存交换等。<br>cpu<br>cpu us 列：显示用户空间所花费 CPU 时间的百分比。us 值比较高时，说明用户进程小号 CPU 时间多，如果长期大于 50%，考虑优化用户程序。<br>cpu sy 列：显示内核空间花费 CPU 时间百分比。us+sy 如果大于 80%，表明 cpu 不足。<br>cpu id 列：cpu 处于空闲状态百分比。<br>cpu wa 列：显示 IO 等待所占用 CPU 时间百分比。参考值 30，如果&gt;30，表明 IO 等待严重。<br>system： 显示采集间隔内发生的中断数<br>in 列：表示在某一时间间隔中观测到的每秒设备中断数。<br>cs 列：表示每秒产生的上下文切换次数，如当 cs 比磁盘 I/O 和网络信息包速率高得多，都应进行进一步调查。<br>memory<br>swpd： 切换到内存交换区的内存数量 (k 表示)。如果 swpd 的值不为 0，或者比较大，比如超过了 100m，只要 si、so 的值长期为 0，系统性能还是正常<br>free： 当前的空闲页面列表中内存数量 (k 表示)<br>buff： 作为 buffer cache 的内存数量，一般对块设备的读写才需要缓冲。<br>Cache： 作为 page cache 的内存数量，一般作为文件系统的 cache，如果 cache 较大，说明用到 cache 的文件较多，如果此时 IO 中 bi 比较小，说明文件系统效率比较好。<br>swap<br>si： 由内存进入内存交换区数量。<br>So：由内存交换区进入内存数量。<br>IO<br>bi： 从块设备读入数据的总量（读磁盘）（每秒 kb）。<br>Bo： 块设备写入数据的总量（写磁盘）（每秒 kb）</p>
+<p>参考链接<br><a target="_blank" rel="noopener" href="https://hacpai.com/article/1534296747744">https://hacpai.com/article/1534296747744</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/10/11/yuque/%E5%9C%A8django%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%9B%86%E6%88%90trix%E7%BC%96%E8%BE%91%E5%99%A8/" rel="prev" title="在django项目中集成trix编辑器">
+                  <i class="fa fa-chevron-left"></i> 在django项目中集成trix编辑器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/10/12/yuque/LVM%E5%88%86%E5%8C%BA%E7%BC%A9%E5%AE%B9-xfs%E6%A0%BC%E5%BC%8F/" rel="next" title="LVM分区缩容-xfs格式">
+                  LVM分区缩容-xfs格式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

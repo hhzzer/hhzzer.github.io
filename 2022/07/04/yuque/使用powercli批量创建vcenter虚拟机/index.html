@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2018-03-16 问题经常有需求批量创建类似配置的虚拟机，ui 界面操作比较耗时。能否有脚本调用模板自动创建呢？ 解决过程1 下载安装 powerCLI 工具2 使用 PowerCLI 连接 vcenter 12345$vc &#x3D; &amp;#x27;vcip&amp;#x27;#填VCenter IPConnect-VIServer -Server $vc -username &quot;userna">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用powercli批量创建vcenter虚拟机">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/%E4%BD%BF%E7%94%A8powercli%E6%89%B9%E9%87%8F%E5%88%9B%E5%BB%BAvcenter%E8%99%9A%E6%8B%9F%E6%9C%BA/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2018-03-16 问题经常有需求批量创建类似配置的虚拟机，ui 界面操作比较耗时。能否有脚本调用模板自动创建呢？ 解决过程1 下载安装 powerCLI 工具2 使用 PowerCLI 连接 vcenter 12345$vc &#x3D; &amp;#x27;vcip&amp;#x27;#填VCenter IPConnect-VIServer -Server $vc -username &quot;userna">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T01:26:38.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.579Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/%E4%BD%BF%E7%94%A8powercli%E6%89%B9%E9%87%8F%E5%88%9B%E5%BB%BAvcenter%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/%E4%BD%BF%E7%94%A8powercli%E6%89%B9%E9%87%8F%E5%88%9B%E5%BB%BAvcenter%E8%99%9A%E6%8B%9F%E6%9C%BA/","path":"2022/07/04/yuque/使用powercli批量创建vcenter虚拟机/","title":"使用powercli批量创建vcenter虚拟机"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>使用powercli批量创建vcenter虚拟机 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">解决过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">遇到的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%BF%9E%E6%8E%A5"><span class="nav-number">4.</span> <span class="nav-text">参考连接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%BD%BF%E7%94%A8powercli%E6%89%B9%E9%87%8F%E5%88%9B%E5%BB%BAvcenter%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="使用powercli批量创建vcenter虚拟机 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用powercli批量创建vcenter虚拟机
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 09:26:38 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:26:38+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2018-03-16</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>经常有需求批量创建类似配置的虚拟机，ui 界面操作比较耗时。能否有脚本调用模板自动创建呢？</p>
+<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>1 下载安装 powerCLI 工具<br>2 使用 PowerCLI 连接 vcenter</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$vc = <span class="string">&#x27;vcip&#x27;</span></span><br><span class="line"><span class="comment">#填VCenter IP</span></span><br><span class="line">Connect-VIServer -Server $vc -username <span class="string">&quot;username&quot;</span> -Password <span class="string">&quot;passwd&quot;</span></span><br><span class="line"><span class="comment">#填VCenter的SSO帐号和密码</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3 根据 csv 内容,导入虚拟机创建时所需变量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$vms = Import-CSV C:\Scripts\CloneVMs.csv</span><br><span class="line"><span class="comment">#获取外部csv文件内容作为变量，csv内容为</span></span><br><span class="line">----</span><br><span class="line">host,template,datastore,custsysprep,name,ip,netmask,gateway</span><br><span class="line">esxi-host，centos，vsan1，规范，vm-namne,vm-ip,vm-netmask,vm-gateway</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>4 自定义规范，设置虚拟机 ip,创建虚拟机</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#foreach循环遍历外部csv文档获取每行的值并赋于定义的变量</span></span><br><span class="line">foreach ($vm <span class="keyword">in</span> $vms)&#123;</span><br><span class="line">      $VMHost = Get-VMHost $vm.host</span><br><span class="line">      $Template = Get-Template $vm.template</span><br><span class="line">      $Datastore = Get-Datastore $vm.datastore</span><br><span class="line">      $Custsysprep = Get-OSCustomizationSpec $vm.custsysprep</span><br><span class="line">      <span class="comment">#获取自定义规范</span></span><br><span class="line">      $VMName = $vm.name</span><br><span class="line">      $IP = $vm.ip</span><br><span class="line">      $Netmask = $vm.netmask</span><br><span class="line">      $Gateway = $vm.gateway</span><br><span class="line">      $custsysprep | Get-OSCustomizationNicMapping | <span class="type">Set</span>-OSCustomizationNicMapping -IpMode UseStaticIP -IpAddress $IP -SubnetMask $Netmask -DefaultGateway $Gateway</span><br><span class="line">       <span class="comment">#通过Set-OSCustomizationNicMapping来重新定义自定义规范的网络信息</span></span><br><span class="line">      New-VM -Name $VMName -Template $Template -VMHost $VMHost -Datastore $Datastore -OSCustomizationspec $Custsysprep -RunAsync</span><br><span class="line">      <span class="comment">#通过从csv和自定义规范的信息来创建虚拟机</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>5 运行 powershell 脚本<br>点开 powerCLI，执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PowerCLI C:]&gt;./clonevm.PS1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>1 虚拟机名称中文乱码<br>解：PS1 脚本采用 GB2312 编码，虚拟机名称直接写在 PS1 脚本中，创建虚拟机能在 vcenter 正常显示。csv 文件为 GB2312，虚拟机名称为中文，创建虚拟机中文乱码。<br>2 虚拟机开机后会两次重启<br>待解决<br>3 创建双网卡虚拟机，需要模板中配置双网卡，规范中添加第二个网卡位置。脚本如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">foreach ($vm <span class="keyword">in</span> $vms)&#123;</span><br><span class="line"></span><br><span class="line">      $VMHost = Get-VMHost $vm.host</span><br><span class="line"></span><br><span class="line">      $Template = Get-Template $vm.template</span><br><span class="line"></span><br><span class="line">      $Datastore = Get-Datastore $vm.datastore</span><br><span class="line"></span><br><span class="line">	  $Custsysprep = Get-OSCustomizationSpec $vm.custsysprep</span><br><span class="line">	  <span class="comment">#获取自定义规范</span></span><br><span class="line">	  $VMName = $vm.name</span><br><span class="line"></span><br><span class="line">	  $IP1 = $vm.ip1</span><br><span class="line">	  $Netmask1 = $vm.netmask1</span><br><span class="line">	  $Gateway1 = $vm.gateway1</span><br><span class="line"></span><br><span class="line">	  $IP2 = $vm.ip2</span><br><span class="line">	  $Netmask2 = $vm.netmask2</span><br><span class="line">	  $Gateway2 = $vm.gateway2</span><br><span class="line"></span><br><span class="line">	  Get-OSCustomizationNicMapping -OSCustomizationSpec $custsysprep | <span class="type">Set</span>-OSCustomizationNicMapping -Position <span class="number">1</span> -IpMode UseStaticIP -IpAddress $IP1 -SubnetMask $Netmask1 -DefaultGateway $Gateway1 -ErrorAction SilentlyContinue | Out-Null</span><br><span class="line">	  Get-OSCustomizationNicMapping -OSCustomizationSpec $custsysprep | <span class="type">Set</span>-OSCustomizationNicMapping -Position <span class="number">2</span> -IpMode UseStaticIP -IpAddress $IP2 -SubnetMask $Netmask2 -DefaultGateway $Gateway2 -ErrorAction SilentlyContinue | Out-Null</span><br><span class="line">       <span class="comment">#通过Set-OSCustomizationNicMapping来重新定义自定义规范的网络信息</span></span><br><span class="line">      New-VM -Name $VMName -Template $Template -VMHost $VMHost -Datastore $Datastore -OSCustomizationspec $Custsysprep -RunAsync</span><br><span class="line">	  <span class="comment">#通过从csv和自定义规范的信息来创建虚拟机</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考连接"><a href="#参考连接" class="headerlink" title="参考连接"></a>参考连接</h2><p><a target="_blank" rel="noopener" href="http://www.361way.com/powercli-deploy-vmware/4877.html">http://www.361way.com/powercli-deploy-vmware/4877.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/django%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/" rel="prev" title="django学习文档">
+                  <i class="fa fa-chevron-left"></i> django学习文档
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/ubuntu1404%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85openssh-server75/" rel="next" title="ubuntu1404编译安装openssh-server75">
+                  ubuntu1404编译安装openssh-server75 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

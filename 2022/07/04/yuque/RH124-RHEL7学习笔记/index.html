@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2017-07-10linux 基础概念理解不准确，重新学习 RH 三教程 1 Accessing the Command Line&#x2F;进入命令行shell 是什么：一个执行字符串命令的解释器。bash 是一种 shell，shell 是一个位于操作系统内核和用户界面的接口，负责用户安全方面的于内核通信。terminal 是什么：为 shell 提供提供输出显示，键盘输入的接口command">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RH124-RHEL7学习笔记">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/RH124-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2017-07-10linux 基础概念理解不准确，重新学习 RH 三教程 1 Accessing the Command Line&#x2F;进入命令行shell 是什么：一个执行字符串命令的解释器。bash 是一种 shell，shell 是一个位于操作系统内核和用户界面的接口，负责用户安全方面的于内核通信。terminal 是什么：为 shell 提供提供输出显示，键盘输入的接口command">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T03:20:53.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.574Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/RH124-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/RH124-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/","path":"2022/07/04/yuque/RH124-RHEL7学习笔记/","title":"RH124-RHEL7学习笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RH124-RHEL7学习笔记 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Accessing-the-Command-Line-%E8%BF%9B%E5%85%A5%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="nav-number">1.</span> <span class="nav-text">1 Accessing the Command Line&#x2F;进入命令行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Managing-Files-from-the-Command-Line"><span class="nav-number">2.</span> <span class="nav-text">2 Managing Files from the Command Line</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-null"><span class="nav-number">3.</span> <span class="nav-text">3 null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Create-Viewing-Editing-text-file"><span class="nav-number">4.</span> <span class="nav-text">4 Create Viewing Editing text file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Managing-Local-Linux-users-and-groups"><span class="nav-number">5.</span> <span class="nav-text">5 Managing Local Linux users and groups</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90"><span class="nav-number">6.</span> <span class="nav-text">6 文件系统权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E7%9B%91%E6%8E%A7%E5%92%8C%E7%AE%A1%E7%90%86-linxu-%E8%BF%9B%E7%A8%8B"><span class="nav-number">7.</span> <span class="nav-text">7 监控和管理 linxu 进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E6%8E%A7%E5%88%B6%E6%9C%8D%E5%8A%A1%E5%92%8C%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="nav-number">8.</span> <span class="nav-text">8 控制服务和守护进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E9%85%8D%E7%BD%AE%E5%92%8C%E5%8A%A0%E5%9B%BA-ssh-%E6%9C%8D%E5%8A%A1"><span class="nav-number">9.</span> <span class="nav-text">9 配置和加固 ssh 服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E5%88%86%E6%9E%90%E5%92%8C%E5%AD%98%E5%82%A8%E6%97%A5%E5%BF%97"><span class="nav-number">10.</span> <span class="nav-text">10 分析和存储日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E7%AE%A1%E7%90%86%E7%BD%91%E7%BB%9C"><span class="nav-number">11.</span> <span class="nav-text">11 管理网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E5%9C%A8%E7%B3%BB%E7%BB%9F%E9%97%B4%E5%BD%92%E6%A1%A3%E5%92%8C%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6"><span class="nav-number">12.</span> <span class="nav-text">12 在系统间归档和拷贝文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E5%AE%89%E8%A3%85%E5%92%8C%E5%8D%87%E7%BA%A7%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="nav-number">13.</span> <span class="nav-text">13 安装和升级软件包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-linux-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number"></span> <span class="nav-text">14 linux 文件系统</span></a></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/RH124-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RH124-RHEL7学习笔记 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RH124-RHEL7学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 11:20:53 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T11:20:53+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2017-07-10<br>linux 基础概念理解不准确，重新学习 RH 三教程</p>
+<h3 id="1-Accessing-the-Command-Line-进入命令行"><a href="#1-Accessing-the-Command-Line-进入命令行" class="headerlink" title="1 Accessing the Command Line/进入命令行"></a>1 Accessing the Command Line/进入命令行</h3><p>shell 是什么：一个执行字符串命令的解释器。bash 是一种 shell，shell 是一个位于操作系统内核和用户界面的接口，负责用户安全方面的于内核通信。<br>terminal 是什么：为 shell 提供提供输出显示，键盘输入的接口<br>command 是一个可执行程序，option 调节程序行为，argument 指定运行对象。</p>
+<p>| date<br>passwd<br>file<br>head<br>tail<br>wc<br>history # !+数字，执行曾经执行的某条命令，！+string，匹配最近执行的某条命令并执行</p>
+<p>|  |<br>|  |</p>
+<p>命令行编辑</p>
+<p>| ctrl + a<br>ctrl + e<br>ctrl + u<br>ctrl + k<br>ctrl + r<br>esc+.#拷贝上一命令的 argument</p>
+<p>|  |<br>|  |</p>
+<h3 id="2-Managing-Files-from-the-Command-Line"><a href="#2-Managing-Files-from-the-Command-Line" class="headerlink" title="2 Managing Files from the Command Line"></a>2 Managing Files from the Command Line</h3><p>目录树 文件分类可分为静态文件、动态文件、持久文件、运行时文件</p>
+<p>| /usr #安装的程序<br>/etc #系统配置文件目录<br>/var #动态文件<br>/run #运行时文件，关机清空<br>/home #用户数据目录<br>/root /tmp /boot #root 目录、临时文件、开机启动文件<br>/dev #设备文件<br>/usr/bin #常规用户命令<br>/usr/sbin #root 用户命令</p>
+<p>|  |<br>|  |</p>
+<p>命令</p>
+<p>| ls -R #列出有权限的文件<br>cd - #导航到上一个前一个位置<br>cd #到达用户 home 目录</p>
+<p>|  |<br>|  |</p>
+<p>file management commands</p>
+<table>
+<thead>
+<tr>
+<th><strong>Activity</strong></th>
+<th><strong>Single source</strong></th>
+<th><strong>Multiple source</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Copy file</td>
+<td>cp file1 file2</td>
+<td>cp file1 file2 file3 dir</td>
+</tr>
+<tr>
+<td>Move file</td>
+<td>mv file1 file2</td>
+<td>mv file1 file2 file3 dir</td>
+</tr>
+<tr>
+<td>Remove file</td>
+<td>rm file1</td>
+<td>rm -f file1 file2 file3</td>
+</tr>
+<tr>
+<td>Create directory</td>
+<td>mkdir</td>
+<td>mkdir -p par1/par2/dir</td>
+</tr>
+<tr>
+<td>Copy directory</td>
+<td>cp -r dir1 dir2</td>
+<td>cp -r dir1 dir2 dir3 dir4</td>
+</tr>
+<tr>
+<td>Move directory</td>
+<td>mv dir1 dir2</td>
+<td>mv dir1 dir2 dir3 dir4</td>
+</tr>
+<tr>
+<td>Remove directory</td>
+<td>rm -r dir1</td>
+<td>rm -rf dir1 dir2 dir3</td>
+</tr>
+</tbody></table>
+<p>Barce expansion</p>
+<p>| echo {Sunday,Monday,Tuesday,Wednesday}.log<br>echo file{1..3}.txt<br>echo file{a,b}{1,2}.txt<br>echo file{a{1,2},b,c}.txt<br>#echo 换为 touch 就能创建一系列文件</p>
+<p>|  |<br>|  |</p>
+<p>单引号中不能写变量，双引号中可以</p>
+<p>| echo “will variable $host evaluate to $(hostname)?”<br>will variable desktopX evaluate to desktopX?<br>echo ‘will variable $host evaluate to $(hostname)?’<br>will variable $host evaluate to $(hostname)?</p>
+<p>|  |<br>|  |</p>
+<h3 id="3-null"><a href="#3-null" class="headerlink" title="3 null"></a>3 null</h3><h3 id="4-Create-Viewing-Editing-text-file"><a href="#4-Create-Viewing-Editing-text-file" class="headerlink" title="4 Create Viewing Editing text file"></a>4 Create Viewing Editing text file</h3><table>
+<thead>
+<tr>
+<th><strong>Usage</strong></th>
+<th><strong>Explanation</strong></th>
+<th><strong>Chineses</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;&gt;file</td>
+<td>combine stdout and stderr to one file</td>
+<td>把标准输出和标准错误输出结合到一起重定向到文件</td>
+</tr>
+<tr>
+<td>&gt;&gt;file 2&gt;&amp;1</td>
+<td>combine stdout and stderr,append to current file content</td>
+<td>把正常和错误输出结合在一起并附加到当前的文件中。</td>
+</tr>
+</tbody></table>
+<p>tee 拷贝输出结果，重定向到文件或屏幕<br><strong>VIM</strong><br>vimtutor,阅读 vim 手册<br>vim 有 4 种模式 1-command mode、2-edit mode、3-visual edit mode、4-extended command mode。<br>1-&gt;2 i 2-&gt;1 Esc,1-&gt;3 v 3-&gt;1 v,1-&gt;4 : 4-&gt;1 Enter.<br>1 模式下命令： x 删除选定字符 ，u 当前行修改 ，A 在行末新增内容，</p>
+<h3 id="5-Managing-Local-Linux-users-and-groups"><a href="#5-Managing-Local-Linux-users-and-groups" class="headerlink" title="5 Managing Local Linux users and groups"></a>5 Managing Local Linux users and groups</h3><p>chage 查看或修改用户密码策略</p>
+<h3 id="6-文件系统权限"><a href="#6-文件系统权限" class="headerlink" title="6 文件系统权限"></a>6 文件系统权限</h3><p>chwon user:group file<br>umask 权限掩码，设置用户新建文件默认权限</p>
+<h3 id="7-监控和管理-linxu-进程"><a href="#7-监控和管理-linxu-进程" class="headerlink" title="7 监控和管理 linxu 进程"></a>7 监控和管理 linxu 进程</h3><p>sleep 10000 &amp; running a job in the background<br>killall pkill<br>pgrep<br>监控系统</p>
+<p>| grep “model name” /proc/cpuinfo |wc -l #cpu 核数</p>
+<p>|  |<br>|  |</p>
+<h3 id="8-控制服务和守护进程"><a href="#8-控制服务和守护进程" class="headerlink" title="8 控制服务和守护进程"></a>8 控制服务和守护进程</h3><p>以前 1 进程为 initd 现在大多数系统 1 进程为 systemd<br>systemctl status name.service<br>systemctl list-unit-files –type=service #查看</p>
+<h3 id="9-配置和加固-ssh-服务"><a href="#9-配置和加固-ssh-服务" class="headerlink" title="9 配置和加固 ssh 服务"></a>9 配置和加固 ssh 服务</h3><h3 id="10-分析和存储日志"><a href="#10-分析和存储日志" class="headerlink" title="10 分析和存储日志"></a>10 分析和存储日志</h3><p>日志系统配置文件<br>/etc/rsyslog.d/<br>日志分析工具 journalctl<br>日期和时间设定</p>
+<h3 id="11-管理网络"><a href="#11-管理网络" class="headerlink" title="11 管理网络"></a>11 管理网络</h3><p>网卡命令规则<br>enp2s0 ,en=ethernet interfaces,wl=Wlan interfaces,ww=wwan interfaces,o=onboard,s=hotplug solt,p=pci,后面的数字表斯<br>常用命令</p>
+<p>| [app@localhost ~]$ ip addr show ens160<br>2: ens160: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000<br>link/ether 00:50:56:bf:71:0c brd ff:ff:ff:ff:ff:ff<br>inet 192.168.12.188/24 brd 192.168.12.255 scope global ens160<br>valid_lft forever preferred_lft forever<br>inet6 fe80::250:56ff:febf:710c/64 scope link<br>valid_lft forever preferred_lft forever</p>
+<p>|  |<br>|  |</p>
+<p>| [app@localhost ~]$ ip -s link show ens160<br>2: ens160: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP mode DEFAULT qlen 1000<br>link/ether 00:50:56:bf:71:0c brd ff:ff:ff:ff:ff:ff<br>RX: bytes packets errors dropped overrun mcast<br> 2595014507 32474768 0 9497755 0 77<br> TX: bytes packets errors dropped carrier collsns<br>1004021853 1743158 0 0 0 0</p>
+<p>|  |<br>|  |</p>
+<p>| [app@localhost ~]$ ip route<br>default via 192.168.12.254 dev ens160<br>169.254.0.0/16 dev ens160 scope link metric 1002<br>192.168.12.0/24 dev ens160 proto kernel scope link src 192.168.12.188</p>
+<p>|  |<br>|  |</p>
+<p>网络路径排查</p>
+<p>| [app@localhost ~]$ tracepath 192.168.13.1<br>1?: [LOCALHOST] pmtu 1500<br>1: 192.168.12.252 0.571ms<br>1: 192.168.12.252 0.658ms<br>2: 192.168.13.1 0.832ms reached<br>Resume: pmtu 1500 hops 2 back 2</p>
+<p>|  |<br>|  |</p>
+<p>端口和服务排查</p>
+<p>| [app@localhost ~]$ ss -ta<br>State Recv-Q Send-Q Local Address:Port Peer Address:Port<br>LISTEN 0 128 <em>:ssh <em>:</em><br>LISTEN 0 100 127.0.0.1:smtp <em>:</em><br>ESTAB 0 0 192.168.12.188:ssh 192.168.12.117:55057<br>ESTAB 0 0 192.168.12.188:ssh 192.168.1.172:49398<br>ESTAB 0 0 192.168.12.188:ssh 192.168.12.75:62967<br>ESTAB 0 0 192.168.12.188:ssh 192.168.12.123:58675<br>ESTAB 0 0 192.168.12.188:ssh 192.168.12.56:25780<br>LISTEN 0 128</div>http</div></em><br>LISTEN 0 128</div>ssh</div>_<br>LISTEN 0 100 ::1:smtp</div>_</p>
+<p>|  |<br>|  |</p>
+<h3 id="12-在系统间归档和拷贝文件"><a href="#12-在系统间归档和拷贝文件" class="headerlink" title="12 在系统间归档和拷贝文件"></a>12 在系统间归档和拷贝文件</h3><p>tar 参数</p>
+<p>| -c<br>-t<br>-x<br>-f<br>-v #压缩参数<br>-z<br>-j<br>-J</p>
+<p>|  |<br>|  |</p>
+<p>系统间传输文件 scp<br>系统间同步文件 rsync</p>
+<h3 id="13-安装和升级软件包"><a href="#13-安装和升级软件包" class="headerlink" title="13 安装和升级软件包"></a>13 安装和升级软件包</h3><p>| yum repolist<br>yum list yum *<br>yum list installed<br>yum grouplist<br>yum search all ‘web server’<br>yum info httpd<br>yum provides /var/www/html<br>yum install ,update,remove<br>yum group list<br>yum group install “name”</p>
+<p>|  |<br>|  |</p>
+<p>| rpm -q yum<br>rpm -q -p<br>rpm -q -f /etc/yum/repos.d<br>rpm -q -c zabbix-agent #查找 zabbix-agent 的配置文件<br>rpm -q -p pakage -i #安装包信息</p>
+<p>|  |<br>|  |</p>
+<h2 id="14-linux-文件系统"><a href="#14-linux-文件系统" class="headerlink" title="14 linux 文件系统"></a>14 linux 文件系统</h2><p>| blkid #查看各分区文件系统<br>ln file1 file2 #创建 hardlink<br>ln -s file1 file2 #创建 softlink ，快捷方式<br>locate #返回符合内容的文件或路径，-i -n updatedb,忽略大小写、限制返回条目数、更新数据库<br>find # -name -iname -user -group -uid -gid -perm -size</p>
+<p>|  |<br>|  |</p>
+<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="prev" title="正则表达式">
+                  <i class="fa fa-chevron-left"></i> 正则表达式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E5%80%AA%E5%8C%A1%E6%9C%80%E6%9C%89%E5%90%8D%E7%9A%84%E5%8D%81%E5%8F%A5%E8%AF%9D/" rel="next" title="倪匡最有名的十句话">
+                  倪匡最有名的十句话 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

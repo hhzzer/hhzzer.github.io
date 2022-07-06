@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2017-10-26订阅了左耳朵耗子的专栏，重读 123 篇。 洞悉技术本质，享受科技乐趣开篇文章回答四个问题，我是谁、我为什么要开专栏、我要讲什么、目标群体是谁。专栏作者左耳朵耗子，94 年昆明一个大学毕业，目前 45 岁左右。大学学习计算机专业，大二打五笔快，打字挣钱，给老师做项目挣钱，老师也介绍项目给他。第一次工作在工行，能上网写个人主页，玩网页制作技术兼职给电脑报投稿，收入为当时工">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何实现技术变现-专栏总结">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF%E5%8F%98%E7%8E%B0-%E4%B8%93%E6%A0%8F%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2017-10-26订阅了左耳朵耗子的专栏，重读 123 篇。 洞悉技术本质，享受科技乐趣开篇文章回答四个问题，我是谁、我为什么要开专栏、我要讲什么、目标群体是谁。专栏作者左耳朵耗子，94 年昆明一个大学毕业，目前 45 岁左右。大学学习计算机专业，大二打五笔快，打字挣钱，给老师做项目挣钱，老师也介绍项目给他。第一次工作在工行，能上网写个人主页，玩网页制作技术兼职给电脑报投稿，收入为当时工">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T08:53:45.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.562Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF%E5%8F%98%E7%8E%B0-%E4%B8%93%E6%A0%8F%E6%80%BB%E7%BB%93/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF%E5%8F%98%E7%8E%B0-%E4%B8%93%E6%A0%8F%E6%80%BB%E7%BB%93/","path":"2022/07/04/yuque/如何实现技术变现-专栏总结/","title":"如何实现技术变现-专栏总结"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>如何实现技术变现-专栏总结 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B4%9E%E6%82%89%E6%8A%80%E6%9C%AF%E6%9C%AC%E8%B4%A8%EF%BC%8C%E4%BA%AB%E5%8F%97%E7%A7%91%E6%8A%80%E4%B9%90%E8%B6%A3"><span class="nav-number">1.</span> <span class="nav-text">洞悉技术本质，享受科技乐趣</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%8A%80%E6%9C%AF%E5%8F%98%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">如何技术变现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E5%B8%82%E5%9C%BA"><span class="nav-number">2.1.</span> <span class="nav-text">外部市场</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E6%88%91%E4%BA%A7%E5%93%81%E5%8C%96"><span class="nav-number">2.2.</span> <span class="nav-text">自我产品化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%82%E5%9C%BA%E6%8E%A8%E5%B9%BF"><span class="nav-number">2.3.</span> <span class="nav-text">市场推广</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E8%A1%8C%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">我的行动</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF%E5%8F%98%E7%8E%B0-%E4%B8%93%E6%A0%8F%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="如何实现技术变现-专栏总结 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何实现技术变现-专栏总结
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 16:53:45 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:53:45+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2017-10-26<br>订阅了左耳朵耗子的专栏，重读 123 篇。</p>
+<h2 id="洞悉技术本质，享受科技乐趣"><a href="#洞悉技术本质，享受科技乐趣" class="headerlink" title="洞悉技术本质，享受科技乐趣"></a>洞悉技术本质，享受科技乐趣</h2><p>开篇文章回答四个问题，我是谁、我为什么要开专栏、我要讲什么、目标群体是谁。<br>专栏作者左耳朵耗子，94 年昆明一个大学毕业，目前 45 岁左右。大学学习计算机专业，大二打五笔快，打字挣钱，给老师做项目挣钱，老师也介绍项目给他。第一次工作在工行，能上网写个人主页，玩网页制作技术兼职给电脑报投稿，收入为当时工资一半。放弃房子辞职，投身信息时代浪潮。上海面试北京工作 platm 工业级软件开发。汤森路透做网络高速传输系统，学会高并发高性能调试能力，管理能力。亚马逊工作获得看问题和做事情不同的视角。开会看资料、举证、决策。之后到阿里巴巴，经历双十一，发现一种完全不同的文化。离开阿里巴巴，做企业咨询和企业内训，解决高并发性能相关问题。<br>开专栏于企业咨询类似，收费给有价值的东西。专栏受众广，边际成本低，作者赚多。读者花小成本，获得可信赖信息筛选器和价值参考，有收集。双赢。<br>专栏内容讲 5 方面。1）重要技术核心分析、2）技术和个人成长、3）管理方法、4）热点新闻分享及分析、 5）每月答疑。<br>目标群体：1）IT 从业新手，2）IT 从业几年技术人员 3）技术领导</p>
+<h2 id="如何技术变现"><a href="#如何技术变现" class="headerlink" title="如何技术变现"></a>如何技术变现</h2><p>分两篇文章讲解，第一篇讲自己技术变现的过程，第二篇讲变现知道思想或行动。<br>第一篇变现过程主要是 打字-功能软件开发-技术投稿-解决难题，可以发现使用到的技术在特定时代下都是稀缺的，技术复用率逐渐增高。<br>第二篇总结了 9 个观点，可总结为两眼看世界，一眼看外部市场，一眼看自我。在市场中发现高价值付费需求，通过科学的方法提升自己能力满足需求获得报酬。</p>
+<h3 id="外部市场"><a href="#外部市场" class="headerlink" title="外部市场"></a>外部市场</h3><p>1 市场在哪里<br>对于架构、性能方面的市场，需求在高速发展的公司里。大公司架构成熟，看中稳定性，尝试新技术意愿不强。大公司高级技术人员多，外部技术顾问不具有稀缺性。初创公司第一关注业务，业务跑起来证明可成功后再才有架构和性能优化方面的需求。<br>2 技术付费点是什么？<br>帮别人挣钱的地方，帮别人省钱的地方。开源：扩大用户规模、提高挣钱速度。节流：节省挣钱过程的开销。方案具有稀缺性。</p>
+<h3 id="自我产品化"><a href="#自我产品化" class="headerlink" title="自我产品化"></a>自我产品化</h3><p>1 积累小成功，让自己有信心，让别人知道你的能力。帮助别人并获得认可能正向激励自己研究探索未知领域，满足虚荣心。<br>2 在信息源头接受高浓度信息，学得更快。掌握英文搜索和阅读的能力，信息收集更准确。<br>3 技术能落地，能出活。实践编码能力强，能将方案转换为可交互的产品。产品给客户带来价值（开源节流）。<br>4 观点和价值观输出。输出倒必输入，能提高学习效率，典型的就是费曼学习法。确定一个问题，研究问题的解决方法，讲述给别人直到他能听懂。</p>
+<h3 id="市场推广"><a href="#市场推广" class="headerlink" title="市场推广"></a>市场推广</h3><p>1 有案例才可信。要经历和见证了成功，才能让别人相信你能带来成功。累积自己的经历和能力。<br>2 朋友圈运营。朋友圈是近处的市场和远处的自我。朋友圈是同行熟人交流，聚焦领域类似，观点和方法有差异，能和自己对照。见贤思齐焉，见不贤而内自省也。熟人能带来熟人生意，信任感能降低交易成本。</p>
+<h2 id="我的行动"><a href="#我的行动" class="headerlink" title="我的行动"></a>我的行动</h2><p>找问题给自己挑战，积累自己成功经验。<br>写总结记录文章，理顺思维，清晰表达。<br>高人指路获取视野，增大可选范围和判断目前方法是否有效。吴军、古典、陈皓。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4/"># 极客时间</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E7%9C%8B%E4%BA%86coolshell10%E7%AF%87%E6%96%87%E7%AB%A0%E4%BB%A5%E5%90%8E/" rel="prev" title="看了coolshell10篇文章以后">
+                  <i class="fa fa-chevron-left"></i> 看了coolshell10篇文章以后
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E4%BB%B7%E5%80%BC%E8%A7%82-%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/" rel="next" title="价值观-超级个体">
+                  价值观-超级个体 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

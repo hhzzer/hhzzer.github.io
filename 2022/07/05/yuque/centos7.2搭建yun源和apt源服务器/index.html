@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2017-12-14搭建类似于网易源的服务器，方面内网服务器安装和更新软件包。 结论一台 centos7.2 的服务器，可以同时提供 yum 源服务和 apt 源服务。都是使用 apache 提供 web 服务。同步其他 yum 源服务器使用 reposync，同步其他 apt 源服务器使用 apt-mirror. 使用软件和用途Apache 用于提供 web 服务。遇到问题 2 个:更改">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos7.2搭建yun源和apt源服务器">
+<meta property="og:url" content="http://example.com/2022/07/05/yuque/centos7.2%E6%90%AD%E5%BB%BAyun%E6%BA%90%E5%92%8Capt%E6%BA%90%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2017-12-14搭建类似于网易源的服务器，方面内网服务器安装和更新软件包。 结论一台 centos7.2 的服务器，可以同时提供 yum 源服务和 apt 源服务。都是使用 apache 提供 web 服务。同步其他 yum 源服务器使用 reposync，同步其他 apt 源服务器使用 apt-mirror. 使用软件和用途Apache 用于提供 web 服务。遇到问题 2 个:更改">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-05T09:07:47.000Z">
+<meta property="article:modified_time" content="2022-07-06T00:58:34.754Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/05/yuque/centos7.2%E6%90%AD%E5%BB%BAyun%E6%BA%90%E5%92%8Capt%E6%BA%90%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/05/yuque/centos7.2%E6%90%AD%E5%BB%BAyun%E6%BA%90%E5%92%8Capt%E6%BA%90%E6%9C%8D%E5%8A%A1%E5%99%A8/","path":"2022/07/05/yuque/centos7.2搭建yun源和apt源服务器/","title":"centos7.2搭建yun源和apt源服务器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>centos7.2搭建yun源和apt源服务器 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%92%8C%E7%94%A8%E9%80%94"><span class="nav-number">2.</span> <span class="nav-text">使用软件和用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%A7%84%E5%88%92"><span class="nav-number">3.</span> <span class="nav-text">安装规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%96%BD%E8%BF%87%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">实施过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-wget-%E4%BB%A3%E7%90%86%E5%92%8C-yum-%E4%BB%A3%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">设置 wget 代理和 yum 代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95"><span class="nav-number">4.2.</span> <span class="nav-text">创建目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-apt-mirror-%E5%B9%B6%E5%90%8C%E6%AD%A5%E9%95%9C%E5%83%8F"><span class="nav-number">4.3.</span> <span class="nav-text">安装 apt-mirror 并同步镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5-yum-%E5%8C%85%E5%B9%B6%E7%94%9F%E6%88%90%E8%BD%AF%E4%BB%B6%E4%BB%93%E5%BA%93"><span class="nav-number">4.4.</span> <span class="nav-text">同步 yum 包并生成软件仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-apache"><span class="nav-number">4.5.</span> <span class="nav-text">设置 apache</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%8F%E5%A4%A9%E5%AE%9A%E6%97%B6%E8%87%AA%E5%8A%A8%E5%90%8C%E6%AD%A5"><span class="nav-number">5.</span> <span class="nav-text">每天定时自动同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%AB%AF-yum-%E6%BA%90%E6%96%87%E4%BB%B6%E5%92%8C-apt-%E6%96%87%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">用户端 yum 源文件和 apt 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">7.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/05/yuque/centos7.2%E6%90%AD%E5%BB%BAyun%E6%BA%90%E5%92%8Capt%E6%BA%90%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="centos7.2搭建yun源和apt源服务器 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          centos7.2搭建yun源和apt源服务器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-05 17:07:47" itemprop="dateCreated datePublished" datetime="2022-07-05T17:07:47+08:00">2022-07-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-06 08:58:34" itemprop="dateModified" datetime="2022-07-06T08:58:34+08:00">2022-07-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2017-12-14<br>搭建类似于网易源的服务器，方面内网服务器安装和更新软件包。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>一台 centos7.2 的服务器，可以同时提供 yum 源服务和 apt 源服务。都是使用 apache 提供 web 服务。同步其他 yum 源服务器使用 reposync，同步其他 apt 源服务器使用 apt-mirror.</p>
+<h2 id="使用软件和用途"><a href="#使用软件和用途" class="headerlink" title="使用软件和用途"></a>使用软件和用途</h2><p>Apache 用于提供 web 服务。<br>遇到问题 2 个:更改/目录，默认列出目录内容。第一个问题修改 httpd.conf,第二个问题除了修改 httpd.conf，还需移除 welcome.conf。<br>apt-mirror 用于同步镜像其他 apt 服务器，使用 rpm 包安装。配置文件 apt-mirror.conf 需要修改同步文件保存位置、同步软件包位数 amd64 以及同步源 url。<br>reposync 通过使用 yum 的方式同步 yum 仓库。参数—repoid 指定.repo 中[]的内容。-p 指定同步保存位置。-n 同步较新的。<br>createrepo 用于生产 rpm 包的依赖数据信息。<br>createrpeo -pod /fo/os/x86_64 /fo/os/x86_64/ 表示对 os 软件包生成数据包依赖信息并放在那个目录。createrepo -g *comg.xml /fo/os/x86_64/ 用于生产 yum grouplist 信息。xml 文件在网易镜像下载保存到任意位置即可。</p>
+<h2 id="安装规划"><a href="#安装规划" class="headerlink" title="安装规划"></a>安装规划</h2><p>操作系统：centos7.2 x64，2c4G，100G 系统盘，500G 数据盘。分区 lvm 格式，数据盘单独一个 lv，挂载在 /data 目录。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">tree -L <span class="number">3</span> /data</span><br><span class="line">./</span><br><span class="line">|--website</span><br><span class="line">  |--centos</span><br><span class="line">  |  |--<span class="number">6</span></span><br><span class="line">  |  |--<span class="number">7</span></span><br><span class="line">  |  |--RPM-GPG-KEY-CentOS-<span class="number">6</span></span><br><span class="line">  |  |--RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line">  |--CentOS-Base.repo</span><br><span class="line">  |--epel</span><br><span class="line">  |  |--<span class="number">6</span></span><br><span class="line">  |  |--<span class="number">7</span></span><br><span class="line">  |--sources.<span class="built_in">list</span></span><br><span class="line">  |--ubuntu</span><br><span class="line">     |--dists</span><br><span class="line">     |--pool</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>apache 根目录设置为/data/website</p>
+<h2 id="实施过程"><a href="#实施过程" class="headerlink" title="实施过程"></a>实施过程</h2><h3 id="设置-wget-代理和-yum-代理"><a href="#设置-wget-代理和-yum-代理" class="headerlink" title="设置 wget 代理和 yum 代理"></a>设置 wget 代理和 yum 代理</h3><p>由于部署的源服务器无法直接访问外网，通过代理服务器访问。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/yum.conf</span><br><span class="line"><span class="comment">#添加内容 proxy=http://172.x.x.x:3128</span></span><br><span class="line">vi ~/.wgetrc</span><br><span class="line"><span class="comment">#添加内容 http-proxy=172.x.x.x.:3128</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h3><p>mkdir -p /data/website/{centos,epel}</p>
+<h3 id="安装-apt-mirror-并同步镜像"><a href="#安装-apt-mirror-并同步镜像" class="headerlink" title="安装 apt-mirror 并同步镜像"></a>安装 apt-mirror 并同步镜像</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">wget http://dl.fedoraproject.org/pub/epel/<span class="number">6</span>/x86_64/Packages/a/apt-mirror-<span class="number">0.5</span><span class="number">.1</span>-<span class="number">1.</span>git420c3ec.el6.noarch.rpm</span><br><span class="line">yum install apt-mirror*</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>vi /etc/apt-mirror.list</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> base_path      /data/apt-source</span><br><span class="line"><span class="comment"># set mirror_path  $base_path/mirror</span></span><br><span class="line"><span class="comment"># set skel_path    $base_path/skel</span></span><br><span class="line"><span class="comment"># set var_path     $base_path/var</span></span><br><span class="line"><span class="comment"># defultarch不配置会自动检测，centos上会检测失败为i386，所以指定amd64.</span></span><br><span class="line"><span class="built_in">set</span> defaultarch  amd64</span><br><span class="line"><span class="comment"># set nthreads     20</span></span><br><span class="line"></span><br><span class="line">deb http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty main restricted universe multiverse</span><br><span class="line">deb http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-security main restricted universe multiverse</span><br><span class="line">deb http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-updates main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-updates main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">clean http://mirrors<span class="number">.163</span>.com/ubuntu</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>同步 163 的 ubuntu1404 镜像,会启动 20 个线程，同步完成大概 164G。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-mirror</span><br></pre></td></tr></table></figure>
+
+<p>同步完成后将下载的文件移动到/data/website/在原位置创建链接文件。<br>原因是 apache 不能显示链接目录，目前还没解决。这种方案也可行，定时同步也简单。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mv /data/apt-source/mirror/mirrors<span class="number">.163</span>.com/ubuntu /data/website/</span><br><span class="line">ln -s /data/website/ubuntu/ /data/apt-source/mirror/mirrors<span class="number">.163</span>.com/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="同步-yum-包并生成软件仓库"><a href="#同步-yum-包并生成软件仓库" class="headerlink" title="同步 yum 包并生成软件仓库"></a>同步 yum 包并生成软件仓库</h3><p>安装软件包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install yum-utils</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>配置本机的 repo，需要配置 centos6 和 centos7 的，配置文件如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">[base]</span><br><span class="line">name=CentOS-$releasever - Base</span><br><span class="line">mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=os&amp;infra=$infra</span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/</span></span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#released updates</span></span><br><span class="line">[updates]</span><br><span class="line">name=CentOS-$releasever - Updates</span><br><span class="line">mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updates&amp;infra=$infra</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#additional packages that may be useful</span></span><br><span class="line">[extras]</span><br><span class="line">name=CentOS-$releasever - Extras</span><br><span class="line">mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extras&amp;infra=$infra</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#additional packages that extend functionality of existing packages</span></span><br><span class="line">[centosplus]</span><br><span class="line">name=CentOS-$releasever - Plus</span><br><span class="line">mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=centosplus&amp;infra=$infra</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">enabled=<span class="number">0</span></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## centos6</span></span><br><span class="line">[base6]</span><br><span class="line">name=CentOS-<span class="number">6</span>-os-cmiot.local</span><br><span class="line">baseurl=http://mirrors<span class="number">.163</span>.com/centos/<span class="number">6</span>/os/x86_64/</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-<span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#released updates</span></span><br><span class="line">[updates6]</span><br><span class="line">name=CentOS-<span class="number">6</span>-updates-cmiot.local</span><br><span class="line">baseurl=http://mirrors<span class="number">.163</span>.com/centos/<span class="number">6</span>/updates/x86_64/</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-<span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#additional packages that may be useful</span></span><br><span class="line">[extras6]</span><br><span class="line">name=CentOS-<span class="number">6</span>-extras-cmiot.local</span><br><span class="line">baseurl=http://mirrors<span class="number">.163</span>.com/centos/<span class="number">6</span>/extras/x86_64/</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-<span class="number">6</span></span><br><span class="line"></span><br><span class="line">[epel6]</span><br><span class="line">name=CentOS-<span class="number">6</span>-epel-cmiot.local</span><br><span class="line">baseurl=https://mirrors.aliyun.com/epel/<span class="number">6</span>/x86_64/</span><br><span class="line">gpgcheck=<span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用 yum repolist 查看是否生效，然后使用 reposync 同步<br>repolist 类似如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">yum repolist</span><br><span class="line">repo <span class="built_in">id</span>                                                              repo name                                                                                          status</span><br><span class="line">base/<span class="number">7</span>/x86_64                                                        CentOS-<span class="number">7</span> - Base                                                                                     <span class="number">9</span>,<span class="number">591</span></span><br><span class="line">base6                                                                CentOS-<span class="number">6</span>-os-cmiot.local                                                                             <span class="number">6</span>,<span class="number">706</span></span><br><span class="line">epel/x86_64                                                          Extra Packages <span class="keyword">for</span> Enterprise Linux <span class="number">7</span> - x86_64                                                     <span class="number">12</span>,<span class="number">136</span></span><br><span class="line">epel6                                                                CentOS-<span class="number">6</span>-epel-cmiot.local                                                                          <span class="number">12</span>,<span class="number">444</span></span><br><span class="line">extras/<span class="number">7</span>/x86_64                                                      CentOS-<span class="number">7</span> - Extras                                                                                     <span class="number">326</span></span><br><span class="line">extras6                                                              CentOS-<span class="number">6</span>-extras-cmiot.local                                                                            <span class="number">46</span></span><br><span class="line">updates/<span class="number">7</span>/x86_64                                                     CentOS-<span class="number">7</span> - Updates                                                                                  <span class="number">1</span>,<span class="number">540</span></span><br><span class="line">updates6                                                             CentOS-<span class="number">6</span>-updates-cmiot.local                                                                          <span class="number">834</span></span><br><span class="line">repolist: <span class="number">43</span>,<span class="number">623</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#同步centos7</span></span><br><span class="line">reposync -n  --repoid=extras  --repoid=updates --repoid=base -p /data/website/centos/<span class="number">7</span></span><br><span class="line">reposync -n  --repoid=epel -p /data/website/epel/<span class="number">7</span>/</span><br><span class="line"><span class="comment">#同步centos6</span></span><br><span class="line">reposync -n  --repoid=extras6  --repoid=updates6 --repoid=base6 -p /data/website/centos/<span class="number">6</span></span><br><span class="line">reposync -n  --repoid=epel6 -p /data/website/epel/<span class="number">6</span>/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>生成仓库数据文件<br>···</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">createrepo  /data/website/centos/<span class="number">7</span>/os/x86_64 /data/website/centos/<span class="number">7</span>/os/x86_64</span><br><span class="line">wget http://mirrors<span class="number">.163</span>.com/centos/<span class="number">7</span>/os/x86_64/repodata/38b60f66d52704cffb8696750b2b6552438c1ace283bc2cf22408b0ba0e4cbfa-c7-x86_64-comps.xml -P /tmp</span><br><span class="line">createrepo -g /tmp/38b\*-comps.xml /data/website/centos7/os/x86_64</span><br><span class="line"></span><br><span class="line">createrepo  /data/website/centos/<span class="number">7</span>/updates/x86_64 /data/website/centos/<span class="number">7</span>/updates/x86_64</span><br><span class="line">createrepo  /data/website/centos/<span class="number">7</span>/extras/x86_64 /data/website/centos/<span class="number">7</span>/extras/x86_64</span><br><span class="line">createrepo  /data/website/epel/<span class="number">7</span>/x86_64 /data/website/epel/<span class="number">7</span>/x86_64</span><br><span class="line"><span class="comment">#6类似，下载的comps.xml到6的位置下载。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>下载 key 文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirrors<span class="number">.163</span>.com/centos/<span class="number">7</span>/os/x86_64/RPM-GPG-KEY-CentOS-<span class="number">7</span> -P /data/website/centos/</span><br><span class="line">wget http://mirrors<span class="number">.163</span>.com/centos/<span class="number">6</span>/os/x86_64/RPM-GPG-KEY-CentOS-<span class="number">6</span> -P /data/website/centos/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="设置-apache"><a href="#设置-apache" class="headerlink" title="设置 apache"></a>设置 apache</h3><p>httpd.conf 文件内容类似如下<br>···</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DocumentRoot <span class="string">&quot;/data/website&quot;</span></span><br><span class="line">&lt;Directory <span class="string">&quot;/data/website&quot;</span>&gt;</span><br><span class="line">  Options Indexes FollowSymLinks</span><br><span class="line">  Options Indexes</span><br><span class="line">  AllowOverride All</span><br><span class="line">  Order allow,deny</span><br><span class="line">  IndexOptions Charset=UTF-<span class="number">8</span></span><br><span class="line">  Allow <span class="keyword">from</span> <span class="built_in">all</span></span><br><span class="line">  Require <span class="built_in">all</span> granted</span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>删除 welcome 配置，达到访问服务器地址直接现实站点根目录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.conf.bak</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="每天定时自动同步"><a href="#每天定时自动同步" class="headerlink" title="每天定时自动同步"></a>每天定时自动同步</h2><p>auto-update.sh</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#同步ubuntu</span></span><br><span class="line">apt-mirror</span><br><span class="line"><span class="comment">#同步centos7</span></span><br><span class="line">reposync -n  --repoid=extras  --repoid=updates --repoid=base -p /data/website/centos/<span class="number">7</span></span><br><span class="line">reposync -n  --repoid=epel -p /data/website/epel/<span class="number">7</span>/</span><br><span class="line"><span class="comment">#同步centos6</span></span><br><span class="line">reposync -n  --repoid=extras6  --repoid=updates6 --repoid=base6 -p /data/website/centos/<span class="number">6</span></span><br><span class="line">reposync -n  --repoid=epel6 -p /data/website/epel/<span class="number">6</span>/</span><br><span class="line">createrepo --update /data/website/centos/<span class="number">7</span>/os/x86_64/</span><br><span class="line">createrepo --update /data/website/centos/<span class="number">7</span>/updates/x86_64/</span><br><span class="line">createrepo --update /data/website/centos/<span class="number">7</span>/extras/x86_64/</span><br><span class="line">createrepo --update /data/website/centos/<span class="number">6</span>/os/x86_64/</span><br><span class="line">createrepo --update /data/website/centos/<span class="number">6</span>/updates/x86_64/</span><br><span class="line">createrepo --update /data/website/centos/<span class="number">6</span>/extras/x86_64/</span><br><span class="line">createrepo --update /data/website/epel/<span class="number">7</span>/x86_64/</span><br><span class="line">createrepo --update /data/website/epel/<span class="number">7</span>/x86_64/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="用户端-yum-源文件和-apt-文件"><a href="#用户端-yum-源文件和-apt-文件" class="headerlink" title="用户端 yum 源文件和 apt 文件"></a>用户端 yum 源文件和 apt 文件</h2><p>centos6、7 文件”CentOS-Base.repo”</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[base]</span><br><span class="line">name=CentOS-$releasever - Base - cmiot.local</span><br><span class="line">baseurl=http://server-ip/centos/$releasever/os/$basearch/</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=http://server-ip/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#released updates</span></span><br><span class="line">[updates]</span><br><span class="line">name=CentOS-$releasever - Updates - cmiot.local</span><br><span class="line">baseurl=http://server-ip/centos/$releasever/updates/$basearch/</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=http:/server-ip/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#additional packages that may be useful</span></span><br><span class="line">[extras]</span><br><span class="line">name=CentOS-$releasever - Extras - cmiot.local</span><br><span class="line">baseurl=http://server-ip/centos/$releasever/extras/$basearch/</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=http://server-ip/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line">[epel]</span><br><span class="line">name=CentOS-$releasever - Extras - cmiot.local</span><br><span class="line">baseurl=http://server-ip/epel/$releasever/$basearch/</span><br><span class="line">gpgcheck=<span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>ubuntu1404x64 sources.list</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">deb [arch=amd64] http://ip/ubuntu/ trusty main restricted universe multiverse</span><br><span class="line">deb [arch=amd64] http://ip/ubuntu/ trusty-security main restricted universe multiverse</span><br><span class="line">deb [arch=amd64] http://ip/ubuntu/ trusty-updates main restricted universe multiverse</span><br><span class="line">deb-src [arch=amd64] http://ip/ubuntu/ trusty main restricted universe multiverse</span><br><span class="line">deb-src [arch=amd64] http://ip/ubuntu/ trusty-security main restricted universe multiverse</span><br><span class="line">deb-src [arch=amd64] http://ip/ubuntu/ trusty-updates main restricted universe multiverse</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://haibing.org/?p=213">http://haibing.org/?p=213</a><br><a target="_blank" rel="noopener" href="https://centos.pkgs.org/6/epel-x86_64/apt-mirror-0.5.1-1.git420c3ec.el6.noarch.rpm.html">https://centos.pkgs.org/6/epel-x86_64/apt-mirror-0.5.1-1.git420c3ec.el6.noarch.rpm.html</a><br><a target="_blank" rel="noopener" href="http://mirrors.163.com/">http://mirrors.163.com</a><br><a target="_blank" rel="noopener" href="http://www.linuxidc.com/Linux/2014-08/105415.htm">http://www.linuxidc.com/Linux/2014-08/105415.htm</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/keepalived%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E5%92%8C%E5%BA%94%E7%94%A8/" rel="prev" title="keepalived原理分析和应用">
+                  <i class="fa fa-chevron-left"></i> keepalived原理分析和应用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/05/yuque/%E5%A6%82%E4%BD%95%E5%81%9A%E5%86%B3%E7%AD%96-%E6%95%99%E7%BB%83%E6%80%9D%E7%BB%B4/" rel="next" title="如何做决策-教练思维">
+                  如何做决策-教练思维 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

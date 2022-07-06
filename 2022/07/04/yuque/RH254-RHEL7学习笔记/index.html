@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2017-07-21 1 Controlling Services and Daemonssystemctl 管理两种模块，.service,.socket，模块有 8 种状态，loaded active(running) active(exited) active(waiting) inactive enabled disabled static.不只是两种模块，还包括.target .">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RH254-RHEL7学习笔记">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/RH254-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2017-07-21 1 Controlling Services and Daemonssystemctl 管理两种模块，.service,.socket，模块有 8 种状态，loaded active(running) active(exited) active(waiting) inactive enabled disabled static.不只是两种模块，还包括.target .">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T06:59:59.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.573Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/RH254-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/RH254-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/","path":"2022/07/04/yuque/RH254-RHEL7学习笔记/","title":"RH254-RHEL7学习笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RH254-RHEL7学习笔记 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Controlling-Services-and-Daemons"><span class="nav-number">1.</span> <span class="nav-text">1 Controlling Services and Daemons</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Managing-IPv6-Networking"><span class="nav-number">2.</span> <span class="nav-text">2 Managing IPv6 Networking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Configuring-Link-Aggregation-and-Bridging"><span class="nav-number">3.</span> <span class="nav-text">3 Configuring Link Aggregation and Bridging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Network-Port-Security"><span class="nav-number">4.</span> <span class="nav-text">4 Network Port Security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Managing-DNS-for-Servers"><span class="nav-number">5.</span> <span class="nav-text">5 Managing DNS for Servers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Configuring-Email-Transmission"><span class="nav-number">6.</span> <span class="nav-text">6 Configuring Email Transmission</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Providing-Remote-Block-Storage"><span class="nav-number">7.</span> <span class="nav-text">7 Providing Remote Block Storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Providing-File-based-Storage"><span class="nav-number">8.</span> <span class="nav-text">8 Providing File-based Storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Configuring-MariaDB-Databases"><span class="nav-number">9.</span> <span class="nav-text">9 Configuring MariaDB Databases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Providing-Apache-HTTPD-Web-Service"><span class="nav-number">10.</span> <span class="nav-text">10 Providing Apache HTTPD Web Service</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-Writing-Bash-Scripts"><span class="nav-number">11.</span> <span class="nav-text">11 Writing Bash Scripts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Bash-conditionals-and-Control-Structures"><span class="nav-number">12.</span> <span class="nav-text">12 Bash conditionals and Control Structures</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-Configuring-the-Shell-Environment"><span class="nav-number">13.</span> <span class="nav-text">13 Configuring the Shell Environment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-Linux-Containers-and-Docker"><span class="nav-number">14.</span> <span class="nav-text">14 Linux Containers and Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-Comprehensive-Review"><span class="nav-number">15.</span> <span class="nav-text">15 Comprehensive Review</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/RH254-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RH254-RHEL7学习笔记 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RH254-RHEL7学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 14:59:59 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T14:59:59+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2017-07-21</p>
+<h2 id="1-Controlling-Services-and-Daemons"><a href="#1-Controlling-Services-and-Daemons" class="headerlink" title="1 Controlling Services and Daemons"></a>1 Controlling Services and Daemons</h2><p>systemctl 管理两种模块，.service,.socket，模块有 8 种状态，loaded active(running) active(exited) active(waiting) inactive enabled disabled static.<br>不只是两种模块，还包括.target .device .mount .automount .path .scope .slice .swap .timer<br>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">systemctl status sshd.service <span class="comment">#查看服务状态，-l，详细日志。</span></span><br><span class="line">ps -up pid <span class="comment">#查看进程资源使用</span></span><br><span class="line">systemctl --<span class="built_in">type</span>=service <span class="comment">#查看启动的服务， --all 所有安装了的服务</span></span><br><span class="line">systemctl <span class="keyword">is</span>-active sshd</span><br><span class="line">systemctl <span class="keyword">is</span>-enabled sshd</span><br><span class="line">systemctl <span class="built_in">list</span>-units --<span class="built_in">type</span>=service <span class="comment">#查看所有加载的单元，--all,显示不活动的。</span></span><br><span class="line">systemctl <span class="built_in">list</span>-unit-files --<span class="built_in">type</span>=service <span class="comment">#显示所有的units，所有状态（disabled,enabled,static-静态的，需要其他uinit调用启动）</span></span><br><span class="line">systemctl --failed --<span class="built_in">type</span>=service <span class="comment">#查看启动失败的服务</span></span><br><span class="line">systemctl mask UNIT <span class="comment">#完全禁止开机启动或手动开启某服务 unmask 解除</span></span><br><span class="line">systemctl <span class="built_in">list</span>-dependencies UNIT <span class="comment">#查看服务单元依赖 --reverse 查看启动此服务需要先启动哪些服务。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>.target 表示组件应该达到某种状态。</p>
+<p>| 1<br>2</p>
+<p>| systemctl get-default #查看目前状态<br>tree /etc/systemd/system/multi-user.target.wants #查看 multi-user 模式下启动的服务。</p>
+<p>|  |<br>|  |</p>
+<h2 id="2-Managing-IPv6-Networking"><a href="#2-Managing-IPv6-Networking" class="headerlink" title="2 Managing IPv6 Networking"></a>2 Managing IPv6 Networking</h2><h2 id="3-Configuring-Link-Aggregation-and-Bridging"><a href="#3-Configuring-Link-Aggregation-and-Bridging" class="headerlink" title="3 Configuring Link Aggregation and Bridging"></a>3 Configuring Link Aggregation and Bridging</h2><p>做物理机网卡绑定需要此章内容，相关命令 nmcil teamdctl teamd,需要使用 NetworkManager。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">nmcli con add <span class="built_in">type</span> team con-name team0 ifname team0 config <span class="string">&#x27;&#123;&quot;runner&quot;:&#123;&quot;name&quot;:&quot;activebackup&quot;&#125;&#125;&#x27;</span></span><br><span class="line">nmcli con mod team0 ipv4.addresses <span class="string">&#x27;192.168.0.100/24&#x27;</span></span><br><span class="line">nmcli con mod team0 ipv4.method manual</span><br><span class="line">nmcli con add <span class="built_in">type</span> team-slave con-name team0-port1 ifname eno1 master team0</span><br><span class="line">nmcli con add <span class="built_in">type</span> team-slave con-name team0-port2 ifname eno2 master team0</span><br><span class="line">teamdctl team0 state</span><br><span class="line">ping -I team0 <span class="number">192.168</span><span class="number">.0</span><span class="number">.254</span></span><br><span class="line"><span class="comment">#验证主备</span></span><br><span class="line">nmcli dev dis eno1</span><br><span class="line">teamdctl team0 state</span><br><span class="line">ping gw</span><br><span class="line">nmcli con up team0-port1</span><br><span class="line">nmcli dev dis eno2</span><br><span class="line">teamdctl team0 state</span><br><span class="line">ping gw</span><br><span class="line">nmcli con up team0-port2</span><br><span class="line">teamdctl team0 state</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Network-Port-Security"><a href="#4-Network-Port-Security" class="headerlink" title="4 Network Port Security"></a>4 Network Port Security</h2><h2 id="5-Managing-DNS-for-Servers"><a href="#5-Managing-DNS-for-Servers" class="headerlink" title="5 Managing DNS for Servers"></a>5 Managing DNS for Servers</h2><p>host -v -t A <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> #查询百度域名 ip 信息<br>host -v -t PTR 183.232.231.173<br>getent hosts example.com<br>gethostip example.com<br>dig</p>
+<h2 id="6-Configuring-Email-Transmission"><a href="#6-Configuring-Email-Transmission" class="headerlink" title="6 Configuring Email Transmission"></a>6 Configuring Email Transmission</h2><h2 id="7-Providing-Remote-Block-Storage"><a href="#7-Providing-Remote-Block-Storage" class="headerlink" title="7 Providing Remote Block Storage"></a>7 Providing Remote Block Storage</h2><h2 id="8-Providing-File-based-Storage"><a href="#8-Providing-File-based-Storage" class="headerlink" title="8 Providing File-based Storage"></a>8 Providing File-based Storage</h2><h2 id="9-Configuring-MariaDB-Databases"><a href="#9-Configuring-MariaDB-Databases" class="headerlink" title="9 Configuring MariaDB Databases"></a>9 Configuring MariaDB Databases</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">yum groupinstall mariadb mariadb-client -y</span><br><span class="line">systemctl start mariadb</span><br><span class="line">mysql_secure_installation</span><br><span class="line">MariaDB&gt;create user john@localhost identified by <span class="string">&#x27;john-password&#x27;</span> ;<span class="comment">#@后面为允许连接地址</span></span><br><span class="line">MariaDB&gt;grant insert,update,delete,select on inventory.* to john@localhosts;<span class="comment">#为用户赋权</span></span><br><span class="line">MariaDB&gt;flush privileges;</span><br><span class="line">firewall-cmd --permanent --add-service=mysql</span><br><span class="line">firewall-cmd --reload</span><br><span class="line"><span class="comment">#数据库逻辑备份,特点1）通过查询数据库获得数据结构2）高适应性，可恢复到不同类型数据库3）备份慢4）数据库必须在线5）备份不包括配置文件和日志文件。</span></span><br><span class="line">mysqldump -u root -p inventory &gt; /buckup/inventory.dump</span><br><span class="line"><span class="comment">#数据库物理备份，特点1）raw拷贝数据库目录和文件2）输出更完整3）备份包括日志和配置文件4）恢复到类似配置硬件和软件上5）速度快6）可离线或锁表备份。</span></span><br><span class="line">mysqladmin variables | grep datadir</span><br><span class="line">df /var/lib/mysql</span><br><span class="line">vgdisplay vg0 |grep Free</span><br><span class="line">mariadb&gt;flush tables <span class="keyword">with</span> read lock</span><br><span class="line">copy -r /var/lib/mysql /mysqlback</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="10-Providing-Apache-HTTPD-Web-Service"><a href="#10-Providing-Apache-HTTPD-Web-Service" class="headerlink" title="10 Providing Apache HTTPD Web Service"></a>10 Providing Apache HTTPD Web Service</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum install httpd httpd-manual</span><br><span class="line">systemctl start httpd.service</span><br><span class="line">systemctl enable httpd.service</span><br><span class="line">firewall-cmd --permanent --add-service=http</span><br><span class="line">firewall-cmd --reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="11-Writing-Bash-Scripts"><a href="#11-Writing-Bash-Scripts" class="headerlink" title="11 Writing Bash Scripts"></a>11 Writing Bash Scripts</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> HOST <span class="keyword">in</span> host1 host2 host3;echo $HOST;done</span><br><span class="line"><span class="keyword">for</span> HOST <span class="keyword">in</span> host&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;do echo $HOST;done</span><br><span class="line"><span class="keyword">for</span> HOST <span class="keyword">in</span> host&#123;<span class="number">1.</span><span class="number">.4</span>&#125;;do echo $HOST;done</span><br><span class="line"><span class="keyword">for</span> PACKAGE <span class="keyword">in</span> $(rpm -qa | grep kernel);do echo <span class="string">&quot;$PACKAGE was installed on $(date -d @$(rpm -q --qf &quot;</span>%&#123;INSTALLTIME&#125;\n<span class="string">&quot; $PACKAGE))&quot;</span>;done</span><br><span class="line">seq <span class="comment">#产生一个序列，并从大到小打印出来</span></span><br><span class="line">bash -x ./filesize <span class="comment">#执行shell时打印详细步骤 -v类似</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="12-Bash-conditionals-and-Control-Structures"><a href="#12-Bash-conditionals-and-Control-Structures" class="headerlink" title="12 Bash conditionals and Control Structures"></a>12 Bash conditionals and Control Structures</h2><p>$0 脚本本身 ${1..10},外部变量，$* 变量作为一个 word，$@ 输入作为多个变量 $# 变量个数<br>shell 退出码 保存在$? 中，echo $?查看。退出码在0-255之间，0是正常退出。可在shell中使用“exit 0”设置退出码。<br>输入测试 [ &lt;比较符&gt; ],[abc==def];echo $?.-z 字符串是否为空 -n 字符串不为空。STRING=’’;[-z “$STRING”];echo $?,还有文件和目录判断，可判断一个文件是否为 0 字节，是否可执行。判断的与运算符”&amp;&amp;”,或运算符”||”<br>条件判断结构 ：if/then,if/then/else,if/then/elif/then/else,case in.case 语句中的判断条件可以使用|或运算符。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#case example</span></span><br><span class="line">case <span class="string">&quot;$1&quot;</span> <span class="keyword">in</span></span><br><span class="line">  start)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line">  stop)</span><br><span class="line">    rm -f $lockfile</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">  restart)</span><br><span class="line">    restart</span><br><span class="line">    ;;</span><br><span class="line">  reload)</span><br><span class="line">    reload</span><br><span class="line">    ;;</span><br><span class="line">  status)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line">  *)</span><br><span class="line">    echo <span class="string">&quot;Usage: $0 (start|stop|restart|reload|status)&quot;</span></span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="13-Configuring-the-Shell-Environment"><a href="#13-Configuring-the-Shell-Environment" class="headerlink" title="13 Configuring the Shell Environment"></a>13 Configuring the Shell Environment</h2><p>vi /etc/profile vi ~/.bashrc</p>
+<h2 id="14-Linux-Containers-and-Docker"><a href="#14-Linux-Containers-and-Docker" class="headerlink" title="14 Linux Containers and Docker"></a>14 Linux Containers and Docker</h2><h2 id="15-Comprehensive-Review"><a href="#15-Comprehensive-Review" class="headerlink" title="15 Comprehensive Review"></a>15 Comprehensive Review</h2><p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/RH134-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="RH134-RHEL7学习笔记">
+                  <i class="fa fa-chevron-left"></i> RH134-RHEL7学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E3%80%8A%E4%BB%8E%E4%B8%80%E5%88%B0%E6%97%A0%E7%A9%B7%E5%A4%A7%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="next" title="《从一到无穷大》读书笔记">
+                  《从一到无穷大》读书笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

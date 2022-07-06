@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2017-08-09今天在阮一峰微博上看到赞赏这篇文章，我就尝试翻译一下。原文链接我的一个学生带领我参观了一个大型上市技术公司，他是这公司的 CFO。这家公司仍热是最热门的技术公司之一。他们使得硬件在嵌入式软件和服务中大规模应用。CFO 邀请我留下来，因为一个技术负责人要来参加一个会议。我真希望我没去做…负责人在那里抗议，因为他所有 70 人的团队需要从 Palo Alto 到东海岸。”现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么牛人离开大型技术公司-翻译">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/%E4%B8%BA%E4%BB%80%E4%B9%88%E7%89%9B%E4%BA%BA%E7%A6%BB%E5%BC%80%E5%A4%A7%E5%9E%8B%E6%8A%80%E6%9C%AF%E5%85%AC%E5%8F%B8-%E7%BF%BB%E8%AF%91/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2017-08-09今天在阮一峰微博上看到赞赏这篇文章，我就尝试翻译一下。原文链接我的一个学生带领我参观了一个大型上市技术公司，他是这公司的 CFO。这家公司仍热是最热门的技术公司之一。他们使得硬件在嵌入式软件和服务中大规模应用。CFO 邀请我留下来，因为一个技术负责人要来参加一个会议。我真希望我没去做…负责人在那里抗议，因为他所有 70 人的团队需要从 Palo Alto 到东海岸。”现">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T07:49:59.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.570Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/%E4%B8%BA%E4%BB%80%E4%B9%88%E7%89%9B%E4%BA%BA%E7%A6%BB%E5%BC%80%E5%A4%A7%E5%9E%8B%E6%8A%80%E6%9C%AF%E5%85%AC%E5%8F%B8-%E7%BF%BB%E8%AF%91/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/%E4%B8%BA%E4%BB%80%E4%B9%88%E7%89%9B%E4%BA%BA%E7%A6%BB%E5%BC%80%E5%A4%A7%E5%9E%8B%E6%8A%80%E6%9C%AF%E5%85%AC%E5%8F%B8-%E7%BF%BB%E8%AF%91/","path":"2022/07/04/yuque/为什么牛人离开大型技术公司-翻译/","title":"为什么牛人离开大型技术公司-翻译"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>为什么牛人离开大型技术公司-翻译 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E4%BA%BA%E7%9B%91%E7%9D%A3"><span class="nav-number">1.</span> <span class="nav-text">成人监督</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AB%E9%86%92%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">叫醒服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">后记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%97%E5%88%B0%E7%9A%84%E6%95%99%E8%AE%AD"><span class="nav-number">4.</span> <span class="nav-text">得到的教训</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%B8%BA%E4%BB%80%E4%B9%88%E7%89%9B%E4%BA%BA%E7%A6%BB%E5%BC%80%E5%A4%A7%E5%9E%8B%E6%8A%80%E6%9C%AF%E5%85%AC%E5%8F%B8-%E7%BF%BB%E8%AF%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="为什么牛人离开大型技术公司-翻译 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          为什么牛人离开大型技术公司-翻译
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 15:49:59 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:49:59+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2017-08-09<br>今天在阮一峰微博上看到赞赏这篇文章，我就尝试翻译一下。<a target="_blank" rel="noopener" href="https://thinkgrowth.org/why-good-people-leave-large-tech-companies-af2b6fea4ee">原文链接</a><br>我的一个学生带领我参观了一个大型上市技术公司，他是这公司的 CFO。这家公司仍热是最热门的技术公司之一。他们使得硬件在嵌入式软件和服务中大规模应用。<br>CFO 邀请我留下来，因为一个技术负责人要来参加一个会议。<br><strong>我真希望我没去做…</strong><br>负责人在那里抗议，因为他所有 70 人的团队需要从 Palo Alto 到东海岸。”现在团队大部分人步行上班，以后或许是乘火车上班。这让他们在路上会有 45 分钟休息时间。团队大部分人将离开我们。“<br>负责人向他的老板抱怨过，技术总裁插着手说这是“设备问题”，设备总裁把这个问题汇报给了 CFO。所以，组织一个会议是最后的手段，技术负责人为让他的团队留在城里向 CFO 做最后的汇报。<br>虽然这家技术公司的大多数人是从事制造业，然而决策小组是由经验丰富的软件工程师组成。”鉴于他们也可以在本地咖啡店的工作”，CFO 的回复让我目瞪口呆。”太糟糕了，但是我们需要空间。他们在这里工作已经够幸运了。至少他们在简历上留下了我们公司的名字”<br>什么？我不确定是我还是技术负责人更震惊。<br>这个负责人走了以后，我必须看起来很惊讶的样子，CFO 解释说：”我们有成千上万名雇员，在湾区，我们的空间需求根本不可能匹配我们的增速。你了解我们 CEO 的，‘喜欢我们或离开’是他一直观点。”（巧合的是，这个 CEO 在 20 年前是我创业公司的实习生。）我问到：”现在公司已经上市并且增长巨大，他的观点改了么？”CFO 回答道：”没有，我们的 CEO 相信我们正处于改变世界的巨大机遇中，只有在这里工作才能赶上，要么享受要么离开。我们依然收到大量想加入我们公司的简历，所以他认为没有必要改。”<br>我不知道该改成什么，想想这个观点可能有用，毕竟让一个初创公司成长为一个有 1 万或更多雇员的公司。”我们在改变世界的巨大机遇中，要么加入公司改变世界，要么滚蛋“这和我当时在当实习 CEO 的信念一样。</p>
+<h3 id="成人监督"><a href="#成人监督" class="headerlink" title="成人监督"></a>成人监督</h3><p>在独角兽快迅速崛起之前，董事会仍然能掌控时，在他们找到合适的产品或市场后，他们”鼓励”创始人雇佣”家长型”人事管理公司。<br>因此多数创始人无法迅速获得人力资源、财务、销售和董事会管理方面的技能，再由创始人管理会让一家公司迅速消失。所以他们聘用职业经理人。这些新 CEO 也要起到及时消除创始人过激脾气的作用。<br><strong>在上个世纪，技术投资人认识到职业化 CEO 们在扩张阶段非常有用，而在寻找产品定位阶段没用</strong> 技术周期变成一个跑步机，存活下的初创公司需要在不断创新的周期中。这种初创文化一直持续多年–谁做得最好呢？当然是那些创始人。<br>创始人习惯于嘈杂与混乱。与之相对，职业经理人试图让嘈杂恢复秩序并且经常杀死初创文化。创业公司认识到 <strong>指导创始 CEO 壮大公司比让职业经理人 CEO 找到新的创新机遇更容易</strong>。他们是对的。我在我访问过的公司中确实如此。-过去 5 年中已经出现过 200 个独角兽公司，大多数仍人是由创始人掌管。<br>因此，初创公司发现并且相信，有一个对创始人友好的董事会，且公司继续由创始 CEO 经营，公司会增长得更快。创始人的现实扭曲力吸引了大量有同样愿景的雇员。这是非常引人注目的，每个人为了少量薪水和一些股票工作极长的时间。他们是幸运的，他们掌握了正确的节奏，经过几年痛苦的时间发现正确的产品或市场，然后上市。那些早期员工因为股票变现而获得了回报。<br><strong>但问题在于员工超过 1000 的某个时刻，优先股的大量支出结束，随后股票在 IPO 后开始上涨。</strong> 但是 CEO 从未注意到其他公司为他支付 95%的时间已经结束。飞到他私人院子里的远程办公室，被那些身价千万美元的早期员工包围。被”要么留要么走“咒骂的却是一些新员工。<br>公司现在吸引那些实习生，只想在他简历上留下”在热门公司工作过的””一段经历。但是由于薪酬水平低于平均水平，他们会待到足够长的时间来完善他们的简历后为了更高的报酬而离开-通常去一家初创公司。<br>由于只有少量高级工程师认为是一个理想的工作场所，公司开始的技术优势已经开始恶化。</p>
+<h3 id="叫醒服务"><a href="#叫醒服务" class="headerlink" title="叫醒服务"></a>叫醒服务</h3><p>创始人的哪些特点不利于运营大型公司谁也不知道，因为没有最佳实践、没有课程，也没有标准模型。创始人团队很少把初创公司变成大公司，一点也不奇怪。<br>再创业者通过敏捷、无情、顽强甚至不合理并成为 CEO 驱动公司增长，有时候可能，但很艰难。<br>这就意味着快速学习一系列新技能-重大自我升华、当通过直接汇报的方式不能掌握整个公司的时候，就需要建立可重复流程实现规模化管理。有时候这只是在电话唤醒危机之后才会发生。作为一家创业公司，创始人和董事会需要认识到，最重要的改变不是关于系统、办公环境或是硬件。<strong>他们要认识到员工才是他们最宝贵的财富</strong><br>伟大公司的创始人们知道如何保持他们的激情，但也知道人性。</p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>我现在可以讲这个故事了，作为负责人离开公司，并在不同的领域创建了自己的创业公司。在接下来的 6 个月里，70 名员工中 55 人要求离开。其中 25 人加入了他的新创业公司，剩下 30 人呢？成立了 6 家创业公司。</p>
+<h3 id="得到的教训"><a href="#得到的教训" class="headerlink" title="得到的教训"></a>得到的教训</h3><ul>
+<li>当你长大后，要当心那些不必要的教训</li>
+<li>认识公司规模变化时的边界</li>
+<li>认识到在小规模是驱动创新的文化在公司变大后不再适用</li>
+</ul>
+<p>译者：这不是仙童 7 叛徒的故事么？<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E7%BF%BB%E8%AF%91/"># 翻译</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E4%B8%87%E7%BB%B4%E9%92%A2%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" rel="prev" title="爬虫爬取万维钢博客文章">
+                  <i class="fa fa-chevron-left"></i> 爬虫爬取万维钢博客文章
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/python%E5%88%9B%E5%BB%BAzabbix%E4%B8%BB%E6%9C%BA%E5%AF%BC%E5%85%A5xml%E4%BF%A1%E6%81%AF/" rel="next" title="python创建zabbix主机导入xml信息">
+                  python创建zabbix主机导入xml信息 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2017-10-13运维作为信息系统产业链中较低的一环，个人技能价值回报不高。要想提高自身稀缺性获得高议价，只有朝顶端发展。开发、架构是两个可选的方向。在四火的博客上看到这本书的简短介绍，帮他系统的整理了网站架构的全貌。自己工作中也接触一些名词如 rabbitMQ、Memcached，见树不见林。买了这本书的电子版，让我看看网站架构全地图吧。全书分为 4 篇。第一篇讲概述，从网站演变历程、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《大型网站技术架构：核心原理与案例分析》读书笔记">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/%E3%80%8A%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2017-10-13运维作为信息系统产业链中较低的一环，个人技能价值回报不高。要想提高自身稀缺性获得高议价，只有朝顶端发展。开发、架构是两个可选的方向。在四火的博客上看到这本书的简短介绍，帮他系统的整理了网站架构的全貌。自己工作中也接触一些名词如 rabbitMQ、Memcached，见树不见林。买了这本书的电子版，让我看看网站架构全地图吧。全书分为 4 篇。第一篇讲概述，从网站演变历程、">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T08:36:19.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.565Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/%E3%80%8A%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/%E3%80%8A%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/","path":"2022/07/04/yuque/《大型网站技术架构：核心原理与案例分析》读书笔记/","title":"《大型网站技术架构：核心原理与案例分析》读书笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>《大型网站技术架构：核心原理与案例分析》读书笔记 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%91%E5%8F%A5"><span class="nav-number">1.</span> <span class="nav-text">金句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B6%E8%8E%B7"><span class="nav-number">2.</span> <span class="nav-text">收获</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E3%80%8A%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%EF%BC%9A%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="《大型网站技术架构：核心原理与案例分析》读书笔记 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《大型网站技术架构：核心原理与案例分析》读书笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 16:36:19 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:36:19+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2017-10-13<br>运维作为信息系统产业链中较低的一环，个人技能价值回报不高。要想提高自身稀缺性获得高议价，只有朝顶端发展。开发、架构是两个可选的方向。<br>在四火的博客上看到这本书的简短介绍，帮他系统的整理了网站架构的全貌。自己工作中也接触一些名词如 rabbitMQ、Memcached，见树不见林。买了这本书的电子版，让我看看网站架构全地图吧。<br>全书分为 4 篇。第一篇讲概述，从网站演变历程、架构模式、核心要素三方面简要介绍。第二篇从性能、可用性、伸缩性、扩展性、安全性 5 个方面详细讲解针对这些需求的技术选择及方案。第三篇为案例分析，分析了淘宝、维基百科、分布式存储系统、秒杀系统的架构及故障案例分析。第四篇从架构师人的角度，描述架构师的分类、定位、职业发展及软硬技能要求。</p>
+<h2 id="金句"><a href="#金句" class="headerlink" title="金句"></a>金句</h2><p>架构是一种最高层次的规划，难以改变的决定。这些规划和决定奠定了事物未来发展的方向和最终蓝图。<br>CAP 原理：一个提供数据服务器的存储系统无法同时满足数据一致性（Consistency）、数据可用性（Availibility）、分区耐受性（Patition Tolerence）。<br>数据链路层负载均衡 LVS<br>高手定律：这个世界只有遇不到的问题，没有解决不了的问题，高手之所以成为高手，是因为他们遇到了常人很难遇到的问题，并解决了。<br>救世主定律：遇到问题，分析问题，最后总能解决问题。如果遇到问题就急匆匆的从外面挖一个高手，然后指望高手如探囊取物般轻松搞定，最后怕是只有彼此抱怨和伤害。许多问题只是看起来一样，具体问题总是要具体对待的。没有银弹，没有救世主。<br>领导的真谛：寻找一个值得共同奋斗的目标，营造一个让大家都能最大限度发挥自我价值的工作氛围<br>架构师按作用分为：设计型、布道型、Geek 型、救火型。还有效果、职责、关注层次、口碑等几个维度。</p>
+<h2 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h2><p>网站是长出来的，不是规划设计出来的。淘宝由最先的 3000 美元的电商系统汉化过来，LAMP 架构，几台服务器就开张。然后做 mysql 换 oracle，php 换 java。后台在 sun 工程师咨询下使用商业方案 weblogic+webx+ejb+ibatis+oracle.期间 weblogic 换为 jboss，ejb 换为 spring。近期去 IOE 化回归到 mysql 和 nosql。<br>目前主流架构：dns 负载，解析到最近的服务器集群。ngix 反向代理负载均衡应用集群，应用集群无状态。应用请求缓存服务器，降低数据库压力。应用请求出具发送到 MQ 队列，削减请求峰值。缓存服务器使用 Memcached 技术，使用环状数据结构（一致性哈西算法）便于缓存服务器扩展。数据库降负载方法：索引、读写分离、业务分库、大表拆分。前端优化方式动静资源分离、CDN 静态资源加速、动态资源静态化。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/centreon3.4%E8%B8%A9%E5%9D%91%E5%90%88%E9%9B%86/" rel="prev" title="centreon3.4踩坑合集">
+                  <i class="fa fa-chevron-left"></i> centreon3.4踩坑合集
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E8%A1%8C%E4%B8%9A%E5%88%86%E6%9E%90-%E9%87%8D%E5%BA%86-%E6%88%90%E9%83%BD/" rel="next" title="行业分析-重庆-成都">
+                  行业分析-重庆-成都 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

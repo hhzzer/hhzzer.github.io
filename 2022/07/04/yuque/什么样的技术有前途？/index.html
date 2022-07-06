@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2017-11-01听专栏的总结。关于技术分两篇文章，第一篇主要写 what、why，第二篇写 how。 技术有没有前途？技术有前途。从工业革命的机械时代、电力时代和信息时代，每一次生产力的提高都是关键技术突破带来的。掌握这些关键技术的人如瓦特、爱迪生、贝尔都获得巨大财富和名誉。阮一峰曾在博客中说过：上中学时觉得政客很牛逼，能影响很多人；大学学习了经济后，发现政治只是经济发展的副产品，经济">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么样的技术有前途？">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E6%8A%80%E6%9C%AF%E6%9C%89%E5%89%8D%E9%80%94%EF%BC%9F/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2017-11-01听专栏的总结。关于技术分两篇文章，第一篇主要写 what、why，第二篇写 how。 技术有没有前途？技术有前途。从工业革命的机械时代、电力时代和信息时代，每一次生产力的提高都是关键技术突破带来的。掌握这些关键技术的人如瓦特、爱迪生、贝尔都获得巨大财富和名誉。阮一峰曾在博客中说过：上中学时觉得政客很牛逼，能影响很多人；大学学习了经济后，发现政治只是经济发展的副产品，经济">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T08:55:25.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.562Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E6%8A%80%E6%9C%AF%E6%9C%89%E5%89%8D%E9%80%94%EF%BC%9F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E6%8A%80%E6%9C%AF%E6%9C%89%E5%89%8D%E9%80%94%EF%BC%9F/","path":"2022/07/04/yuque/什么样的技术有前途？/","title":"什么样的技术有前途？"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>什么样的技术有前途？ | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E6%9C%89%E6%B2%A1%E6%9C%89%E5%89%8D%E9%80%94%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">技术有没有前途？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E5%81%9A%E6%8A%80%E6%9C%AF%E6%84%9F%E8%A7%89%E5%89%8D%E9%80%94%E6%B8%BA%E8%8C%AB%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">为什么我做技术感觉前途渺茫？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%89%8D%E9%80%94%E7%9A%84%E6%8A%80%E6%9C%AF%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E5%AD%90%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">有前途的技术是什么样子？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%A6%82%E4%BD%95%E6%89%8D%E8%83%BD%E6%8E%8C%E6%8F%A1%E6%9C%89%E9%A2%86%E5%AF%BC%E5%8A%9B%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="nav-number">4.</span> <span class="nav-text">软件工程师如何才能掌握有领导力的技术</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E6%8A%80%E6%9C%AF%E6%9C%89%E5%89%8D%E9%80%94%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="什么样的技术有前途？ | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          什么样的技术有前途？
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 16:55:25 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:55:25+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2017-11-01<br>听专栏的总结。关于技术分两篇文章，第一篇主要写 what、why，第二篇写 how。</p>
+<h2 id="技术有没有前途？"><a href="#技术有没有前途？" class="headerlink" title="技术有没有前途？"></a>技术有没有前途？</h2><p>技术有前途。从工业革命的机械时代、电力时代和信息时代，每一次生产力的提高都是关键技术突破带来的。掌握这些关键技术的人如瓦特、爱迪生、贝尔都获得巨大财富和名誉。<br>阮一峰曾在博客中说过：上中学时觉得政客很牛逼，能影响很多人；大学学习了经济后，发现政治只是经济发展的副产品，经济结构决定了政治政策；再后来搞技术，发现每一次经济革命，都是技术突破导致生产力和生产关系大调整引起的。因此，技术是社会发展的驱动力，技术很有前途。<br>后来马斯克又提出能源驱动说。石器时代（物资物理属性的利用）-铁器时代（木材燃料）-机械时代（化石燃料）-电力信息时代（原子能源、太阳能）</p>
+<h2 id="为什么我做技术感觉前途渺茫？"><a href="#为什么我做技术感觉前途渺茫？" class="headerlink" title="为什么我做技术感觉前途渺茫？"></a>为什么我做技术感觉前途渺茫？</h2><p>信息时代环境的原因，等发展到精耕细作，技术占比会变大，就会有前途。<br>应为我们还处在信息时代的初级阶段，这一阶段，野蛮掠夺更有效。人类社会发展都要经历掠夺-粗放开采-精细运营阶段。在现阶段国内的信息产业处于掠夺阶段，扩大市场、满足功能需求，圈用户时代，市场推广，产品运营地位高。圈完地后就是资源整合，管理能力发挥所长。资源整合完后就需要精细化运营，这是技术价值开始体现。用鸟枪还是大炮，效率高低显而易见。精细化运营后资源使用完毕，转移开发新资源，创新开始。<br>技术一直贯穿在每个阶段，只是体现方式和占比不同。技术分为发明型和工程型，从零到一少数人有机会，从一到无穷大，需要工程技术，大部分人有机会。</p>
+<h2 id="有前途的技术是什么样子？"><a href="#有前途的技术是什么样子？" class="headerlink" title="有前途的技术是什么样子？"></a>有前途的技术是什么样子？</h2><p>从宏观到微观分三个层面来看。<br>历史发展进程来看那些改变世界的技术有这些特点：<br>1 关键技术。通过关键技术创造的工具能让人完成以前完成不了的事情。<br>2 自动化。能解放人力</p>
+<h2 id="软件工程师如何才能掌握有领导力的技术"><a href="#软件工程师如何才能掌握有领导力的技术" class="headerlink" title="软件工程师如何才能掌握有领导力的技术"></a>软件工程师如何才能掌握有领导力的技术</h2><p>有技术领导力的人要有：<br>1 能够发现问题<br>2 能够提供解决问题的思路和放那感，并能比较这些方案的优缺点。<br>3 能够做主正确的技术决定。<br>4 能够使用优雅、简单、容易的方式解决问题。<br>5 能够管理团队、有创新力。<br>修炼心法<br>1 扎实的基础技术<br>2 非同一般的学习能力<br>3 坚持做正确的是<br>4 不断高标准要求自己。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4/"># 极客时间</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E4%BB%B7%E5%80%BC%E8%A7%82-%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/" rel="prev" title="价值观-超级个体">
+                  <i class="fa fa-chevron-left"></i> 价值观-超级个体
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E8%81%8C%E4%B8%9A%E5%AE%9A%E4%BD%8D/" rel="next" title="职业定位">
+                  职业定位 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2018-07-20 问题一批服务器安装 ubuntu14.04.5 server 版系统，需要升级 opnessh-server 到比较安全版本。ubuntu14.04.5 软件源中的版本为 6.6，需要升级到 7.2. 结论不能通过为 ubuntu1404 server 版指定高版本源使用 apt 升级 openssh-server。目前实践成功的方法是手动编译安装。参考 解决过程以前">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu1404升级openssh失败解决">
+<meta property="og:url" content="http://example.com/2022/06/29/yuque/ubuntu1404%E5%8D%87%E7%BA%A7openssh%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2018-07-20 问题一批服务器安装 ubuntu14.04.5 server 版系统，需要升级 opnessh-server 到比较安全版本。ubuntu14.04.5 软件源中的版本为 6.6，需要升级到 7.2. 结论不能通过为 ubuntu1404 server 版指定高版本源使用 apt 升级 openssh-server。目前实践成功的方法是手动编译安装。参考 解决过程以前">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-29T03:29:07.000Z">
+<meta property="article:modified_time" content="2022-06-29T03:46:40.458Z">
+<meta property="article:author" content="mayi">
+<meta property="article:tag" content="openssh">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/06/29/yuque/ubuntu1404%E5%8D%87%E7%BA%A7openssh%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/06/29/yuque/ubuntu1404%E5%8D%87%E7%BA%A7openssh%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3/","path":"2022/06/29/yuque/ubuntu1404升级openssh失败解决/","title":"ubuntu1404升级openssh失败解决"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ubuntu1404升级openssh失败解决 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">2.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">解决过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%A5%E9%94%99%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">报错总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/yuque/ubuntu1404%E5%8D%87%E7%BA%A7openssh%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ubuntu1404升级openssh失败解决 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ubuntu1404升级openssh失败解决
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-06-29 11:29:07 / 修改时间：11:46:40" itemprop="dateCreated datePublished" datetime="2022-06-29T11:29:07+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2018-07-20</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>一批服务器安装 ubuntu14.04.5 server 版系统，需要升级 opnessh-server 到比较安全版本。ubuntu14.04.5 软件源中的版本为 6.6，需要升级到 7.2.</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>不能通过为 ubuntu1404 server 版指定高版本源使用 apt 升级 openssh-server。目前实践成功的方法是手动编译安装。<a target="_blank" rel="noopener" href="http://blog.leanote.com/post/maya/ubuntu1404%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85openssh-server-7.5">参考</a></p>
+<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>以前的经验是在系统中添加一个高于系统版本的源 1704[zesty],然后使用下面命令</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt-get install openssh-server</span><br></pre></td></tr></table></figure>
+
+<p>ubuntu 14.04 desktop 版本在 2018 年前可以执行成功。<br>服务器安装 Ubuntu 14.04.5 server 版本后不能执行成功，报错’InRelease 错误’。到源服务器查看源内容，发现没有‘InRelease’相关文件。对比网易源，17 版本的主要软件都更新到‘artful’版本中。<br>Ubuntu 14.04.1 server 无法升级到 openssh-server 7.2</p>
+<h2 id="报错总结"><a href="#报错总结" class="headerlink" title="报错总结"></a>报错总结</h2><p>1 2018 年能用 zesty 源安装 openssh-server，之后不行，报错’InRelease 错误’。原因是网易官方将 17 版本源相关软件放到‘artful’版本。更新内网源后不报错’InRelease 错误’。<br>2 ubuntu14.04 桌面版能升级安装 18，17 版本的 openssh-server，ubuntu14.04server 版不能升级安装。报错</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/etc/apt<span class="comment"># apt-get check</span></span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree</span><br><span class="line">Reading state information... Done</span><br><span class="line">You might want to run <span class="string">&#x27;apt-get -f install&#x27;</span> to correct these.</span><br><span class="line">The following packages have unmet dependencies:</span><br><span class="line"> libc-<span class="built_in">bin</span> : Depends: libc6 (&lt; <span class="number">2.20</span>) but <span class="number">2.26</span>-0ubuntu2<span class="number">.1</span> <span class="keyword">is</span> installed</span><br><span class="line"> libc6 : Breaks: locales (&lt; <span class="number">2.26</span>) but <span class="number">2.13</span>+git20120306-<span class="number">12.1</span> <span class="keyword">is</span> installed</span><br><span class="line">E: Unmet dependencies. Try using -f.</span><br></pre></td></tr></table></figure>
+
+<p>原因是 1404 server 版中两个基础包 libc-bin,libc6 和系统版本有强依赖，依赖&lt;2.20,2,26 版本。1404 desktop 版本 libc-bin,libc6 依赖版本较高&gt;2.20.<br>通过使用 1404 的源，降级安装 libc 可以将安装 openssh-server 失败后，无法再安装其他软件的故障解决</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 配置1404源</span></span><br><span class="line">apt-get install libc6=<span class="number">2.19</span>-0ubuntu6<span class="number">.9</span></span><br><span class="line"><span class="comment">#或者</span></span><br><span class="line">aptitude install libc</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/openssh/">
+</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/openssh/" rel="tag"># openssh</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/29/yuque/Play-k8s-on-win10/" rel="prev" title="Play-k8s-on-win10">
+                  <i class="fa fa-chevron-left"></i> Play-k8s-on-win10
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/29/yuque/microservices-explore/" rel="next" title="microservices-explore">
+                  microservices-explore <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

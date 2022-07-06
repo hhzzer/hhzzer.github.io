@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="背景学习极客时间-左耳听风专栏，程序员练级攻略一系列文章了解到，需要克服三座大山：1 编程语言，2 理论知识，3 系统知识。工作中系统知识用得较多，就重点突破这一领域。系统知识列出了必读书《深入理解计算机系统》、《Unix 高级环境编程》、《Unix 网络编程》《TCP&#x2F;IP 详解卷 I 协议》。以上 4 本为经典版，知识密度高。若难以理解经典版，可阅读解析版书籍《Linuc C 编程一站式学习》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解计算机系统-笔记">
+<meta property="og:url" content="http://example.com/2020/07/20/yuque/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="背景学习极客时间-左耳听风专栏，程序员练级攻略一系列文章了解到，需要克服三座大山：1 编程语言，2 理论知识，3 系统知识。工作中系统知识用得较多，就重点突破这一领域。系统知识列出了必读书《深入理解计算机系统》、《Unix 高级环境编程》、《Unix 网络编程》《TCP&#x2F;IP 详解卷 I 协议》。以上 4 本为经典版，知识密度高。若难以理解经典版，可阅读解析版书籍《Linuc C 编程一站式学习》">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-20T06:35:07.000Z">
+<meta property="article:modified_time" content="2022-06-29T03:46:40.477Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2020/07/20/yuque/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2020/07/20/yuque/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-%E7%AC%94%E8%AE%B0/","path":"2020/07/20/yuque/深入理解计算机系统-笔记/","title":"深入理解计算机系统-笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>深入理解计算机系统-笔记 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%98%E5%89%A9%E4%B8%8B%E7%9A%84"><span class="nav-number">2.</span> <span class="nav-text">还剩下的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%9F%E5%8F%97"><span class="nav-number">3.</span> <span class="nav-text">感受</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/20/yuque/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="深入理解计算机系统-笔记 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深入理解计算机系统-笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-20 14:35:07" itemprop="dateCreated datePublished" datetime="2020-07-20T14:35:07+08:00">2020-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>学习极客时间-左耳听风专栏，程序员练级攻略一系列文章了解到，需要克服三座大山：1 编程语言，2 理论知识，3 系统知识。工作中系统知识用得较多，就重点突破这一领域。系统知识列出了必读书《深入理解计算机系统》、《Unix 高级环境编程》、《Unix 网络编程》《TCP/IP 详解卷 I 协议》。以上 4 本为经典版，知识密度高。若难以理解经典版，可阅读解析版书籍《Linuc C 编程一站式学习》《TCP/IP 网络编程》《图解 TCP/IP》《The TCP/IP Guide》.实践指导书《Wireshark 数据包分析实战》《Linux/Unix 系统编程手册》/《Linux System Programming》/《Linux 系统编程》-罗伯特.拉姆<br>本文记录看完第一遍《深入理解计算机系统》感受和 get 的知识点，4 天时间。</p>
+<h2 id="还剩下的"><a href="#还剩下的" class="headerlink" title="还剩下的"></a>还剩下的</h2><p>目录：计算机系统漫游、信息的表示和处理、程序的机器级表示、处理器体系结构、优化程序性能、存储器层次结构、链接、异常控制流、虚拟存储器、系统级 IO、网络编程、并发编程。<br>信息表示和处理：大端序和小端序，存储器中高位在左还是右。2 进制、16 进制、10 进制转换及算数运算。如何用电路实现运算和存储。<br>程序的机器级表示：程序的编译分为预处理、汇编、编译、链接，最终的可执行文件是链接器能够加载的字节码。C 语言转换为汇编语言过程解读。<br>处理器体系结构：CPU 结构。包括 PC 程序计数器，用于指定 CPU 当前执行的指令。MCU 运算单元，执行逻辑运算。8 个寄存器。<br>优化程序性能：使用局部性原理，减少跳转。</p>
+<blockquote>
+<p>你能获得的对程序最大的加速比，就是当你第一次让它工作起来的时候。</p>
+</blockquote>
+<p>所以运行起来最关键。<br>存储器层次结构：寄存器-高速缓存-内存-硬盘，逐渐变慢，逐渐便宜。SDD 存储器有写入擦除次数限制，SSD 存储将多个块组成一个页作为读写管理单元，擦除是以页为单位。SSD 被写坏一定比例，会加速写坏过程，所以 IOS 系统保留大量 SSD 空间，避免 SSD 加速写坏，所以苹果手机运行很久都比较流畅。Android 系统保留 SSD 空间较少，一旦剩余空间不足 80%，SSD 磨损加速，之后 SSD 可用空间减少，行成恶性循环。所以使用 SSD 要保留 20%空间空闲，增加 SSD 寿命。<br>链接：as 工具整合目标文件为一个可被链接器执行的链接文件。链接的目的是大型系统模块解耦，只用重新编译变化的部分，不用整个项目重新编译。静态链接，将公共库汇编后的目标文件 libc.a（字节码）拷贝到编译程序的目标文件中，整合在一起。动态链接，链接器将共享库 libc.so 地址写入可执行文件，程序运行时加载这些字节码，这些字节码在内存中，其他程序可共享。-fPIC 生成成与位置无关的字节码，会增加一层引用。<br>异常控制流分为 4 种，中断 interpret，陷阱 trap、故障 fault、终止 abort。中断用于硬件设备之间通信。陷阱用于实现系统调用。<br>虚拟存储器：进程是可执行文件运行的实例，进程上下文保存在内存中。虚拟存储器是为了简化程序到执行的过程。对所有程序都提供一个相同的地址空间。CPU 可直接访问 PA 物理内存，也可以 CPU 访问虚拟地址 VA，地址翻译器将 VA 转换为 PA。地址翻译器由 CPU 和操作系统内核共同维护。内核控制虚拟存储器资源分配，虚拟内存以页为单位管理，内存不足引起的缺页软中断会导致程序性能下降。linux 系统 SLB 分配器。内存的几种标识，cache、不可分配，在查看内存是要看内存泄漏，看其中的某类型内存。<br>系统级 IO，网络编程、并发编程都是系统上层应用。并发编程 3 种实现：1 多进程，进程间通信效率低。2IO 多路复用，select 函数.3 多线程，控制锁，使用信号量。</p>
+<h2 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h2><p>在排查 nfs 服务内存占用持续高，需要定时重启 nfs 时，需要内存分配相关知识，可以分析更明确。<br>编译 openssh-server 时，系统 openssl 库和 openssh 使用的库不一致，如何解决，都是动态链接库，难道要静态编译？<br>程序报错排查 strace,oom-killer 等，是需要了解编译-运行-结束全过程的。程序运行的环境，就是系统知识。<br>后面还需再次阅读。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/06/04/yuque/%E7%BF%BB%E8%AF%91-%E5%BF%AB%E9%80%9F%E6%8F%90%E5%8D%87%E7%BC%96%E7%A8%8B%E8%83%BD%E5%8A%9B%E7%9A%84%E5%85%B3%E9%94%AE/" rel="prev" title="翻译-快速提升编程能力的关键">
+                  <i class="fa fa-chevron-left"></i> 翻译-快速提升编程能力的关键
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/27/yuque/docker-daemon%E4%BB%A3%E7%90%86%E5%9D%91/" rel="next" title="docker-daemon代理坑">
+                  docker-daemon代理坑 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

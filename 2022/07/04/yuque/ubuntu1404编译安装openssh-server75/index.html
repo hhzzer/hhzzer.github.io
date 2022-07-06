@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2018-03-15 问题ubuntu14.04.5 server 上 openssh-server 需要升级到 7.5 版本。通过指定高版本源使用 apt-get install openssh-server 会存在无法重启等故障，决定尝试手动编译安装。 解决过程0 将 openssl 和 openssh-server 源码放到可以下载的地方。1 安装系统,配置代理，配置源 123456">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu1404编译安装openssh-server75">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/ubuntu1404%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85openssh-server75/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2018-03-15 问题ubuntu14.04.5 server 上 openssh-server 需要升级到 7.5 版本。通过指定高版本源使用 apt-get install openssh-server 会存在无法重启等故障，决定尝试手动编译安装。 解决过程0 将 openssl 和 openssh-server 源码放到可以下载的地方。1 安装系统,配置代理，配置源 123456">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T01:28:30.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.579Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/ubuntu1404%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85openssh-server75/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/ubuntu1404%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85openssh-server75/","path":"2022/07/04/yuque/ubuntu1404编译安装openssh-server75/","title":"ubuntu1404编译安装openssh-server75"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ubuntu1404编译安装openssh-server75 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">解决过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%97%E7%95%99%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">遗留问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/ubuntu1404%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85openssh-server75/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ubuntu1404编译安装openssh-server75 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ubuntu1404编译安装openssh-server75
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 09:28:30 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:28:30+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2018-03-15</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>ubuntu14.04.5 server 上 openssh-server 需要升级到 7.5 版本。<br>通过指定高版本源使用 apt-get install openssh-server 会存在无法重启等故障，决定尝试手动编译安装。</p>
+<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>0 将 openssl 和 openssh-server 源码放到可以下载的地方。<br>1 安装系统,配置代理，配置源</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty main restricted universe multiverse</span><br><span class="line">deb http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-security main restricted universe multiverse</span><br><span class="line">deb http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-updates main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-updates main restricted universe multiverse</span><br><span class="line">deb http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-backports main restricted universe multiverse</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>取消版本检查，避免版本升级,/etc/update-manager/release-upgrades<br>参数 lts 改为 never<br>2 安装编译环境</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get upgrade</span><br><span class="line">apt-get install gcc make zlib1g-dev -y</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3 安装下载源码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># wget source code and unzip</span></span><br><span class="line">wget  -N http://<span class="number">192.168</span><span class="number">.13</span><span class="number">.1</span>/data/openssh/<span class="number">7.5</span>/openssl-<span class="number">1.0</span><span class="number">.2</span>k.tar.gz -P  /usr/src/</span><br><span class="line">wget  -N  http://<span class="number">192.168</span><span class="number">.13</span><span class="number">.1</span>/data/openssh/<span class="number">7.5</span>/openssh-<span class="number">7.5</span>p1.tar.gz -P  /usr/src/</span><br><span class="line">tar xzvf /usr/src/openssl-<span class="number">1.0</span><span class="number">.2</span>k.tar.gz -C /usr/src/</span><br><span class="line">tar zxvf /usr/src/openssh-<span class="number">7.5</span>p1.tar.gz -C /usr/src/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>4 安装 openssl</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># make and make install openssl</span></span><br><span class="line">cd /usr/src/openssl-<span class="number">1.0</span><span class="number">.2</span>k</span><br><span class="line">./config shared zlib</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">mv /usr/<span class="built_in">bin</span>/openssl /tmp/<span class="number">7</span></span><br><span class="line">mv /lib/x86_64-linux-gnu/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span> /tmp/<span class="number">7</span>/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span>.$(date +%s)</span><br><span class="line">rm -rf /lib/x86_64-linux-gnu/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">ln -s /usr/local/ssl/lib/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span>  /lib/x86_64-linux-gnu/</span><br><span class="line">ln -s /usr/local/ssl/<span class="built_in">bin</span>/openssl /usr/<span class="built_in">bin</span>/openssl;ln -s /usr/local/ssl/include/openssl/ /usr/include/openssl</span><br><span class="line">grep <span class="string">&#x27;/usr/local/ssl/lib&#x27;</span> /etc/ld.so.conf || echo <span class="string">&quot;/usr/local/ssl/lib&quot;</span> &gt;&gt; /etc/ld.so.conf</span><br><span class="line">ldconfig -v</span><br><span class="line">openssl version</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>5 安装 openssh</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#apt-get remove openssh-server</span></span><br><span class="line">cp -r /etc/ssh /etc/ssh-bak03</span><br><span class="line">cd /usr/src/openssh-<span class="number">7.5</span>p1</span><br><span class="line">./configure --prefix=/usr --sysconfdir=/etc/ssh --without-zlib-version-check --<span class="keyword">with</span>-ssl-<span class="built_in">dir</span>=/usr/local/ssl</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">sed -i <span class="string">&#x27;s/#UseLogin no/UseLogin yes/g&#x27;</span> /etc/ssh/sshd_config</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>6 修改启动脚本<br>由于使用系统的脚本/etc/init.d/ssh stop,不能停止 sshd，故重新制作 sshd 服务。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/init/ssh.conf /etc/init/ssh.conf.bak</span><br><span class="line">chmod -x /etc/init.d/ssh</span><br><span class="line">cat &gt; /etc/init/sshd.conf &lt;&lt; EOF</span><br><span class="line">description <span class="string">&quot;Openssh-server&quot;</span></span><br><span class="line">author <span class="string">&quot;root&quot;</span></span><br><span class="line">start on runlevel [<span class="number">2345</span>]</span><br><span class="line">pre-start script</span><br><span class="line">  echo <span class="string">&quot;[`date`] sshd Starting&quot;</span> &gt;&gt; /var/log/sshd.log</span><br><span class="line">end script</span><br><span class="line"><span class="built_in">exec</span> /usr/sbin/sshd -D</span><br><span class="line">EOF</span><br><span class="line">init-checkconf /etc/init/sshd.conf</span><br><span class="line">service sshd status</span><br><span class="line"><span class="comment">#kill 以前sshd进程或重启系统</span></span><br><span class="line">ps aux | grep <span class="string">&#x27;/usr/sbin/sshd&#x27;</span> |awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span> |head -<span class="number">1</span> |xargs kill -<span class="number">9</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>查看 sshd 状态和重启操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># service sshd status</span></span><br><span class="line">sshd start/running, process <span class="number">1312</span></span><br><span class="line">root@ubuntu:~<span class="comment"># service sshd restart</span></span><br><span class="line">sshd stop/waiting</span><br><span class="line">sshd start/running, process <span class="number">1335</span></span><br><span class="line">root@ubuntu:~<span class="comment"># tail /var/log/sshd.log</span></span><br><span class="line">[Thu Mar <span class="number">15</span> <span class="number">22</span>:<span class="number">40</span>:<span class="number">38</span> CST <span class="number">2018</span>] sshd Starting</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 upgrade openssl</span></span><br><span class="line">apt-get update</span><br><span class="line">apt-get install gcc make zlib1g-dev -y</span><br><span class="line">wget  -N http://<span class="number">192.168</span><span class="number">.13</span><span class="number">.1</span>/data/openssh/<span class="number">7.5</span>/openssl-<span class="number">1.0</span><span class="number">.2</span>k.tar.gz -P  /usr/src/</span><br><span class="line">tar xzvf /usr/src/openssl-<span class="number">1.0</span><span class="number">.2</span>k.tar.gz -C /usr/src/</span><br><span class="line">cd /usr/src/openssl-<span class="number">1.0</span><span class="number">.2</span>k</span><br><span class="line">./config shared zlib</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">mv /usr/<span class="built_in">bin</span>/openssl /tmp/<span class="number">7</span></span><br><span class="line">cp /lib/x86_64-linux-gnu/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span> /tmp/<span class="number">7</span>/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span>.$(date +%s)</span><br><span class="line">rm -rf /lib/x86_64-linux-gnu/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">ln -s /usr/local/ssl/lib/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span>  /lib/x86_64-linux-gnu/</span><br><span class="line">ln -s /usr/local/ssl/<span class="built_in">bin</span>/openssl /usr/<span class="built_in">bin</span>/openssl;ln -s /usr/local/ssl/include/openssl /usr/include/openssl</span><br><span class="line">grep <span class="string">&#x27;/usr/local/ssl/lib&#x27;</span> /etc/ld.so.conf || echo <span class="string">&quot;/usr/local/ssl/lib&quot;</span> &gt;&gt; /etc/ld.so.conf</span><br><span class="line">ldconfig -v</span><br><span class="line">openssl version</span><br><span class="line"><span class="comment">#2 openssh upgrade</span></span><br><span class="line">wget  -N  http://<span class="number">192.168</span><span class="number">.13</span><span class="number">.1</span>/data/openssh/<span class="number">7.5</span>/openssh-<span class="number">7.5</span>p1.tar.gz -P  /usr/src/</span><br><span class="line">tar zxvf /usr/src/openssh-<span class="number">7.5</span>p1.tar.gz -C /usr/src/</span><br><span class="line">cp -r /etc/ssh /etc/ssh-bak03</span><br><span class="line">cd /usr/src/openssh-<span class="number">7.5</span>p1</span><br><span class="line">./configure --prefix=/usr --sysconfdir=/etc/ssh --without-zlib-version-check --<span class="keyword">with</span>-ssl-<span class="built_in">dir</span>=/usr/local/ssl</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">sed -i <span class="string">&#x27;s/#UseLogin no/UseLogin yes/g&#x27;</span> /etc/ssh/sshd_config</span><br><span class="line"><span class="comment">#3 sshd-config</span></span><br><span class="line">mv /etc/init/ssh.conf /etc/init/ssh.conf.bak</span><br><span class="line">chmod -x /etc/init.d/ssh</span><br><span class="line">cat &gt; /etc/init/sshd.conf &lt;&lt; EOF</span><br><span class="line">description <span class="string">&quot;Openssh-server&quot;</span></span><br><span class="line">author <span class="string">&quot;root&quot;</span></span><br><span class="line">start on runlevel [<span class="number">2345</span>]</span><br><span class="line">pre-start script</span><br><span class="line">  echo <span class="string">&quot;[`date`] sshd Starting&quot;</span> &gt;&gt; /var/log/sshd.log</span><br><span class="line">end script</span><br><span class="line"><span class="built_in">exec</span> /usr/sbin/sshd -D</span><br><span class="line">EOF</span><br><span class="line">init-checkconf /etc/init/sshd.conf</span><br><span class="line">ps aux | grep <span class="string">&#x27;/usr/sbin/sshd&#x27;</span> |awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span> |head -<span class="number">1</span> |xargs kill -<span class="number">9</span></span><br><span class="line">service sshd start</span><br><span class="line">service sshd status</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题"></a>遗留问题</h2><p>ln -s /usr/local/ssl/lib/libcrypto.so.1.0.0 /lib/x86_64-linux-gnu/<br>解决 1 ：lvconfig -d 会根据/etc/ld.so.conf 重新创建链接文件，会覆盖之前手动创建的 ln -s 关系。执行 cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /tmp/7/libcrypto.so.1.0.0.$(date +%s),将原始文件移动出/lib/x86_64-linux-gnu 目录解决。<br>ps -ef | grep ‘/usr/sbin/sshd’ |awk ‘{print $2}’ |head -1 |xargs kill -9<br>这两行有时不生效。<br>解决 2 ：ps -ef 显示当前用户查看到的进程，使用 ps aux 查看系统所有进程。<br>ps aux | grep ‘/usr/sbin/sshd’ |awk ‘{print $2}’ |head -1 |xargs kill -9</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://blog.csdn.net/jubincn/article/details/6929094">http://blog.csdn.net/jubincn/article/details/6929094</a><br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/19233529/run-bash-script-as-daemon">https://stackoverflow.com/questions/19233529/run-bash-script-as-daemon</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E4%BD%BF%E7%94%A8powercli%E6%89%B9%E9%87%8F%E5%88%9B%E5%BB%BAvcenter%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="prev" title="使用powercli批量创建vcenter虚拟机">
+                  <i class="fa fa-chevron-left"></i> 使用powercli批量创建vcenter虚拟机
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/Django-tutorial/" rel="next" title="Django-tutorial">
+                  Django-tutorial <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

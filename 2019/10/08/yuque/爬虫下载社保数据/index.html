@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="背景有个妹子计算工资，需要到社保网上下载当月应扣缴明细，公司 10 多个社保账户，每个登录下载保存完需要花费 30 分钟左右。假期最后一天写个爬虫来批量下载。运行环境：windows10 x64，python3.7 收获 完成批量下载功能，节省下载时间。 了解 requests_html 库 session 机制，登陆信息保存在 session，后续 request 复用。 了解使用 pytess">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫下载社保数据">
+<meta property="og:url" content="http://example.com/2019/10/08/yuque/%E7%88%AC%E8%99%AB%E4%B8%8B%E8%BD%BD%E7%A4%BE%E4%BF%9D%E6%95%B0%E6%8D%AE/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="背景有个妹子计算工资，需要到社保网上下载当月应扣缴明细，公司 10 多个社保账户，每个登录下载保存完需要花费 30 分钟左右。假期最后一天写个爬虫来批量下载。运行环境：windows10 x64，python3.7 收获 完成批量下载功能，节省下载时间。 了解 requests_html 库 session 机制，登陆信息保存在 session，后续 request 复用。 了解使用 pytess">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FsrGQ4OxQAFlYCrLxWNNtSZLTUkU.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//Fr4zdj6SXHuKh85Gyrtwmu51WK7z.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FkdTHuwYt3n_efpHnkFT8pGuZlye.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FniKkPXTIgozVjitM4phyhw60pRJ.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//Fs_5vLwiH84ynIE9wmtt7Ko-bA1p.png">
+<meta property="og:image" content="http://huilu-blog.colinspace.com//FgRV4_fKgetJ3OJQrwmygH0IImiq.png">
+<meta property="article:published_time" content="2019-10-08T00:27:53.000Z">
+<meta property="article:modified_time" content="2022-06-29T03:46:46.376Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://huilu-blog.colinspace.com//FsrGQ4OxQAFlYCrLxWNNtSZLTUkU.png">
+
+
+<link rel="canonical" href="http://example.com/2019/10/08/yuque/%E7%88%AC%E8%99%AB%E4%B8%8B%E8%BD%BD%E7%A4%BE%E4%BF%9D%E6%95%B0%E6%8D%AE/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2019/10/08/yuque/%E7%88%AC%E8%99%AB%E4%B8%8B%E8%BD%BD%E7%A4%BE%E4%BF%9D%E6%95%B0%E6%8D%AE/","path":"2019/10/08/yuque/爬虫下载社保数据/","title":"爬虫下载社保数据"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>爬虫下载社保数据 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B6%E8%8E%B7"><span class="nav-number">2.</span> <span class="nav-text">收获</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%86%E6%9E%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86"><span class="nav-number">3.1.</span> <span class="nav-text">1 分析网站登陆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%A8%8B%E5%BA%8F%E5%8D%8A%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86"><span class="nav-number">3.2.</span> <span class="nav-text">2 程序半自动登陆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%87%AA%E5%8A%A8%E8%AF%86%E5%88%AB%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="nav-number">3.3.</span> <span class="nav-text">3 自动识别验证码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%95%B4%E5%90%88"><span class="nav-number">3.4.</span> <span class="nav-text">4 整合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E5%96%84"><span class="nav-number">4.</span> <span class="nav-text">改善</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/10/08/yuque/%E7%88%AC%E8%99%AB%E4%B8%8B%E8%BD%BD%E7%A4%BE%E4%BF%9D%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="爬虫下载社保数据 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          爬虫下载社保数据
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-08 08:27:53" itemprop="dateCreated datePublished" datetime="2019-10-08T08:27:53+08:00">2019-10-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 11:46:46" itemprop="dateModified" datetime="2022-06-29T11:46:46+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>有个妹子计算工资，需要到社保网上下载当月应扣缴明细，公司 10 多个社保账户，每个登录下载保存完需要花费 30 分钟左右。假期最后一天写个爬虫来批量下载。<br>运行环境：windows10 x64，python3.7</p>
+<h2 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h2><ul>
+<li>完成批量下载功能，节省下载时间。</li>
+<li>了解 requests_html 库 session 机制，登陆信息保存在 session，后续 request 复用。</li>
+<li>了解使用 pytesseract\Pillow\tesseract-ocr 识别简单图片验证码方法。</li>
+<li>学会使用 chrome 浏览器开发工具，分析网站登陆过程。</li>
+</ul>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><h3 id="1-分析网站登陆"><a href="#1-分析网站登陆" class="headerlink" title="1 分析网站登陆"></a>1 分析网站登陆</h3><p>登陆页面为  <a target="_blank" rel="noopener" href="http://rlsbj.cq.gov.cn/ggfw/index2.jsp">http://rlsbj.cq.gov.cn/ggfw/index2.jsp</a> ，在登陆页面输入错误的登陆信息，正确的验证码。F12 开启开发者模式，并<strong>勾选“preserve log”</strong>，找到验证码生成 url、验证码验证 url 和账号密码验证 url。<br>验证码验证 url<br><img src="http://huilu-blog.colinspace.com//FsrGQ4OxQAFlYCrLxWNNtSZLTUkU.png"><br>验证码验证 post 信息<br><img src="http://huilu-blog.colinspace.com//Fr4zdj6SXHuKh85Gyrtwmu51WK7z.png"><br>账号密码验证 url<br><img src="http://huilu-blog.colinspace.com//FkdTHuwYt3n_efpHnkFT8pGuZlye.png"><br>账号密码验证 post 信息<br><img src="http://huilu-blog.colinspace.com//FniKkPXTIgozVjitM4phyhw60pRJ.png"><br>查看网页源码，找到验证码生成 url，time 为毫秒时间戳。<br><img src="http://huilu-blog.colinspace.com//Fs_5vLwiH84ynIE9wmtt7Ko-bA1p.png"><br>整个登陆过程为 1）浏览器请求验证码生成 url，生成验证码，2）带上一个 session，post 验证码、账号、密码信息到账号密码验证 url。3）账号密码验证 url 会自动将验证码 post 到验证码验证 url，返回成功后，继续 post 账号、密码信息到登陆验证 url。</p>
+<h3 id="2-程序半自动登陆"><a href="#2-程序半自动登陆" class="headerlink" title="2 程序半自动登陆"></a>2 程序半自动登陆</h3><p>使用 requests 库半自动登陆</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">t = time.time()</span><br><span class="line">mtime = (<span class="built_in">str</span>(<span class="built_in">round</span>(t * <span class="number">1000</span>)))</span><br><span class="line">code_img_url = <span class="string">&#x27;http://rlsbj.cq.gov.cn/ggfw/validateCodeBLH_image.do?time=&#x27;</span>+ mtime</span><br><span class="line"><span class="built_in">print</span>(code_img_url)</span><br><span class="line">valcode = requests.get(code_img_url)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;====cookies 1======&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(requests.utils.dict_from_cookiejar(valcode.cookies))</span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;valcode.png&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">f.write(valcode.content)</span><br><span class="line">f.close()</span><br><span class="line">code = <span class="built_in">input</span>(<span class="string">&#x27;请输入验证码：&#x27;</span>)</span><br><span class="line">code_data = &#123;&#125;</span><br><span class="line">code_data[<span class="string">&quot;validateCode&quot;</span>] = <span class="built_in">str</span>(code)</span><br><span class="line">HEADERS = &#123;</span><br><span class="line">            <span class="string">&#x27;User-Agent&#x27;</span> : <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36&#x27;</span></span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">login_url = <span class="string">&#x27;http://rlsbj.cq.gov.cn/ggfw/LoginBLH_unitLogin.do&#x27;</span></span><br><span class="line">data = &#123;<span class="string">&quot;dwbh&quot;</span>:<span class="string">&#x27;20134675&#x27;</span>,<span class="string">&quot;password&quot;</span>:<span class="string">&#x27;realpasswd-base64&#x27;</span>,<span class="string">&quot;validateCode&quot;</span>:code_data[<span class="string">&quot;validateCode&quot;</span>]&#125;</span><br><span class="line"><span class="built_in">print</span>(data)</span><br><span class="line">login_check = requests.post(login_url, headers = HEADERS, cookies = requests.utils.dict_from_cookiejar(valcode.cookies), data=data)</span><br><span class="line"><span class="built_in">print</span>(login_check.text) <span class="comment"># 返回登陆结果信息，确定是否登陆成功。</span></span><br><span class="line"></span><br><span class="line">check_url_1 = <span class="string">&#x27;http://rlsbj.cq.gov.cn/ggfw/unit/QueryBLH_unitMain.do?code=1112&#x27;</span></span><br><span class="line">check_url_1_r = requests.get(check_url_1, headers = HEADERS, cookies = requests.utils.dict_from_cookiejar(login_check.cookies))</span><br><span class="line"><span class="built_in">print</span>(check_url_1_r.text) <span class="comment"># 返回登陆后首页信息</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-自动识别验证码"><a href="#3-自动识别验证码" class="headerlink" title="3 自动识别验证码"></a>3 自动识别验证码</h3><p>自动识别验证码主要参考别人的方法，踩坑是安装 tesseract-ocr。该函数能去除干扰线。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pytesseract</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="comment"># tesseract.exe所在的文件路径</span></span><br><span class="line"><span class="comment"># pytesseract.pytesseract.tesseract_cmd = &#x27;C://Program Files (x86)/Tesseract-OCR/tesseract.exe&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取图片中像素点数量最多的像素</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_threshold</span>(<span class="params">image</span>):</span><br><span class="line">    pixel_dict = defaultdict(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 像素及该像素出现次数的字典</span></span><br><span class="line">    rows, cols = image.size</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(rows):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(cols):</span><br><span class="line">            pixel = image.getpixel((i, j))</span><br><span class="line">            pixel_dict[pixel] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    count_max = <span class="built_in">max</span>(pixel_dict.values()) <span class="comment"># 获取像素出现出多的次数</span></span><br><span class="line">    pixel_dict_reverse = &#123;v:k <span class="keyword">for</span> k,v <span class="keyword">in</span> pixel_dict.items()&#125;</span><br><span class="line">    threshold = pixel_dict_reverse[count_max] <span class="comment"># 获取出现次数最多的像素点</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> threshold</span><br><span class="line"></span><br><span class="line"><span class="comment"># 按照阈值进行二值化处理</span></span><br><span class="line"><span class="comment"># threshold: 像素阈值</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_bin_table</span>(<span class="params">threshold</span>):</span><br><span class="line">    <span class="comment"># 获取灰度转二值的映射table</span></span><br><span class="line">    table = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">        rate = <span class="number">0.1</span> <span class="comment"># 在threshold的适当范围内进行处理</span></span><br><span class="line">        <span class="keyword">if</span> threshold*(<span class="number">1</span>-rate)&lt;= i &lt;= threshold*(<span class="number">1</span>+rate):</span><br><span class="line">            table.append(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            table.append(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> table</span><br><span class="line"></span><br><span class="line"><span class="comment"># 去掉二值化处理后的图片中的噪声点</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cut_noise</span>(<span class="params">image</span>):</span><br><span class="line"></span><br><span class="line">    rows, cols = image.size <span class="comment"># 图片的宽度和高度</span></span><br><span class="line">    change_pos = [] <span class="comment"># 记录噪声点位置</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 遍历图片中的每个点，除掉边缘</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, rows-<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, cols-<span class="number">1</span>):</span><br><span class="line">            <span class="comment"># pixel_set用来记录该店附近的黑色像素的数量</span></span><br><span class="line">            pixel_set = []</span><br><span class="line">            <span class="comment"># 取该点的邻域为以该点为中心的九宫格</span></span><br><span class="line">            <span class="keyword">for</span> m <span class="keyword">in</span> <span class="built_in">range</span>(i-<span class="number">1</span>, i+<span class="number">2</span>):</span><br><span class="line">                <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(j-<span class="number">1</span>, j+<span class="number">2</span>):</span><br><span class="line">                    <span class="keyword">if</span> image.getpixel((m, n)) != <span class="number">1</span>: <span class="comment"># 1为白色,0位黑色</span></span><br><span class="line">                        pixel_set.append(image.getpixel((m, n)))</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 如果该位置的九宫内的黑色数量小于等于4，则判断为噪声</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(pixel_set) &lt;= <span class="number">4</span>:</span><br><span class="line">                change_pos.append((i,j))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对相应位置进行像素修改，将噪声处的像素置为1（白色）</span></span><br><span class="line">    <span class="keyword">for</span> pos <span class="keyword">in</span> change_pos:</span><br><span class="line">        image.putpixel(pos, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image <span class="comment"># 返回修改后的图片</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 识别图片中的数字加字母</span></span><br><span class="line"><span class="comment"># 传入参数为图片路径，返回结果为：识别结果</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">OCR_lmj</span>(<span class="params">img_path</span>):</span><br><span class="line"></span><br><span class="line">    image = Image.<span class="built_in">open</span>(img_path) <span class="comment"># 打开图片文件</span></span><br><span class="line">    imgry = image.convert(<span class="string">&#x27;L&#x27;</span>)  <span class="comment"># 转化为灰度图</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取图片中的出现次数最多的像素，即为该图片的背景</span></span><br><span class="line">    max_pixel = get_threshold(imgry)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将图片进行二值化处理</span></span><br><span class="line">    table = get_bin_table(threshold=max_pixel)</span><br><span class="line">    out = imgry.point(table, <span class="string">&#x27;1&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 去掉图片中的噪声（孤立点）</span></span><br><span class="line">    out = cut_noise(out)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#保存图片</span></span><br><span class="line">    <span class="comment"># out.save(&#x27;E://figures/img_gray.jpg&#x27;)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 仅识别图片中的数字</span></span><br><span class="line">    text = pytesseract.image_to_string(out, config=<span class="string">&#x27;digits&#x27;</span>)</span><br><span class="line">    <span class="comment"># 识别图片中的数字和字母</span></span><br><span class="line">    <span class="comment"># text = pytesseract.image_to_string(out)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 去掉识别结果中的特殊字符</span></span><br><span class="line">    exclude_char_list = <span class="string">&#x27; .:\\|\&#x27;\&quot;?![],()~@#$%^&amp;*_+-=&#123;&#125;;&lt;&gt;/¥&#x27;</span></span><br><span class="line">    text = <span class="string">&#x27;&#x27;</span>.join([x <span class="keyword">for</span> x <span class="keyword">in</span> text <span class="keyword">if</span> x <span class="keyword">not</span> <span class="keyword">in</span> exclude_char_list])</span><br><span class="line">    <span class="comment">#print(text)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> text</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 识别指定文件目录下的图片</span></span><br><span class="line">    <span class="comment"># 图片存放目录figures</span></span><br><span class="line">    <span class="built_in">dir</span> = <span class="string">&#x27;E://figures&#x27;</span></span><br><span class="line"></span><br><span class="line">    correct_count = <span class="number">0</span>  <span class="comment"># 图片总数</span></span><br><span class="line">    total_count = <span class="number">0</span>    <span class="comment"># 识别正确的图片数量</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 遍历figures下的png,jpg文件</span></span><br><span class="line">    <span class="keyword">for</span> file <span class="keyword">in</span> os.listdir(<span class="built_in">dir</span>):</span><br><span class="line">        <span class="keyword">if</span> file.endswith(<span class="string">&#x27;.png&#x27;</span>) <span class="keyword">or</span> file.endswith(<span class="string">&#x27;.jpg&#x27;</span>):</span><br><span class="line">            <span class="comment"># print(file)</span></span><br><span class="line">            image_path = <span class="string">&#x27;%s/%s&#x27;</span>%(<span class="built_in">dir</span>,file) <span class="comment"># 图片路径</span></span><br><span class="line"></span><br><span class="line">            answer = file.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>]  <span class="comment"># 图片名称，即图片中的正确文字</span></span><br><span class="line">            recognizition = OCR_lmj(image_path) <span class="comment"># 图片识别的文字结果</span></span><br><span class="line"></span><br><span class="line">            <span class="built_in">print</span>((answer, recognizition))</span><br><span class="line">            <span class="keyword">if</span> recognizition == answer: <span class="comment"># 如果识别结果正确，则total_count加1</span></span><br><span class="line">                correct_count += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            total_count += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Total count: %d, correct: %d.&#x27;</span>%(total_count, correct_count))</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    # 单张图片识别</span></span><br><span class="line"><span class="string">    image_path = &#x27;E://figures/code (1).jpg&#x27;</span></span><br><span class="line"><span class="string">    OCR_lmj(image_path)</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># main()</span></span><br><span class="line"><span class="comment"># print(OCR_lmj(&#x27;valcode2.png&#x27;))</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-整合"><a href="#4-整合" class="headerlink" title="4 整合"></a>4 整合</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> requests_html <span class="keyword">import</span> HTMLSession,HTML</span><br><span class="line"><span class="keyword">from</span> vcode <span class="keyword">import</span> OCR_lmj</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line">act_list= [</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&#x27;店一&#x27;</span>,</span><br><span class="line">    <span class="string">&quot;user&quot;</span>: <span class="string">&#x27;account&#x27;</span>,</span><br><span class="line">    <span class="string">&quot;passwd&quot;</span>:<span class="string">&#x27;passwd&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&#x27;店二&#x27;</span>,</span><br><span class="line">    <span class="string">&quot;user&quot;</span>: <span class="string">&#x27;account&#x27;</span>,</span><br><span class="line">    <span class="string">&quot;passwd&quot;</span>:<span class="string">&#x27;passwd&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">save_to_file</span>(<span class="params">r,file_name</span>):</span><br><span class="line">    f = <span class="built_in">open</span>(file_name, <span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">    f.write(r.content)</span><br><span class="line">    f.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_sessions</span>(<span class="params">act_list</span>):</span><br><span class="line">    sessions_list = []</span><br><span class="line">    t = time.time()</span><br><span class="line">    mtime = (<span class="built_in">str</span>(<span class="built_in">round</span>(t * <span class="number">1000</span>)))</span><br><span class="line">    code_img_url = <span class="string">&#x27;http://rlsbj.cq.gov.cn/ggfw/validateCodeBLH_image.do?time=&#x27;</span>+ mtime</span><br><span class="line">    login_url = <span class="string">&#x27;http://rlsbj.cq.gov.cn/ggfw/LoginBLH_unitLogin.do&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> act <span class="keyword">in</span> act_list:</span><br><span class="line">        success_code = <span class="string">&#x27;0&#x27;</span></span><br><span class="line">        <span class="keyword">while</span> success_code == <span class="string">&#x27;0&#x27;</span>:</span><br><span class="line">            t = time.time()</span><br><span class="line">            mtime = (<span class="built_in">str</span>(<span class="built_in">round</span>(t * <span class="number">1000</span>)))</span><br><span class="line">            code_img_url = <span class="string">&#x27;http://rlsbj.cq.gov.cn/ggfw/validateCodeBLH_image.do?time=&#x27;</span>+ mtime</span><br><span class="line">            session = HTMLSession()</span><br><span class="line">            r = session.get(code_img_url)</span><br><span class="line">            save_to_file(r,<span class="string">&#x27;vcode.jpg&#x27;</span>)</span><br><span class="line">            code = OCR_lmj(<span class="string">&#x27;vcode.jpg&#x27;</span>)</span><br><span class="line">            data = &#123;<span class="string">&quot;dwbh&quot;</span>:act[<span class="string">&#x27;user&#x27;</span>],<span class="string">&quot;password&quot;</span>:act[<span class="string">&#x27;passwd&#x27;</span>],<span class="string">&quot;validateCode&quot;</span>:<span class="built_in">str</span>(code)&#125;</span><br><span class="line">            login_result = json.loads(session.post(login_url,data=data).text)</span><br><span class="line">            success_code = login_result[<span class="string">&#x27;code&#x27;</span>]</span><br><span class="line">        <span class="comment"># print(login_result)</span></span><br><span class="line">        sessions_list.append(session)</span><br><span class="line">        time.sleep(<span class="number">2</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;登陆成功，共计%d个账户&quot;</span> % <span class="built_in">len</span>(sessions_list))</span><br><span class="line">    <span class="keyword">return</span> sessions_list</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_url_list</span>():</span><br><span class="line">    base_url = <span class="string">&#x27;http://rlsbj.cq.gov.cn/ggfw/unit/ExportBLH_exportExcelAll.do?code=&#x27;</span></span><br><span class="line">    export_item = [<span class="string">&#x27;1114&#x27;</span>,<span class="string">&#x27;1119&#x27;</span>,<span class="string">&#x27;1120&#x27;</span>,<span class="string">&#x27;1127&#x27;</span>,<span class="string">&#x27;1123&#x27;</span>,<span class="string">&#x27;1124&#x27;</span>]</span><br><span class="line">    item_name = [<span class="string">&#x27;01医保应缴明细&#x27;</span>,<span class="string">&#x27;02养老明细&#x27;</span>,<span class="string">&#x27;03工伤明细&#x27;</span>,<span class="string">&#x27;04失业汇总&#x27;</span>,<span class="string">&#x27;05失业明细非补&#x27;</span>,<span class="string">&#x27;05失业明细个人补&#x27;</span>]</span><br><span class="line">    export_month = <span class="string">&#x27;201910&#x27;</span></span><br><span class="line">    url_list2 = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> export_item:</span><br><span class="line">        url_dict = &#123;&#125;</span><br><span class="line">        url_dict[<span class="string">&#x27;name&#x27;</span>] = item_name[export_item.index(item)]</span><br><span class="line">        url_dict[<span class="string">&quot;url&quot;</span>] = base_url + <span class="built_in">str</span>(item)+<span class="string">&#x27;&amp;afkssq=&#x27;</span>+export_month+<span class="string">&#x27;&amp;r=0.9082537130128169&#x27;</span></span><br><span class="line">        url_list2.append(url_dict)</span><br><span class="line">    <span class="keyword">return</span> url_list2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># create_sessions(act_list)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    sessions_list = create_sessions(act_list)</span><br><span class="line">    url_list = get_url_list()</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> session <span class="keyword">in</span> sessions_list:</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> url_list:</span><br><span class="line">            file_name = act_list[sessions_list.index(session)][<span class="string">&#x27;name&#x27;</span>]+<span class="string">&#x27;-&#x27;</span>+url[<span class="string">&#x27;name&#x27;</span>]+<span class="string">&#x27;.xls&#x27;</span></span><br><span class="line">            <span class="comment"># print(url[&#x27;url&#x27;])</span></span><br><span class="line">            exp_r = session.get(url[<span class="string">&#x27;url&#x27;</span>])</span><br><span class="line">            save_to_file(exp_r,file_name)</span><br><span class="line">            time.sleep(<span class="number">2</span>)</span><br><span class="line">            count = count +<span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;导出成功，共生成文件%d个&quot;</span> % count)</span><br><span class="line"><span class="comment"># main()</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果，并在程序目录生成文件。<br><img src="http://huilu-blog.colinspace.com//FgRV4_fKgetJ3OJQrwmygH0IImiq.png"></p>
+<h2 id="改善"><a href="#改善" class="headerlink" title="改善"></a>改善</h2><p>~~整合函数使用改为 requests 库，兼容 python2 ~~  继续使用 requests_html 库，功能更多，使用更方便。<br>生成带日期的文件<br>运行方式优化，有界面输入账号密码，导出月份等信息。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000015240294">https://segmentfault.com/a/1190000015240294</a>  验证码识别<br><a target="_blank" rel="noopener" href="https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-v5.0.0-alpha.20190708.exe">https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-v5.0.0-alpha.20190708.exe</a>  tesseract-ocr 下载，需要将程序路径加入到环境变量并重启 powershell。<br><a target="_blank" rel="noopener" href="https://github.com/cncert/requests-html-doc-cn">https://github.com/cncert/requests-html-doc-cn</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/09/27/yuque/%E4%B8%AD%E6%96%87%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3%E5%86%99%E4%BD%9C%E8%A7%84%E8%8C%83/" rel="prev" title="中文技术文档写作规范">
+                  <i class="fa fa-chevron-left"></i> 中文技术文档写作规范
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/10/25/yuque/qq%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/" rel="next" title="qq聊天机器人">
+                  qq聊天机器人 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

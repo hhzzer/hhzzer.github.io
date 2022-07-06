@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2017-09-06一直说了给妹子编个程序算工资，最近学完 python 基础，半天搞完基础版本 IPO 分析输入为 txt 文档，第一行为表头，之后每一行为一个员工人员信息。 123456789name    munber  title   workday     base-moneyzhang   001     master  21          2000hui     002">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python算工资">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/python%E7%AE%97%E5%B7%A5%E8%B5%84/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2017-09-06一直说了给妹子编个程序算工资，最近学完 python 基础，半天搞完基础版本 IPO 分析输入为 txt 文档，第一行为表头，之后每一行为一个员工人员信息。 123456789name    munber  title   workday     base-moneyzhang   001     master  21          2000hui     002">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T08:04:58.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.568Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/python%E7%AE%97%E5%B7%A5%E8%B5%84/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/python%E7%AE%97%E5%B7%A5%E8%B5%84/","path":"2022/07/04/yuque/python算工资/","title":"python算工资"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>python算工资 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#IPO-%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">IPO 分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98%E5%8F%8A%E5%90%8E%E7%BB%AD%E6%94%B9%E5%96%84"><span class="nav-number">3.</span> <span class="nav-text">遇到问题及后续改善</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">3.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E5%96%84"><span class="nav-number">3.2.</span> <span class="nav-text">改善</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/python%E7%AE%97%E5%B7%A5%E8%B5%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="python算工资 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python算工资
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 16:04:58 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:04:58+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2017-09-06<br>一直说了给妹子编个程序算工资，最近学完 python 基础，半天搞完基础版本</p>
+<h2 id="IPO-分析"><a href="#IPO-分析" class="headerlink" title="IPO 分析"></a>IPO 分析</h2><p>输入为 txt 文档，第一行为表头，之后每一行为一个员工人员信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">name    munber  title   workday     base-money</span><br><span class="line">zhang   001     master  <span class="number">21</span>          <span class="number">2000</span></span><br><span class="line">hui     002     employee    <span class="number">29</span>      <span class="number">1000</span></span><br><span class="line">huiz     002     employee    <span class="number">29</span>     <span class="number">300</span></span><br><span class="line">adfa     002     employee    <span class="number">29</span>     <span class="number">123</span></span><br><span class="line">吴波     002     master   <span class="number">29</span>     <span class="number">2500</span></span><br><span class="line">zfg    002     employee    <span class="number">29</span>     <span class="number">322</span></span><br><span class="line">pengke    002     employee    <span class="number">29</span>     <span class="number">3000</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>处理过程分为三个功能函数，一个主函数。readfile 读取输入文件，将文件内容转换为 list，list 的每一个项为一个字典，函数最后返回一个 list。compute 为计算函数，输入 list，输出添加字典 key 的 list。writefile 函数将 compute 返回的 list 写入到文件，输入 list、目标文件，无返回。<br>输出为 txt 文件，比输入文件多一列，total。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">name    title    base-money    workday    total    munber</span><br><span class="line">zhang    master    <span class="number">2000</span>    <span class="number">21</span>    <span class="number">4000.0</span>    001</span><br><span class="line">hui    employee    <span class="number">1000</span>    <span class="number">29</span>    <span class="number">1500.0</span>    002</span><br><span class="line">huiz    employee    <span class="number">300</span>    <span class="number">29</span>    <span class="number">450.0</span>    002</span><br><span class="line">adfa    employee    <span class="number">123</span>    <span class="number">29</span>    <span class="number">184.5</span>    002</span><br><span class="line">吴波    master    <span class="number">2500</span>    <span class="number">29</span>    <span class="number">5000.0</span>    002</span><br><span class="line">zfg    employee    <span class="number">322</span>    <span class="number">29</span>    <span class="number">483.0</span>    002</span><br><span class="line">pengke    employee    <span class="number">3000</span>    <span class="number">29</span>    <span class="number">4500.0</span>    002</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">readfile</span>(<span class="params">filename</span>):</span><br><span class="line">    inputList=[]</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> f:</span><br><span class="line">       <span class="comment"># print(f.read())</span></span><br><span class="line">        fileList = f.readlines()</span><br><span class="line">        person = &#123;&#125;</span><br><span class="line">        keylist = fileList[<span class="number">0</span>].split()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(fileList)):</span><br><span class="line">            valuelist = fileList[i].split()</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(keylist)):</span><br><span class="line">                 person[keylist[j]] = valuelist[j]</span><br><span class="line">            inputList.append(person)</span><br><span class="line">            person = &#123;&#125;</span><br><span class="line">        f.close()</span><br><span class="line">       <span class="comment"># print(inputList)</span></span><br><span class="line">    <span class="keyword">return</span> inputList</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute</span>(<span class="params">inputList</span>):</span><br><span class="line">    outputList = inputList[:]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(outputList)):</span><br><span class="line">       <span class="keyword">if</span> outputList[i].get(<span class="string">&quot;title&quot;</span>) == <span class="string">&quot;master&quot;</span>:</span><br><span class="line">           outputList[i][<span class="string">&quot;total&quot;</span>] = <span class="built_in">float</span>(outputList[i].get(<span class="string">&quot;base-money&quot;</span>))*<span class="number">2</span></span><br><span class="line">       <span class="keyword">else</span>:</span><br><span class="line">           outputList[i][<span class="string">&quot;total&quot;</span>] = <span class="built_in">float</span>(outputList[i].get(<span class="string">&quot;base-money&quot;</span>))*<span class="number">1.5</span></span><br><span class="line">    <span class="comment">#print(outputList)</span></span><br><span class="line">    <span class="keyword">return</span> outputList</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">writefile</span>(<span class="params">outputList,outputfile</span>):</span><br><span class="line">    title = (outputList[<span class="number">0</span>].keys())[:]</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(outputfile,<span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> f :</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(title)):</span><br><span class="line">            f.write(title[i]+<span class="string">&quot;    &quot;</span>)</span><br><span class="line">        f.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(outputList)):</span><br><span class="line">            f.write(outputList[j][<span class="string">&quot;name&quot;</span>]+<span class="string">&quot;    &quot;</span>+outputList[j][<span class="string">&quot;title&quot;</span>]+<span class="string">&quot;    &quot;</span>+outputList[j][<span class="string">&quot;base-money&quot;</span>]+<span class="string">&quot;    &quot;</span>+outputList[j][<span class="string">&quot;workday&quot;</span>]+<span class="string">&quot;    &quot;</span>+<span class="built_in">str</span>(outputList[j][<span class="string">&quot;total&quot;</span>])+<span class="string">&quot;    &quot;</span>+outputList[j][<span class="string">&quot;munber&quot;</span>])</span><br><span class="line">            f.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">        f.close</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    inputfile = <span class="string">&quot;/home/hhzzer/PycharmProjects/gongzi/name.txt&quot;</span></span><br><span class="line">    output = <span class="string">&quot;./output.txt&quot;</span></span><br><span class="line">    inputlist = readfile(inputfile)</span><br><span class="line">    outputlist = compute(inputlist)</span><br><span class="line">    outputfile = writefile(outputlist,output)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="遇到问题及后续改善"><a href="#遇到问题及后续改善" class="headerlink" title="遇到问题及后续改善"></a>遇到问题及后续改善</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>person 字典未重置，导致输入 list 重复<br>22 行缺少”)”，导致报错。<br>linux 换行符为”\n”,不需要转义。</p>
+<h3 id="改善"><a href="#改善" class="headerlink" title="改善"></a>改善</h3><p>使用 format 字符串格式化文件写入行，对齐准确。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/python/"># python</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E3%80%8A%E5%88%AB%E9%97%B9%E4%BA%86%E3%80%81%E8%B4%B9%E6%9B%BC%E5%85%88%E7%94%9F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="prev" title="《别闹了、费曼先生》读书笔记">
+                  <i class="fa fa-chevron-left"></i> 《别闹了、费曼先生》读书笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E4%BD%BF%E7%94%A8vim%E7%BC%96%E5%86%99python/" rel="next" title="使用vim编写python">
+                  使用vim编写python <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

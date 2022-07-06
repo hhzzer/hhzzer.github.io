@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2017-12-07kubernetes 官方文档学习记录 Summary of container benefits:Agile application creation and deployment: Increased ease and efficiency of container image creation compared to VM image use.灵活的容器创建和部署">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是kubernetes">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/%E4%BB%80%E4%B9%88%E6%98%AFkubernetes/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2017-12-07kubernetes 官方文档学习记录 Summary of container benefits:Agile application creation and deployment: Increased ease and efficiency of container image creation compared to VM image use.灵活的容器创建和部署">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T09:25:13.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.554Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/%E4%BB%80%E4%B9%88%E6%98%AFkubernetes/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/%E4%BB%80%E4%B9%88%E6%98%AFkubernetes/","path":"2022/07/04/yuque/什么是kubernetes/","title":"什么是kubernetes"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>什么是kubernetes | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-of-container-benefits"><span class="nav-number">1.</span> <span class="nav-text">Summary of container benefits:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes-Components-%E7%BB%84%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">Kubernetes Components 组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Master-Component"><span class="nav-number">2.1.</span> <span class="nav-text">Master Component</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-Component"><span class="nav-number">2.2.</span> <span class="nav-text">Node Component</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes-Objects"><span class="nav-number">3.</span> <span class="nav-text">Kubernetes Objects</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%BB%80%E4%B9%88%E6%98%AFkubernetes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="什么是kubernetes | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          什么是kubernetes
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 17:25:13 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:25:13+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2017-12-07<br>kubernetes 官方文档学习记录</p>
+<h2 id="Summary-of-container-benefits"><a href="#Summary-of-container-benefits" class="headerlink" title="Summary of container benefits:"></a>Summary of container benefits:</h2><p>Agile application creation and deployment: Increased ease and efficiency of container image creation compared to VM image use.<br>灵活的容器创建和部署：和应用 VM 镜像相比，容器镜像创建能减缓资源需求增长和提高资源利用率。<br>Continuous development, integration, and deployment: Provides for reliable and frequent container image build and deployment with quick and easy rollbacks (due to image immutability).<br>持续开发、集成和部署：基于镜像持久化提供一个快速可靠的镜像创建和快速简单的滚动部署。<br>Dev and Ops separation of concerns: Create application container images at build/release time rather than deployment time, thereby decoupling applications from infrastructure.<br>开发和运维关注分离：在编译和发布阶段创建容器镜像而不是部署阶段，解耦应用程序和基础设施。<br>Environmental consistency across development, testing, and production: Runs the same on a laptop as it does in the cloud.<br>开发、测试、生产环境一致性保证：在笔记本电脑和在云端，应用程序行为一致。<br>Cloud and OS distribution portability: Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine, and anywhere else.<br>云和操作系统版本灵活：可以运行在 Ubuntu、RHEL、CoreOS 等任何地方。<br>Application-centric management: Raises the level of abstraction from running an OS on virtual hardware to run an application on an OS using logical resources.<br>应用为中心的管理：提升抽象级别，从运行操作系统在虚拟机提升到运行应用程序使用逻辑资源运行在操作系统上。<br>Loosely coupled, distributed, elastic, liberated micro-services: Applications are broken into smaller, independent pieces and can be deployed and managed dynamically – not a fat monolithic stack running on one big single-purpose machine.<br>松散耦合、分布式、弹性、微服务实现：应用程序分解为小的、独立模块，动态部署和管理。不是庞大的应用栈运行在一个巨大的单一专用途机器。<br>Resource isolation: Predictable application performance.<br>资源独立：应用性能可预测。<br>Resource utilization: High efficiency and density.<br>资源利用率：高效率和密集。</p>
+<h2 id="Kubernetes-Components-组件"><a href="#Kubernetes-Components-组件" class="headerlink" title="Kubernetes Components 组件"></a>Kubernetes Components 组件</h2><h3 id="Master-Component"><a href="#Master-Component" class="headerlink" title="Master Component"></a>Master Component</h3><p>kube-apiserver<br>etcd<br>…</p>
+<h3 id="Node-Component"><a href="#Node-Component" class="headerlink" title="Node Component"></a>Node Component</h3><p>kubelet<br>…</p>
+<h2 id="Kubernetes-Objects"><a href="#Kubernetes-Objects" class="headerlink" title="Kubernetes Objects"></a>Kubernetes Objects</h2><p>node<br>pod<br>service<br>deployment<br>未完待续</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E6%80%A7%E6%A0%BC%E4%B8%8E%E5%91%BD%E8%BF%90/" rel="prev" title="性格与命运">
+                  <i class="fa fa-chevron-left"></i> 性格与命运
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E5%BF%83%E9%87%8C%E8%BE%B9%E7%95%8C/" rel="next" title="心里边界">
+                  心里边界 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

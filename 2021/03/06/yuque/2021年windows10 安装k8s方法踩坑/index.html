@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="背景学习 k8s，需要一个好用的 k8s 集群。踩 windows10 minikube 各种坑，记录备忘。 过程1 windows10 + hyper-v + minikube参考链接2017 年的文章，按照文章能安装成功，这个环境使用了 2 个月。 12# 管理员命令行启动minikube参数.\minikube.exe start  --image-mirror-country cn --i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021年windows10 安装k8s方法踩坑">
+<meta property="og:url" content="http://example.com/2021/03/06/yuque/2021%E5%B9%B4windows10%20%E5%AE%89%E8%A3%85k8s%E6%96%B9%E6%B3%95%E8%B8%A9%E5%9D%91/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="背景学习 k8s，需要一个好用的 k8s 集群。踩 windows10 minikube 各种坑，记录备忘。 过程1 windows10 + hyper-v + minikube参考链接2017 年的文章，按照文章能安装成功，这个环境使用了 2 个月。 12# 管理员命令行启动minikube参数.\minikube.exe start  --image-mirror-country cn --i">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-06T07:25:41.000Z">
+<meta property="article:modified_time" content="2022-06-29T03:46:40.463Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/03/06/yuque/2021%E5%B9%B4windows10%20%E5%AE%89%E8%A3%85k8s%E6%96%B9%E6%B3%95%E8%B8%A9%E5%9D%91/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/03/06/yuque/2021%E5%B9%B4windows10%20%E5%AE%89%E8%A3%85k8s%E6%96%B9%E6%B3%95%E8%B8%A9%E5%9D%91/","path":"2021/03/06/yuque/2021年windows10 安装k8s方法踩坑/","title":"2021年windows10 安装k8s方法踩坑"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2021年windows10 安装k8s方法踩坑 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-windows10-hyper-v-minikube"><span class="nav-number">2.1.</span> <span class="nav-text">1 windows10 + hyper-v + minikube</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-windows10-virtualbox6-12-minikube1-81"><span class="nav-number">2.2.</span> <span class="nav-text">2 windows10 + virtualbox6.12 +minikube1.81</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-windows10-virtualbox6-12-minikube1-73"><span class="nav-number">2.3.</span> <span class="nav-text">3 windows10 + virtualbox6.12 + minikube1.73</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-virtualbox6-12-centos7-6-%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85-k8s-%E5%8D%95%E6%9C%BA%E7%89%88"><span class="nav-number">2.4.</span> <span class="nav-text">4 virtualbox6.12 + centos7.6 手动安装 k8s 单机版</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/06/yuque/2021%E5%B9%B4windows10%20%E5%AE%89%E8%A3%85k8s%E6%96%B9%E6%B3%95%E8%B8%A9%E5%9D%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2021年windows10 安装k8s方法踩坑 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2021年windows10 安装k8s方法踩坑
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-06 15:25:41" itemprop="dateCreated datePublished" datetime="2021-03-06T15:25:41+08:00">2021-03-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>学习 k8s，需要一个好用的 k8s 集群。踩 windows10 minikube 各种坑，记录备忘。</p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><h3 id="1-windows10-hyper-v-minikube"><a href="#1-windows10-hyper-v-minikube" class="headerlink" title="1 windows10 + hyper-v + minikube"></a>1 windows10 + hyper-v + minikube</h3><p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/221687">参考链接</a><br>2017 年的文章，按照文章能安装成功，这个环境使用了 2 个月。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">管理员命令行启动minikube参数</span></span><br><span class="line">.\minikube.exe start  --image-mirror-country cn --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.16.0.iso  --registry-mirror=https://reg-mirror.qiniu.com --vm-driver=&quot;hyperv&quot; --hyperv-virtual-switch=&quot;MinikubeSwitch&quot; --memory=2048</span><br></pre></td></tr></table></figure>
+
+<p>hyper-v 重装后，虚拟交换机初始化一直报错，还导致 wls2 中的 ubuntu 异常。遂放弃。wls 也换回版本 1.</p>
+<h3 id="2-windows10-virtualbox6-12-minikube1-81"><a href="#2-windows10-virtualbox6-12-minikube1-81" class="headerlink" title="2 windows10 + virtualbox6.12 +minikube1.81"></a>2 windows10 + virtualbox6.12 +minikube1.81</h3><p><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/750687">参考链接</a><br><a target="_blank" rel="noopener" href="https://storage.googleapis.com/minikube/releases/latest/minikube-installer.exe">minikube1.81 安装包</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动报错</span></span><br><span class="line">.\minikube.exe start   --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.18.0.iso  --registry-mirror=https://reg-mirror.qiniu.com --memory=2048  --driver=virtualbox</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>报错</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">! StartHost failed, but will try again: creating host: create: precreate: This computer doesn&#x27;t have VT-X/AMD-v enabled. Enabling it in the BIOS is mandatory</span><br></pre></td></tr></table></figure>
+
+<p>报错网络设置异常，感觉是公司的安全管理系统影响网卡设置，遂放弃。</p>
+<h3 id="3-windows10-virtualbox6-12-minikube1-73"><a href="#3-windows10-virtualbox6-12-minikube1-73" class="headerlink" title="3 windows10 + virtualbox6.12 + minikube1.73"></a>3 windows10 + virtualbox6.12 + minikube1.73</h3><p><a target="_blank" rel="noopener" href="https://download.virtualbox.org/virtualbox/6.1.18/VirtualBox-6.1.18-142142-Win.exe">virtualbox6.12 下载链接</a><br><a target="_blank" rel="noopener" href="https://github-releases.githubusercontent.com/56353740/6c861c80-537c-11ea-807a-d25dcd82b0ef?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A/20210306/us-east-1/s3/aws4_request&X-Amz-Date=20210306T072234Z&X-Amz-Expires=300&X-Amz-Signature=f9073744722af9c6c91c7161985f6ba1248b315e08c8e0337bd393e9f8fa4465&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=56353740&response-content-disposition=attachment;%20filename=minikube-windows-amd64.exe&response-content-type=application/octet-stream">minikube1.73 下载链接</a><br><a target="_blank" rel="noopener" href="https://storage.googleapis.com/kubernetes-release/release/v1.17.3/bin/windows/amd64/kubectl.exe?spm=a2c4e.10696291.0.0.7bf319a4erTSHS&file=kubectl.exe">windows kubectl.exe</a><br>放弃</p>
+<h3 id="4-virtualbox6-12-centos7-6-手动安装-k8s-单机版"><a href="#4-virtualbox6-12-centos7-6-手动安装-k8s-单机版" class="headerlink" title="4 virtualbox6.12 + centos7.6 手动安装 k8s 单机版"></a>4 virtualbox6.12 + centos7.6 手动安装 k8s 单机版</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/telundusiji/article/details/114033799">https://blog.csdn.net/telundusiji/article/details/114033799</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Tempted/p/10671292.html">https://www.cnblogs.com/Tempted/p/10671292.html</a><br>在 virtualbox 中的 centos7.6 上安装 k8s。centos 虚拟机配置 2c2g，<a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaoxiangzi520/article/details/111291634">磁盘扩容到 20g</a></p>
+<p>yum install bash-completion<br>source &lt;(kubectl completion bash)</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/04/yuque/k8s%20in%20action%20%E6%9C%8D%E5%8A%A1/" rel="prev" title="k8s in action 服务">
+                  <i class="fa fa-chevron-left"></i> k8s in action 服务
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/08/yuque/%E5%A5%BD%E7%A8%8B%E5%BA%8F%E5%91%98%20VS%20%E5%A5%BD%E8%BF%90%E7%BB%B4/" rel="next" title="好程序员 VS 好运维">
+                  好程序员 VS 好运维 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

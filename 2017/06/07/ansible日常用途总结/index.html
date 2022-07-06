@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="没有使用ansible工具，运维工作也能持续开展。使用ansible是为了运维效率提升，准确度提升。  为什么使用ansibleansible可以方便的管理大量主机。ansible使用ssh通道传输，被管理主机无需安装任何agent。主机清单文件可使用变量方便设定ssh连接信息。 ansible管理主机比在主机上执行shell更高效和安全。官方和社区将基础功能（用户管理、文件管理、软件包管理、服">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ansible日常用途总结">
+<meta property="og:url" content="http://example.com/2017/06/07/ansible%E6%97%A5%E5%B8%B8%E7%94%A8%E9%80%94%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="没有使用ansible工具，运维工作也能持续开展。使用ansible是为了运维效率提升，准确度提升。  为什么使用ansibleansible可以方便的管理大量主机。ansible使用ssh通道传输，被管理主机无需安装任何agent。主机清单文件可使用变量方便设定ssh连接信息。 ansible管理主机比在主机上执行shell更高效和安全。官方和社区将基础功能（用户管理、文件管理、软件包管理、服">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-06-07T13:55:16.000Z">
+<meta property="article:modified_time" content="2017-06-16T08:19:09.000Z">
+<meta property="article:author" content="mayi">
+<meta property="article:tag" content="ansible">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2017/06/07/ansible%E6%97%A5%E5%B8%B8%E7%94%A8%E9%80%94%E6%80%BB%E7%BB%93/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2017/06/07/ansible%E6%97%A5%E5%B8%B8%E7%94%A8%E9%80%94%E6%80%BB%E7%BB%93/","path":"2017/06/07/ansible日常用途总结/","title":"ansible日常用途总结"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ansible日常用途总结 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8ansible"><span class="nav-number">1.</span> <span class="nav-text">为什么使用ansible</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9%E4%B8%8Eansible%E7%BB%93%E5%90%88%E8%AE%BE%E6%83%B3"><span class="nav-number">2.</span> <span class="nav-text">日常工作内容与ansible结合设想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8ansible%E6%A8%A1%E5%9D%97"><span class="nav-number">3.</span> <span class="nav-text">常用ansible模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%B2%E4%BD%BF%E7%94%A8playbook"><span class="nav-number">4.</span> <span class="nav-text">已使用playbook</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/07/ansible%E6%97%A5%E5%B8%B8%E7%94%A8%E9%80%94%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ansible日常用途总结 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ansible日常用途总结
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-06-07 21:55:16" itemprop="dateCreated datePublished" datetime="2017-06-07T21:55:16+08:00">2017-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>没有使用ansible工具，运维工作也能持续开展。使用ansible是为了运维效率提升，准确度提升。</p>
+</blockquote>
+<h2 id="为什么使用ansible"><a href="#为什么使用ansible" class="headerlink" title="为什么使用ansible"></a>为什么使用ansible</h2><p>ansible可以方便的管理大量主机。ansible使用ssh通道传输，被管理主机无需安装任何agent。主机清单文件可使用变量方便设定ssh连接信息。</p>
+<p>ansible管理主机比在主机上执行shell更高效和安全。<br>官方和社区将基础功能（用户管理、文件管理、软件包管理、服务管理）封装成模块，完成特定工作只需调用合适的模块即可，无需自己编写复杂的shell脚本。模块由经验丰富人员编写及大量人员测试，安全性较自编脚本高。</p>
+<h2 id="日常工作内容与ansible结合设想"><a href="#日常工作内容与ansible结合设想" class="headerlink" title="日常工作内容与ansible结合设想"></a>日常工作内容与ansible结合设想</h2><p>1 vmware虚拟机创建</p>
+<p>创建指定cpu、内存、硬盘、操作系统的虚拟机，并配置合适的ip地址，目前使用图形界面方式创建。ansible有虚拟化相关模块，后期考虑是否使用ansible命令创建虚拟机。</p>
+<p>2 虚拟机资源变更</p>
+<p>包括变更磁盘、内存、cpu、网卡。磁盘扩容采用linux命令扩容，考虑是否将扩容语句编写为shell或ansible-playbook。</p>
+<p>3 物理机系统安装及初始化</p>
+<p>根据要求安装操作系统、配置网络及系统初始化。初始化包括：ip设置、网卡绑定、配置源、防火墙关闭、selinux关闭、创建用户及组、设置sudo、修改root密码、设置history时间戳、升级openssl和openssh、安装nagois监控或zabbix监控、时间同步服务器。将系统安装后的初始化工作和检查工作编写为合适的ansible playbook，能极大的提升部署效率和准确率。</p>
+<h2 id="常用ansible模块"><a href="#常用ansible模块" class="headerlink" title="常用ansible模块"></a>常用ansible模块</h2><p>目前使用ansible模块有</p>
+<ul>
+<li>setup 收集主机系统信息，包括主机操作系统、硬件配置、网络设置。</li>
+<li>shell、command、raw 。执行linux命令，检查或配置系统。</li>
+<li>copy 拷贝文件到主机。</li>
+<li>service 启动、停止、重启服务</li>
+<li>yum、apt。安装软件</li>
+<li>user 设置系统用户</li>
+<li>group 设置组</li>
+<li>debug 输出调试信息</li>
+</ul>
+<h2 id="已使用playbook"><a href="#已使用playbook" class="headerlink" title="已使用playbook"></a>已使用playbook</h2><ul>
+<li>检查系统资源</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line"># 使用setup检查系统资源，使用debug输出ip、os版本、cup核数、内存、硬盘信息。</span><br><span class="line">- hosts: local</span><br><span class="line">  tasks:</span><br><span class="line">  - name: print info</span><br><span class="line">    debug:</span><br><span class="line">      msg: &quot;ip:&#123;&#123;ansible_all_ipv4_addresses[0]&#125;&#125; ipv4:&#123;&#123;ansible_default_ipv4.address&#125;&#125; OS:&#123;&#123;ansible_distribution&#125;&#125;-&#123;&#123;ansible_distribution_version&#125;&#125; CUP:&#123;&#123;ansible_processor_vcpus&#125;&#125; Memory:&#123;&#123;ansibsile_memtotal_mb&#125;&#125; Disk:&#123;&#123;ansible_devices.sda.size&#125;&#125;&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>运行方式及结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook  book4  | grep msg</span><br><span class="line">..</span><br><span class="line">    &quot;msg&quot;: &quot;ip:192.168.199.186 ipv4:192.168.199.186 OS:Ubuntu-16.04 CUP:2 Memory:3845 Disk:111.79 GB&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装zabbix-agent<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: many</span><br><span class="line">  sudo: yes</span><br><span class="line">  tasks:</span><br><span class="line">  - name: yum wget</span><br><span class="line">    shell: yum install wget -y</span><br><span class="line">  - name: wget zabbix agent</span><br><span class="line">    shell: cd /usr/src;wget http://x/data/zabbix/agents/centos7/zabbix-agent-3.0.9-1.el7.x86_64.rpm</span><br><span class="line">  - name: yum install</span><br><span class="line">    shell: yum localinstall /usr/src/zabbix-agent-* -y</span><br><span class="line">  - name: modify server ip</span><br><span class="line">    shell: sed -i &#x27;s/Server=127.0.0.1/Server=x/g&#x27; /etc/zabbix/zabbix_agentd.conf</span><br><span class="line">  - name: modify hostname</span><br><span class="line">    shell: ip=`hostname -I |awk &#x27;&#123;print $1&#125;&#x27;`; sed -i &quot;s/Hostname=Zabbix server/Hostname=$ip/g&quot; /etc/zabbix/zabbix_agentd.conf</span><br><span class="line">  - name: restart zabbix-agent</span><br><span class="line">    shell: systemctl enable zabbix-agent;systemctl restart zabbix-agent</span><br><span class="line">~</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ansible/" rel="tag"># ansible</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/06/05/vmware%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/" rel="prev" title="vmware PowerCLI命令笔记">
+                  <i class="fa fa-chevron-left"></i> vmware PowerCLI命令笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/06/09/ubuntu-Vagrant%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="next" title="ubuntu-Vagrant环境部署">
+                  ubuntu-Vagrant环境部署 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

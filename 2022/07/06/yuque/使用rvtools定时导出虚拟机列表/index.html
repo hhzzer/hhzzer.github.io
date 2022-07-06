@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2018-03-06 问题需要统计 vcenter 资源池虚拟机情况，包括资产和使用情况。rvtools 能将相关数据导出为 excel，但是图形界面需要手动操作，期望做成脚本每天定时导出数据。 解决查看 rvtools 的文档及软件目录，发现有个自动导出并发邮件的 bat 事例如下 123456789101112131415161718192021222324252627282930re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用rvtools定时导出虚拟机列表">
+<meta property="og:url" content="http://example.com/2022/07/06/yuque/%E4%BD%BF%E7%94%A8rvtools%E5%AE%9A%E6%97%B6%E5%AF%BC%E5%87%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%97%E8%A1%A8/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2018-03-06 问题需要统计 vcenter 资源池虚拟机情况，包括资产和使用情况。rvtools 能将相关数据导出为 excel，但是图形界面需要手动操作，期望做成脚本每天定时导出数据。 解决查看 rvtools 的文档及软件目录，发现有个自动导出并发邮件的 bat 事例如下 123456789101112131415161718192021222324252627282930re">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-06T00:56:06.000Z">
+<meta property="article:modified_time" content="2022-07-06T00:58:34.750Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/06/yuque/%E4%BD%BF%E7%94%A8rvtools%E5%AE%9A%E6%97%B6%E5%AF%BC%E5%87%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%97%E8%A1%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/06/yuque/%E4%BD%BF%E7%94%A8rvtools%E5%AE%9A%E6%97%B6%E5%AF%BC%E5%87%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%97%E8%A1%A8/","path":"2022/07/06/yuque/使用rvtools定时导出虚拟机列表/","title":"使用rvtools定时导出虚拟机列表"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>使用rvtools定时导出虚拟机列表 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3"><span class="nav-number">2.</span> <span class="nav-text">解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">3.</span> <span class="nav-text">注意</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/06/yuque/%E4%BD%BF%E7%94%A8rvtools%E5%AE%9A%E6%97%B6%E5%AF%BC%E5%87%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%97%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="使用rvtools定时导出虚拟机列表 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用rvtools定时导出虚拟机列表
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-06 08:56:06 / 修改时间：08:58:34" itemprop="dateCreated datePublished" datetime="2022-07-06T08:56:06+08:00">2022-07-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2018-03-06</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>需要统计 vcenter 资源池虚拟机情况，包括资产和使用情况。rvtools 能将相关数据导出为 excel，但是图形界面需要手动操作，期望做成脚本每天定时导出数据。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>查看 rvtools 的文档及软件目录，发现有个自动导出并发邮件的 bat 事例如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">rem <span class="comment">#########################</span></span><br><span class="line">rem Name    RVToolsBatch</span><br><span class="line">rem By      RobWare</span><br><span class="line">rem Date    April <span class="number">2017</span></span><br><span class="line">rem Version <span class="number">3.9</span><span class="number">.5</span></span><br><span class="line">rem <span class="comment">#########################</span></span><br><span class="line">rem =====================================</span><br><span class="line">rem Include robware/rvtools <span class="keyword">in</span> searchpath</span><br><span class="line">rem =====================================</span><br><span class="line"><span class="built_in">set</span> path=%path%;c:\program files (x86)\robware\rvtools</span><br><span class="line">rem =========================</span><br><span class="line">rem <span class="type">Set</span> environment variables</span><br><span class="line">rem =========================</span><br><span class="line"><span class="built_in">set</span> $VCServer=&lt;your vc server&gt;</span><br><span class="line"><span class="built_in">set</span> $SMTPserver=&lt;your smtp server&gt;</span><br><span class="line"><span class="built_in">set</span> $SMTPport=&lt;your smtp port, default = <span class="number">25</span>&gt;</span><br><span class="line"><span class="built_in">set</span> $Mailto=&lt;mail address&gt;</span><br><span class="line"><span class="built_in">set</span> $Mailfrom=&lt;mail sender address&gt;</span><br><span class="line"><span class="built_in">set</span> $Mailsubject=&lt;subject, example <span class="string">&quot;RVTools batch report&quot;</span>&gt;</span><br><span class="line"><span class="built_in">set</span> $AttachmentDir=&lt;directory name, example c:\temp&gt;</span><br><span class="line"><span class="built_in">set</span> $AttachmentFile=&lt;file name, example RVTools.xlsx&gt;</span><br><span class="line">rem ===================</span><br><span class="line">rem Start RVTools batch</span><br><span class="line">rem ===================</span><br><span class="line">rvtools.exe -passthroughAuth -s %$VCServer% -c ExportAll2xls -d %$AttachmentDir% -f %$AttachmentFile%</span><br><span class="line">rem =========</span><br><span class="line">rem Send mail</span><br><span class="line">rem =========</span><br><span class="line">rvtoolssendmail.exe /smtpserver %$SMTPserver% /smtpport %$SMTPport% /mailto %$Mailto% /mailfrom %$Mailfrom% /mailsubject %$Mailsubject% /attachment %$AttachmentDir%\%$AttachmentFile%</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>参考脚本，与同事交流写出如下可用脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@echo off</span></span><br><span class="line">echo 日期：%date%</span><br><span class="line"><span class="built_in">set</span> stryear=%date:~<span class="number">0</span>,<span class="number">4</span>%&amp;<span class="built_in">set</span> strmonth=%date:~<span class="number">5</span>,<span class="number">2</span>%&amp;<span class="built_in">set</span> strday=%date:~<span class="number">8</span>,<span class="number">2</span>%</span><br><span class="line">echo 时间：%time%</span><br><span class="line"><span class="built_in">set</span> strhh=%time:~<span class="number">0</span>,<span class="number">2</span>%&amp;<span class="built_in">set</span> strmm=%time:~<span class="number">3</span>,<span class="number">2</span>%</span><br><span class="line"><span class="built_in">set</span> strdatetime = %stryear%%strmonth%%strday%%strhh%%strmm%%strss%</span><br><span class="line">mkdir C:\Temp</span><br><span class="line">echo 正在导出<span class="number">5</span>楼-vCenter信息请等待...</span><br><span class="line">cd <span class="string">&quot;C:\Program Files (x86)\Robware\RVTools 3.9.5&quot;</span></span><br><span class="line">rvtools -u username -p passwd -s vc-ip -c ExportAll2xls -d C:\Temp -f %stryear%%strmonth%%strday%%strhh%%strmm%%strss%-vc-ip.xlsx</span><br><span class="line">echo <span class="number">5</span>楼vCenter信息导出完毕</span><br><span class="line">pause</span><br><span class="line">exit</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>不同 rvtools 版本到导出命令不一致，即-c ExportAll2xls<br>rvtools 4.0 命令为 -c ExportAll2xlsx,末尾多一个 x。具体可查看事例脚本。<br>如果导出目录不存在，也会导出失败。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/vmare/"># vmare</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/06/yuque/%E8%8B%8F%E4%B8%9C%E5%9D%A1%E4%BC%A0-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="prev" title="苏东坡传-读书笔记">
+                  <i class="fa fa-chevron-left"></i> 苏东坡传-读书笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/06/yuque/%E4%BD%BF%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9api%E6%8E%A8%E9%80%81%E5%BE%AE%E4%BF%A1%E6%B6%88%E6%81%AF/" rel="next" title="使用第三方api推送微信消息">
+                  使用第三方api推送微信消息 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

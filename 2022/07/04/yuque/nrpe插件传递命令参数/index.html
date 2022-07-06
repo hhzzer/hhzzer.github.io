@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="发表于 2017-10-23 问题使用 nagios 监控主机资源情况，告警阀值目前只能通过到被监控主机端，修改&#x2F;usr&#x2F;local&#x2F;nagios&#x2F;nrpe&#x2F;etc&#x2F;nrpe.cfg 文件中命令来设置，无法在服务端传递阀值参数。查看了 nrpe -h,发现有-a 选项可以传递命令参数，遂实验解决过程。 基本概念在 nagios 为核心的监控系统中，nagios 为监控轮询器，负责将 nagios">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nrpe插件传递命令参数">
+<meta property="og:url" content="http://example.com/2022/07/04/yuque/nrpe%E6%8F%92%E4%BB%B6%E4%BC%A0%E9%80%92%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0/index.html">
+<meta property="og:site_name" content="蚂蚁的博客">
+<meta property="og:description" content="发表于 2017-10-23 问题使用 nagios 监控主机资源情况，告警阀值目前只能通过到被监控主机端，修改&#x2F;usr&#x2F;local&#x2F;nagios&#x2F;nrpe&#x2F;etc&#x2F;nrpe.cfg 文件中命令来设置，无法在服务端传递阀值参数。查看了 nrpe -h,发现有-a 选项可以传递命令参数，遂实验解决过程。 基本概念在 nagios 为核心的监控系统中，nagios 为监控轮询器，负责将 nagios">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T08:47:40.000Z">
+<meta property="article:modified_time" content="2022-07-04T09:28:53.563Z">
+<meta property="article:author" content="mayi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/04/yuque/nrpe%E6%8F%92%E4%BB%B6%E4%BC%A0%E9%80%92%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/04/yuque/nrpe%E6%8F%92%E4%BB%B6%E4%BC%A0%E9%80%92%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0/","path":"2022/07/04/yuque/nrpe插件传递命令参数/","title":"nrpe插件传递命令参数"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>nrpe插件传递命令参数 | 蚂蚁的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蚂蚁的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">测试过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nrpe-%E5%AE%89%E8%A3%85"><span class="nav-number">3.1.</span> <span class="nav-text">nrpe 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nrpe-%E9%85%8D%E7%BD%AE"><span class="nav-number">3.2.</span> <span class="nav-text">nrpe 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E6%B5%8B%E8%AF%95"><span class="nav-number">3.3.</span> <span class="nav-text">参数传递测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E7%94%A8-nrpe-%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE%E5%88%87%E6%8D%A2%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">在用 nrpe 主机配置切换方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mayi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/nrpe%E6%8F%92%E4%BB%B6%E4%BC%A0%E9%80%92%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="nrpe插件传递命令参数 | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          nrpe插件传递命令参数
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 16:47:40 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:47:40+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>发表于 2017-10-23</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>使用 nagios 监控主机资源情况，告警阀值目前只能通过到被监控主机端，修改/usr/local/nagios/nrpe/etc/nrpe.cfg 文件中命令来设置，无法在服务端传递阀值参数。<br>查看了 nrpe -h,发现有-a 选项可以传递命令参数，遂实验解决过程。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>在 nagios 为核心的监控系统中，nagios 为监控轮询器，负责将 nagios 配置监控主机、服务、模板等。nagios 配置文件一般有前端 web 界面生成，也可以自己在后台查看/usr/local/nagios/,包括命令配置文件、服务配置文件、主机配置文件、服务模板配置文件等。<br>被监控端资源状况数据需要 nagios 的插件提供，nagios 不做具体的信息收集，比如 cpu、内存、硬盘使用情况这类。nagios 插件使用最广泛的是 nrpe 插件。nrpe 插件分为 nrpe 服务端和 check_nrpe 客户端两部分。nagios 服务上安装 check_nrpe，用于连接 nrpe 服务端并控制 nrpe 服务端在被监控主机上执行资源检测命令。<br>nrpe 服务一般使用 xinetd 管理，需要在/etc/services 中定义 nrpe 服务名称和默认端口.。xinetd 中关于 nrpe 服务的配置文件中设置 nrpe 的开启状态，允许访问的主机。<br>nrpe 配置文件/usr/local/nagios/etc/nrpe.cfg 中定义日志记录情况、是否允许命令传递参数、带参数命令的定义等。</p>
+<h2 id="测试过程"><a href="#测试过程" class="headerlink" title="测试过程"></a>测试过程</h2><h3 id="nrpe-安装"><a href="#nrpe-安装" class="headerlink" title="nrpe 安装"></a>nrpe 安装</h3><p>nagios 服务器 ip 192.168.123.136，安装 centreon web，centreon-engine(nagios 的一个分支)，拷贝 check_nrpe 命令并配置权限，确保 nagios 服务器可以正常执行/usr/lib64/nagios/plugins/check_nrpe -H 192.168.123.132 -c check_load 命令。<br>被监控服务器 ip 192.168.123.132，安装 openssl-devel、xinetd、nrpe 服务端，插件包。<br>···</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">yum install openssl-devel <span class="comment">#不安装configure阶段会报错找不到ssl header</span></span><br><span class="line">yum install xinetd</span><br><span class="line">tar -xzvf nrpe-<span class="number">3.2</span><span class="number">.1</span>.tar.gz</span><br><span class="line">cd nrpe-<span class="number">3.2</span><span class="number">.1</span></span><br><span class="line">./configure  --enable-command-args  <span class="comment">#编译nrpe deamon，允许命令参数传递</span></span><br><span class="line">make <span class="built_in">all</span></span><br><span class="line">make install-groups-users  <span class="comment">#自动根据编译文件定义创建用户和组</span></span><br><span class="line">make install</span><br><span class="line">make install-config</span><br><span class="line">make install-inetd</span><br><span class="line"><span class="comment">#安装可执行的命令，之后可以在/usr/local/nagios/libexec看见可执行脚本</span></span><br><span class="line">tar -zxvf nagios-plugins-<span class="number">2.2</span><span class="number">.1</span>.tar.gz</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="nrpe-配置"><a href="#nrpe-配置" class="headerlink" title="nrpe 配置"></a>nrpe 配置</h3><p>1 /etc/services 中末尾加上‘nrpe 5666/tcp’<br>echo “nrpe 5666/tcp &gt;&gt;/etc/services”<br>2 修改 xinetd 中 nrpe 配置/etc/xinetd.d/nrpe<br>disable = no,only_from 中添加允许连接的 ip<br>3 修改 nrpe 配置文件 vi /usr/local/nagios/etc/nrpe.cfg</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">log_file=/usr/local/nagios/var/nrpe.log <span class="comment">#log file 文件配置</span></span><br><span class="line">debug=<span class="number">1</span> <span class="comment">#开启debug</span></span><br><span class="line">dont_blame_nrpe=<span class="number">1</span> <span class="comment">#允许命令参数</span></span><br><span class="line">command[check_users]=/usr/local/nagios/libexec/check_users $ARG1$ <span class="comment">#命令中添加参数</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>4 重启 xinetdservice xinetd restart</p>
+<h3 id="参数传递测试"><a href="#参数传递测试" class="headerlink" title="参数传递测试"></a>参数传递测试</h3><p>在 nagios 服务器执行带参数命令,返回成功</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@central centreon-engine]<span class="comment"># /usr/lib64/nagios/plugins/check_nrpe -H 192.168.123.132  -c check_users -a &quot;-w 4 -c 10&quot;</span></span><br><span class="line">USERS OK - <span class="number">2</span> users currently logged <span class="keyword">in</span> |users=<span class="number">2</span>;<span class="number">4</span>;<span class="number">10</span>;<span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在被监控端查看日志 tail -f /usr/local/nagios/var/nrpe.log,能发现正确的返回记录<br>在 web 端配置命令参数<br>1 配置命令 $USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$ -a $ARG2$，参考参数!check_user!”-w 4 -c 10”<br>2 配置服务模板使用此命令 命令选择 check_nrpe,参数内容为 check_users -a “-w 4 -c 10”<br>3 配置主机模板，应用此服务<br>4 主机应用主机模板，生成服务。可在 serviceTemples 中看到服务中命令的详细参数类似 check_nrpe!check_users -a “-w 4 -c 10”<br>5 导出配置文件，重启 nagios 轮询器，web 界面查看返回结果。</p>
+<h2 id="在用-nrpe-主机配置切换方案"><a href="#在用-nrpe-主机配置切换方案" class="headerlink" title="在用 nrpe 主机配置切换方案"></a>在用 nrpe 主机配置切换方案</h2><p>1 nrpe 需要重新编译安装，添加允许传递命令参数功能<br>2 nrpe.cfg 配置文件修改，开启 dont_blame_nrpe=1,启用带参数的命令<br>3 web 前端配置新命令和模板</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/yjf512/p/3666070.html">http://www.cnblogs.com/yjf512/p/3666070.html</a><br><a target="_blank" rel="noopener" href="http://m.blog.csdn.net/newjueqi/article/details/22867881?from=singlemessage&isappinstalled=0">http://m.blog.csdn.net/newjueqi/article/details/22867881?from=singlemessage&amp;isappinstalled=0</a><br><a target="_blank" rel="noopener" href="http://support.nagios.com/knowledgebase/faqs/index.php?option=com_content&view=article&id=52&catid=35&faq_id=439&expand=false&showdesc=true">http://support.nagios.com/knowledgebase/faqs/index.php?option=com_content&amp;view=article&amp;id=52&amp;catid=35&amp;faq_id=439&amp;expand=false&amp;showdesc=true</a><br><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s/ElSJS9OCJNZX7HOGqIk3lA">http://mp.weixin.qq.com/s/ElSJS9OCJNZX7HOGqIk3lA</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E7%9B%91%E6%8E%A7/"># 监控</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/%E6%88%90%E9%83%BD%E7%9C%8B%E6%88%BF%E8%AE%B020171022/" rel="prev" title="成都看房记20171022">
+                  <i class="fa fa-chevron-left"></i> 成都看房记20171022
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/04/yuque/linux%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="next" title="linux运维常用命令">
+                  linux运维常用命令 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mayi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
