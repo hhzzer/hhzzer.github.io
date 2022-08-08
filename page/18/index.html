@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%81%9A%E6%88%90%E4%BA%8B%E7%9A%84%E6%96%B9%E6%B3%95-816%E5%BE%97%E5%88%B0%E4%BE%8B%E4%BC%9A%E8%AE%B0%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%BD%BF%E7%94%A8vim%E7%BC%96%E5%86%99python/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E5%81%9A%E6%88%90%E4%BA%8B%E7%9A%84%E6%96%B9%E6%B3%95-816%E5%BE%97%E5%88%B0%E4%BE%8B%E4%BC%9A%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">做成事的方法-816得到例会记录</a>
+          <a href="/2022/07/04/yuque/%E4%BD%BF%E7%94%A8vim%E7%BC%96%E5%86%99python/" class="post-title-link" itemprop="url">使用vim编写python</a>
         </h2>
 
         <div class="post-meta-container">
@@ -196,7 +196,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 15:56:15 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:56:15+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 16:06:55 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:06:55+08:00">2022-07-04</time>
     </span>
 
   
@@ -209,248 +209,28 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>目标感、对象感、节奏感、全局感、自我驱动力、横向组织力<br>目标的保持<br>对象感：做事为谁做，到什么程度是满意，我要做到什么程度<br>节奏感：做事前缓后急，前虚后实<br>全局感：公司价值的理解<br>自我驱动力：自我价值的理解<br>横向组织力：没有权力协调资源，多沟通，达共识。给上级选择，给同级建议，给下级资源。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E7%BD%97%E8%BE%91%E6%80%9D%E7%BB%B4/"># 罗辑思维</a></p>
+          <p>发表于 2017-09-06<br>学习 python 过程中使用了 idle、Pycharm，始终不顺手。vim 或 emacs 是终极目标，本文记录一下 vim 编写 python 的配置过程。</p>
+<h2 id="修改-vim-配置文件增强-python-编写"><a href="#修改-vim-配置文件增强-python-编写" class="headerlink" title="修改 vim 配置文件增强 python 编写"></a>修改 vim 配置文件增强 python 编写</h2><p>ubuntu vim 配置文件位置在/etc/vim/vimrc,修改此文件即可。我做了两个修改，1 是不退出 vim 运行脚本，2 是显示行号、高亮等。vimrc 文件增加内容如下<br>···</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="string">&quot;&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    &quot;Quickly Run</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span><span class="string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">map &lt;F5&gt; :call CompileRunGcc()&lt;CR&gt;</span></span><br><span class="line"><span class="string">func! CompileRunGcc()</span></span><br><span class="line"><span class="string">exec &quot;</span>w<span class="string">&quot;</span></span><br><span class="line"><span class="string">if &amp;filetype == &#x27;c&#x27;</span></span><br><span class="line"><span class="string">            exec &quot;</span>!g++ % -o %&lt;<span class="string">&quot;</span></span><br><span class="line"><span class="string">            exec &quot;</span>!time ./%&lt;<span class="string">&quot;</span></span><br><span class="line"><span class="string">elseif &amp;filetype == &#x27;cpp&#x27;</span></span><br><span class="line"><span class="string">            exec &quot;</span>!g++ % -o %&lt;<span class="string">&quot;</span></span><br><span class="line"><span class="string">            exec &quot;</span>!time ./%&lt;<span class="string">&quot;</span></span><br><span class="line"><span class="string">elseif &amp;filetype == &#x27;java&#x27;</span></span><br><span class="line"><span class="string">            exec &quot;</span>!javac %<span class="string">&quot;</span></span><br><span class="line"><span class="string">            exec &quot;</span>!time java %&lt;<span class="string">&quot;</span></span><br><span class="line"><span class="string">elseif &amp;filetype == &#x27;sh&#x27;</span></span><br><span class="line"><span class="string">            :!time bash %</span></span><br><span class="line"><span class="string">elseif &amp;filetype == &#x27;python&#x27;</span></span><br><span class="line"><span class="string">            exec &quot;</span>!time python2<span class="number">.7</span> %<span class="string">&quot;</span></span><br><span class="line"><span class="string">elseif &amp;filetype == &#x27;html&#x27;</span></span><br><span class="line"><span class="string">            exec &quot;</span>!firefox % &amp;<span class="string">&quot;</span></span><br><span class="line"><span class="string">elseif &amp;filetype == &#x27;go&#x27;</span></span><br><span class="line"><span class="string">    &quot;</span>        <span class="built_in">exec</span> <span class="string">&quot;!go build %&lt;&quot;</span></span><br><span class="line">            <span class="built_in">exec</span> <span class="string">&quot;!time go run %&quot;</span></span><br><span class="line">elseif &amp;filetype == <span class="string">&#x27;mkd&#x27;</span></span><br><span class="line">            <span class="built_in">exec</span> <span class="string">&quot;!~/.vim/markdown.pl % &gt; %.html &amp;&quot;</span></span><br><span class="line">            <span class="built_in">exec</span> <span class="string">&quot;!firefox %.html &amp;&quot;</span></span><br><span class="line">endif</span><br><span class="line">    endfunc</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; enable syntax highlighting</span></span><br><span class="line"><span class="string">syntax enable</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> show line numbers</span><br><span class="line"><span class="built_in">set</span> number</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; set tabs to have 4 spaces</span></span><br><span class="line"><span class="string">set ts=4</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> indent when moving to the <span class="built_in">next</span> line <span class="keyword">while</span> writing code</span><br><span class="line"><span class="built_in">set</span> autoindent</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; expand tabs into spaces</span></span><br><span class="line"><span class="string">set expandtab</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> when using the &gt;&gt; <span class="keyword">or</span> &lt;&lt; commands, shift lines by <span class="number">4</span> spaces</span><br><span class="line"><span class="built_in">set</span> shiftwidth=<span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot; show a visual line under the cursor&#x27;s current line</span></span><br><span class="line"><span class="string">set cursorline</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> show the matching part of the pair <span class="keyword">for</span> [] &#123;&#125; <span class="keyword">and</span> ()</span><br><span class="line"><span class="built_in">set</span> showmatch</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; enable all Python syntax highlighting features</span></span><br><span class="line"><span class="string">let python_highlight_all = 1</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
 
-      
-    </div>
+<h2 id="安装-vim-python-mode，集成-python-编写、运行、调试、检查的插件。"><a href="#安装-vim-python-mode，集成-python-编写、运行、调试、检查的插件。" class="headerlink" title="安装 vim-python mode，集成 python 编写、运行、调试、检查的插件。"></a>安装 vim-python mode，集成 python 编写、运行、调试、检查的插件。</h2><h3 id="安装-pathogen"><a href="#安装-pathogen" class="headerlink" title="安装 pathogen"></a>安装 pathogen</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.vim/autoload ~/.vim/bundle</span><br><span class="line">curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-    
-    
-    
+<h3 id="安装-pymode"><a href="#安装-pymode" class="headerlink" title="安装 pymode"></a>安装 pymode</h3><ul>
+<li>开启 pathogen vi ~/.vimrc 添加内容</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot; Pathogen load</span></span><br><span class="line"><span class="string">filetype off</span></span><br><span class="line"><span class="string">call pathogen#infect()</span></span><br><span class="line"><span class="string">call pathogen#helptags()</span></span><br><span class="line"><span class="string">syntax on</span></span><br><span class="line"><span class="string">filetype plugin indent on</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
 
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%BA%92%E8%81%94%E7%BD%91%E6%96%87%E6%98%8E%E6%80%8E%E4%B9%88%E6%94%B9%E5%8F%98%E5%9F%8E%E5%B8%82-%E7%B2%BE%E5%93%81%E8%AF%BE%E8%AF%BB%E5%90%8E%E6%84%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E4%BA%92%E8%81%94%E7%BD%91%E6%96%87%E6%98%8E%E6%80%8E%E4%B9%88%E6%94%B9%E5%8F%98%E5%9F%8E%E5%B8%82-%E7%B2%BE%E5%93%81%E8%AF%BE%E8%AF%BB%E5%90%8E%E6%84%9F/" class="post-title-link" itemprop="url">互联网文明怎么改变城市-精品课读后感</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-07-04 15:54:41 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:54:41+08:00">2022-07-04</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-16<br>昨天花 9.9 买了得到的一个精品课，今天回顾一下主要内容和感受。</p>
-<h2 id="课程概述"><a href="#课程概述" class="headerlink" title="课程概述"></a>课程概述</h2><p>课程 10 小节，每一节回答一个问题。</p>
-<ol>
-<li>城市为什么会繁荣？<br>因为城市造就了高密度的人际空间，使人与人之间协作效率提高，创造价值。所以城市会打败乡村。</li>
-<li>城市为什么会衰败？<br>城市的价值分为信息价值和资源价值，信息价值逐渐被互联网取代，只保留资源价值的城市会衰败。互联网蓬勃发展的城市由于公司给城市注入了互联网从其他城市吸取的信息价值，所以还会发展。买房就是买城市的股票，现在是时候买科技公司股票了。<br>城市资源价值会不会被移动车辆取代？驭势的客厅型车辆</li>
-<li>互联网进化快于城市，所以趋势不会变化<br>深圳是城市迭代速度的极致，30 年成就今天。互联网由 pc-移动端-物联网迭代数度指数增长，城市进化肯定比不过互联网。</li>
-<li>为什么我们会选择留在环境不好的城市<br>城市建筑的非实用性功能会刺激产生多巴胺，让人愉悦。但互联网更能刺激你，使你对城市的低强度刺激免疫。</li>
-<li>标准的城市规划《雅典宪章》为什么失效<br>雅典宪章是指城市按照功能分区规划，工作区、生活区、休闲区、交通区。在伦敦改造时成功，在巴西利亚、西安建设时失败。原因在于城市是生长出来的不是计划出来的，和市场经济活力强于计划经济一个道理。</li>
-<li>互联网会引导城市生长得很好<br>互联网取代城市的信息价值，信息检索也由具体地理位置变成搜索关键字。互联网发现城市现有资源的价值</li>
-<li>为什么快递、外卖、便利店杀死城市？<br>快递、外卖、便利店让城市资源由集中转为分散。原因一时互联网检索改变城市位置信息发布，二是快递、外卖、便利店让资源围绕着人配置</li>
-<li>城市自动生长，人可以起发挥作用<br>人通过借助互联网发现城市价值，实现自己价值。airbnb</li>
-<li>公共空间微型化<br>人需要交流，公共空间满足交流需求。</li>
-<li>未来城市是怎么样的？<br>建筑是居住的机器。随身城市、大脑城市，是终点。</li>
-</ol>
-<h2 id="我的想法"><a href="#我的想法" class="headerlink" title="我的想法"></a>我的想法</h2><p>买房就买北深杭，买股就买 JAT，企业周围，大有作为</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E3%80%8A%E9%98%BF%E9%87%8C%E9%93%81%E5%86%9B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E3%80%8A%E9%98%BF%E9%87%8C%E9%93%81%E5%86%9B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《阿里铁军》读书笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-07-04 15:53:29 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:53:29+08:00">2022-07-04</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-15<br>看到这本书，今天拿来花 4 小时看完<br>全书讲述了阿里巴巴销售团队“中供铁军”的发展经历。2000 年野蛮生长，定目标-执行-淘汰、师徒制、非典凝聚军心、鸡血 pk 文化、高压线成型于精简、狂风行动新续分离、黑名单和信任危机、政委机制。<br>看完之后发现阿里巴巴发展到现在，销售团队贡献很大。“客户第一、员工第二、股东第三”的价值观深入团队，队员之间相互激发自驱力。rewiew 总结经验教训，直面挑战。<br>高压线笑话“已婚男与未婚女销售深夜回住所，女：我们关系能否进一步发展？男：为了我们的股票，还是不要了吧”<br>销售与技术要求不一样，销售要求自我领导、自我驱动，欲望强大到战胜内心恐惧和外部困难。技术在于创造性，多样化背景知识碰撞。<br>销售方式随时代在改变，陌生拜访的开荒式销售正在转换为个人影响范围营销模式。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/python%E5%88%9B%E5%BB%BAzabbix%E4%B8%BB%E6%9C%BA%E5%AF%BC%E5%85%A5xml%E4%BF%A1%E6%81%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/python%E5%88%9B%E5%BB%BAzabbix%E4%B8%BB%E6%9C%BA%E5%AF%BC%E5%85%A5xml%E4%BF%A1%E6%81%AF/" class="post-title-link" itemprop="url">python创建zabbix主机导入xml信息</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-07-04 15:52:11 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:52:11+08:00">2022-07-04</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-14<br>使用 python xml.etree.ElementTree 模块创建可导入 zabbix 的主机列表文档，加快监控添加效率。</p>
-<h2 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h2><p>工作中需要批量添加大量主机到 zabbix 监控。虽然 zabbix 自动发现功能自动添加，但是添加的无描述信息，监控组无法通过告警信息快速联系责任人，所以监控主机需要手工添加。zabbix 系统中添加监控信息的途径有：1）自动发现添加 2）web 界面手动一台一台添加 3）编辑 xml 文件，批量导入 4）使用 api 导入。本文完成第三种模式的添加。</p>
-<h2 id="IOP（input、process、output）分析"><a href="#IOP（input、process、output）分析" class="headerlink" title="IOP（input、process、output）分析"></a>IOP（input、process、output）分析</h2><p>创建 xml 文件有两种方法：一是引用一个 xml 模板，解析其中的结构，然后复用解析的元素;二是从零生成一个满足导入需求的 xml 文件。第一种操作快，但涉及的流程复杂，第二种为笨办法，但流程清晰，故采用从零创建。</p>
 <ul>
-<li>input<br>input 为一个 ip 列表，可以是一个范围</li>
-<li>process<br>分析了 zabbix 导出的 xml 结构，发现主机信息在 xml 文件中部子节点中。故先创建主 xml 结构，然后通过循环创建子节点。子节点创建定义一个函数方便调用。</li>
-<li>output<br>输出为一个 xml 文件</li>
+<li>拷贝文件</li>
 </ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> xml.etree.ElementTree <span class="keyword">as</span> xml</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">createXML</span>(<span class="params">filename</span>):</span><br><span class="line">    root = xml.Element(<span class="string">&quot;zabbix_export&quot;</span>)</span><br><span class="line">    z_version=xml.SubElement(root,<span class="string">&quot;version&quot;</span>)</span><br><span class="line">    z_version.text=<span class="string">&quot;3.0&quot;</span></span><br><span class="line">    z_date = xml.SubElement(root,<span class="string">&quot;date&quot;</span>)</span><br><span class="line">    z_date.text=<span class="string">&quot;2017-08-11T08:50:11Z&quot;</span></span><br><span class="line">    z_groups = xml.SubElement(root,<span class="string">&quot;groups&quot;</span>)</span><br><span class="line">    g_group = xml.SubElement(z_groups,<span class="string">&quot;group&quot;</span>)</span><br><span class="line">    g_name = xml.SubElement(g_group,<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    g_name.text = <span class="string">&quot;Linux servers&quot;</span></span><br><span class="line">    z_hosts = xml.SubElement(root,<span class="string">&quot;hosts&quot;</span>)</span><br><span class="line">    <span class="comment">#hosts_host = xml.SubElement(z_hosts,&quot;host&quot;)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ip <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">3</span>):</span><br><span class="line">        host=createHost(<span class="built_in">str</span>(ip))</span><br><span class="line">        z_hosts.append(host)</span><br><span class="line">    tree = xml.ElementTree(root)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(filename,<span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> fh:</span><br><span class="line">        tree.write(fh)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">createHost</span>(<span class="params">ip</span>):</span><br><span class="line">    ip_addr = <span class="string">&quot;192.168.200.&quot;</span> + ip</span><br><span class="line">    host_top=xml.Element(<span class="string">&quot;host&quot;</span>)</span><br><span class="line">    host_ip=xml.SubElement(host_top,<span class="string">&quot;host&quot;</span>)</span><br><span class="line">    host_ip.text=ip_addr</span><br><span class="line">    host_name = xml.SubElement(host_top,<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    host_name.text=<span class="string">u&quot;abcd中文&quot;</span>+<span class="string">&quot;(&quot;</span>+ip_addr+<span class="string">u&quot;)中文-name&quot;</span></span><br><span class="line">    h_description=xml.SubElement(host_top,<span class="string">&quot;description&quot;</span>)</span><br><span class="line">    h_proxy = xml.SubElement(host_top,<span class="string">&quot;proxy&quot;</span>)</span><br><span class="line">    h_status = xml.SubElement(host_top,<span class="string">&quot;status&quot;</span>)</span><br><span class="line">    h_status.text=<span class="string">&quot;0&quot;</span></span><br><span class="line">    h_ipmi_authtype=xml.SubElement(host_top,<span class="string">&quot;ipmi_authtype&quot;</span>)</span><br><span class="line">    h_ipmi_authtype.text=<span class="string">&quot;-1&quot;</span></span><br><span class="line">    h_ipmi_privileg=xml.SubElement(host_top,<span class="string">&quot;ipmi_privilege&quot;</span>)</span><br><span class="line">    h_ipmi_privileg.text=<span class="string">&quot;2&quot;</span></span><br><span class="line">    h_ipmi_username=xml.SubElement(host_top,<span class="string">&quot;ipmi_username&quot;</span>)</span><br><span class="line">    h_ipmi_password=xml.SubElement(host_top,<span class="string">&quot;ipmi_password&quot;</span>)</span><br><span class="line">    h_tls_connect=xml.SubElement(host_top,<span class="string">&quot;tls_connect&quot;</span>)</span><br><span class="line">    h_tls_connect.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    h_tls_accept=xml.SubElement(host_top,<span class="string">&quot;tls_accept&quot;</span>)</span><br><span class="line">    h_tls_accept.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    h_tls_issuer=xml.SubElement(host_top,<span class="string">&quot;tls_issuer&quot;</span>)</span><br><span class="line">    h_tls_subject=xml.SubElement(host_top,<span class="string">&quot;tls_subject&quot;</span>)</span><br><span class="line">    h_tls_psk_identity=xml.SubElement(host_top,<span class="string">&quot;tls_psk_identity&quot;</span>)</span><br><span class="line">    h_tls_psk=xml.SubElement(host_top,<span class="string">&quot;tls_psk&quot;</span>)</span><br><span class="line">    h_templates=xml.SubElement(host_top,<span class="string">&quot;templates&quot;</span>)</span><br><span class="line">    t_template=xml.SubElement(h_templates,<span class="string">&quot;template&quot;</span>)</span><br><span class="line">    t_name=xml.SubElement(t_template,<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    t_name.text=<span class="string">&quot;Linux-Templates&quot;</span></span><br><span class="line">    h_groups = xml.SubElement(host_top,<span class="string">&quot;groups&quot;</span>)</span><br><span class="line">    g_group = xml.SubElement(h_groups,<span class="string">&quot;group&quot;</span>)</span><br><span class="line">    g_name=xml.SubElement(g_group,<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    g_name.text=<span class="string">&quot;Linux servers&quot;</span></span><br><span class="line">    h_interfaces=xml.SubElement(host_top,<span class="string">&quot;interfaces&quot;</span>)</span><br><span class="line">    i_interface=xml.SubElement(h_interfaces,<span class="string">&quot;interface&quot;</span>)</span><br><span class="line">    i_default=xml.SubElement(i_interface,<span class="string">&quot;default&quot;</span>)</span><br><span class="line">    i_default.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    i_type=xml.SubElement(i_interface,<span class="string">&quot;type&quot;</span>)</span><br><span class="line">    i_type.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    i_useip=xml.SubElement(i_interface,<span class="string">&quot;useip&quot;</span>)</span><br><span class="line">    i_useip.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    i_ip=xml.SubElement(i_interface,<span class="string">&quot;ip&quot;</span>)</span><br><span class="line">    i_ip.text=ip_addr</span><br><span class="line">    i_dns=xml.SubElement(i_interface,<span class="string">&quot;dns&quot;</span>)</span><br><span class="line">    i_port=xml.SubElement(i_interface,<span class="string">&quot;port&quot;</span>)</span><br><span class="line">    i_port.text=<span class="string">&quot;10050&quot;</span></span><br><span class="line">    i_bulk=xml.SubElement(i_interface,<span class="string">&quot;bulk&quot;</span>)</span><br><span class="line">    i_bulk.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    i_interface_ref=xml.SubElement(i_interface,<span class="string">&quot;interface_ref&quot;</span>)</span><br><span class="line">    i_interface_ref.text=<span class="string">&quot;if1&quot;</span></span><br><span class="line">    h_applications=xml.SubElement(host_top,<span class="string">&quot;applications&quot;</span>)</span><br><span class="line">    h_items=xml.SubElement(host_top,<span class="string">&quot;items&quot;</span>)</span><br><span class="line">    h_discovery_rules=xml.SubElement(host_top,<span class="string">&quot;discovery_rules&quot;</span>)</span><br><span class="line">    h_macros=xml.SubElement(host_top,<span class="string">&quot;macros&quot;</span>)</span><br><span class="line">    h_inventory=xml.SubElement(host_top,<span class="string">&quot;inventory&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> host_top</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    createXML(<span class="string">&quot;appt.xml&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/python-mode/python-mode.git</span><br><span class="line">cd python-mode</span><br><span class="line">cp -R * ~/.vim</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ol>
-<li>导入的 xml 模块需要使用 python2.7 环境，python3.5 环境报错</li>
-<li>“Invalid tag “/zabbix_export/version”: ”发现 version 版本写的“3”，而模板是“3.0”,改为 3.0 后问题解决</li>
-<li>中文编码问题，生成 xml 文件中有中文字符会报错。程序运行为 ubuntu，python 文件编码为 utf-8,python 内部编码为 unicode。应该把中文字符转换为 unicode 后能解决。解决办法：python 文件采用 utf-8,在文件头添加“#-<em>- coding: UTF-8 -</em>-”解决“None-ASSIC”问题，中文字符采用”u’中文’”模式，解决“UnicodeDecodeError”</li>
-<li>port 标签忘赋值，添加后导入不报错。</li>
-</ol>
-<h2 id="后续改进"><a href="#后续改进" class="headerlink" title="后续改进"></a>后续改进</h2><p>ansible 上有添加 zabbix 监控主机的模块，应该使用 api 实现的。后期要么使用 ansible 的 zabbix 模板，要么自己封装 api。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.blog.pythonlibrary.org/2013/04/30/python-101-intro-to-xml-parsing-with-elementtree/">http://www.blog.pythonlibrary.org/2013/04/30/python-101-intro-to-xml-parsing-with-elementtree/</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/zabbix/"># zabbix</a></p>
+<ul>
+<li>编辑 helptags,打开 vim，命令模式下执行</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:helptags ~/.vim/doc/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/19655689">https://www.zhihu.com/question/19655689</a><br><a target="_blank" rel="noopener" href="https://www.fullstackpython.com/vim.html">https://www.fullstackpython.com/vim.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/python/"># python</a></p>
 
       
     </div>
@@ -477,7 +257,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%B8%BA%E4%BB%80%E4%B9%88%E7%89%9B%E4%BA%BA%E7%A6%BB%E5%BC%80%E5%A4%A7%E5%9E%8B%E6%8A%80%E6%9C%AF%E5%85%AC%E5%8F%B8-%E7%BF%BB%E8%AF%91/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/python%E7%AE%97%E5%B7%A5%E8%B5%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -495,7 +275,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E4%B8%BA%E4%BB%80%E4%B9%88%E7%89%9B%E4%BA%BA%E7%A6%BB%E5%BC%80%E5%A4%A7%E5%9E%8B%E6%8A%80%E6%9C%AF%E5%85%AC%E5%8F%B8-%E7%BF%BB%E8%AF%91/" class="post-title-link" itemprop="url">为什么牛人离开大型技术公司-翻译</a>
+          <a href="/2022/07/04/yuque/python%E7%AE%97%E5%B7%A5%E8%B5%84/" class="post-title-link" itemprop="url">python算工资</a>
         </h2>
 
         <div class="post-meta-container">
@@ -507,7 +287,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 15:49:59 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:49:59+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 16:04:58 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:04:58+08:00">2022-07-04</time>
     </span>
 
   
@@ -520,16 +300,238 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-09<br>今天在阮一峰微博上看到赞赏这篇文章，我就尝试翻译一下。<a target="_blank" rel="noopener" href="https://thinkgrowth.org/why-good-people-leave-large-tech-companies-af2b6fea4ee">原文链接</a><br>我的一个学生带领我参观了一个大型上市技术公司，他是这公司的 CFO。这家公司仍热是最热门的技术公司之一。他们使得硬件在嵌入式软件和服务中大规模应用。<br>CFO 邀请我留下来，因为一个技术负责人要来参加一个会议。<br><strong>我真希望我没去做…</strong><br>负责人在那里抗议，因为他所有 70 人的团队需要从 Palo Alto 到东海岸。”现在团队大部分人步行上班，以后或许是乘火车上班。这让他们在路上会有 45 分钟休息时间。团队大部分人将离开我们。“<br>负责人向他的老板抱怨过，技术总裁插着手说这是“设备问题”，设备总裁把这个问题汇报给了 CFO。所以，组织一个会议是最后的手段，技术负责人为让他的团队留在城里向 CFO 做最后的汇报。<br>虽然这家技术公司的大多数人是从事制造业，然而决策小组是由经验丰富的软件工程师组成。”鉴于他们也可以在本地咖啡店的工作”，CFO 的回复让我目瞪口呆。”太糟糕了，但是我们需要空间。他们在这里工作已经够幸运了。至少他们在简历上留下了我们公司的名字”<br>什么？我不确定是我还是技术负责人更震惊。<br>这个负责人走了以后，我必须看起来很惊讶的样子，CFO 解释说：”我们有成千上万名雇员，在湾区，我们的空间需求根本不可能匹配我们的增速。你了解我们 CEO 的，‘喜欢我们或离开’是他一直观点。”（巧合的是，这个 CEO 在 20 年前是我创业公司的实习生。）我问到：”现在公司已经上市并且增长巨大，他的观点改了么？”CFO 回答道：”没有，我们的 CEO 相信我们正处于改变世界的巨大机遇中，只有在这里工作才能赶上，要么享受要么离开。我们依然收到大量想加入我们公司的简历，所以他认为没有必要改。”<br>我不知道该改成什么，想想这个观点可能有用，毕竟让一个初创公司成长为一个有 1 万或更多雇员的公司。”我们在改变世界的巨大机遇中，要么加入公司改变世界，要么滚蛋“这和我当时在当实习 CEO 的信念一样。</p>
-<h3 id="成人监督"><a href="#成人监督" class="headerlink" title="成人监督"></a>成人监督</h3><p>在独角兽快迅速崛起之前，董事会仍然能掌控时，在他们找到合适的产品或市场后，他们”鼓励”创始人雇佣”家长型”人事管理公司。<br>因此多数创始人无法迅速获得人力资源、财务、销售和董事会管理方面的技能，再由创始人管理会让一家公司迅速消失。所以他们聘用职业经理人。这些新 CEO 也要起到及时消除创始人过激脾气的作用。<br><strong>在上个世纪，技术投资人认识到职业化 CEO 们在扩张阶段非常有用，而在寻找产品定位阶段没用</strong> 技术周期变成一个跑步机，存活下的初创公司需要在不断创新的周期中。这种初创文化一直持续多年–谁做得最好呢？当然是那些创始人。<br>创始人习惯于嘈杂与混乱。与之相对，职业经理人试图让嘈杂恢复秩序并且经常杀死初创文化。创业公司认识到 <strong>指导创始 CEO 壮大公司比让职业经理人 CEO 找到新的创新机遇更容易</strong>。他们是对的。我在我访问过的公司中确实如此。-过去 5 年中已经出现过 200 个独角兽公司，大多数仍人是由创始人掌管。<br>因此，初创公司发现并且相信，有一个对创始人友好的董事会，且公司继续由创始 CEO 经营，公司会增长得更快。创始人的现实扭曲力吸引了大量有同样愿景的雇员。这是非常引人注目的，每个人为了少量薪水和一些股票工作极长的时间。他们是幸运的，他们掌握了正确的节奏，经过几年痛苦的时间发现正确的产品或市场，然后上市。那些早期员工因为股票变现而获得了回报。<br><strong>但问题在于员工超过 1000 的某个时刻，优先股的大量支出结束，随后股票在 IPO 后开始上涨。</strong> 但是 CEO 从未注意到其他公司为他支付 95%的时间已经结束。飞到他私人院子里的远程办公室，被那些身价千万美元的早期员工包围。被”要么留要么走“咒骂的却是一些新员工。<br>公司现在吸引那些实习生，只想在他简历上留下”在热门公司工作过的””一段经历。但是由于薪酬水平低于平均水平，他们会待到足够长的时间来完善他们的简历后为了更高的报酬而离开-通常去一家初创公司。<br>由于只有少量高级工程师认为是一个理想的工作场所，公司开始的技术优势已经开始恶化。</p>
-<h3 id="叫醒服务"><a href="#叫醒服务" class="headerlink" title="叫醒服务"></a>叫醒服务</h3><p>创始人的哪些特点不利于运营大型公司谁也不知道，因为没有最佳实践、没有课程，也没有标准模型。创始人团队很少把初创公司变成大公司，一点也不奇怪。<br>再创业者通过敏捷、无情、顽强甚至不合理并成为 CEO 驱动公司增长，有时候可能，但很艰难。<br>这就意味着快速学习一系列新技能-重大自我升华、当通过直接汇报的方式不能掌握整个公司的时候，就需要建立可重复流程实现规模化管理。有时候这只是在电话唤醒危机之后才会发生。作为一家创业公司，创始人和董事会需要认识到，最重要的改变不是关于系统、办公环境或是硬件。<strong>他们要认识到员工才是他们最宝贵的财富</strong><br>伟大公司的创始人们知道如何保持他们的激情，但也知道人性。</p>
-<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>我现在可以讲这个故事了，作为负责人离开公司，并在不同的领域创建了自己的创业公司。在接下来的 6 个月里，70 名员工中 55 人要求离开。其中 25 人加入了他的新创业公司，剩下 30 人呢？成立了 6 家创业公司。</p>
-<h3 id="得到的教训"><a href="#得到的教训" class="headerlink" title="得到的教训"></a>得到的教训</h3><ul>
-<li>当你长大后，要当心那些不必要的教训</li>
-<li>认识公司规模变化时的边界</li>
-<li>认识到在小规模是驱动创新的文化在公司变大后不再适用</li>
-</ul>
-<p>译者：这不是仙童 7 叛徒的故事么？<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E7%BF%BB%E8%AF%91/"># 翻译</a></p>
+          <p>发表于 2017-09-06<br>一直说了给妹子编个程序算工资，最近学完 python 基础，半天搞完基础版本</p>
+<h2 id="IPO-分析"><a href="#IPO-分析" class="headerlink" title="IPO 分析"></a>IPO 分析</h2><p>输入为 txt 文档，第一行为表头，之后每一行为一个员工人员信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">name    munber  title   workday     base-money</span><br><span class="line">zhang   001     master  <span class="number">21</span>          <span class="number">2000</span></span><br><span class="line">hui     002     employee    <span class="number">29</span>      <span class="number">1000</span></span><br><span class="line">huiz     002     employee    <span class="number">29</span>     <span class="number">300</span></span><br><span class="line">adfa     002     employee    <span class="number">29</span>     <span class="number">123</span></span><br><span class="line">吴波     002     master   <span class="number">29</span>     <span class="number">2500</span></span><br><span class="line">zfg    002     employee    <span class="number">29</span>     <span class="number">322</span></span><br><span class="line">pengke    002     employee    <span class="number">29</span>     <span class="number">3000</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>处理过程分为三个功能函数，一个主函数。readfile 读取输入文件，将文件内容转换为 list，list 的每一个项为一个字典，函数最后返回一个 list。compute 为计算函数，输入 list，输出添加字典 key 的 list。writefile 函数将 compute 返回的 list 写入到文件，输入 list、目标文件，无返回。<br>输出为 txt 文件，比输入文件多一列，total。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">name    title    base-money    workday    total    munber</span><br><span class="line">zhang    master    <span class="number">2000</span>    <span class="number">21</span>    <span class="number">4000.0</span>    001</span><br><span class="line">hui    employee    <span class="number">1000</span>    <span class="number">29</span>    <span class="number">1500.0</span>    002</span><br><span class="line">huiz    employee    <span class="number">300</span>    <span class="number">29</span>    <span class="number">450.0</span>    002</span><br><span class="line">adfa    employee    <span class="number">123</span>    <span class="number">29</span>    <span class="number">184.5</span>    002</span><br><span class="line">吴波    master    <span class="number">2500</span>    <span class="number">29</span>    <span class="number">5000.0</span>    002</span><br><span class="line">zfg    employee    <span class="number">322</span>    <span class="number">29</span>    <span class="number">483.0</span>    002</span><br><span class="line">pengke    employee    <span class="number">3000</span>    <span class="number">29</span>    <span class="number">4500.0</span>    002</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">readfile</span>(<span class="params">filename</span>):</span><br><span class="line">    inputList=[]</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> f:</span><br><span class="line">       <span class="comment"># print(f.read())</span></span><br><span class="line">        fileList = f.readlines()</span><br><span class="line">        person = &#123;&#125;</span><br><span class="line">        keylist = fileList[<span class="number">0</span>].split()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(fileList)):</span><br><span class="line">            valuelist = fileList[i].split()</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(keylist)):</span><br><span class="line">                 person[keylist[j]] = valuelist[j]</span><br><span class="line">            inputList.append(person)</span><br><span class="line">            person = &#123;&#125;</span><br><span class="line">        f.close()</span><br><span class="line">       <span class="comment"># print(inputList)</span></span><br><span class="line">    <span class="keyword">return</span> inputList</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute</span>(<span class="params">inputList</span>):</span><br><span class="line">    outputList = inputList[:]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(outputList)):</span><br><span class="line">       <span class="keyword">if</span> outputList[i].get(<span class="string">&quot;title&quot;</span>) == <span class="string">&quot;master&quot;</span>:</span><br><span class="line">           outputList[i][<span class="string">&quot;total&quot;</span>] = <span class="built_in">float</span>(outputList[i].get(<span class="string">&quot;base-money&quot;</span>))*<span class="number">2</span></span><br><span class="line">       <span class="keyword">else</span>:</span><br><span class="line">           outputList[i][<span class="string">&quot;total&quot;</span>] = <span class="built_in">float</span>(outputList[i].get(<span class="string">&quot;base-money&quot;</span>))*<span class="number">1.5</span></span><br><span class="line">    <span class="comment">#print(outputList)</span></span><br><span class="line">    <span class="keyword">return</span> outputList</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">writefile</span>(<span class="params">outputList,outputfile</span>):</span><br><span class="line">    title = (outputList[<span class="number">0</span>].keys())[:]</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(outputfile,<span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> f :</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(title)):</span><br><span class="line">            f.write(title[i]+<span class="string">&quot;    &quot;</span>)</span><br><span class="line">        f.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(outputList)):</span><br><span class="line">            f.write(outputList[j][<span class="string">&quot;name&quot;</span>]+<span class="string">&quot;    &quot;</span>+outputList[j][<span class="string">&quot;title&quot;</span>]+<span class="string">&quot;    &quot;</span>+outputList[j][<span class="string">&quot;base-money&quot;</span>]+<span class="string">&quot;    &quot;</span>+outputList[j][<span class="string">&quot;workday&quot;</span>]+<span class="string">&quot;    &quot;</span>+<span class="built_in">str</span>(outputList[j][<span class="string">&quot;total&quot;</span>])+<span class="string">&quot;    &quot;</span>+outputList[j][<span class="string">&quot;munber&quot;</span>])</span><br><span class="line">            f.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">        f.close</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    inputfile = <span class="string">&quot;/home/hhzzer/PycharmProjects/gongzi/name.txt&quot;</span></span><br><span class="line">    output = <span class="string">&quot;./output.txt&quot;</span></span><br><span class="line">    inputlist = readfile(inputfile)</span><br><span class="line">    outputlist = compute(inputlist)</span><br><span class="line">    outputfile = writefile(outputlist,output)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="遇到问题及后续改善"><a href="#遇到问题及后续改善" class="headerlink" title="遇到问题及后续改善"></a>遇到问题及后续改善</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>person 字典未重置，导致输入 list 重复<br>22 行缺少”)”，导致报错。<br>linux 换行符为”\n”,不需要转义。</p>
+<h3 id="改善"><a href="#改善" class="headerlink" title="改善"></a>改善</h3><p>使用 format 字符串格式化文件写入行，对齐准确。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/python/"># python</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E3%80%8A%E5%88%AB%E9%97%B9%E4%BA%86%E3%80%81%E8%B4%B9%E6%9B%BC%E5%85%88%E7%94%9F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/04/yuque/%E3%80%8A%E5%88%AB%E9%97%B9%E4%BA%86%E3%80%81%E8%B4%B9%E6%9B%BC%E5%85%88%E7%94%9F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《别闹了、费曼先生》读书笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 16:03:21 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:03:21+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>发表于 2017-08-31<br>在万维钢和 marix 博客上都提及这本书，三天看完。<br>此书是费曼的自传，以给儿子讲故事的方式讲述费曼的经历。儿童时期擅长修收音机。上学时自学数学，发明自己的符号系统，数学运算能力强于他人。大学期间学习理论物理，在贝尔实验室实习。博士毕业后进入曼哈顿计划，解决计算问题。为军队工作期间擅长修理计算机、开锁（机械锁和密码锁），经常和别人开玩笑。曼哈顿计划结束在康奈尔大学教书，年假期间到巴西教书。批判巴西没有真正的科学研究，只有背诵。学习桑巴舞，达到业余高手参加比赛。学习葡萄牙语，用葡萄牙语讲课和汇报。学习绘画，能鉴赏作品，买画给按摩院，开个人画展。最后说了获得诺贝尔奖的过程和一些生活上的改变。<br>玩闹，就是费曼的一生写照。不停尝试新东西，不断学习，挑战自己的极限。<br>费曼学习法有必要再写一遍<br>要具有超强学习力，需要从输入、处理、输出上有进一步的认知和提高。处理信息有两种方式，1 是记住名称，2 是理解事情本质。<br>四步学习法<br>第一步，选择一个概念。这适用于任何学科的任何概念。<br>第二步，教授这个概念。把你的教授对象定位为小学生，用他们能听懂的语言去解释这个概念。<br>第三步，返工。这一步针对的是第二步你解释不清的地方，在返回到原材料中，重新学习。当你可以解释清楚后，合上课本，继续第二步教授这个概念。<br>最后一步，回顾和精简。把你刚刚对于概念的解释写下来，然后大声读出来。如果有不够简洁或者听起来让人困惑的地方，那就再一次精简，用最少的文字去解释清楚。而这时，你会发现自己真的理解了这个概念的实质。<br>（完）<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%86%8D%E9%85%8D%E7%BD%AEzabbix%E9%82%AE%E4%BB%B6%E6%8A%A5%E8%AD%A6%E5%8F%8A%E9%82%AE%E4%BB%B6%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/04/yuque/%E5%86%8D%E9%85%8D%E7%BD%AEzabbix%E9%82%AE%E4%BB%B6%E6%8A%A5%E8%AD%A6%E5%8F%8A%E9%82%AE%E4%BB%B6%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">再配置zabbix邮件报警及邮件原理分析</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 16:01:48 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:01:48+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>发表于 2017-08-31<br>又一次配置 zabbix server 的邮件报警，配置了半天，这次总算理顺了。</p>
+<h2 id="zabbix3-0-告警方式"><a href="#zabbix3-0-告警方式" class="headerlink" title="zabbix3.0 告警方式"></a>zabbix3.0 告警方式</h2><p>zabbix3.0 之后支持告警方式有：电子邮件、脚本、短信、jabber。<br>电子邮件即使用 zabbix 系统自带的电子邮件配置模板，使用公共电子邮箱（126,qq）发送邮件。3.0 之前电子邮件方式不能添加有密码的邮箱，所以网上大多数教程都是使用脚本方式发邮件。3.0 版本使用电子邮件模板配置发邮件也不容易成功，建议不用此种方式。<br>脚本是使用服务器上的命令发送邮件。linux 系统常见发送邮件命令有 mail 和 sendmail。整个邮件传输过程有三个角色 MUA（mail user agnet）、MTA（mail transport agent）、MDA（mail delevery agent）。使用公网邮箱发邮件，只需要一个 MUA 即可。微信报警也是通过脚本方式实现。<br>短信需要接短信猫，jabber 不知道是什么。</p>
+<h2 id="邮件告警具体配置"><a href="#邮件告警具体配置" class="headerlink" title="邮件告警具体配置"></a>邮件告警具体配置</h2><p>操作系统：centos7.2<br>前提条件：服务器能连接外网 126 邮件服务器。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">which mail <span class="comment">#查看是否有mail命令，如果没有使用yum install mailx 安装</span></span><br><span class="line">systemctl stop postfix <span class="comment">#停止MTA，不需要邮件传输代理。直接通过mail登录到126的MAT发送邮件。</span></span><br><span class="line">vi /etc/mail.rc <span class="comment">#编辑配置文件，添加邮件登录信息</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#mail.rc 添加内容</span></span><br><span class="line"><span class="built_in">set</span> <span class="keyword">from</span>=xxxx@<span class="number">126.</span>com</span><br><span class="line"><span class="built_in">set</span> smtp=smtp<span class="number">.126</span>.com</span><br><span class="line"><span class="built_in">set</span> smtp-auth-user=xxxxx</span><br><span class="line"><span class="built_in">set</span> smtp-auth-password=xxxxx <span class="comment">#126邮箱需要授权码登录，不是邮箱帐号密码</span></span><br><span class="line"><span class="built_in">set</span> smtp-auth=login</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>测试</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">&quot;mail content &quot;</span> | mail -s <span class="string">&quot;Subject&quot;</span> abcd@qq.com</span><br><span class="line">tail /var/log/maillog <span class="comment">#查看发送日志，之后可登录邮箱查看。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="邮件发送过程分析"><a href="#邮件发送过程分析" class="headerlink" title="邮件发送过程分析"></a>邮件发送过程分析</h2><p>MUA 编写一封邮件–MUA 将邮件传递给 MTA–MTA 将邮件放在 MDA 保存-用户 2 使用 MUA 登录 MDA 查看邮件<br>postfix 可以担任 MUT、MUD 角色。可以使用 postfix 服务，给本机另一个用户发邮件，例 echo “mail content”|mail -s “mail subject” user1@localhost。要使用 user2 登录，而不能 su 切换到 user2,才能查看到邮件。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/chongchong88/p/6341639.html">http://www.cnblogs.com/chongchong88/p/6341639.html</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/fujinzhou/p/5687384.html">http://www.cnblogs.com/fujinzhou/p/5687384.html</a><br><a target="_blank" rel="noopener" href="https://www.zzxworld.com/blogs/install-mail-sender-in-centos7.html">https://www.zzxworld.com/blogs/install-mail-sender-in-centos7.html</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/jamesf/p/4751484.html">http://www.cnblogs.com/jamesf/p/4751484.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/zabbix/"># zabbix</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E3%80%8A%E5%A4%A9%E9%BE%99%E5%85%AB%E9%83%A8%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/04/yuque/%E3%80%8A%E5%A4%A9%E9%BE%99%E5%85%AB%E9%83%A8%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《天龙八部》读书笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 15:57:37 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:57:37+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>发表于 2017-08-28<br>看书比看电视过瘾<br>花一周时间，看完《天龙八部》，回顾一下主要剧情。<br>无量山上段誉遇钟灵，逃跑过程遇木婉清，跌落山谷学北冥神功、凌波微步。南海恶神收徒反被收，段誉一家出场。少林大师大理遇害，慕容复出场埋伏笔。天龙寺枯荣为六脉神剑大战鸠摩智，段誉记剑普被鸠摩智抓去姑苏。<br>姑苏遇阿碧阿朱，易容术配合段誉脱险。误闯曼陀罗山庄，初遇王语嫣。救阿碧阿朱逃离曼陀罗，遇包不同等段誉与王姑娘分离。客栈赌酒遇乔峰，拜兄弟。遇丐帮杏子林大会揭露乔峰身世。西夏悲酥清风迷倒众人，段誉背王姑娘跑至磨坊大战西夏武士。乔峰救丐帮弟子。<br>阿朱少林偷易筋经受伤，乔峰求医聚贤庄大战群雄，黑衣人救走。剑门关外乔峰阿朱重逢，共同寻找带头大哥。剑门关相关人物一一遇害，马夫人识破易容阿朱，借乔峰之手杀段正淳。阿朱知身世替父受掌死，留阿紫托付乔峰。<br>阿紫与星宿师兄斗法，乔峰相助。暗算乔峰自受重伤。救阿紫寻药结识女真部族，冬雪夜捕熊俘虏耶律洪基。携阿紫游玩遇耶律洪基，助其平内乱封南院大王。阿紫练吸心大法找铁头人，铁头人练易筋经吃冰蝉功力大增。阿紫遇星宿老仙瞎双眼，铁头人救阿紫遇丐帮。丐帮策划选武林盟主走少林。星宿老仙抓铁头人知冰蝉，救捕蝉人，函谷八友出。<br>苏星河设珍龙棋局，段誉、慕容复、段延庆均不破，险些丧命。虚竹闭眼破局获无涯子功力。慕容复误入百仙大会，段誉救王语嫣，虚竹救天山童老。虚竹助天山童老练功闯西夏，遇梦姑。李秋水、天山童老对决，双双归西。虚竹回灵鸠宫大战 36 岛 72 洞，解生死符服众。<br>虚竹回少林受罚，武林豪杰聚少林选盟主。天竺盗书鸠摩智大败少林高僧，虚竹解围。丐帮大战丁春秋，抓阿紫为质庄聚贤拜丁春秋为师。丁春秋指使杀玄慈方丈，笑中原武林，乔峰入场。乔峰、段誉、虚竹大战丁春秋、慕容复、庄聚贤。慕容复战败自尽灰衣人出。灰衣人战乔峰，黑衣人出。坐树观战。虚竹受罚四大恶人出，叶二娘认虚竹，玄慈认子，揭晓真相。慕容博假传消息，玄慈率众误杀萧远山妻。萧远山报复夺玄慈子寄养少林。萧远山慕容博大战进藏经阁，扫地僧化恩怨。<br>西夏招驸马众人争，慕容复家国弃儿情。段誉救王语嫣为情争驸马，寺内池边诉真情。慕容复夜半禽段誉，丢枯井。慕容复为家国再伤有情人，王语嫣梦醒跳井殉情。鸠摩智慕容复大战双坠井。王段二人井内定终身，鸠摩智失功悟道，慕容复奸计逃井。<br>梦姑寻虚竹三问，最爱、何时、何面貌？虚竹如愿重逢佳人。<br>姑苏大恶人设局段正淳，段誉入套。段延庆抓段正淳及 4 夫人，与慕容复交易。刀白凤菩提树下做观音，段誉得佳人。<br>宋辽大战萧峰拒，为囚兄弟劫。一诺换和平，英明了一生。阿紫还眼复自尽，铁头不愿生。<br>为情为义为祖宗，不舍不平不甘心。仁义忠道释如来，命中已注定。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
 
       
     </div>
@@ -549,7 +551,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

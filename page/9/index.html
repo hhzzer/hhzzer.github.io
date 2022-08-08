@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/vmware%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8vsan%E8%A7%84%E5%88%92%E4%B8%8E%E6%90%AD%E5%BB%BA/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E8%AE%B2%E6%95%85%E4%BA%8B%E5%92%8C%E8%A7%86%E8%A7%89%E5%8C%96%E6%80%9D%E7%BB%B4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/vmware%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8vsan%E8%A7%84%E5%88%92%E4%B8%8E%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">vmware分布式存储vsan规划与搭建</a>
+          <a href="/2022/07/04/yuque/%E8%AE%B2%E6%95%85%E4%BA%8B%E5%92%8C%E8%A7%86%E8%A7%89%E5%8C%96%E6%80%9D%E7%BB%B4/" class="post-title-link" itemprop="url">讲故事和视觉化思维</a>
         </h2>
 
         <div class="post-meta-container">
@@ -196,7 +196,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:07:19 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:07:19+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:12:45 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:12:45+08:00">2022-07-04</time>
     </span>
 
   
@@ -209,9 +209,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-11-17<br>公司要部署一套 vsan 存储，选择在 RH2288H v3 上。记录下思考和实践过程。</p>
-<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p>通过高速以太网络，连接服务器上的本地存储，组成一个带冗余，高读写速度的存储网络。<br>使用 4 层协议。使用 ssd 缓存加速 io 读写。使用软件层创建多副本和见证，提供冗余。关键技术：软件通过磁盘控制器直接读写磁盘。软件相当于功能更复杂的 raid。<br>磁盘控制器能力和磁盘能力是 vsan 性能的关键。esxi 系统和管理的数据采用独立的磁盘控制器。读写数据盘的磁盘控制器读写深度&gt;255。磁盘和控制器之间不能加控制器扩展卡，变相使控制器能接更多的磁盘。hhd 磁盘选择 sas 或 nl_sata 接口，速度 3-6Gb/s，转速 15k-7.5k 之间，ssd 选择读写次数多的。网卡选择高性能的 10gb。vsan 分全 ssd 和混合，混合居多。</p>
-<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><h3 id="磁盘控制器使用"><a href="#磁盘控制器使用" class="headerlink" title="磁盘控制器使用"></a>磁盘控制器使用</h3><p>推荐使用 1-2，不推荐使用 3-4<br>未完待续<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/vmware/"># vmware</a></p>
+          <p>发表于 2017-11-28<br>28-29 两周的内容简要总结</p>
+<h2 id="如何讲好一个故事"><a href="#如何讲好一个故事" class="headerlink" title="如何讲好一个故事"></a>如何讲好一个故事</h2><p>故事是结构精巧的设计，通过情节、情绪、细节、主题 4 大元素组成。生活就是一系列故事的组成，我们对生活的感受最直接。把事情以故事的方式呈现，他人能以对生活的体验理解故事，观点传播会更久远。<br>七步可完成一个故事：目标、障碍、努力、挫败、意外、转弯、胜利。<br>两难选择和悬念推动故事情节发展。把人放入人与人、人与自然、人与自我的矛盾中创造两难。<br>实践故事方法：自我介绍故事化。1 分钟名字联想故事，5 分钟故事突出能力主题，15 分钟显示价值观。</p>
+<h2 id="如何提高自我知识吸收率？传播观点对方吸收率？"><a href="#如何提高自我知识吸收率？传播观点对方吸收率？" class="headerlink" title="如何提高自我知识吸收率？传播观点对方吸收率？"></a>如何提高自我知识吸收率？传播观点对方吸收率？</h2><p>视觉化，让自己和他人更容易理解，因为通过眼睛认知 70%的内容。眼睛更容易处理图形。<br>记录通过固定结构实现视觉化。商业会谈：事实、解释、行动。读书笔记：观点、案例、行动。个人成长：事情、做法、收获。<br>做复杂事情需要大内存，头脑认知内存 3 个单元，需要增加 swap 交换空间。额外的纸或黑板就是大脑的 swap。通过零秒思维，转内存信息到 swap。通过 2 分钟写完 4-6 个观点，写完后再重复执行，持续 15 分钟。<br>视觉化表达通过 4w2h 展示。</p>
+<h3 id="如何行动"><a href="#如何行动" class="headerlink" title="如何行动"></a>如何行动</h3><p>视觉化思维让人有了框架后再接收知识，更容易分类整理记忆和输出。<br>家用黑板有用，手写能让人更专注，ppt 修改不易缺乏创造让人走神。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/"># 超级个体</a></p>
 
       
     </div>
@@ -238,7 +239,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%8D%9A%E5%AE%A2%E6%94%AF%E6%8C%81%E5%BF%AB%E9%80%9F%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/ubuntu%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -256,7 +257,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E5%8D%9A%E5%AE%A2%E6%94%AF%E6%8C%81%E5%BF%AB%E9%80%9F%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" class="post-title-link" itemprop="url">博客支持快速插入图片</a>
+          <a href="/2022/07/04/yuque/ubuntu%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-title-link" itemprop="url">ubuntu搭建代理服务器</a>
         </h2>
 
         <div class="post-meta-container">
@@ -268,7 +269,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:06:29 / 修改时间：17:28:54" itemprop="dateCreated datePublished" datetime="2022-07-04T17:06:29+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:11:49 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:11:49+08:00">2022-07-04</time>
     </span>
 
   
@@ -281,12 +282,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-11-16<br>今天修复了博客的 tags 和链接，继续优化添加图片。</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>博客插入图片不方便，结合七牛云存储 shell，快速插入图片</p>
-<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><p>1 使用七牛作为图床，注册 7 牛账号，新建一个存储区域。<br>2 下载七牛命令行工具 qshell，方面通过脚本上传。<br>3 编写 bash，bash 中结合 qshell，做到上传后讲链接拷贝到剪切板。<br>4 将图片保存到本地目录，在 shell 执行 up-img file-name,剪切板会获得图片 url。<br>5 写文章时使用<img src="url">格式，插入文章<br>up-img</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">path=$PWD/$<span class="number">1</span></span><br><span class="line">qshell fput hhzzer $<span class="number">1</span> $path</span><br><span class="line">echo <span class="string">&quot;http://ozi7oapko.bkt.clouddn.com/$1&quot;</span> |xclip -sel clip</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <p>发表于 2017-11-27<br>机器需要临时上网更新或安装软件包，通过代理服务器方式最方便。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install squid</span><br></pre></td></tr></table></figure>
 
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.linuxdiyf.com/linux/32008.html">http://www.linuxdiyf.com/linux/32008.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/hexo/"># hexo</a></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>编辑配置文件，添加允许访问代理服务器的网段<br>vi /etc/squid3/squid.conf 添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">```python</span><br><span class="line">acl internal_network src 172.23.20.0/24</span><br><span class="line">http_access allow internal_network</span><br></pre></td></tr></table></figure>
+
+<p>service squid restart</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>squid 默认使用 3128 端口，在浏览器中添加服务器地址和 3128 即可。<br>centos 系统可在 yum.conf 中添加“proxy=<a href="http://192.16.x.x:3128”,即可通过代理连接外网yum服务器。">http://192.16.x.x:3128”,即可通过代理连接外网yum服务器。</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
 
       
     </div>
@@ -313,7 +316,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/hexo%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/centos6%E5%8D%87%E7%BA%A7openssh%E8%84%9A%E6%9C%AC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -331,7 +334,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/hexo%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">hexo博客链接持久化方法</a>
+          <a href="/2022/07/04/yuque/centos6%E5%8D%87%E7%BA%A7openssh%E8%84%9A%E6%9C%AC/" class="post-title-link" itemprop="url">centos6升级openssh脚本</a>
         </h2>
 
         <div class="post-meta-container">
@@ -343,7 +346,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:04:57 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:04:57+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:10:07 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:10:07+08:00">2022-07-04</time>
     </span>
 
   
@@ -356,19 +359,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-11-16<br>博客的 url 分享微信不能直接打开，硬伤，遂今天优化。</p>
-<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>写的文章复制到微信中链接被分开了，无法直接点击链接访问。看了其他人的博客，大多数是转换为英文的，也没说实现方法。看到一个 abbrlink 的方法，使用解决了这一问题。</p>
-<h2 id="操作过程"><a href="#操作过程" class="headerlink" title="操作过程"></a>操作过程</h2><p>1 安装 abbr-link 插件<br>2 修改站点配置文件，永久链接选项和 abbr-link 配置选项<br>3 新建博文测试<br>安装</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure>
+          <p>发表于 2017-11-23<br>安全整改需要升级 openssh，写个没有副作用的脚本一键升级。</p>
+<h2 id="主要命令及参数解释"><a href="#主要命令及参数解释" class="headerlink" title="主要命令及参数解释"></a>主要命令及参数解释</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wget -N  url -P dist</span><br><span class="line"><span class="comment"># wget -N 会对比本地文件和待下载文件，保留最新的文件</span></span><br><span class="line"><span class="comment"># wget -P 设置文件保存的目录</span></span><br><span class="line">tar xzvf abc.tar.gz -C /usr/pwd/</span><br><span class="line"><span class="comment"># tar -C 解压到指定目录，会覆盖</span></span><br><span class="line">grep <span class="string">&#x27;abc&#x27;</span> || echo <span class="string">&quot;acn&quot;</span> &gt;&gt; file</span><br><span class="line"><span class="comment">#||运算。如果前一条命令返回0，则后一条执行；如果前一条返回1，后一条不执行。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>配置博客站点文件</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">permalink: posts/:abbrlink/</span><br><span class="line"><span class="comment"># abbrlink config</span></span><br><span class="line">abbrlink:</span><br><span class="line">  alg: crc32  <span class="comment">#support crc16(default) and crc32</span></span><br><span class="line">  rep: <span class="built_in">hex</span>    <span class="comment">#support dec(default) and hex</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="脚本内容"><a href="#脚本内容" class="headerlink" title="脚本内容"></a>脚本内容</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># update openssh for centos6 or redhat6</span></span><br><span class="line"><span class="comment">## create by hhzzer</span></span><br><span class="line"><span class="comment">## version 0.2</span></span><br><span class="line"></span><br><span class="line">urlopenssl=http://<span class="number">172.23</span><span class="number">.20</span><span class="number">.251</span>:<span class="number">8000</span>/openssl-<span class="number">1.0</span><span class="number">.2</span>k.tar.gz</span><br><span class="line">urlopenssh=http://<span class="number">172.23</span><span class="number">.20</span><span class="number">.251</span>:<span class="number">8000</span>/openssh-<span class="number">7.5</span>p1.tar.gz</span><br><span class="line">url_repo=http://<span class="number">172.23</span><span class="number">.20</span><span class="number">.251</span>:<span class="number">8000</span>/centos.repo</span><br><span class="line"><span class="comment">#wget repo and install pakage</span></span><br><span class="line">mkdir /etc/yum.repos.d/repo-bak</span><br><span class="line">mv /etc/yum.repos.d/Cent* /etc/yum.repos.d/repo-bak</span><br><span class="line">wget  -N $rul_repo  -P /etc/yum.repos.d/</span><br><span class="line">yum clean <span class="built_in">all</span></span><br><span class="line">yum makecache</span><br><span class="line">yum install gcc zlib zlib-devel pam pam-devel wget -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># wget source code and unzip</span></span><br><span class="line">wget  -N $urlopenssl -P  /usr/src/</span><br><span class="line">wget  -N $urlopenssh -P  /usr/src/</span><br><span class="line">tar xzvf /usr/src/openssl-<span class="number">1.0</span><span class="number">.2</span>k.tar.gz -C /usr/src/</span><br><span class="line">tar zxvf /usr/src/openssh-<span class="number">7.5</span>p1.tar.gz -C /usr/src/</span><br><span class="line"></span><br><span class="line"><span class="comment"># make and make install openssl</span></span><br><span class="line">cd /usr/src/openssl-<span class="number">1.0</span><span class="number">.2</span>k</span><br><span class="line">./config shared zlib</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">mv /usr/<span class="built_in">bin</span>/openssl /tmp/<span class="number">7</span></span><br><span class="line">cp -r /usr/include/openssl/ /tmp/openssl-old-<span class="number">7</span></span><br><span class="line">rm -rf /usr/include/openssl</span><br><span class="line">ln -s /usr/local/ssl/<span class="built_in">bin</span>/openssl /usr/<span class="built_in">bin</span>/openssl</span><br><span class="line">ln -s /usr/local/ssl/include/openssl/ /usr/include/openssl</span><br><span class="line">grep <span class="string">&#x27;/usr/local/ssl/lib&#x27;</span> /etc/ld.so.conf || echo <span class="string">&quot;/usr/local/ssl/lib&quot;</span> &gt;&gt; /etc/ld.so.conf</span><br><span class="line">ldconfig -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># make and make install openssh</span></span><br><span class="line">cp -r /etc/ssh /etc/ssh-bak03</span><br><span class="line">cd /usr/src/openssh-<span class="number">7.5</span>p1</span><br><span class="line">./configure --prefix=/usr --sysconfdir=/etc/ssh --without-zlib-version-check --<span class="keyword">with</span>-ssl-<span class="built_in">dir</span>=/usr/local/ssl --<span class="keyword">with</span>-pam</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">sed -i <span class="string">&#x27;s/#UseLogin no/UseLogin yes/g&#x27;</span> /etc/ssh/sshd_config</span><br><span class="line">chmod <span class="number">600</span> /etc/ssh/*_key</span><br><span class="line"></span><br><span class="line"><span class="comment"># restart sshd</span></span><br><span class="line">service sshd restart</span><br><span class="line">ssh -V</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>测试</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo s</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h2><p>1 修改配置后不生效<br>要新建一篇博文后，才能触发 abbr-link 为每篇文章生成一个属性，之前一直 hexo g ，hexo s 都无效。<br>2 npm install 时有一个警告，“<a href="mailto:fsevents@1.1.3">fsevents@1.1.3</a>”，可以忽略。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://github.com/rozbo/hexo-abbrlink">https://github.com/rozbo/hexo-abbrlink</a><br><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/8607">https://yq.aliyun.com/articles/8607</a><br><a target="_blank" rel="noopener" href="http://muyunyun.cn/posts/f55182c5/#more">http://muyunyun.cn/posts/f55182c5/#more</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/hexo/"># hexo</a></p>
+<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
 
       
     </div>
@@ -395,7 +391,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E8%81%8C%E4%B8%9A%E5%8F%91%E5%B1%95%E6%80%BB%E7%BB%93/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E6%BC%94%E8%AE%B2%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -413,7 +409,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E8%81%8C%E4%B8%9A%E5%8F%91%E5%B1%95%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">职业发展总结</a>
+          <a href="/2022/07/04/yuque/%E6%BC%94%E8%AE%B2%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">演讲总结</a>
         </h2>
 
         <div class="post-meta-container">
@@ -425,7 +421,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:03:51 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:03:51+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:09:26 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:09:26+08:00">2022-07-04</time>
     </span>
 
   
@@ -438,10 +434,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-11-15<br>专栏半年总结第二篇为职业发展话题总结。<br>分为三部分总结，1）职业的底层概念 2）个人能力发展 3）选择好外部环境。<br>职业就是满足他人需求获取收益的一种社会交换，职业发展就是提高交换效率。对内提高能力，对外选好战场。</p>
-<h2 id="底层逻辑"><a href="#底层逻辑" class="headerlink" title="底层逻辑"></a>底层逻辑</h2><p>职业是通过满足他人需求获取收益的一种社会交换。职业发展就是让交换越来越高效、高价值的动作。<br>个人有能力，有赚钱或发展的需求，组织有要做的事，也能提供回报，所以个人在组织中进行社会交换效能高。如何实操就是先跟后带，先满足组织需求，在满足需求之后满足自己发展需求。心法：把自己当做一家企业来经营。开餐馆市场调研-满足哪些人群的什么需求，选址，菜品等等。<br>职业发展最终状态为自由职业态，分位三个层面：1 不需要你非得为某个公司工作的自由（能力提升后解锁）2）不需要为钱工作后的自由（睡后收入支撑生活成本后解锁）3）有能力和资源做自己想做的事的自由（积累能力和资源后解锁，选择范围决定自由度）。需要产品、媒体、运营三种元能力。</p>
-<h2 id="对内修炼"><a href="#对内修炼" class="headerlink" title="对内修炼"></a>对内修炼</h2><p>能力三环：知识、技能、才干。通过快速学习知识，组装技能和才干，获的跨行业的竞争力。<br>新木桶原理，要投资自己的优势，与人合作。</p>
-<h2 id="对外选择"><a href="#对外选择" class="headerlink" title="对外选择"></a>对外选择</h2><p>企业结构为三层 8 区金字塔，向上、向内、左右、向外 4 中发展方向。<br>行业视角。行业发展分位曙光、朝阳、成熟、夕阳 4 个时期，要借助行业发展的扶梯上行。最好进入行业的时期是朝阳的前中后期。起步者的机会：二级市场、细分市场、三四线城市。<br>求职策略。根据雇主思维去求职。内部员工、作品与实习、内推、面试、简历。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/"># 超级个体</a></p>
+          <p>发表于 2017-11-23<br>超级个体演讲周总结文章。</p>
+<h2 id="演讲在现在很重要"><a href="#演讲在现在很重要" class="headerlink" title="演讲在现在很重要"></a>演讲在现在很重要</h2><p>演讲是一对多的时时信息传播，正式的演讲和非正式的讲段子、方案等都属于演讲范畴。现在带宽变宽，通过演讲在互联网传播也很高效,所以演讲在现在也越来越重要</p>
+<h2 id="演讲的要素"><a href="#演讲的要素" class="headerlink" title="演讲的要素"></a>演讲的要素</h2><p>演讲和写作不同，不能暂停，所以要求演讲观点明确 1 个，时间不长 15 分钟，论证层次不能太深。<br>演讲结构分为坡道、观点、甜点。<br>坡道解决要讲什么，为什么是你来讲两个问题。观点要单一明确，只展开一层，多用导航语句。甜点让人增加获得感，可以是总结、升华、下一步行动。<br>演讲的血肉 5 类:幽默、金句、类比、案例、数据，理性层度逐渐上升。金句是二次传播关键。类比和案例有助于理解观点。数据要可视化利于理解，是对观点最底层的支撑。幽默是逗号，停顿休息，继续前行。</p>
+<h2 id="如何做"><a href="#如何做" class="headerlink" title="如何做"></a>如何做</h2><p>峰终定律，集中火力设计高潮和结尾。<br>开篇三板斧哇、哈、嗯，给一个惊喜，逗乐观众，让观众认同。如果没有，直接上结构。<br>血肉布局有温度，理性和感性夹杂。疑惑时加水货，烦躁时加干货。问观众一句话总结，看能总结出中心观点不。<br>结尾甜点总结、升华、指示。<br>直面演讲的恐惧，通过想轻松的事、找面善观众、讲段子等方式划过恐惧。<br>用力演好每一天，生活没有 ng。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/"># 超级个体</a></p>
 
       
     </div>
@@ -468,7 +464,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E8%87%AA%E6%88%91%E7%AE%A1%E7%90%86%E5%92%8C%E9%AB%98%E6%95%88%E8%83%BD/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/iptables%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -486,7 +482,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E8%87%AA%E6%88%91%E7%AE%A1%E7%90%86%E5%92%8C%E9%AB%98%E6%95%88%E8%83%BD/" class="post-title-link" itemprop="url">自我管理和高效能</a>
+          <a href="/2022/07/04/yuque/iptables%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">iptables学习与配置</a>
         </h2>
 
         <div class="post-meta-container">
@@ -498,7 +494,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:03:05 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:03:05+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:08:30 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:08:30+08:00">2022-07-04</time>
     </span>
 
   
@@ -511,15 +507,23 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-11-14<br>昨天胡乱总结，今天认真听了，还是老师总结得好。<br>所有行动或目标期待都源于人的能动性，所以一开始要认识自己。选择比努力更重要。</p>
-<ol>
-<li>断舍离，清晰判断什么事是重要的。<br>断，断掉不需要的东西；舍，舍去多余的东西；离，离开对物质的依恋。通过对东西的断舍离，找到情绪告诉我最重要的东西。通过对事情的断舍离，找到价值观告诉我的最重要的事情。真心认为重要，才有做事情的动力。断舍离是一个观察自己价值观并让价值观逐渐清晰的方式。</li>
-<li>三件事和结果思维，把事做得有价值。<br>每天记录要达成的三个结果并加上时间累计标记，发布到公开或半公开的地方，利用为自己保全面子的冲动去完成结果。有价值的事是有客户价值的事，客户愿意掏钱或掏时间和你交换。让结果更有价值的可从显性化、可交付、可复制三个角度努力。</li>
-<li>心里比对和如果那么，提前制定做事的策略。<br>做事之前的策略很重要，凡事预则立，不预则废。心里比对是把事情最好的结果和最差的结果对比，让我们避免盲目乐观而轻视要做的事。也让我们进一步筛选事情是不是头脑发热的冲动。<br>如果那么就是在做事情之前想好可能发生的意外情况并为意外情况做好预案。等到意外发生时再做选择，大脑容易选择懒惰。多做如果那么规划容易把事做长久。</li>
-<li>碎片化时间管理的加减乘除方法。<br>碎片化时间不可避免，用合适的姿势拥抱是最佳策略。加，增加碎片化时间的价值。1 分钟做舒展运动，5 分钟做策划，每个碎片都应有产出。减，减少事件切换。将同类型事情累在一起做，打电话、回邮件批量执行。乘，多人有效的事情一起做，比如结队编程。学习效能金字塔指出调动感官越多，学习效率越高。独学而无友，则孤陋而寡闻。除，把大目标打碎分解，消除目标恐惧，阶段性获得正反馈有利于事情推进。</li>
-<li>有时间也要有状态，精力需要管理。<br>精力有限，有浓度曲线，在精力高时做高消耗精力的事，低精力做低精力消耗的事。精力可恢复，可锻炼。平时使用不要过度消耗，做了极限尝试后要花足够时间恢复。</li>
+          <p>发表于 2017-11-21<br>配置的监控 agent 经常在防火墙开启时无法与服务端链接，需要去修改 iptable 规则。以前不是很理解，今天看了两篇文章，开始有进一步理解。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>防火墙就是在系统上设置几个关卡来控制网络流量的走向。有些在内核，有些在用户空间。具体为 route 前，iput，forward、output、准备路由。<br>iptables 和 firewalld 都是设置规则的工具，可以方便的设置规则有效或无效，达到防火墙开或关的效果。<br>如果有防火墙规则但 iptables 由于非正常关闭，设置生效的规则还是会生效。</p>
+<h2 id="操作记录"><a href="#操作记录" class="headerlink" title="操作记录"></a>操作记录</h2><ol>
+<li>防火墙禁 ping 放开</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/"># 超级个体</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">iptables -L -n --line-number</span><br><span class="line"><span class="comment">#INPUT Chain最后无显式drop,就在末尾添加</span></span><br><span class="line">iptables -A INPUT -p icmp --icmp-<span class="built_in">type</span> echo-request -j ACCEPT</span><br><span class="line"><span class="comment">#INPUT Chain最后有显式drop,就在最后一条添加</span></span><br><span class="line">iptables -I INPUT last-<span class="built_in">id</span> -p icmp --icmp-<span class="built_in">type</span> echo-request -j ACCEPT</span><br><span class="line">service iptables save <span class="comment">#centos6有效，centos7不需执行。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>开放 nrpe 5666 端口或 zabbix 10050 端口</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#centos6</span></span><br><span class="line">iptables -I INPUT -p tcp --dport <span class="number">5666</span> -j ACCEPT</span><br><span class="line">service iptables save</span><br><span class="line"><span class="comment">#centos7</span></span><br><span class="line">firewall-cmd --zone=public --add-port=<span class="number">5666</span>/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>nrpe 报错 ssl，需要修改 /etc/xinetd.d/nrpe,添加服务器地址。</li>
+</ol>
+<h2 id="后续改善"><a href="#后续改善" class="headerlink" title="后续改善"></a>后续改善</h2><p>在模板中添加防火墙允许条目，再关闭防火墙。及时业务需要开启也不会影响监控。</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/losbyday/p/5850435.html?from=singlemessage&isappinstalled=0">http://www.cnblogs.com/losbyday/p/5850435.html?from=singlemessage&amp;isappinstalled=0</a><br><a target="_blank" rel="noopener" href="http://m.blog.chinaunix.net/uid-26495963-id-3279216.html?from=singlemessage&isappinstalled=0">http://m.blog.chinaunix.net/uid-26495963-id-3279216.html?from=singlemessage&amp;isappinstalled=0</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
 
       
     </div>
@@ -539,7 +543,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/linux%E7%AB%AF%E5%8F%A3%E7%8A%B6%E6%80%81%E6%A3%80%E6%B5%8B%E6%96%B9%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%AE%89%E5%85%A8%E5%9F%BA%E7%BA%BF%E8%B0%83%E6%95%B4-%E5%AF%86%E7%A0%81%E5%A4%8D%E6%9D%82%E5%BA%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/linux%E7%AB%AF%E5%8F%A3%E7%8A%B6%E6%80%81%E6%A3%80%E6%B5%8B%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">linux端口状态检测方法</a>
+          <a href="/2022/07/04/yuque/%E5%AE%89%E5%85%A8%E5%9F%BA%E7%BA%BF%E8%B0%83%E6%95%B4-%E5%AF%86%E7%A0%81%E5%A4%8D%E6%9D%82%E5%BA%A6/" class="post-title-link" itemprop="url">安全基线调整-密码复杂度</a>
         </h2>
 
         <div class="post-meta-container">
@@ -196,7 +196,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 11:01:53 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T11:01:53+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 13:49:21 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T13:49:21+08:00">2022-07-04</time>
     </span>
 
   
@@ -209,20 +209,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-07-06<br>经常排查监控服务器到被监控主机的网络连接，一直使用 nmap，最近发现 ncat 工具更好用。<br>ncat 是 linux 发行版预装的工具，开箱即用。</p>
-<h2 id="常用语句"><a href="#常用语句" class="headerlink" title="常用语句"></a>常用语句</h2><p>1 检测服务器特定端口是能连接</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ncat -v <span class="number">192.168</span><span class="number">.2</span>.x <span class="number">8080</span></span><br><span class="line"><span class="comment">#显示如下表示连接成功，对方开放了端口。</span></span><br><span class="line">Ncat: Version <span class="number">5.51</span> ( http://nmap.org/ncat )</span><br><span class="line">Ncat: Connected to <span class="number">192.</span>x.x.x:<span class="number">8080.</span></span><br><span class="line"><span class="comment">#扫描端口列表</span></span><br><span class="line">nc -vnz -w1 <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="number">1</span>-<span class="number">500</span></span><br><span class="line"><span class="comment">#nmap语句</span></span><br><span class="line">nmap  <span class="number">192.168</span><span class="number">.2</span>.x -p <span class="number">8080</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>2 开启本机指定端口</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nc -l localhost <span class="number">5000</span> <span class="comment">#默认使用tcp协议</span></span><br><span class="line">nc -lu localhost <span class="number">5000</span> <span class="comment">#开启udp 5000端口</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>3 传输信息</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#接受端开启端口</span></span><br><span class="line">nc -lu localhost <span class="number">5000</span></span><br><span class="line"><span class="comment">#发送端发送信息</span></span><br><span class="line">echo -n <span class="string">&quot;foo&quot;</span> | nc -u -w1 <span class="number">192.168</span><span class="number">.1</span><span class="number">.8</span> <span class="number">5000</span></span><br><span class="line"><span class="comment">## A——&gt;B传文件</span></span><br><span class="line">nc -l <span class="number">5000</span> &gt;test.txt<span class="comment">#Bhost</span></span><br><span class="line">nc hostB <span class="number">5000</span> &lt;test.txt</span><br><span class="line"></span><br><span class="line"><span class="comment">##A-&gt;B传目录</span></span><br><span class="line">nc -l <span class="number">5000</span> |tar xvf -  <span class="comment">#Bhost</span></span><br><span class="line">tar cvf - /path/to/<span class="built_in">dir</span> | nc hostB <span class="number">5000</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>4 使用代理服务器连接</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc -x10<span class="number">.2</span><span class="number">.3</span><span class="number">.4</span>:<span class="number">8080</span> -Xconnect host.example.com <span class="number">42</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-utility-netcat-examples/">https://blog.gtwang.org/linux/linux-utility-netcat-examples/</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
+          <p>发表于 2017-07-14<br>检查是否做账户锁定和密码复杂程度配置：cat /etc/pam.d/system-auth</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auth        required      pam_tally2.so onerr=fail deny=<span class="number">10</span> unlock_time=<span class="number">300</span></span><br><span class="line"></span><br><span class="line">password    requisite     pam_cracklib.so try_first_pass retry=<span class="number">4</span> difok=<span class="number">3</span> minlen=<span class="number">8</span> ucredit=-<span class="number">1</span> lcredit=-<span class="number">1</span> dcredit=-<span class="number">1</span> ocredit=-<span class="number">1</span></span><br><span class="line">password    sufficient    pam_unix.so sha512 shadow nullok try_first_pass use_authtok</span><br><span class="line">password    required      pam_deny.so</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -249,7 +237,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%BC%9F%E5%A4%A7%E7%9A%84%E5%8D%9A%E5%BC%88-%E8%AF%BB%E5%90%8E%E6%84%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -267,7 +255,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">命令行修改windows系统密码</a>
+          <a href="/2022/07/04/yuque/%E4%BC%9F%E5%A4%A7%E7%9A%84%E5%8D%9A%E5%BC%88-%E8%AF%BB%E5%90%8E%E6%84%9F/" class="post-title-link" itemprop="url">伟大的博弈-读后感</a>
         </h2>
 
         <div class="post-meta-container">
@@ -279,7 +267,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 11:01:04 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T11:01:04+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 13:47:18 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T13:47:18+08:00">2022-07-04</time>
     </span>
 
   
@@ -292,7 +280,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-07-03<br>1 以管理员身份运行 cmd<br>2 net user administrator passwd</p>
+          <p>发表于 2017-07-11<br>看了吴军推荐的暑期读书清单，选了《呐喊》和《伟大的博弈》两本来看，目前看完《伟大的博弈》一书。本想着查找一下读书笔记的写法在写，但这样会拖延，先速记，再修改吧。</p>
+<h2 id="内容梗概"><a href="#内容梗概" class="headerlink" title="内容梗概"></a>内容梗概</h2><p>书的内容是按时间顺序，记录华尔街的发展历史，并详细描述那些历史时刻的关键事件。<br>荷兰人建立纽约港，大量犹太人经商。英国从水路攻占纽约，为保财富，总督投降。<br>出现个人交易办公室，交易股票。也有以路灯为交易地点的场外交易。<br>开始修伊比利运河，连接五大湖和纽约，发行运河债券。<br>开始铁路投资热，大修铁路。债券交易场所稍微固定，经纪人签署梧桐树协定，成立会员组织。<br>船长与投机商的金融战，买空惨败<br>JP 摩根从英国到美国，发展银行，为美国内战发现债券募资。<br>JP 摩根，化解各种矿产泡沫引起的金融危机<br>第二次世界大战，使美国成为世界第一经济体。海底通信线缆建成，英美交易所一体化。<br>做空黄金，被政府阻止。做空白银，亨特兄弟破产。<br>成立美联储，专做债券业务美林证券成立。<br>2008 金融危机，五大投行倒闭 2 个，其他被国家接管大部分股权。房地美，房利美被接盘。</p>
+<h2 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h2><p>华尔街是一步一个坑走过来的，欺诈、官商勾结、做空、投机不断，但还是逐步走向健康的发展方向。<br>周期性的波动打劫了国外的投资者，富了本国。</p>
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>历史事件的时间性要有序串联起来<br>看看《万万没想到》，学习万维钢笔记法。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
 
       
     </div>
@@ -319,7 +310,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%BD%BF%E7%94%A8phpipam%E8%AE%B0%E5%BD%95%E5%92%8C%E7%AE%A1%E7%90%86ip%E5%9C%B0%E5%9D%80/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%80%AA%E5%8C%A1%E6%9C%80%E6%9C%89%E5%90%8D%E7%9A%84%E5%8D%81%E5%8F%A5%E8%AF%9D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -337,7 +328,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E4%BD%BF%E7%94%A8phpipam%E8%AE%B0%E5%BD%95%E5%92%8C%E7%AE%A1%E7%90%86ip%E5%9C%B0%E5%9D%80/" class="post-title-link" itemprop="url">使用phpipam记录和管理ip地址</a>
+          <a href="/2022/07/04/yuque/%E5%80%AA%E5%8C%A1%E6%9C%80%E6%9C%89%E5%90%8D%E7%9A%84%E5%8D%81%E5%8F%A5%E8%AF%9D/" class="post-title-link" itemprop="url">倪匡最有名的十句话</a>
         </h2>
 
         <div class="post-meta-container">
@@ -349,7 +340,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 10:57:21 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T10:57:21+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 13:19:20 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T13:19:20+08:00">2022-07-04</time>
     </span>
 
   
@@ -362,23 +353,21 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-07-03<br>ip 地址作为一种资源，需要被合理规划和使用，避免资源冲突和浪费。资源管理原则：1）我有哪些资源 2）资源按照什么维度分配 3）各资源区域使用情况（已分配、未分配、在线、离线）</p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>一直在寻找静态 ip 管理工具，记录网络规划和使用情况，使用 excel 能记录一些情况，但是 ip 在线情况无法知道，ip 回收忘更新等情况导致 excel 信息不准确。<a target="_blank" rel="noopener" href="https://phpipam.net/">phpipam</a>是一个开源的 ip 管理工具，试用了一下<a target="_blank" rel="noopener" href="https://phpipam.net/demo/">demo</a>，效果不错，着手实践。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装过程参考官方文档 <a target="_blank" rel="noopener" href="https://phpipam.net/news/phpipam-installation-on-centos-7/">phpIPAM installation on CentOS 7</a></p>
-<h3 id="准备-LAMP-环境"><a href="#准备-LAMP-环境" class="headerlink" title="准备 LAMP 环境"></a>准备 LAMP 环境</h3><p>1.设置区域</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># more /etc/environment</span></span><br><span class="line">LC_ALL=en_US.utf-<span class="number">8</span></span><br><span class="line">LANG=en_US.utf-<span class="number">8</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>2.安装 apache、mariadb-server、php 及 php 扩展</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install httpd mariadb-server php php-cli php-gd php-common php-ldap php-pdo php-pear php-snmp php-xml php-mysql php-mbstring git</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>3 配置和运行 apache sudo vi /etc/httpd/conf/httpd.conf,修改后配置类似</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">ServerName locahost:<span class="number">80</span></span><br><span class="line">&lt;Directory <span class="string">&quot;/var/www/html&quot;</span>&gt;</span><br><span class="line">	Options FollowSymLinks</span><br><span class="line">	AllowOverride <span class="built_in">all</span></span><br><span class="line">	Order allow,deny</span><br><span class="line">	Allow <span class="keyword">from</span> <span class="built_in">all</span></span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line"><span class="comment"># 设置php时区</span></span><br><span class="line">[root@localhost html]<span class="comment"># grep timezone /etc/php.ini</span></span><br><span class="line">; Defines the default timezone used by the date functions</span><br><span class="line">; http://php.net/date.timezone</span><br><span class="line">date.timezone = Asia/Shanghai</span><br><span class="line"><span class="comment"># 运行并设置为开机启动</span></span><br><span class="line">sudo service httpd start</span><br><span class="line">sudo chkconfig httpd on</span><br><span class="line"><span class="comment"># 4.配置mariadb</span></span><br><span class="line">sudo service mariadb start</span><br><span class="line">sudo chkconfig mariadb on</span><br><span class="line">sudo mysql_secure_installation <span class="comment">#设置root密码即可</span></span><br><span class="line"><span class="comment"># 安装phpipam</span></span><br><span class="line">[root@ipam /]<span class="comment"># GIT clone https://github.com/phpipam/phpipam.git /var/www/html/</span></span><br><span class="line">[root@ipam /var/www]<span class="comment"># cd /var/www/html</span></span><br><span class="line">[root@ipam /var/www/html]<span class="comment"># git checkout 1.3</span></span><br><span class="line">sudo chown apache:apache -R /var/www/html/</span><br><span class="line">sudo chcon -t httpd_sys_content_t /data/www/html/ –R</span><br></pre></td></tr></table></figure>
-
-<p>web 浏览器登录 phpipam 地址<a target="_blank" rel="noopener" href="http://192.168.x.x/">http://192.168.x.x</a> 选择第一个自动数据库安装，输入 mariadb 的 root 信息即可。</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>网络分为 sections、subnets、ip，第一步是创建一个子网，自动发现子网 ip 及更新 ip 状态<br>1 创建一个子网<br>2 在 web 端“administration-phpIPAM-ICMP settings”中，输入 ping 命令和 fping 命令正确的目录。<br>3 在子网页面”scan subnet“可以扫描出子网中存活的主机，可以选择 discovery，将 discovery 的主机添加到子网中。<br>4 设置定时任务，每 15 分钟执行一次主机状态检测和主机发现。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[app@localhost log]$ crontab -l</span><br><span class="line">*/<span class="number">15</span> * * * * /usr/<span class="built_in">bin</span>/php /var/www/html/functions/scripts/pingCheck.php</span><br><span class="line">*/<span class="number">15</span> * * * * /usr/<span class="built_in">bin</span>/php /var/www/html/functions/scripts/discoveryCheck.php</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://phpipam.net/news/phpipam-installation-on-centos-7/">https://phpipam.net/news/phpipam-installation-on-centos-7/</a><br><a target="_blank" rel="noopener" href="https://phpipam.net/news/automatic-host-availability-check/">https://phpipam.net/news/automatic-host-availability-check/</a><br><a target="_blank" rel="noopener" href="http://m.2cto.com/os/201608/541196.html">http://m.2cto.com/os/201608/541196.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%BF%90%E7%BB%B4/"># 运维</a></p>
+          <blockquote>
+<p>微博上看到冯大辉总结的，有些话觉得不错，转载到博客记录查询。</p>
+</blockquote>
+<ol>
+<li>人类之所以有进步的主要原因是下一代不听上一代的话。</li>
+<li>音乐没有高低级之分，有些人推崇古典音乐，不知是基于什么样的滑稽心态。今日称之为古典音乐者，昔年也一样是流行音乐；今日之流行音乐者，若干年之后，也就成了古典音乐。</li>
+<li>人的一生充满各式各样的配额。</li>
+<li>小李飞刀成绝响，人间不见楚留香。</li>
+<li>天空就在头顶，每个人都有，很公平。</li>
+<li>你爱看的书，就是你该看的书。书海浩瀚，总有你爱看的，那就看。不爱看的，别浪费生命。若看了古文就惹气，那就看今文。看书的主要目的，是在看的过程中得到快乐，享受阅读带来的乐趣，那乐趣是越看越浓的。十年业余读古文，所得阅读乐趣之多，肯定非同小可。</li>
+<li>梦见被人追杀最愉快了！因为一醒来发现什么事也没有，我很喜欢恶梦，比如被人追债，一觉醒来，一切都解决了。人家说人生如梦，人生如果真能这样多好。</li>
+<li>干点好事总想让鬼神都知道，干点坏事总以为鬼神不知道，我们太难为鬼神了。</li>
+<li>天空没有鸟得痕迹，而我早已分过。</li>
+<li>多想我生前得好处，莫说我死后的坏处。</li>
+</ol>
 
       
     </div>
@@ -405,7 +394,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/apt%E5%AD%A6%E4%B9%A0-%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/RH124-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -423,7 +412,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/apt%E5%AD%A6%E4%B9%A0-%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/" class="post-title-link" itemprop="url">apt学习-设置代理</a>
+          <a href="/2022/07/04/yuque/RH124-RHEL7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">RH124-RHEL7学习笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -435,7 +424,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 10:56:40 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T10:56:40+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 11:20:53 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T11:20:53+08:00">2022-07-04</time>
     </span>
 
   
@@ -448,7 +437,121 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>使用代理安装软件包<br>sudo apt-get install ansible -o Acquire::http::proxy=”<a href="http://ip:prot/&quot;">http://ip:prot/&quot;</a><br><a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_002e20310101eai2.html">http://blog.sina.com.cn/s/blog_002e20310101eai2.html</a><br><a target="_blank" rel="noopener" href="http://www.tuicool.com/articles/3auEr2V">http://www.tuicool.com/articles/3auEr2V</a><br><a target="_blank" rel="noopener" href="https://sourceforge.net/projects/phpipam/files/latest/download">https://sourceforge.net/projects/phpipam/files/latest/download</a></p>
+          <p>发表于 2017-07-10<br>linux 基础概念理解不准确，重新学习 RH 三教程</p>
+<h3 id="1-Accessing-the-Command-Line-进入命令行"><a href="#1-Accessing-the-Command-Line-进入命令行" class="headerlink" title="1 Accessing the Command Line/进入命令行"></a>1 Accessing the Command Line/进入命令行</h3><p>shell 是什么：一个执行字符串命令的解释器。bash 是一种 shell，shell 是一个位于操作系统内核和用户界面的接口，负责用户安全方面的于内核通信。<br>terminal 是什么：为 shell 提供提供输出显示，键盘输入的接口<br>command 是一个可执行程序，option 调节程序行为，argument 指定运行对象。</p>
+<p>| date<br>passwd<br>file<br>head<br>tail<br>wc<br>history # !+数字，执行曾经执行的某条命令，！+string，匹配最近执行的某条命令并执行</p>
+<p>|  |<br>|  |</p>
+<p>命令行编辑</p>
+<p>| ctrl + a<br>ctrl + e<br>ctrl + u<br>ctrl + k<br>ctrl + r<br>esc+.#拷贝上一命令的 argument</p>
+<p>|  |<br>|  |</p>
+<h3 id="2-Managing-Files-from-the-Command-Line"><a href="#2-Managing-Files-from-the-Command-Line" class="headerlink" title="2 Managing Files from the Command Line"></a>2 Managing Files from the Command Line</h3><p>目录树 文件分类可分为静态文件、动态文件、持久文件、运行时文件</p>
+<p>| /usr #安装的程序<br>/etc #系统配置文件目录<br>/var #动态文件<br>/run #运行时文件，关机清空<br>/home #用户数据目录<br>/root /tmp /boot #root 目录、临时文件、开机启动文件<br>/dev #设备文件<br>/usr/bin #常规用户命令<br>/usr/sbin #root 用户命令</p>
+<p>|  |<br>|  |</p>
+<p>命令</p>
+<p>| ls -R #列出有权限的文件<br>cd - #导航到上一个前一个位置<br>cd #到达用户 home 目录</p>
+<p>|  |<br>|  |</p>
+<p>file management commands</p>
+<table>
+<thead>
+<tr>
+<th><strong>Activity</strong></th>
+<th><strong>Single source</strong></th>
+<th><strong>Multiple source</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Copy file</td>
+<td>cp file1 file2</td>
+<td>cp file1 file2 file3 dir</td>
+</tr>
+<tr>
+<td>Move file</td>
+<td>mv file1 file2</td>
+<td>mv file1 file2 file3 dir</td>
+</tr>
+<tr>
+<td>Remove file</td>
+<td>rm file1</td>
+<td>rm -f file1 file2 file3</td>
+</tr>
+<tr>
+<td>Create directory</td>
+<td>mkdir</td>
+<td>mkdir -p par1/par2/dir</td>
+</tr>
+<tr>
+<td>Copy directory</td>
+<td>cp -r dir1 dir2</td>
+<td>cp -r dir1 dir2 dir3 dir4</td>
+</tr>
+<tr>
+<td>Move directory</td>
+<td>mv dir1 dir2</td>
+<td>mv dir1 dir2 dir3 dir4</td>
+</tr>
+<tr>
+<td>Remove directory</td>
+<td>rm -r dir1</td>
+<td>rm -rf dir1 dir2 dir3</td>
+</tr>
+</tbody></table>
+<p>Barce expansion</p>
+<p>| echo {Sunday,Monday,Tuesday,Wednesday}.log<br>echo file{1..3}.txt<br>echo file{a,b}{1,2}.txt<br>echo file{a{1,2},b,c}.txt<br>#echo 换为 touch 就能创建一系列文件</p>
+<p>|  |<br>|  |</p>
+<p>单引号中不能写变量，双引号中可以</p>
+<p>| echo “will variable $host evaluate to $(hostname)?”<br>will variable desktopX evaluate to desktopX?<br>echo ‘will variable $host evaluate to $(hostname)?’<br>will variable $host evaluate to $(hostname)?</p>
+<p>|  |<br>|  |</p>
+<h3 id="3-null"><a href="#3-null" class="headerlink" title="3 null"></a>3 null</h3><h3 id="4-Create-Viewing-Editing-text-file"><a href="#4-Create-Viewing-Editing-text-file" class="headerlink" title="4 Create Viewing Editing text file"></a>4 Create Viewing Editing text file</h3><table>
+<thead>
+<tr>
+<th><strong>Usage</strong></th>
+<th><strong>Explanation</strong></th>
+<th><strong>Chineses</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;&gt;file</td>
+<td>combine stdout and stderr to one file</td>
+<td>把标准输出和标准错误输出结合到一起重定向到文件</td>
+</tr>
+<tr>
+<td>&gt;&gt;file 2&gt;&amp;1</td>
+<td>combine stdout and stderr,append to current file content</td>
+<td>把正常和错误输出结合在一起并附加到当前的文件中。</td>
+</tr>
+</tbody></table>
+<p>tee 拷贝输出结果，重定向到文件或屏幕<br><strong>VIM</strong><br>vimtutor,阅读 vim 手册<br>vim 有 4 种模式 1-command mode、2-edit mode、3-visual edit mode、4-extended command mode。<br>1-&gt;2 i 2-&gt;1 Esc,1-&gt;3 v 3-&gt;1 v,1-&gt;4 : 4-&gt;1 Enter.<br>1 模式下命令： x 删除选定字符 ，u 当前行修改 ，A 在行末新增内容，</p>
+<h3 id="5-Managing-Local-Linux-users-and-groups"><a href="#5-Managing-Local-Linux-users-and-groups" class="headerlink" title="5 Managing Local Linux users and groups"></a>5 Managing Local Linux users and groups</h3><p>chage 查看或修改用户密码策略</p>
+<h3 id="6-文件系统权限"><a href="#6-文件系统权限" class="headerlink" title="6 文件系统权限"></a>6 文件系统权限</h3><p>chwon user:group file<br>umask 权限掩码，设置用户新建文件默认权限</p>
+<h3 id="7-监控和管理-linxu-进程"><a href="#7-监控和管理-linxu-进程" class="headerlink" title="7 监控和管理 linxu 进程"></a>7 监控和管理 linxu 进程</h3><p>sleep 10000 &amp; running a job in the background<br>killall pkill<br>pgrep<br>监控系统</p>
+<p>| grep “model name” /proc/cpuinfo |wc -l #cpu 核数</p>
+<p>|  |<br>|  |</p>
+<h3 id="8-控制服务和守护进程"><a href="#8-控制服务和守护进程" class="headerlink" title="8 控制服务和守护进程"></a>8 控制服务和守护进程</h3><p>以前 1 进程为 initd 现在大多数系统 1 进程为 systemd<br>systemctl status name.service<br>systemctl list-unit-files –type=service #查看</p>
+<h3 id="9-配置和加固-ssh-服务"><a href="#9-配置和加固-ssh-服务" class="headerlink" title="9 配置和加固 ssh 服务"></a>9 配置和加固 ssh 服务</h3><h3 id="10-分析和存储日志"><a href="#10-分析和存储日志" class="headerlink" title="10 分析和存储日志"></a>10 分析和存储日志</h3><p>日志系统配置文件<br>/etc/rsyslog.d/<br>日志分析工具 journalctl<br>日期和时间设定</p>
+<h3 id="11-管理网络"><a href="#11-管理网络" class="headerlink" title="11 管理网络"></a>11 管理网络</h3><p>网卡命令规则<br>enp2s0 ,en=ethernet interfaces,wl=Wlan interfaces,ww=wwan interfaces,o=onboard,s=hotplug solt,p=pci,后面的数字表斯<br>常用命令</p>
+<p>| [app@localhost ~]$ ip addr show ens160<br>2: ens160: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000<br>link/ether 00:50:56:bf:71:0c brd ff:ff:ff:ff:ff:ff<br>inet 192.168.12.188/24 brd 192.168.12.255 scope global ens160<br>valid_lft forever preferred_lft forever<br>inet6 fe80::250:56ff:febf:710c/64 scope link<br>valid_lft forever preferred_lft forever</p>
+<p>|  |<br>|  |</p>
+<p>| [app@localhost ~]$ ip -s link show ens160<br>2: ens160: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP mode DEFAULT qlen 1000<br>link/ether 00:50:56:bf:71:0c brd ff:ff:ff:ff:ff:ff<br>RX: bytes packets errors dropped overrun mcast<br> 2595014507 32474768 0 9497755 0 77<br> TX: bytes packets errors dropped carrier collsns<br>1004021853 1743158 0 0 0 0</p>
+<p>|  |<br>|  |</p>
+<p>| [app@localhost ~]$ ip route<br>default via 192.168.12.254 dev ens160<br>169.254.0.0/16 dev ens160 scope link metric 1002<br>192.168.12.0/24 dev ens160 proto kernel scope link src 192.168.12.188</p>
+<p>|  |<br>|  |</p>
+<p>网络路径排查</p>
+<p>| [app@localhost ~]$ tracepath 192.168.13.1<br>1?: [LOCALHOST] pmtu 1500<br>1: 192.168.12.252 0.571ms<br>1: 192.168.12.252 0.658ms<br>2: 192.168.13.1 0.832ms reached<br>Resume: pmtu 1500 hops 2 back 2</p>
+<p>|  |<br>|  |</p>
+<p>端口和服务排查</p>
+<p>| [app@localhost ~]$ ss -ta<br>State Recv-Q Send-Q Local Address:Port Peer Address:Port<br>LISTEN 0 128 <em>:ssh <em>:</em><br>LISTEN 0 100 127.0.0.1:smtp <em>:</em><br>ESTAB 0 0 192.168.12.188:ssh 192.168.12.117:55057<br>ESTAB 0 0 192.168.12.188:ssh 192.168.1.172:49398<br>ESTAB 0 0 192.168.12.188:ssh 192.168.12.75:62967<br>ESTAB 0 0 192.168.12.188:ssh 192.168.12.123:58675<br>ESTAB 0 0 192.168.12.188:ssh 192.168.12.56:25780<br>LISTEN 0 128</div>http</div></em><br>LISTEN 0 128</div>ssh</div>_<br>LISTEN 0 100 ::1:smtp</div>_</p>
+<p>|  |<br>|  |</p>
+<h3 id="12-在系统间归档和拷贝文件"><a href="#12-在系统间归档和拷贝文件" class="headerlink" title="12 在系统间归档和拷贝文件"></a>12 在系统间归档和拷贝文件</h3><p>tar 参数</p>
+<p>| -c<br>-t<br>-x<br>-f<br>-v #压缩参数<br>-z<br>-j<br>-J</p>
+<p>|  |<br>|  |</p>
+<p>系统间传输文件 scp<br>系统间同步文件 rsync</p>
+<h3 id="13-安装和升级软件包"><a href="#13-安装和升级软件包" class="headerlink" title="13 安装和升级软件包"></a>13 安装和升级软件包</h3><p>| yum repolist<br>yum list yum *<br>yum list installed<br>yum grouplist<br>yum search all ‘web server’<br>yum info httpd<br>yum provides /var/www/html<br>yum install ,update,remove<br>yum group list<br>yum group install “name”</p>
+<p>|  |<br>|  |</p>
+<p>| rpm -q yum<br>rpm -q -p<br>rpm -q -f /etc/yum/repos.d<br>rpm -q -c zabbix-agent #查找 zabbix-agent 的配置文件<br>rpm -q -p pakage -i #安装包信息</p>
+<p>|  |<br>|  |</p>
+<h2 id="14-linux-文件系统"><a href="#14-linux-文件系统" class="headerlink" title="14 linux 文件系统"></a>14 linux 文件系统</h2><p>| blkid #查看各分区文件系统<br>ln file1 file2 #创建 hardlink<br>ln -s file1 file2 #创建 softlink ，快捷方式<br>locate #返回符合内容的文件或路径，-i -n updatedb,忽略大小写、限制返回条目数、更新数据库<br>find # -name -iname -user -group -uid -gid -perm -size</p>
+<p>|  |<br>|  |</p>
+<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
 
       
     </div>
@@ -475,7 +578,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/ansible%E6%9C%80%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8Aplaybook/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -493,7 +596,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/ansible%E6%9C%80%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8Aplaybook/" class="post-title-link" itemprop="url">ansible最常用命令及playbook</a>
+          <a href="/2022/07/04/yuque/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-title-link" itemprop="url">正则表达式</a>
         </h2>
 
         <div class="post-meta-container">
@@ -505,7 +608,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 10:37:41 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T10:37:41+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 11:19:46 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T11:19:46+08:00">2022-07-04</time>
     </span>
 
   
@@ -518,26 +621,88 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-06-30<br>主机管理：理解需求-规划分配 ip-配置主机-初始设置-更新配置记录</p>
-<h3 id="修改初始密码"><a href="#修改初始密码" class="headerlink" title="修改初始密码"></a>修改初始密码</h3><p>修改密码脚本</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#name root.sh</span></span><br><span class="line">ip=$(hostname -I |sed <span class="string">&#x27;s/\.//g&#x27;</span>)</span><br><span class="line">rootpasswd=xxxx$ip</span><br><span class="line">echo $rootpasswd</span><br><span class="line">echo $rootpasswd|passwd --stdin root</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>hosts 中添加主机信息</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#file name hosts</span></span><br><span class="line">[test]</span><br><span class="line"><span class="number">192.168</span><span class="number">.20</span><span class="number">.4</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.20</span>.[<span class="number">10</span>:<span class="number">11</span>]</span><br><span class="line">[test:<span class="built_in">vars</span>]</span><br><span class="line">ansible_ssh_user=xxx</span><br><span class="line">ansible_ssh_pass=xxx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>执行命令</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible -i hosts test -m ping <span class="comment">#测试ssh帐号</span></span><br><span class="line">ansible -i hosts test -m script -a <span class="string">&#x27;root.sh&#x27;</span> -b -K <span class="comment">#sudo执行脚本</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="检查主机配置是否满足需求"><a href="#检查主机配置是否满足需求" class="headerlink" title="检查主机配置是否满足需求"></a>检查主机配置是否满足需求</h3><p>shell 脚本</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#file name config-check.sh</span></span><br><span class="line">cat /proc/cpuinfo |grep processor | wc -l</span><br><span class="line">free -g | grep Mem |awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span></span><br><span class="line">dmesg |grep sd |grep logical|awk -F <span class="string">&#x27;(&#x27;</span> <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>|awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span></span><br><span class="line">cat /etc/redhat-release</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>playbook</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: test</span><br><span class="line">  tasks:</span><br><span class="line">  - name: <span class="built_in">print</span> info</span><br><span class="line">    debug:</span><br><span class="line">      msg: <span class="string">&quot;ip:&#123;&#123;ansible_all_ipv4_addresses[0]&#125;&#125; netmask:&#123;&#123;ansible_default_ipv4.netmask&#125;&#125; OS:&#123;&#123;ansible_distribution&#125;&#125;-&#123;&#123;ansible_distribution_version&#125;&#125; CUP:&#123;&#123;ansible_processor_vcpus&#125;&#125; Memory:&#123;&#123;ansible_memory_mb.real.total&#125;&#125; Disk:&#123;&#123;ansible_devices.sda.size&#125;&#125;&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>执行命令</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># script方式检查配置，与root密码变更执行类型，只需修改hosts，方便。</span></span><br><span class="line"><span class="comment"># shell多个项目分行输出，阅读不直观，找方法修改为一行。</span></span><br><span class="line">ansible -i hosts test -m script -a <span class="string">&#x27;config-check.sh&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># playbook 方式执行,检查方式通用，每次修改playbook</span></span><br><span class="line">ansible-playbook hard-check -i hosts | grep msg</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/ansible/"># ansible</a></p>
+          <p>发表于 2017-07-07<br>正则表达式，难啃就一点一点下口</p>
+<h2 id="正则表达式语法"><a href="#正则表达式语法" class="headerlink" title="正则表达式语法"></a>正则表达式语法</h2><p>例子：P(Y|YT)?N<br>正则表达式由字符由字符和操作符构成</p>
+<table>
+<thead>
+<tr>
+<th><strong>操作符</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.</td>
+<td>表示任何单个字符</td>
+<td></td>
+</tr>
+<tr>
+<td>[]</td>
+<td>字符集，对单个字符给出取值范围</td>
+<td>[abc]表示 a、b、c，[a-z]表示 a-z 单个字符</td>
+</tr>
+<tr>
+<td>[^]</td>
+<td>非字符集，对单个字符给出配出范围</td>
+<td>[^abc]表示非 a 或 b 或 c 的单个字符</td>
+</tr>
+<tr>
+<td>*</td>
+<td>前一个字符 0 次或无限次扩展</td>
+<td>abc*表示 ab、abc、abcccc 等</td>
+</tr>
+<tr>
+<td>+</td>
+<td>前一个字符的 1 次或无限次扩展</td>
+<td>abc+表示 abc、abcc、abcccc 等</td>
+</tr>
+<tr>
+<td>?</td>
+<td>前一个字符 0 次或一次扩展</td>
+<td>abc?表示 ab，abc</td>
+</tr>
+<tr>
+<td>竖杠</td>
+<td>左右表达式任意一个</td>
+<td>abc 竖杠 def 表示 abc、def</td>
+</tr>
+<tr>
+<td>{m}</td>
+<td>扩展前一个字符 m 次</td>
+<td>ab{2}c 表示 abbc</td>
+</tr>
+<tr>
+<td>{m,n}</td>
+<td>扩展前一个字符 m 至 n 次（含 n）</td>
+<td>ab{1,2}c,表示 abc,abbc</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配字符串开头</td>
+<td>^abc 表示 abc 且在一个字符串开头</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配字符串结尾</td>
+<td>abc$ 表示 abc 且在字符串结尾</td>
+</tr>
+<tr>
+<td>()</td>
+<td>分组标记，内部只能使用“竖杠”操作符</td>
+<td>(abc)表示 abc，（abc“竖杠”def）表示 abc、def</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>数字，等价于[0-9]</td>
+<td></td>
+</tr>
+<tr>
+<td>\w</td>
+<td>单词字符，等价于[A-Za-z0-9_]</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/python/"># python</a></p>
 
       
     </div>
@@ -557,7 +722,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%86%8D%E8%AE%B0%E5%BD%95%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85zabbix-agent/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/bs4%E5%AD%A6%E4%B9%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E5%86%8D%E8%AE%B0%E5%BD%95%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85zabbix-agent/" class="post-title-link" itemprop="url">再记录源码安装zabbix-agent</a>
+          <a href="/2022/07/04/yuque/bs4%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">bs4学习</a>
         </h2>
 
         <div class="post-meta-container">
@@ -196,7 +196,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 09:48:49 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:48:49+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 11:03:28 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T11:03:28+08:00">2022-07-04</time>
     </span>
 
   
@@ -209,102 +209,27 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-06-26<br>yum 安装 zabbix 虽然方便，但是不同硬件架构系统要不同的 rpm 包，寻找麻烦。源码安装只要有源码和 gcc 编译器，就可以编译出适合不同硬件架构不同系统的 agent。今天要在 IBM power8 上安装 agent，再次记录一下，并修正以前的错误理解。</p>
-<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><p>1 下载源码，<a target="_blank" rel="noopener" href="http://sourceforge.net/projects/zabbix/files/ZABBIX%20Latest%20Stable/3.0.9/zabbix-3.0.9.tar.gz/download">版本 3.0.9</a><br>2 复制源码到目标机器<br>3 解压并编译,编译后默认可执行文件所在目录为”/usr/local/sbin/zabbix-agentd”</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf zabbix-<span class="number">3.0</span><span class="number">.9</span>.tar.gz</span><br><span class="line">./configure --enable-agent</span><br><span class="line">sudo make install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>4 编写配置文件。为了与 yum 安装的 agent 目录保持一致，配置文件目录为”/etc/zabbix/zabbix_agentd.conf”</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Server=<span class="number">192.168</span><span class="number">.12</span><span class="number">.205</span></span><br><span class="line">Hostname=<span class="number">172.26</span><span class="number">.20</span><span class="number">.1</span></span><br><span class="line">BufferSize=<span class="number">1024</span></span><br><span class="line">DebugLevel=<span class="number">2</span></span><br><span class="line">LogFileSize=<span class="number">1024</span></span><br><span class="line">LogFile=/var/log/zabbix/zabbix_agentd.log <span class="comment">#需要chown zabbix /var/log/zabbix/ ,否则防止在/tmp下。</span></span><br><span class="line">EnableRemoteCommands=<span class="number">1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>5 验证。<br>sudo /usr/local/sbin/zabbix_agentd -c /etc/zabbix/zabbix_agentd.conf ,ps -ef | grep zabbix*,就可以看到 5 个 zabbix 进程。<br>6 安全<br>zabbix_agentd 默认以 zabbix 用户启动，若没有 zabbix 用户，则以执行启动命令用户启动。为保证权限控制，建议创建 zabbix 组和用户</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd zabbix</span><br><span class="line">sudo useradd -s /sbin/nologin -M -g zabbix zabbix</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>7 启动优化<br>每次启动时都需要输入完整执行文件路径和配置文件，停止需要 kill5 个进程，比较麻烦。将启动命令做成服务，就可以用 service zabbix-agent start|restart|stop 管理。设置方法为在/etc/init.d/ 中创建服务脚本,chkconfig zabbix-agent on 设置开机启动。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#chkconfig: 2345 70 30</span></span><br><span class="line"><span class="comment">#description: workerman command   #</span></span><br><span class="line"><span class="comment">#processname: workerman</span></span><br><span class="line"></span><br><span class="line">start() &#123;</span><br><span class="line">       /home/app/startup.sh</span><br><span class="line">       /usr/local/sbin/zabbix_agentd -c /etc/zabbix/zabbix_agentd.conf</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop()&#123;</span><br><span class="line">      /home/app/stop.sh</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case <span class="string">&quot;$1&quot;</span> <span class="keyword">in</span></span><br><span class="line">        start)</span><br><span class="line">                echo <span class="string">&quot;Starting zabbix...&quot;</span></span><br><span class="line">                /usr/local/sbin/zabbix_agentd -c /etc/zabbix/zabbix_agentd.conf</span><br><span class="line">                ;;</span><br><span class="line">        stop)</span><br><span class="line">                echo <span class="string">&quot;Shutting WorkerMan...&quot;</span></span><br><span class="line">                kill `cat /tmp/zabbix_agentd.pid `</span><br><span class="line">                rm -f /tmp/zabbix_agentd.pid</span><br><span class="line">                ;;</span><br><span class="line">        *)</span><br><span class="line">                echo <span class="string">&quot;Usage: #0 &#123;start|stop|restart&#125;&quot;</span></span><br><span class="line">                ;;</span><br><span class="line">esac</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>启动有权限问题，修改 log 文件权限为 777</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># chkconfig: 2345 99 12</span></span><br><span class="line"><span class="comment"># description: Activates/Deactivates all network interfaces configured to</span></span><br><span class="line">SERVICE=<span class="string">&quot;Zabbix agent&quot;</span></span><br><span class="line">DAEMON=/usr/local/sbin/zabbix_agentd</span><br><span class="line">config=/etc/zabbix/zabbix_agentd.conf</span><br><span class="line">PIDFILE=/tmp/zabbix_agentd.pid</span><br><span class="line">BASEDIR=/usr/local/</span><br><span class="line">ZABBIX_AGENTD=$BASEDIR/sbin/zabbix_agentd</span><br><span class="line">case $<span class="number">1</span> <span class="keyword">in</span></span><br><span class="line">   <span class="string">&#x27;start&#x27;</span>)</span><br><span class="line">     <span class="keyword">if</span> [ -x $&#123;DAEMON&#125; ]</span><br><span class="line">     then</span><br><span class="line">       $DAEMON -c $config</span><br><span class="line">       <span class="comment"># Error checking here would be good...</span></span><br><span class="line">       echo <span class="string">&quot;$&#123;SERVICE&#125; started.&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">       echo <span class="string">&quot;Can&#x27;t find file $&#123;DAEMON&#125;.&quot;</span></span><br><span class="line">       echo <span class="string">&quot;$&#123;SERVICE&#125; NOT started.&quot;</span></span><br><span class="line">     fi</span><br><span class="line">   ;;</span><br><span class="line">   <span class="string">&#x27;stop&#x27;</span>)</span><br><span class="line">     <span class="keyword">if</span> [ -s $&#123;PIDFILE&#125; ]</span><br><span class="line">     then</span><br><span class="line">       <span class="keyword">if</span> kill `cat $&#123;PIDFILE&#125;` &gt;/dev/null <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br><span class="line">       then</span><br><span class="line">         echo <span class="string">&quot;$&#123;SERVICE&#125; stoped.&quot;</span></span><br><span class="line">         rm -f $&#123;PIDFILE&#125;</span><br><span class="line">       fi</span><br><span class="line">     fi</span><br><span class="line">   ;;</span><br><span class="line">   <span class="string">&#x27;restart&#x27;</span>)</span><br><span class="line">     $<span class="number">0</span> stop</span><br><span class="line">     sleep <span class="number">10</span></span><br><span class="line">     $<span class="number">0</span> start</span><br><span class="line">   ;;</span><br><span class="line">   *)</span><br><span class="line">     echo <span class="string">&quot;Usage: $0 start|stop|restart&quot;</span></span><br><span class="line">     ;;</span><br><span class="line">esac</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://serverfault.com/questions/29788/what-is-needed-for-a-linux-service-to-be-supported-by-chkconfig">https://serverfault.com/questions/29788/what-is-needed-for-a-linux-service-to-be-supported-by-chkconfig</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/zabbix/"># zabbix</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E7%89%A9%E8%81%94%E7%BD%91%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E7%89%A9%E8%81%94%E7%BD%91%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">物联网学习</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-07-04 09:48:04 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:48:04+08:00">2022-07-04</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-06-26<br>在 mooc 上看到台湾新竹大学的物联网概论课程，学习记录一下。</p>
-<h2 id="第一周-物联网架构"><a href="#第一周-物联网架构" class="headerlink" title="第一周 物联网架构"></a>第一周 物联网架构</h2><p>架构总体分为 4 个层次</p>
-<ul>
-<li>实体层<br>实体层为时尚单品，水杯、球拍等。</li>
-<li>感应层<br>感知层包括硬件平台（pi、andum）、传感器网络（zibee、bluetooth）、网络协议（）</li>
-<li>网络层<br>ipv6 协议</li>
-<li>应用层</li>
+          <p>发表于 2017-07-06<br>爬虫是玩 python 的一个好方向，玩好爬虫，bs4 必须理解。</p>
+<h2 id="bs4-基本对象"><a href="#bs4-基本对象" class="headerlink" title="bs4 基本对象"></a>bs4 基本对象</h2><ul>
+<li>Tag</li>
+<li>Name 标签的名字，,.Name</li>
+<li>Attributes 标签的属性，.attrs，soup.a[‘ref’]</li>
+<li>NavigableString 标签内非属性的，可遍历的字符串，.string<br>字符串不能包含其他基本对象，如 tag，字符串不支持.contents、.string 属性或 find()方法。</li>
+<li>Comment 标签里的注释部分</li>
 </ul>
-<p>物联网的 8 大应用领域：绿色农业、工业自动化、公共安全、城市管理、远程医疗、智慧交通、智慧家庭、环境监控。</p>
-<h2 id="第二周-协议详解及平台举例"><a href="#第二周-协议详解及平台举例" class="headerlink" title="第二周 协议详解及平台举例"></a>第二周 协议详解及平台举例</h2><h2 id="第三周-ipv6"><a href="#第三周-ipv6" class="headerlink" title="第三周 ipv6"></a>第三周 ipv6</h2><p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/iot/"># iot</a></p>
+<h2 id="对象的属性及方法"><a href="#对象的属性及方法" class="headerlink" title="对象的属性及方法"></a>对象的属性及方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tagA.tagB <span class="comment">#链式访问</span></span><br><span class="line">tag.name   <span class="comment">#获取标签名字</span></span><br><span class="line">tag.attrs  <span class="comment">#获取标签属性，返回值为list，tag.[&#x27;attrsName&#x27;],返回特定属性</span></span><br><span class="line">tag.string <span class="comment">#获取tag中间的字符串,标签中只有一个子节点</span></span><br><span class="line">tag.strings <span class="comment">#返回可迭代字符串对象，用于循环获取.</span></span><br><span class="line">tag.stripped_strings <span class="comment">#同strings去除空白内容.</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="对象的遍历"><a href="#对象的遍历" class="headerlink" title="对象的遍历"></a>对象的遍历</h3><p>从上倒下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tag.contents <span class="comment">#标签的子节点，返回list</span></span><br><span class="line">tag.children <span class="comment">#标签的子节点，返回NavigableString</span></span><br><span class="line">tag.descendants <span class="comment">#标签的子孙节点，返回NavigableString</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>从下到上</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tag.parent <span class="comment">#标签直接父节点</span></span><br><span class="line">tag.parents <span class="comment">#标签所有父节点，返回迭代类型</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>平行访问</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在文档树中,使用 .next_sibling 和 .previous_sibling 属性来查询兄弟节点:</span><br><span class="line">通过 .next_siblings 和 .previous_siblings 属性可以对当前节点的兄弟节点迭代输出:</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="搜索文档树"><a href="#搜索文档树" class="headerlink" title="搜索文档树"></a>搜索文档树</h3><p>搜索接受的参数可以是不同的过滤器，过滤器包括字符串、正则表达式、列表、方法、True。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="http://beautifulsoup.readthedocs.io/zh_CN/latest/#id16">http://beautifulsoup.readthedocs.io/zh_CN/latest/#id16</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/python/"># python</a></p>
 
       
     </div>
@@ -331,7 +256,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/ansible-lineinfile%E6%A8%A1%E5%9D%97%E5%AD%A6%E4%B9%A0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/linux%E7%AB%AF%E5%8F%A3%E7%8A%B6%E6%80%81%E6%A3%80%E6%B5%8B%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -349,7 +274,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/ansible-lineinfile%E6%A8%A1%E5%9D%97%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">ansible-lineinfile模块学习</a>
+          <a href="/2022/07/04/yuque/linux%E7%AB%AF%E5%8F%A3%E7%8A%B6%E6%80%81%E6%A3%80%E6%B5%8B%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">linux端口状态检测方法</a>
         </h2>
 
         <div class="post-meta-container">
@@ -361,7 +286,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 09:45:39 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:45:39+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 11:01:53 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T11:01:53+08:00">2022-07-04</time>
     </span>
 
   
@@ -374,41 +299,20 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-06-22<br>sed -i 虽好，批量执行还是使用 ansible lineinifle 模块。</p>
-<h2 id="开启-ansible-测试环境"><a href="#开启-ansible-测试环境" class="headerlink" title="开启 ansible 测试环境"></a>开启 ansible 测试环境</h2><p>启动 vagrant 虚拟机并 ssh 进入</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vagrant init ubuntu/trusty64; vagrant up --provider virtualbox  <span class="comment">#抓取并启动ubuntu</span></span><br><span class="line">vagrant ssh   <span class="comment">#ssh到虚拟机中</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <p>发表于 2017-07-06<br>经常排查监控服务器到被监控主机的网络连接，一直使用 nmap，最近发现 ncat 工具更好用。<br>ncat 是 linux 发行版预装的工具，开箱即用。</p>
+<h2 id="常用语句"><a href="#常用语句" class="headerlink" title="常用语句"></a>常用语句</h2><p>1 检测服务器特定端口是能连接</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ncat -v <span class="number">192.168</span><span class="number">.2</span>.x <span class="number">8080</span></span><br><span class="line"><span class="comment">#显示如下表示连接成功，对方开放了端口。</span></span><br><span class="line">Ncat: Version <span class="number">5.51</span> ( http://nmap.org/ncat )</span><br><span class="line">Ncat: Connected to <span class="number">192.</span>x.x.x:<span class="number">8080.</span></span><br><span class="line"><span class="comment">#扫描端口列表</span></span><br><span class="line">nc -vnz -w1 <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="number">1</span>-<span class="number">500</span></span><br><span class="line"><span class="comment">#nmap语句</span></span><br><span class="line">nmap  <span class="number">192.168</span><span class="number">.2</span>.x -p <span class="number">8080</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="lineinfile-模块示例"><a href="#lineinfile-模块示例" class="headerlink" title="lineinfile 模块示例"></a>lineinfile 模块示例</h2><ol>
-<li>删除文件中的行，删除 test 文件中所有匹配 hello 行。改变正则表达式可以改变匹配条件。“regexp=’^hello’”,以 hello 开头的行。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible test -m lineinfile -a <span class="string">&quot;path=/home/vagrant/test state=absent regexp=&#x27;hello&#x27;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>2 开启本机指定端口</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nc -l localhost <span class="number">5000</span> <span class="comment">#默认使用tcp协议</span></span><br><span class="line">nc -lu localhost <span class="number">5000</span> <span class="comment">#开启udp 5000端口</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<ol start="2">
-<li>文件末尾添加一行</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible test -m lineinfile -a <span class="string">&quot;path=/home/vagrant/test state=present line=&#x27;add a line&#x27;&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>3 传输信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#接受端开启端口</span></span><br><span class="line">nc -lu localhost <span class="number">5000</span></span><br><span class="line"><span class="comment">#发送端发送信息</span></span><br><span class="line">echo -n <span class="string">&quot;foo&quot;</span> | nc -u -w1 <span class="number">192.168</span><span class="number">.1</span><span class="number">.8</span> <span class="number">5000</span></span><br><span class="line"><span class="comment">## A——&gt;B传文件</span></span><br><span class="line">nc -l <span class="number">5000</span> &gt;test.txt<span class="comment">#Bhost</span></span><br><span class="line">nc hostB <span class="number">5000</span> &lt;test.txt</span><br><span class="line"></span><br><span class="line"><span class="comment">##A-&gt;B传目录</span></span><br><span class="line">nc -l <span class="number">5000</span> |tar xvf -  <span class="comment">#Bhost</span></span><br><span class="line">tar cvf - /path/to/<span class="built_in">dir</span> | nc hostB <span class="number">5000</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<ol start="3">
-<li>替换以匹配字符开头的行，如果改行没有，则在末尾添加</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible test -m lineinfile -a <span class="string">&quot;path=/home/vagrant/test regexp=&#x27;^hello&#x27; line=&#x27;replaced a line begin as hello&#x27;&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>4 使用代理服务器连接</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc -x10<span class="number">.2</span><span class="number">.3</span><span class="number">.4</span>:<span class="number">8080</span> -Xconnect host.example.com <span class="number">42</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<ol start="4">
-<li>在文件中添加一行，如果没有该文件则创建文件。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible test -m lineinfile -a <span class="string">&quot;path=/home/vagrant/test1 create=yes line=&#x27;1024&#x27;&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>在某行前面或后面插入一行，若存在多个匹配，则在最后一个匹配行前\后插入。如果文件中有相同的行，则不做任何操作。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible test -m lineinfile -a <span class="string">&quot;path=/home/vagrant/test  insertbefore=&#x27;^hello&#x27; line=&#x27;10240000&#x27;&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li><strong>可以结合 regexp 参数和 insertbefore 参数达到条件判断。修改某个文件，如果文件中没有此行，则在某行前/后插入。如果有，则修改为新内容。</strong></li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible test -m lineinfile -a <span class="string">&quot;path=/home/vagrant/test  regexp=&#x27;^hello1&#x27; insertbefore=&#x27;^hello&#x27; line=&#x27;hello1:8000&#x27;&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="http://zouqingyun.blog.51cto.com/782246/1882367">http://zouqingyun.blog.51cto.com/782246/1882367</a><br><a target="_blank" rel="noopener" href="http://docs.ansible.com/ansible/lineinfile_module.html">http://docs.ansible.com/ansible/lineinfile_module.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/ansible/"># ansible</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-utility-netcat-examples/">https://blog.gtwang.org/linux/linux-utility-netcat-examples/</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
 
       
     </div>
@@ -435,7 +339,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/YUM%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E9%85%8D%E7%BD%AE%E8%A7%A3%E9%87%8A/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -453,7 +357,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/YUM%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E9%85%8D%E7%BD%AE%E8%A7%A3%E9%87%8A/" class="post-title-link" itemprop="url">YUM基本概念及配置解释</a>
+          <a href="/2022/07/04/yuque/%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">命令行修改windows系统密码</a>
         </h2>
 
         <div class="post-meta-container">
@@ -465,7 +369,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 09:40:54 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:40:54+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 11:01:04 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T11:01:04+08:00">2022-07-04</time>
     </span>
 
   
@@ -478,40 +382,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>yum 经常使用，探究一下 yum 使用的相关问题及为什么。</p>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>rpm： RedHat Package Manager,将源码编译并记录相关依赖的安装包。不同发行版本的 rpm 包不同。<br>yum：Your Update Manager，自动处理 rpm 包依赖关系，制作为依赖表，自动安装指定软件。<br>Repo：yum 的软件仓库配置，一般在/etc/yum.repo/下，每一个配置文件可包含多个软件仓库。yum repolist all ,列出本机所有软件仓库。<br>yum 软件库：在线或本地的 rpm 包目录，包含入 rpm 包和 repodata（软件依赖数据库）。在 repo 文件中配置。</p>
-<h2 id="yum-软件仓库配置文件解读"><a href="#yum-软件仓库配置文件解读" class="headerlink" title="yum 软件仓库配置文件解读"></a>yum 软件仓库配置文件解读</h2><p>cat /etc/yum.repo/Centos-Base.repo</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[base]</span><br><span class="line">name=CentOS-$releasever - Base</span><br><span class="line">mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo</span><br><span class="line">=os&amp;infra=$infra</span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/</span></span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-<span class="number">6</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>[base]: 软件仓库id，所有repo中应该唯一。</li>
-<li>name:仓库别名，方便人为识别。</li>
-<li>mirrorlist:仓库镜像链接，全球多个镜像，配合插件可从最快镜像中获取软件包。</li>
-<li>baseurl:软件仓库实际地址，支持 http，ftp，file:///</li>
-<li>enabled: 软讲仓库开关，1,开启，0 关闭。默认 enabled=1</li>
-<li>gpgcheck: 是否检查 rpm 包内的签章，1 检查，0 不检查。用于验证软件包是否为发行厂商分发。</li>
-<li>gpgkey： 数字签名公钥位置。</li>
-</ul>
-<p>$releasever 变量值为yum配置文件/etc/yum.conf中distroverpkg行=后面软件包发行版本。执行rpm -q –qf %{version} centos-release;echo可获得。<br>$basearch ,系统是 32 位还是 64 位 运行 arch 获得值。url 中采用变量方面不同版本不同位数系统使用同一个 repo。</p>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ol>
-<li>内网服务器怎么安装和更新软件包？</li>
-</ol>
-<p>如果内网搭建了无密码的 http 代理服务器，可修改/etc/yum.conf,在末尾添加 proxy=<a href="http://ip:port">http://ip:port</a><br>如果没有搭建代理服务器，可使用局域网 yum 源和本地光盘 yum 源。</p>
-<ol>
-<li>如何安装内网 yum 源服务器</li>
-</ol>
-<p>参考<a target="_blank" rel="noopener" href="http://www.zyops.com/autodeploy-yum">http://www.zyops.com/autodeploy-yum</a></p>
-<h2 id="搭建内网-yum-源服务器步骤"><a href="#搭建内网-yum-源服务器步骤" class="headerlink" title="搭建内网 yum 源服务器步骤"></a>搭建内网 yum 源服务器步骤</h2><ol>
-<li>创建资源目录</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/centos/&#123;<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>&#125;</span><br><span class="line">mkdir -p /data/centos/<span class="number">6</span>/os/x86_64</span><br><span class="line"><span class="comment"># 复制安装光盘包到对应目录，开启http服务</span></span><br><span class="line">mount /dev/cdrom /media</span><br><span class="line">cp -r /media/* /data/centos/<span class="number">6</span>/os/x86_64/</span><br><span class="line">cd /data/</span><br><span class="line">python -m SimpleHTTPServer</span><br><span class="line"><span class="comment"># 配置yum客户端repo</span></span><br><span class="line">[base]</span><br><span class="line">name=CentOS</span><br><span class="line">baseurl=http://x:<span class="number">8000</span>/centos/<span class="number">6</span>/os/x86_64/</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=file:////etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-<span class="number">6</span></span><br><span class="line"><span class="comment"># 验证</span></span><br><span class="line">yum repolist <span class="comment">#查看可用软件仓库</span></span><br><span class="line">yum install tree <span class="comment">#尝试安装软件</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>添加其他软件仓库并定期同步</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">镜像同步公网yum源</span><br><span class="line">上游yum源必须要支持rsync协议，否则不能使用rsync进行同步。</span><br><span class="line">http://mirrors.ustc.edu.cn/status/</span><br><span class="line">CentOS官方标准源：rsync://mirrors.ustc.edu.cn/centos/</span><br><span class="line">epel源：rsync://mirrors.ustc.edu.cn/epel/</span><br><span class="line">同步命令：</span><br><span class="line"><span class="comment"># 使用rsync同步yum源，为了节省带宽、磁盘和下载时间，我只同步了CentOS6的rpm包，这样所有的rpm包只占用了21G，全部同步需要300G左右。</span></span><br><span class="line"><span class="comment"># 同步base源，小技巧，我们安装系统的光盘镜像含有部分rpm包，大概3G，这些就不用重新下载。</span></span><br><span class="line">/usr/<span class="built_in">bin</span>/rsync -av rsync://mirrors.ustc.edu.cn/centos/<span class="number">6</span>/os/x86_64/ /data/yum_data/centos/<span class="number">6</span>/os/x86_64/</span><br><span class="line">/usr/<span class="built_in">bin</span>/rsync -av rsync://mirrors.ustc.edu.cn/centos/<span class="number">6</span>/extras/x86_64/ /data/yum_data/centos/<span class="number">6</span>/extras/x86_64/</span><br><span class="line">/usr/<span class="built_in">bin</span>/rsync -av rsync://mirrors.ustc.edu.cn/centos/<span class="number">6</span>/updates/x86_64/ /data/yum_data/centos/<span class="number">6</span>/updates/x86_64/</span><br><span class="line"><span class="comment"># epel源</span></span><br><span class="line">/usr/<span class="built_in">bin</span>/rsync -av --exclude=debug rsync://mirrors.ustc.edu.cn/epel/<span class="number">6</span>/x86_64/ /data/yum_data/epel/<span class="number">6</span>/x86_64/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.zyops.com/autodeploy-yum">http://www.zyops.com/autodeploy-yum</a><br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Yum_(.rpm)">https://en.wikipedia.org/wiki/Yum_(.rpm)</a><br><a target="_blank" rel="noopener" href="http://mirrors.163.com/">http://mirrors.163.com/</a><br><a target="_blank" rel="noopener" href="http://linux.vbird.org/linux_basic/0520rpm_and_srpm.php">http://linux.vbird.org/linux_basic/0520rpm_and_srpm.php</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
+          <p>发表于 2017-07-03<br>1 以管理员身份运行 cmd<br>2 net user administrator passwd</p>
 
       
     </div>
@@ -538,7 +409,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/thinkpad%E5%B0%8F%E7%BA%A2%E7%82%B9%E8%AE%BE%E7%BD%AE-ubuntu/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%BD%BF%E7%94%A8phpipam%E8%AE%B0%E5%BD%95%E5%92%8C%E7%AE%A1%E7%90%86ip%E5%9C%B0%E5%9D%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -556,7 +427,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/thinkpad%E5%B0%8F%E7%BA%A2%E7%82%B9%E8%AE%BE%E7%BD%AE-ubuntu/" class="post-title-link" itemprop="url">thinkpad小红点设置-ubuntu</a>
+          <a href="/2022/07/04/yuque/%E4%BD%BF%E7%94%A8phpipam%E8%AE%B0%E5%BD%95%E5%92%8C%E7%AE%A1%E7%90%86ip%E5%9C%B0%E5%9D%80/" class="post-title-link" itemprop="url">使用phpipam记录和管理ip地址</a>
         </h2>
 
         <div class="post-meta-container">
@@ -568,7 +439,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 09:39:03 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:39:03+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 10:57:21 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T10:57:21+08:00">2022-07-04</time>
     </span>
 
   
@@ -581,10 +452,93 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-06-21<br>今天用小红点操作处理 excel，手都快废了，阻力太大。为了不残，果断找方法。<br>参考：<a target="_blank" rel="noopener" href="http://blog.csdn.net/ropai/article/details/19412243">http://blog.csdn.net/ropai/article/details/19412243</a><br>操作步骤</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装软件包</span></span><br><span class="line">sudo apt-get install sysfsutils</span><br><span class="line"><span class="comment">#在开机启动中设置灵敏度和速度</span></span><br><span class="line">vi /etc/rc.local  <span class="comment">#在exit0 之前添加如下两行</span></span><br><span class="line">echo -n <span class="number">120</span> &gt; /sys/devices/platform/i8042/serio1/speed</span><br><span class="line">echo -n <span class="number">250</span> &gt; /sys/devices/platform/i8042/serio1/sensitivity</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <p>发表于 2017-07-03<br>ip 地址作为一种资源，需要被合理规划和使用，避免资源冲突和浪费。资源管理原则：1）我有哪些资源 2）资源按照什么维度分配 3）各资源区域使用情况（已分配、未分配、在线、离线）</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>一直在寻找静态 ip 管理工具，记录网络规划和使用情况，使用 excel 能记录一些情况，但是 ip 在线情况无法知道，ip 回收忘更新等情况导致 excel 信息不准确。<a target="_blank" rel="noopener" href="https://phpipam.net/">phpipam</a>是一个开源的 ip 管理工具，试用了一下<a target="_blank" rel="noopener" href="https://phpipam.net/demo/">demo</a>，效果不错，着手实践。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装过程参考官方文档 <a target="_blank" rel="noopener" href="https://phpipam.net/news/phpipam-installation-on-centos-7/">phpIPAM installation on CentOS 7</a></p>
+<h3 id="准备-LAMP-环境"><a href="#准备-LAMP-环境" class="headerlink" title="准备 LAMP 环境"></a>准备 LAMP 环境</h3><p>1.设置区域</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># more /etc/environment</span></span><br><span class="line">LC_ALL=en_US.utf-<span class="number">8</span></span><br><span class="line">LANG=en_US.utf-<span class="number">8</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/ubuntu/"># ubuntu</a></p>
+<p>2.安装 apache、mariadb-server、php 及 php 扩展</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install httpd mariadb-server php php-cli php-gd php-common php-ldap php-pdo php-pear php-snmp php-xml php-mysql php-mbstring git</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3 配置和运行 apache sudo vi /etc/httpd/conf/httpd.conf,修改后配置类似</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">ServerName locahost:<span class="number">80</span></span><br><span class="line">&lt;Directory <span class="string">&quot;/var/www/html&quot;</span>&gt;</span><br><span class="line">	Options FollowSymLinks</span><br><span class="line">	AllowOverride <span class="built_in">all</span></span><br><span class="line">	Order allow,deny</span><br><span class="line">	Allow <span class="keyword">from</span> <span class="built_in">all</span></span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line"><span class="comment"># 设置php时区</span></span><br><span class="line">[root@localhost html]<span class="comment"># grep timezone /etc/php.ini</span></span><br><span class="line">; Defines the default timezone used by the date functions</span><br><span class="line">; http://php.net/date.timezone</span><br><span class="line">date.timezone = Asia/Shanghai</span><br><span class="line"><span class="comment"># 运行并设置为开机启动</span></span><br><span class="line">sudo service httpd start</span><br><span class="line">sudo chkconfig httpd on</span><br><span class="line"><span class="comment"># 4.配置mariadb</span></span><br><span class="line">sudo service mariadb start</span><br><span class="line">sudo chkconfig mariadb on</span><br><span class="line">sudo mysql_secure_installation <span class="comment">#设置root密码即可</span></span><br><span class="line"><span class="comment"># 安装phpipam</span></span><br><span class="line">[root@ipam /]<span class="comment"># GIT clone https://github.com/phpipam/phpipam.git /var/www/html/</span></span><br><span class="line">[root@ipam /var/www]<span class="comment"># cd /var/www/html</span></span><br><span class="line">[root@ipam /var/www/html]<span class="comment"># git checkout 1.3</span></span><br><span class="line">sudo chown apache:apache -R /var/www/html/</span><br><span class="line">sudo chcon -t httpd_sys_content_t /data/www/html/ –R</span><br></pre></td></tr></table></figure>
+
+<p>web 浏览器登录 phpipam 地址<a target="_blank" rel="noopener" href="http://192.168.x.x/">http://192.168.x.x</a> 选择第一个自动数据库安装，输入 mariadb 的 root 信息即可。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>网络分为 sections、subnets、ip，第一步是创建一个子网，自动发现子网 ip 及更新 ip 状态<br>1 创建一个子网<br>2 在 web 端“administration-phpIPAM-ICMP settings”中，输入 ping 命令和 fping 命令正确的目录。<br>3 在子网页面”scan subnet“可以扫描出子网中存活的主机，可以选择 discovery，将 discovery 的主机添加到子网中。<br>4 设置定时任务，每 15 分钟执行一次主机状态检测和主机发现。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[app@localhost log]$ crontab -l</span><br><span class="line">*/<span class="number">15</span> * * * * /usr/<span class="built_in">bin</span>/php /var/www/html/functions/scripts/pingCheck.php</span><br><span class="line">*/<span class="number">15</span> * * * * /usr/<span class="built_in">bin</span>/php /var/www/html/functions/scripts/discoveryCheck.php</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://phpipam.net/news/phpipam-installation-on-centos-7/">https://phpipam.net/news/phpipam-installation-on-centos-7/</a><br><a target="_blank" rel="noopener" href="https://phpipam.net/news/automatic-host-availability-check/">https://phpipam.net/news/automatic-host-availability-check/</a><br><a target="_blank" rel="noopener" href="http://m.2cto.com/os/201608/541196.html">http://m.2cto.com/os/201608/541196.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%BF%90%E7%BB%B4/"># 运维</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/apt%E5%AD%A6%E4%B9%A0-%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/04/yuque/apt%E5%AD%A6%E4%B9%A0-%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/" class="post-title-link" itemprop="url">apt学习-设置代理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 10:56:40 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T10:56:40+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>使用代理安装软件包<br>sudo apt-get install ansible -o Acquire::http::proxy=”<a href="http://ip:prot/&quot;">http://ip:prot/&quot;</a><br><a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_002e20310101eai2.html">http://blog.sina.com.cn/s/blog_002e20310101eai2.html</a><br><a target="_blank" rel="noopener" href="http://www.tuicool.com/articles/3auEr2V">http://www.tuicool.com/articles/3auEr2V</a><br><a target="_blank" rel="noopener" href="https://sourceforge.net/projects/phpipam/files/latest/download">https://sourceforge.net/projects/phpipam/files/latest/download</a></p>
 
       
     </div>
@@ -604,7 +558,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/23/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/25/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/23/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/25/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

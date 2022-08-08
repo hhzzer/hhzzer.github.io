@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/yuque/win10%E4%BD%BF%E7%94%A8docker%E5%86%99hexo%E5%8D%9A%E5%AE%A2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/python-web%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/29/yuque/win10%E4%BD%BF%E7%94%A8docker%E5%86%99hexo%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">win10使用docker写hexo博客</a>
+          <a href="/2022/07/04/yuque/python-web%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" class="post-title-link" itemprop="url">python-web测试驱动开发-环境准备</a>
         </h2>
 
         <div class="post-meta-container">
@@ -194,15 +194,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-29 12:35:31" itemprop="dateCreated datePublished" datetime="2022-06-29T12:35:31+08:00">2022-06-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-01 17:15:33" itemprop="dateModified" datetime="2022-07-01T17:15:33+08:00">2022-07-01</time>
+      <time title="创建时间：2022-07-04 09:13:10 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:13:10+08:00">2022-07-04</time>
     </span>
 
   
@@ -215,31 +209,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2018-07-03<br>日常作业平台换为 win10 后，博客需要恢复活力。</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>hexo 博客使用 nodejs 后端框架，win 平台上使用不方便。尝试过使用 win10 ubuntu bash，无法安装完全 npm 包。尝试使用 hyper-v 虚拟机,过程不流畅。最终选择使用 docker，挂在本地目录，在 docker 中写 blog，在宿主机查看效果。</p>
-<h2 id="处理过程"><a href="#处理过程" class="headerlink" title="处理过程"></a>处理过程</h2><h3 id="1-安装-docker-环境"><a href="#1-安装-docker-环境" class="headerlink" title="1 安装 docker 环境"></a>1 安装 docker 环境</h3><ol>
-<li>操作系统为 win10 专业版，bios 开启虚拟化支持，开启 windows 功能 hyper-v。</li>
-<li>注册 docker 账号，下载”Docker for Windows Installer.exe”<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1LmWZHuPTnnSLLXBNPD16RQ">百度云</a></li>
-<li>验证 docker 环境，执行 docker info，能显示正确信息，表面 docker 安装成功。</li>
-<li>修改 docker 镜像为中国地址。右键点击鲸鱼图标-settings-deamon-registry mirrors 中输入<a target="_blank" rel="noopener" href="https://registry.docker-cn.com并应用./">https://registry.docker-cn.com并应用。</a></li>
-</ol>
-<h3 id="2-测试并制作-hexo-server-的-docker-镜像"><a href="#2-测试并制作-hexo-server-的-docker-镜像" class="headerlink" title="2 测试并制作 hexo-server 的 docker 镜像"></a>2 测试并制作 hexo-server 的 docker 镜像</h3><p>通过 docker search hexo 或在<a target="_blank" rel="noopener" href="https://hub.docker.com/">dockerhub</a>,查看 hexo 相关的镜像的 Dockerfile，了解基本的制作过程。发现使用 node 镜像制作 hexo server 比较方便。<br>使用 node 镜像运行 container，运行安装 hexo 测试</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># powershell 中运行</span></span><br><span class="line">cd ~</span><br><span class="line">mkdir myweb &amp;&amp; cd myweb</span><br><span class="line">docker run -v C:\Users\admin\myweb:/mnt -p <span class="number">80</span>:<span class="number">4000</span>  --name hexo_server -it node  env LANG=C.UTF-<span class="number">8</span> /<span class="built_in">bin</span>/bash</span><br><span class="line"><span class="comment"># 在docker中运行</span></span><br><span class="line">apt update</span><br><span class="line">apt install vim -y</span><br><span class="line">npm install hexo-cli -g --registry=https://registry.npm.taobao.org</span><br><span class="line">cd /mnt</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="comment">#如果init报错，则到blog目录中执行npm install --registry=https://registry.npm.taobao.org</span></span><br><span class="line">hexo s</span><br><span class="line"><span class="comment"># 在宿主机浏览器访问http://127.0.0.1,出现hexo博客即表明运行成功。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <p>发表于 2018-03-31<br>做产品就是生儿子来自己养，做运营或运维就是帮人带娃。儿子，还是自己的好，所有要自己做产品。小专栏 sideidea 打了些鸡血，开始吧。</p>
+<h2 id="学习环境"><a href="#学习环境" class="headerlink" title="学习环境"></a>学习环境</h2><p>virtralenv<br>python 3.5.2<br>firefox web explorer 49<br>git<br>pip<br>django 1.8<br>selenium 3.11.0<br>安装环境</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-pip</span><br><span class="line">pip install virtualenv</span><br><span class="line">virtualenv --no-site-packages -pyton=/usr/<span class="built_in">bin</span>/python3 ~/py3dj1<span class="number">.8</span></span><br><span class="line">source ~/py3dj1<span class="number">.8</span>/<span class="built_in">bin</span>/active</span><br><span class="line"><span class="comment">#退出使用 deactivate</span></span><br><span class="line">pip install django==<span class="number">1.8</span></span><br><span class="line">pip install selenium</span><br><span class="line"><span class="comment"># 检查环境</span></span><br><span class="line">source ~/venv/<span class="built_in">bin</span>/activate</span><br><span class="line">python --version</span><br><span class="line">pip -V</span><br><span class="line">pip <span class="built_in">list</span></span><br><span class="line"><span class="comment">#result</span></span><br><span class="line">Django (<span class="number">1.8</span>)</span><br><span class="line">pip (<span class="number">9.0</span><span class="number">.3</span>)</span><br><span class="line">selenium (<span class="number">3.11</span><span class="number">.0</span>)</span><br><span class="line">setuptools (<span class="number">39.0</span><span class="number">.1</span>)</span><br><span class="line">wheel (<span class="number">0.30</span><span class="number">.0</span>)</span><br><span class="line"></span><br><span class="line">source ~/venv/<span class="built_in">bin</span>/activate</span><br><span class="line">python --version</span><br><span class="line">pip -V</span><br><span class="line">pip <span class="built_in">list</span></span><br><span class="line"><span class="comment">#result</span></span><br><span class="line">Django (<span class="number">1.8</span>)</span><br><span class="line">pip (<span class="number">9.0</span><span class="number">.3</span>)</span><br><span class="line">selenium (<span class="number">3.11</span><span class="number">.0</span>)</span><br><span class="line">setuptools (<span class="number">39.0</span><span class="number">.1</span>)</span><br><span class="line">wheel (<span class="number">0.30</span><span class="number">.0</span>)</span><br></pre></td></tr></table></figure>
 
-<h3 id="3-将部署过镜像化"><a href="#3-将部署过镜像化" class="headerlink" title="3 将部署过镜像化"></a>3 将部署过镜像化</h3><p>参考<a target="_blank" rel="noopener" href="https://hub.docker.com/r/emitting/hexo/~/dockerfile/">https://hub.docker.com/r/emitting/hexo/~/dockerfile/</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># powershell运行</span></span><br><span class="line">cd ~\docker</span><br><span class="line">vim Dockerfile</span><br><span class="line"><span class="comment">## 内容如下</span></span><br><span class="line"><span class="comment"># use the node base image provided by official repo</span></span><br><span class="line">FROM node</span><br><span class="line">MAINTAINER hhzzer <span class="string">&quot;csdnmy@gmail.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># prepare work directory</span></span><br><span class="line">WORKDIR /blog</span><br><span class="line"><span class="comment"># install vim</span></span><br><span class="line">RUN apt update</span><br><span class="line">RUN apt install vim -y</span><br><span class="line"><span class="comment"># install hexo</span></span><br><span class="line">RUN npm install hexo-cli -g --registry=https://registry.npm.taobao.org</span><br><span class="line"><span class="comment"># replace this with your application&#x27;s default port</span></span><br><span class="line">EXPOSE <span class="number">4000</span></span><br><span class="line"><span class="comment">## 结束</span></span><br><span class="line">docker build -t hexo-server:v1 .</span><br><span class="line">docker image ls</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>配置 firefox 驱动,参考<a target="_blank" rel="noopener" href="http://blog.hhzzer.com/posts/2f033f8e/">http://blog.hhzzer.com/posts/2f033f8e/</a><br>环境验证<br>functional_tests.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line">browser = webdriver.Firefox()</span><br><span class="line">browser.get(<span class="string">&#x27;http://localhost:8000&#x27;</span>)</span><br><span class="line"><span class="keyword">assert</span> <span class="string">&#x27;Django&#x27;</span> <span class="keyword">in</span> browser.tittle</span><br></pre></td></tr></table></figure>
 
-<h3 id="4-使用-hexo-server-镜像运行容器写博客"><a href="#4-使用-hexo-server-镜像运行容器写博客" class="headerlink" title="4 使用 hexo-server 镜像运行容器写博客"></a>4 使用 hexo-server 镜像运行容器写博客</h3><p>1 将原 hexo 博客文件除 npm 模块目录外，复制到目录”~/myweb/blog”<br>2 在 powershell 中使用自定义镜像，运行容器，并初始化原博客</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># powershell 执行</span></span><br><span class="line">docker run -v C:\Users\admin\myweb\blog:/blog -p <span class="number">80</span>:<span class="number">4000</span>  --name hexo -it hexo-server:v11  env LANG=C.UTF-<span class="number">8</span> /<span class="built_in">bin</span>/bash</span><br><span class="line"><span class="comment"># 容器中执行</span></span><br><span class="line"><span class="comment"># 安装npm包</span></span><br><span class="line">npm install --registry=https://registry.npm.taobao.org</span><br><span class="line">hexo s <span class="comment">#测试</span></span><br><span class="line">hexo new new-post</span><br><span class="line">vim source/_post/new-post.md</span><br><span class="line"><span class="comment">#配置git及hexo免密发布博客</span></span><br><span class="line">git config --</span><br><span class="line">git config --</span><br><span class="line">vim _config.yaml  <span class="comment">#将里面的github地址写为ssh格式 git@github....</span></span><br><span class="line"><span class="comment">#使用sshkeygem，生成密钥，拷贝公钥到blog的仓库的部署密码处。</span></span><br><span class="line"><span class="comment">#设置时区</span></span><br><span class="line">dpkg-reconfigure tzdata</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="遇到的问题及解决"><a href="#遇到的问题及解决" class="headerlink" title="遇到的问题及解决"></a>遇到的问题及解决</h2><ol>
-<li>docker 字符界面输入中文问题<br>通过在 container 启动中加入环境变量参数”env LANG=C.UTF-8”解决。</li>
-<li>运行容器时无法映射端口<br>原因是宿主机网络切换，重启 docker-deamon 解决</li>
-<li>无法挂载本地目录<br>在 docker-deamon 中 settings-sharedvice 中勾选驱动器。可以把时区设置配置到镜像制作中</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="http://blog.163.com/zilichen0213@126/blog/static/17303755520118423614908/">
-</a></p>
-<h2 id="后续改善"><a href="#后续改善" class="headerlink" title="后续改善"></a>后续改善</h2><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html">http://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html</a><br><a target="_blank" rel="noopener" href="https://my.oschina.net/piorcn/blog/324202">https://my.oschina.net/piorcn/blog/324202</a><br><a target="_blank" rel="noopener" href="http://blog.shiqichan.com/Input-Chinese-character-in-docker-bash/">http://blog.shiqichan.com/Input-Chinese-character-in-docker-bash/</a><br><a target="_blank" rel="noopener" href="http://blog.163.com/zilichen0213@126/blog/static/17303755520118423614908/">http://blog.163.com/zilichen0213@126/blog/static/17303755520118423614908/</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/hexo/"># hexo</a></p>
+<p>执行 python functional_tests.py 会打开浏览器。环境配置 ok。<br>书中使用的是 django1.7 环境，但查看 django 官方文档 django 和 python 的兼容性，发现 python3.5 最低支持 1.8 版本，就由 1.7 切换为 1.8 了。</p>
+<h2 id="参考书籍"><a href="#参考书籍" class="headerlink" title="参考书籍"></a>参考书籍</h2><ul>
+<li>python<br><a target="_blank" rel="noopener" href="http://www.diveintopython.net/">Dive Into Python</a><br><a target="_blank" rel="noopener" href="http://hearpythonthehardway.org/">Learn Python the Hard Way</a><br><a target="_blank" rel="noopener" href="http://inventwithpython.com/">Invent Your Own Cames with Python</a></li>
+</ul>
 
       
     </div>
@@ -266,7 +246,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/yuque/%E9%98%BF%E9%87%8C%E4%BA%91%E5%B9%B3%E5%8F%B0%E5%AD%A6%E4%B9%A0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/ubuntu%20python%20selenium%20%E8%B0%83%E7%94%A8firefox%E6%89%BE%E4%B8%8D%E5%88%B0%E9%A9%B1%E5%8A%A8%E8%A7%A3%E5%86%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -284,7 +264,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/29/yuque/%E9%98%BF%E9%87%8C%E4%BA%91%E5%B9%B3%E5%8F%B0%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">阿里云平台学习</a>
+          <a href="/2022/07/04/yuque/ubuntu%20python%20selenium%20%E8%B0%83%E7%94%A8firefox%E6%89%BE%E4%B8%8D%E5%88%B0%E9%A9%B1%E5%8A%A8%E8%A7%A3%E5%86%B3/" class="post-title-link" itemprop="url">ubuntu python selenium 调用firefox找不到驱动解决</a>
         </h2>
 
         <div class="post-meta-container">
@@ -294,15 +274,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-29 12:34:08" itemprop="dateCreated datePublished" datetime="2022-06-29T12:34:08+08:00">2022-06-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-01 17:15:33" itemprop="dateModified" datetime="2022-07-01T17:15:33+08:00">2022-07-01</time>
+      <time title="创建时间：2022-07-04 09:12:11 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:12:11+08:00">2022-07-04</time>
     </span>
 
   
@@ -315,13 +289,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>表于 2018-07-04<br>学习阿里云的基础设施建设，为公司基础设施建设做参考。</p>
-<h2 id="飞天云操作系统"><a href="#飞天云操作系统" class="headerlink" title="飞天云操作系统"></a>飞天云操作系统</h2><p>数据中心-linux 集群为基础物理结构，在此之上构建云。<br>图中黄色部分为飞天云操作系统，基于 8 大子系统构成。远程过程调用、安全管理系统、分布式协同服务器、资源管理系统、分布式文件系统、任务调度系统、集群部署系统、集群监控系统。<br>和传统的单机操作系统如 linux 可以类比。<br>操作系统的作用是管理计算机的硬件资源，提供系统调用便于用户使用计算资源。计算资源包括 cpu、内存、磁盘、网络、输入输出。操作系统控制 cpu 运算和 cpu 切换，为存储器提供编号便于使用。所有的计算机都是冯诺依曼计算机，面向存储器编程的计算机，特点是共享存储，串行执行。<br>linux 内核由 5 个子系统构成：进程管理、内存管理、虚拟文件系统、网络子系统机 IPC 进程间通信。<br>阿里飞天云操作系统中任务调度系统对应进程管理，内存管理对应资源管理系统，分布式文件系统对应虚拟文件系统，远程过程调用对应网络子系统，分布式协同服务器对应进程间通信。安全管理系统独立，便于用户管理。集群部署和集群监控独立，是辅助系统。<br>阿里云飞天操作系统面向的对象是安装好 linux 操作系统，配置好网络的 x86 服务器。在此之上再做抽象层，将资源池化，然后再通过软件定义计算资源、存储资源、网络资源。通过服务将资源组合，供应用系统使用。</p>
-<h2 id="运维介绍"><a href="#运维介绍" class="headerlink" title="运维介绍"></a>运维介绍</h2><p>运维对象包括：服务器、存储、数据库、网络、CDN、IDC、域名解析<br>发展阶段：稳定-&gt;效率-&gt;价值<br>稳定通过基础设施、容灾架构、分工界面、多套环境、容灾演练。<br>效率：发布排期、配管中西；故障相应指挥中心；交付周期成本预算<br>价值：组织协同、预案演练、容量预估。<br>担当的角色有对接层、组织者、优化师。</p>
-<h2 id="阿里云存储"><a href="#阿里云存储" class="headerlink" title="阿里云存储"></a>阿里云存储</h2><p>基于飞天系统，实现盘古分布式存储，在分布式存储上提供多种存储类型。块存储、对象存储、文件存储、表格存储、连接服务。不同存储类型用于不同场景。</p>
-<p>对象存储特点：海量，EB 级别存储容量无上限，万亿级别，文件数量无上限；任意大小，0-48.8TB。高可用、高可靠。安全，账号授权、加密传输存储。跨平台，RESTFul 协议。</p>
-<h2 id="阿里云容器服务"><a href="#阿里云容器服务" class="headerlink" title="阿里云容器服务"></a>阿里云容器服务</h2><p>阿里云容器服务帮助企业实现专有云架构，有方案，有经验，给钱就行。主要方式是部署飞天敏捷版容器服务，将企业应用容器化。用钱铺平容器化过程中的坑。</p>
-<h2 id="其他感想"><a href="#其他感想" class="headerlink" title="其他感想"></a>其他感想</h2><p>没有不能解决的架构难题，如果有，就再抽象一层。由传统数据中心架构转移到云计算中心架构，分布式系统知识不可或缺。参考资料《在线》 by 王坚<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E9%98%BF%E9%87%8C%E4%BA%91/"># 阿里云</a></p>
+          <p>发表于 2018-03-31<br>学习 python-web TDD 时遇到 selenium 调用 firefox 问题，记录一下。</p>
+<p>解决方法<br>从 selenium 3.x 开始，selunium 调用 firefox 驱动名称改为’geckodriver’.<br>firefox 47 以上版本需要下载三方驱动放在系统环境变量中。<br>查看当前 selenium 和 firefox 版本信息，发现符合上述两个条件。</p>
+<p>pip list<br>#result<br>Django (1.7)<br>pip (9.0.3)<br>pytz (2018.3)<br>selenium (3.11.0)<br>setuptools (38.5.2)<br>wheel (0.30.0)<br>apt list firefox<br>#result<br>firefox/xenial-security,now 59.0.2+build1-0ubuntu0.16.04.1 amd64 [installed,automatic]<br>下载并移动到环境变量路径中.到<a target="_blank" rel="noopener" href="https://github.com/mozilla/geckodriver/releases">https://github.com/mozilla/geckodriver/releases</a><br>上找到对应的版本，下载。</p>
+<p>tar -xzvf geckodriver-v0.20.0-linux64.tar.gz<br>sudo mv geckodriver /usr/bin/<br>重启 bash，进入 virtual 后，测试故障排除。</p>
+<p>##附加收获 锁定 firefox 版本<br>查看可用版本</p>
+<p>apt-cache show firefox | grep Version<br>结果</p>
+<p>Version: 47.0+build3-0ubuntu0.16.04.1<br>Version: 45.0.2+build1-0ubuntu1<br>install</p>
+<p>sudo apt-get install firefox=45.0.2+build1-0ubuntu1<br>keep this version</p>
+<p>sudo apt-get install firefox=45.0.2+build1-0ubuntu1<br>解除锁定，升级版本</p>
+<p>sudo apt-mark unhold firefox<br>sudo apt-get upgrade firefox<br>参考链接<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/49568096">https://www.zhihu.com/question/49568096</a><br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/37761668/cant-open-browser-with-selenium-after-firefox-update">https://stackoverflow.com/questions/37761668/cant-open-browser-with-selenium-after-firefox-update</a></p>
 
       
     </div>
@@ -348,7 +325,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/yuque/7%E6%9C%885%E6%97%A5%E6%B5%81%E6%B0%B4%E8%B4%A6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/python-web%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91-TDD%E5%92%8CDjango%E5%9F%BA%E7%A1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -366,7 +343,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/29/yuque/7%E6%9C%885%E6%97%A5%E6%B5%81%E6%B0%B4%E8%B4%A6/" class="post-title-link" itemprop="url">7月5日流水账</a>
+          <a href="/2022/07/04/yuque/python-web%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91-TDD%E5%92%8CDjango%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">python-web测试驱动开发-TDD和Django基础</a>
         </h2>
 
         <div class="post-meta-container">
@@ -376,15 +353,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-29 12:33:09" itemprop="dateCreated datePublished" datetime="2022-06-29T12:33:09+08:00">2022-06-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-01 17:15:33" itemprop="dateModified" datetime="2022-07-01T17:15:33+08:00">2022-07-01</time>
+      <time title="创建时间：2022-07-04 09:04:50 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:04:50+08:00">2022-07-04</time>
     </span>
 
   
@@ -397,25 +368,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2018-07-06<br>今天是匆忙又充实的一天。上午配置 wsus，思考命名规则。下午 AIOPS、物联网概述、命名规则会议。</p>
-<h2 id="windows-更新服务器配置和使用"><a href="#windows-更新服务器配置和使用" class="headerlink" title="windows 更新服务器配置和使用"></a>windows 更新服务器配置和使用</h2><p>不采用域环境，只打算手动更新模板的补丁，操作和网上的教程不一样。</p>
-<h3 id="服务端设置"><a href="#服务端设置" class="headerlink" title="服务端设置"></a>服务端设置</h3><p>wsus 为微软的更新管理服务器，在 windwow2012 上开启功能即可，除了产品(windows2003R2，windows2008R2，windows2012R2)选择需要更新的外，其他都默认配置。为了让客户端快速更新下载补丁，在 wsus 上设置-更新文件和语言-下载快速安装文件。关闭防火墙。</p>
-<h3 id="客户端设置"><a href="#客户端设置" class="headerlink" title="客户端设置"></a>客户端设置</h3><p>客户端设置需要修改组策略中 update 的地址。运行中输入 gpedit.msc,依次浏览到计算机管理-管理模板-windows 组件-windows 更新-指定 intranet microsofte 更新服务位置-编辑-已启用-输入地址“<a href="http://ip:8530”">http://ip:8530”</a> 应用。<br>在 powershell 中执行</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gpupdate /force <span class="comment">#update group policy</span></span><br><span class="line">wuauclt.exe /detectnow <span class="comment">#check update server</span></span><br><span class="line">wuauclt.exe /reportnow <span class="comment">#update local state to wsus</span></span><br><span class="line">net start bits <span class="comment">#windows2012 need start this service ,according to wsus-diagonise tools</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>在服务端中发现机器后，就会针对这个机器，出一个报告，点击需要进行的更新，全选-审批-浏览到计算机组-右键选择审批安装更新。<br>在客户端操作：在检查更新中选择 由系统管理员进行管理 ，检查更新</p>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/skylumia/p/4942628.html">https://www.cnblogs.com/skylumia/p/4942628.html</a> #诊断工具，能诊断一部分，32 位机器程序。</p>
-<h2 id="数据中心逻辑资源命名规则"><a href="#数据中心逻辑资源命名规则" class="headerlink" title="数据中心逻辑资源命名规则"></a>数据中心逻辑资源命名规则</h2><h3 id="命名对象"><a href="#命名对象" class="headerlink" title="命名对象"></a>命名对象</h3><p>vmware 虚拟化产品配置命名：数据中心、vcenter、集群、esxi 主机 hostname、虚拟机、虚拟机目录；标准交换机、分布式交换机、端口组；vSAN 存储。<br>FC 存储配置对象命名：分产品，华为的，hp 的。lun、lun 组、主机、主机组、硬盘域、存储池。<br>光纤交换机配置对象命名：wwn 号别名、zone 名称。</p>
-<h3 id="命名原则"><a href="#命名原则" class="headerlink" title="命名原则"></a>命名原则</h3><ol>
-<li>在公司网络内命名唯一</li>
-<li>能表示出物理位置</li>
-<li>能表示出网络层次</li>
-<li>能表示业务属性和功能</li>
-<li>能表示资源类型</li>
-<li>采用序号区分相同位置、相同层次、相同功能的资源。</li>
-</ol>
-<h2 id="AIOPS"><a href="#AIOPS" class="headerlink" title="AIOPS"></a>AIOPS</h2><p>使用历史数据，借助有监督的机器学习方式，获取告警阈值的预测曲线。告警触发由当前值和预测值之间的差异大小确定。</p>
-<h2 id="物联网概述"><a href="#物联网概述" class="headerlink" title="物联网概述"></a>物联网概述</h2><h3 id="物联网是什么？"><a href="#物联网是什么？" class="headerlink" title="物联网是什么？"></a>物联网是什么？</h3><p>物物互联的网络，能智能识别、管理和控制。物定义为有芯片、存储、系统、程序、通信协议、唯一编码的东西。<br>技术包括：终端技术（传感识别、芯片、嵌入式）、管道技术（lora、2/4G、NB-IOT，eTMC）、平台技术（云计算、大数据）和安全技术。<br>技术特点：智能化、大规模链接。<br>技术架构：4 层。从下往上分为：终端、网络、平台、应用。<br>机遇和挑战：品牌、渠道、网络、技术储备…<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/life/"># life</a></p>
+          <p>发表于 2018-03-31</p>
+<p>更新：<br>原文无内容，写了标题没有把学习过程写下</p>
 
       
     </div>
@@ -442,7 +396,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/yuque/windows2008R2%E5%AE%89%E8%A3%85powercli/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/sslocal%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -460,7 +414,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/29/yuque/windows2008R2%E5%AE%89%E8%A3%85powercli/" class="post-title-link" itemprop="url">windows2008R2安装powercli</a>
+          <a href="/2022/07/04/yuque/sslocal%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">sslocal失败解决方法</a>
         </h2>
 
         <div class="post-meta-container">
@@ -470,15 +424,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-29 12:32:29" itemprop="dateCreated datePublished" datetime="2022-06-29T12:32:29+08:00">2022-06-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-01 17:15:33" itemprop="dateModified" datetime="2022-07-01T17:15:33+08:00">2022-07-01</time>
+      <time title="创建时间：2022-07-04 09:03:18 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:03:18+08:00">2022-07-04</time>
     </span>
 
   
@@ -491,14 +439,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2018-07-06<br>今天需要在新环境上批量创建虚拟机，安装脚本执行环境时踩坑无数，记录备查。</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>新环境需要批量分配 vmware 虚拟机，采用 vmware 的 powercli 工具，调用脚本创建。安装 powercli 工具时提示依赖.net4.5 和 powershell3.0，手动安装.net4.0 和 powershell3.0 的更新包报错不支持。</p>
-<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>.net4.5 安装包由其他地方拷贝过来，安装时报错。环境开启外网，直接安装 vmare-powercli6.5,会自动下载.net4.5 并安装成功。自动下载安装 powershell3.0 时报错。<br>根据报错浏览到微软官网 powershell3.0 安装的补丁页面，下载合适的版本后，手动安装，提示不支持当前系统。仔细看先决条件，发现只能安装在 windows2008 R2 sp1 上，操作环境系统没有 sp1 补丁。下载 sp1 补丁安装。dotnet4.5 手动安装失败也是由于 sp1 补丁没安装的原因。<br>sp1 补丁安装完成后，再安装包含 powershell3.0 的补丁，然后再安装 VMware-powercli 工具，安装成功。<br>其他<br>管理员权限打开 vmare-powerCLI，执行命令 Set-ExecutionPolicy RemoteSigned,允许 powerCLI 执行远程命令。<br>查看 powershell 版本: 在 powershell 中输入 $host<br>查看是否有 sp1 补丁： 右键计算机-属性-windows 版本，有 sp1 会有标注，没有则空白。</p>
-<h2 id="教训"><a href="#教训" class="headerlink" title="教训"></a>教训</h2><ol>
-<li>清楚当前操作环境，windows 版本带 sp 和不带 sp 的差别大。</li>
-<li>下载和安装软件看清楚依赖和安装说明，了解软件需要安装的环境，下载正确对应环境的软件。</li>
-</ol>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/download/details.aspx?id=5842">https://www.microsoft.com/zh-cn/download/details.aspx?id=5842</a> #sp1<br><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/download/details.aspx?id=30653">https://www.microsoft.com/en-us/download/details.aspx?id=30653</a> #dotnet4.5<br><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-za/download/details.aspx?id=34595">https://www.microsoft.com/en-za/download/details.aspx?id=34595</a> #powercli3.0<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/vmare/"># vmare</a></p>
+          <blockquote>
+<p>好久不锻炼，都不知道动作了。</p>
+</blockquote>
+<p>ss_config</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;server&quot;</span>:<span class="string">&quot;ip&quot;</span>,</span><br><span class="line">    <span class="string">&quot;server_port&quot;</span>:<span class="number">1081</span>,</span><br><span class="line">    <span class="string">&quot;local_address&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;local_port&quot;</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="string">&quot;password&quot;</span>:<span class="string">&quot;pass&quot;</span>,</span><br><span class="line">    <span class="string">&quot;timeout&quot;</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="string">&quot;method&quot;</span>:<span class="string">&quot;aes-256-cfb&quot;</span></span><br><span class="line">    <span class="string">&quot;fast_open&quot;</span>: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用方法 sslocal -c ss_config<br>使用会报错“AttributeError: /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1: undefined symbol: EVP_CIPHER_CTX_cleanup”，查询后是由于 openssl 版本升级，修改了以前的函数名称，而 ss 还使用了旧函数名。解决方法是修改旧函数名为新名称</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/lib/python2<span class="number">.7</span>/dist-packages/shadowsocks/crypto/openssl.py</span><br><span class="line"><span class="comment">#修改52行和111行的函数，libcrypto.EVP_CIPHER_CTX_cleanup,修改为libcrypto.EVP_CIPHER_CTX_reset</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>参考链接<br><a target="_blank" rel="noopener" href="https://github.com/shadowsocks/shadowsocks/wiki/Configuration-via-Config-File">https://github.com/shadowsocks/shadowsocks/wiki/Configuration-via-Config-File</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/lzhd24/p/6686803.html">http://www.cnblogs.com/lzhd24/p/6686803.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
 
       
     </div>
@@ -525,7 +475,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/yuque/%E8%BF%9B%E5%8C%96-%E8%B5%B5%E6%88%90-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E9%82%93%E5%B0%8F%E5%B9%B3%E4%BC%A0-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -543,7 +493,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/29/yuque/%E8%BF%9B%E5%8C%96-%E8%B5%B5%E6%88%90-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">进化-赵成-读书笔记</a>
+          <a href="/2022/07/04/yuque/%E9%82%93%E5%B0%8F%E5%B9%B3%E4%BC%A0-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">邓小平传-读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -553,15 +503,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-29 12:31:31" itemprop="dateCreated datePublished" datetime="2022-06-29T12:31:31+08:00">2022-06-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-01 17:15:33" itemprop="dateModified" datetime="2022-07-01T17:15:33+08:00">2022-07-01</time>
+      <time title="创建时间：2022-07-04 08:58:39 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T08:58:39+08:00">2022-07-04</time>
     </span>
 
   
@@ -574,14 +518,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2018-07-10<br>软件架构的目的，是将构建和维护所需的人力资源降到最低。<br>1 天翻完这本书，主题就这一句话。整本书跳出运维看运维，从架构角度分析运维工作并提出一些实践方式。分为 4 大部分：</p>
-<h2 id="应用运维体系建设"><a href="#应用运维体系建设" class="headerlink" title="应用运维体系建设"></a>应用运维体系建设</h2><h3 id="运维的本质"><a href="#运维的本质" class="headerlink" title="运维的本质"></a>运维的本质</h3><p>在不同公司不同架构下，运维的有着不同定义。在 google 或 nNetfix，SRE 定义为：用软件工程的方法重新设计和定义运维工作。运维的核心对象为应用，要建设应用模型和关系模型。</p>
-<h3 id="运维体系建设"><a href="#运维体系建设" class="headerlink" title="运维体系建设"></a>运维体系建设</h3><p>基础设施标准化、应用层面标准化、基础架构标准化、从生命周期看体系建设。</p>
-<h3 id="配置管理数据库"><a href="#配置管理数据库" class="headerlink" title="配置管理数据库"></a>配置管理数据库</h3><p>配置管理数据库记录运维对象、运维流程及运维过程，是运维过程数据沉淀的地方。cmdb 是面向资源的，是运维的基石。应用配置管理是面向应用的管理，是运维的核心。</p>
-<h3 id="运维组织架构"><a href="#运维组织架构" class="headerlink" title="运维组织架构"></a>运维组织架构</h3><p>开卷方面的内容，自服务化。</p>
-<h2 id="效率和稳定性最佳实践"><a href="#效率和稳定性最佳实践" class="headerlink" title="效率和稳定性最佳实践"></a>效率和稳定性最佳实践</h2><p>为了达到效率，需要持续交付。持续交付需要配置管理、对环境配置管理、多环境建设。<br>稳定性实践：容量规划、限流降级、开关和预案、全链路跟踪。<br>故障管理：故障定级定则、故障应急、故障复盘。</p>
-<h2 id="云计算思考和实践"><a href="#云计算思考和实践" class="headerlink" title="云计算思考和实践"></a>云计算思考和实践</h2><p>Spring Cloud<br>CNCF<br>CDN</p>
-<h2 id="个人成长和趋势分析"><a href="#个人成长和趋势分析" class="headerlink" title="个人成长和趋势分析"></a>个人成长和趋势分析</h2><p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
+          <p>发表于 2018-06-09</p>
+<blockquote>
+<p>好久没更新博客了。一是没有经常使用笔记本，写博客只能在私用笔记上，就发文较少。二是用了一段时间蚂蚁笔记写博客，还充值 50 购买一年会员，以为会在上面常驻，结果不了了之。三是记录工作文档都在语雀上。</p>
+</blockquote>
+<p>在网易蜗牛阅读上，花了 3 周时间把邓小平传看完，记录下。<br>邓小平 1904 年出生在四川广安，有亲戚做生意，资助他上学。清政府洋务运动和法国大革命后缺劳动力，通过层层考试 16 岁去了法国勤工俭学。到法国没上几天学，就去工厂上班糊口。加入法国的华人共产党，给书记周恩来做助理印党内刊物。法国混了一段时间后又去莫斯科，和冯玉祥的儿子一起上学。国共第一次合作时回国参加共产党运动。南昌起义后在广西发动百色起义。国共合作分裂后随红军长征到延安。到延安与第二任妻子结婚，毛泽东等出席。<br>解放战争时刘邓大军，邓小平为政委。文革时期下放到江西鹰潭。文化大革命末期周恩来招进北京，准备重用。对文化大革命的态度导致再次下台修养。1976 年周毛逝去，与华国锋一起领导中国。<br>与华国锋共事时对两个凡事有不同看法，出现分歧。十一届三中全会正式独揽大权，开始改革开放。三个特区深圳、珠海、厦门在开放中迅速发展。<br>对外外交强硬坚毅。解决香港问题，坚定台湾立场。打击越南和苏联，和美国日本亲密接触。<br>1992 年南方专列，加速改革开放。<br>看完后对领导人有了多角度的认识。胡锦涛处理西藏问题厉害，江泽民处理学生问题当主席。曾庆红是延安幼儿园长家的，关系广。薄一波为财政部长，习仲勋广州书记经济建设能力强。朱镕基与世界银行专家一起诊断中国经济，经济能力好。赵紫阳，胡耀邦对言论宽容引发不稳定下台。万里处理铁路运动，李鹏为周恩来养子 1989 年维稳功劳大。叶剑英为上海富家子弟，不热衷政治，大家都好。<br>国家发展哪里，哪里就能发展，读懂政策很重要。深圳特区就是例子。<br>二胎政策开放就是增加房地产需求，供不应求，房价就要涨。<br>后知后觉，要总结经验教训。</p>
 
       
     </div>
@@ -601,7 +542,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

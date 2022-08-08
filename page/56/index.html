@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/07/ansible%E6%97%A5%E5%B8%B8%E7%94%A8%E9%80%94%E6%80%BB%E7%BB%93/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/10/10/yuque/%E8%AF%AD%E9%9B%80API%E8%B0%83%E7%94%A8%E5%88%9D%E6%8E%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/06/07/ansible%E6%97%A5%E5%B8%B8%E7%94%A8%E9%80%94%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">ansible日常用途总结</a>
+          <a href="/2018/10/10/yuque/%E8%AF%AD%E9%9B%80API%E8%B0%83%E7%94%A8%E5%88%9D%E6%8E%A2/" class="post-title-link" itemprop="url">语雀API调用初探</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,7 +195,265 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-06-07 21:55:16" itemprop="dateCreated datePublished" datetime="2017-06-07T21:55:16+08:00">2017-06-07</time>
+      <time title="创建时间：2018-10-10 16:48:08" itemprop="dateCreated datePublished" datetime="2018-10-10T16:48:08+08:00">2018-10-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 11:46:47" itemprop="dateModified" datetime="2022-06-29T11:46:47+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>语雀发布以来，写文档都在语雀上，很方便。但之前的 hexo 博客就基本荒废。从语雀的定位-文档仓库来看，语雀适合做仓库保管文档，不适合展示，还是博客展示更方便。看见阮一峰赞了一篇文章<a target="_blank" rel="noopener" href="https://www.yuque.com/page/luan.ma/yuque2blog">静态博客使用语雀编辑器</a>，思路是在语雀上存档文章，用下载工具下载到文章的 markdown 格式到 hexo 文章目录，然后 hexo 解析生成 html 页面并发布，解决痛点，实施。<br>实施过程中使用<a target="_blank" rel="noopener" href="https://github.com/x-cold/yuque-hexo/">yuque-hexo</a> 下载语雀文档，报错，暂时无法解决（原因是 nodejs 版本&lt;8.0,通过提问文档作者获得答案）就开始研究语雀文档 API，自己调用 API 下载，本篇文章记录初探 API 过程。</p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p><a target="_blank" rel="noopener" href="https://www.yuque.com/yuque/developer/api">语雀开发者文档</a> 中的示例，使用 postman 调用 API<br>获取用户信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /users/:login</span><br></pre></td></tr></table></figure>
+
+<p>在 postman 中调用方式如下图。之前报错是由于 postman 中输入的参数，默认会在 baseurl 后面加？key=value，这种格式不能正确请求。<br><img src="http://huilu-blog.colinspace.com//FkvcUW1bfnNlyYHWctrl8VAcuGB0.png"></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://luan.ma/post/yuque2blog/">https://luan.ma/post/yuque2blog/</a><br><a target="_blank" rel="noopener" href="https://www.getpostman.com/apps">https://www.getpostman.com/apps</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/08/22/yuque/%E3%80%8A%E6%9E%AA%E7%82%AE%E3%80%81%E6%9D%86%E8%8F%8C%E5%92%8C%E9%92%A2%E9%93%81%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/08/22/yuque/%E3%80%8A%E6%9E%AA%E7%82%AE%E3%80%81%E6%9D%86%E8%8F%8C%E5%92%8C%E9%92%A2%E9%93%81%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《枪炮、杆菌和钢铁》读书笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-08-22 06:57:54" itemprop="dateCreated datePublished" datetime="2018-08-22T06:57:54+08:00">2018-08-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>不同社会之所以在不同大陆得到不同发展，原因在于大陆环境得差异，而非人类的生物差异。</p>
+</blockquote>
+<p>耶利的问题：为什么你们白人制造了那么多货物并将它们运到新几内亚来，而我们黑人却几乎没有属于我们自己的货物呢？<br>为什么在不同大陆上人类以如此不同的速度发展呢？</p>
+<h3 id="全书概览"><a href="#全书概览" class="headerlink" title="全书概览"></a>全书概览</h3><p>全书分为四部分</p>
+<h4 id="一、从伊甸园到卡哈马卡"><a href="#一、从伊甸园到卡哈马卡" class="headerlink" title="一、从伊甸园到卡哈马卡"></a>一、从伊甸园到卡哈马卡</h4><p>分为三章，第 1 章为人类进化概览，第 2 章为海岛研究考察历史进化的例子，第 3 章为皮萨罗征服印加帝国历史事件描述。</p>
+<h4 id="二、粮食生产的出现和传播"><a href="#二、粮食生产的出现和传播" class="headerlink" title="二、粮食生产的出现和传播"></a>二、粮食生产的出现和传播</h4><p>第二部分为回答耶利问题，探寻根本原因，分为 4-10 章阐述。</p>
+<ol start="4">
+<li><p>粮食生产是皮萨罗战胜印加帝国的原因</p>
+</li>
+<li><p>有些地区自己发展出粮食生产，有些地区从别处学会粮食生产，有些地区依然过着采集狩猎生活。</p>
+</li>
+<li><p>促使地区发展出粮食生产的原因</p>
+</li>
+</ol>
+<p>7-9. 农作物和动物的驯化</p>
+<ol start="10">
+<li>大陆轴线影响粮食生产传播</li>
+</ol>
+<h4 id="三、从粮食到枪炮、病菌与钢铁"><a href="#三、从粮食到枪炮、病菌与钢铁" class="headerlink" title="三、从粮食到枪炮、病菌与钢铁"></a>三、从粮食到枪炮、病菌与钢铁</h4><p>从密集人口所特有的病菌演化开始，从近似原因到终极原因分析。11 欧亚大陆病菌杀死其他大陆民族，12 粮食生产促进文字产生，13 技术创新依赖于许多具有特质的文化因素。14 粮食促进政治产生。</p>
+<h4 id="四、五章巡游世界"><a href="#四、五章巡游世界" class="headerlink" title="四、五章巡游世界"></a>四、五章巡游世界</h4><p>将第二和第三部分的原因分析澳大利亚、中国、美洲、非洲的进化历程，验证假设。</p>
+<h3 id="读后感"><a href="#读后感" class="headerlink" title="读后感"></a>读后感</h3><p>读时完全迷失在书中的描述和事实中，掩卷回顾，才发现此书逻辑脉络。带着目录去读书，效果可能好一些。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/16/ubuntu%E6%97%A0%E6%B3%95%E6%89%A7%E8%A1%8Cpasswd%E5%91%BD%E4%BB%A4%E6%8E%92%E6%9F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/06/16/ubuntu%E6%97%A0%E6%B3%95%E6%89%A7%E8%A1%8Cpasswd%E5%91%BD%E4%BB%A4%E6%8E%92%E6%9F%A5/" class="post-title-link" itemprop="url">ubuntu无法执行passwd命令排查</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2017-06-16 16:14:07 / 修改时间：16:19:09" itemprop="dateCreated datePublished" datetime="2017-06-16T16:14:07+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>使用模板创建ubuntu14.04系统时，修改root密码报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># passwd</span><br><span class="line">passwd: Module is unknown</span><br><span class="line">passwd: password unchanged</span><br></pre></td></tr></table></figure>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
+<li><p>查看auth.log,发现是缺包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu-virtual-machine:/home/app# tail -n 2 /var/log/auth.log</span><br><span class="line">Jun 16 14:21:39 ubuntu-virtual-machine passwd[1505]: PAM unable to dlopen(pam_cracklib.so): /lib/security/pam_cracklib.so: cannot open shared object file: No such file or directory</span><br><span class="line">Jun 16 14:21:39 ubuntu-virtual-machine passwd[1505]: PAM adding faulty module: pam_cracklib.so</span><br></pre></td></tr></table></figure></li>
+<li><p>安装缺失的包<code>apt-get install libpam-cracklib</code></p>
+</li>
+<li><p>验证执行<code>passwd</code>,不报错。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://goinggnu.wordpress.com/2015/06/04/solution-for-passwd-module-is-unknown-issue-in-ubuntu/">https://goinggnu.wordpress.com/2015/06/04/solution-for-passwd-module-is-unknown-issue-in-ubuntu/</a></p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/14/%E4%BD%BF%E7%94%A8keepass%E7%AE%A1%E7%90%86%E5%AF%86%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/06/14/%E4%BD%BF%E7%94%A8keepass%E7%AE%A1%E7%90%86%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">使用keepass管理密码和seafile私人云盘</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-06-14 16:36:04" itemprop="dateCreated datePublished" datetime="2017-06-14T16:36:04+08:00">2017-06-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -216,35 +474,16 @@
     
     <div class="post-body" itemprop="articleBody">
           <blockquote>
-<p>没有使用ansible工具，运维工作也能持续开展。使用ansible是为了运维效率提升，准确度提升。</p>
+<p>各种密码需要安全保存，暂用keepass。特点多平台支持：windows，ubuntu。开源。云盘相继倒闭，通过利用云服务器和seafile，搭一个私人云盘怎样？</p>
 </blockquote>
-<h2 id="为什么使用ansible"><a href="#为什么使用ansible" class="headerlink" title="为什么使用ansible"></a>为什么使用ansible</h2><p>ansible可以方便的管理大量主机。ansible使用ssh通道传输，被管理主机无需安装任何agent。主机清单文件可使用变量方便设定ssh连接信息。</p>
-<p>ansible管理主机比在主机上执行shell更高效和安全。<br>官方和社区将基础功能（用户管理、文件管理、软件包管理、服务管理）封装成模块，完成特定工作只需调用合适的模块即可，无需自己编写复杂的shell脚本。模块由经验丰富人员编写及大量人员测试，安全性较自编脚本高。</p>
-<h2 id="日常工作内容与ansible结合设想"><a href="#日常工作内容与ansible结合设想" class="headerlink" title="日常工作内容与ansible结合设想"></a>日常工作内容与ansible结合设想</h2><p>1 vmware虚拟机创建</p>
-<p>创建指定cpu、内存、硬盘、操作系统的虚拟机，并配置合适的ip地址，目前使用图形界面方式创建。ansible有虚拟化相关模块，后期考虑是否使用ansible命令创建虚拟机。</p>
-<p>2 虚拟机资源变更</p>
-<p>包括变更磁盘、内存、cpu、网卡。磁盘扩容采用linux命令扩容，考虑是否将扩容语句编写为shell或ansible-playbook。</p>
-<p>3 物理机系统安装及初始化</p>
-<p>根据要求安装操作系统、配置网络及系统初始化。初始化包括：ip设置、网卡绑定、配置源、防火墙关闭、selinux关闭、创建用户及组、设置sudo、修改root密码、设置history时间戳、升级openssl和openssh、安装nagois监控或zabbix监控、时间同步服务器。将系统安装后的初始化工作和检查工作编写为合适的ansible playbook，能极大的提升部署效率和准确率。</p>
-<h2 id="常用ansible模块"><a href="#常用ansible模块" class="headerlink" title="常用ansible模块"></a>常用ansible模块</h2><p>目前使用ansible模块有</p>
+<h3 id="keepass安装过程"><a href="#keepass安装过程" class="headerlink" title="keepass安装过程"></a>keepass安装过程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-add-repository ppa:jtaylor/keepass</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install keepass2</span><br></pre></td></tr></table></figure>
+<p>报错处理：windows上创建的密码库在ubuntu上打不开，原因为语言问题，两边都选择英文即可。</p>
+<h3 id="seafile使用"><a href="#seafile使用" class="headerlink" title="seafile使用"></a>seafile使用</h3><p>seafile有社区版、专业版、企业版。要实现文件锁定，要使用企业版才行。企业版有限制用户数，通过修改数据库可突破。</p>
+<p>seafile是一个团队写作的好工具。</p>
 <ul>
-<li>setup 收集主机系统信息，包括主机操作系统、硬件配置、网络设置。</li>
-<li>shell、command、raw 。执行linux命令，检查或配置系统。</li>
-<li>copy 拷贝文件到主机。</li>
-<li>service 启动、停止、重启服务</li>
-<li>yum、apt。安装软件</li>
-<li>user 设置系统用户</li>
-<li>group 设置组</li>
-<li>debug 输出调试信息</li>
-</ul>
-<h2 id="已使用playbook"><a href="#已使用playbook" class="headerlink" title="已使用playbook"></a>已使用playbook</h2><ul>
-<li>检查系统资源</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line"># 使用setup检查系统资源，使用debug输出ip、os版本、cup核数、内存、硬盘信息。</span><br><span class="line">- hosts: local</span><br><span class="line">  tasks:</span><br><span class="line">  - name: print info</span><br><span class="line">    debug:</span><br><span class="line">      msg: &quot;ip:&#123;&#123;ansible_all_ipv4_addresses[0]&#125;&#125; ipv4:&#123;&#123;ansible_default_ipv4.address&#125;&#125; OS:&#123;&#123;ansible_distribution&#125;&#125;-&#123;&#123;ansible_distribution_version&#125;&#125; CUP:&#123;&#123;ansible_processor_vcpus&#125;&#125; Memory:&#123;&#123;ansibsile_memtotal_mb&#125;&#125; Disk:&#123;&#123;ansible_devices.sda.size&#125;&#125;&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>运行方式及结果</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook  book4  | grep msg</span><br><span class="line">..</span><br><span class="line">    &quot;msg&quot;: &quot;ip:192.168.199.186 ipv4:192.168.199.186 OS:Ubuntu-16.04 CUP:2 Memory:3845 Disk:111.79 GB&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>安装zabbix-agent<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: many</span><br><span class="line">  sudo: yes</span><br><span class="line">  tasks:</span><br><span class="line">  - name: yum wget</span><br><span class="line">    shell: yum install wget -y</span><br><span class="line">  - name: wget zabbix agent</span><br><span class="line">    shell: cd /usr/src;wget http://x/data/zabbix/agents/centos7/zabbix-agent-3.0.9-1.el7.x86_64.rpm</span><br><span class="line">  - name: yum install</span><br><span class="line">    shell: yum localinstall /usr/src/zabbix-agent-* -y</span><br><span class="line">  - name: modify server ip</span><br><span class="line">    shell: sed -i &#x27;s/Server=127.0.0.1/Server=x/g&#x27; /etc/zabbix/zabbix_agentd.conf</span><br><span class="line">  - name: modify hostname</span><br><span class="line">    shell: ip=`hostname -I |awk &#x27;&#123;print $1&#125;&#x27;`; sed -i &quot;s/Hostname=Zabbix server/Hostname=$ip/g&quot; /etc/zabbix/zabbix_agentd.conf</span><br><span class="line">  - name: restart zabbix-agent</span><br><span class="line">    shell: systemctl enable zabbix-agent;systemctl restart zabbix-agent</span><br><span class="line">~</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>个人资料库和公共资料库 公私分明</li>
+<li>wiki页面可方面记录经验，有一定的权限控制（同组可看，可锁定权威文档，避免修改）</li>
+<li>客户端使用同步盘方式，避免网络问题引起的故障。（多个客户端异步修改文件怎么解决冲突？）</li>
 </ul>
 
       
@@ -272,7 +511,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/05/vmware%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/12/%E9%80%9A%E8%BF%87ovf%E6%A8%A1%E6%9D%BF%E9%83%A8%E7%BD%B2%E8%99%9A%E6%8B%9F%E6%9C%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -290,7 +529,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/06/05/vmware%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">vmware PowerCLI命令笔记</a>
+          <a href="/2017/06/12/%E9%80%9A%E8%BF%87ovf%E6%A8%A1%E6%9D%BF%E9%83%A8%E7%BD%B2%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="post-title-link" itemprop="url">通过ovf模板部署虚拟机</a>
         </h2>
 
         <div class="post-meta-container">
@@ -301,7 +540,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-06-05 09:27:12" itemprop="dateCreated datePublished" datetime="2017-06-05T09:27:12+08:00">2017-06-05</time>
+      <time title="创建时间：2017-06-12 08:49:02" itemprop="dateCreated datePublished" datetime="2017-06-12T08:49:02+08:00">2017-06-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -321,258 +560,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="http://www.vmware.com/support/developer/PowerCLI/PowerCLI65R1/html/index.html">http://www.vmware.com/support/developer/PowerCLI/PowerCLI65R1/html/index.html</a><br><a target="_blank" rel="noopener" href="http://www.vmware.com/support/developer/PowerCLI/PowerCLI65R1/doc/vmware-powecli-65r1-user-guide.pdf">http://www.vmware.com/support/developer/PowerCLI/PowerCLI65R1/doc/vmware-powecli-65r1-user-guide.pdf</a><br><a target="_blank" rel="noopener" href="https://my.vmware.com/en/group/vmware/info?slug=datacenter_cloud_infrastructure/vmware_vsphere/6_5#drivers_tools">下载地址</a>需要登录<br><a target="_blank" rel="noopener" href="http://www.virtuallyghetto.com/2013/11/how-to-run-nested-esxi-on-top-of-vsan.html">http://www.virtuallyghetto.com/2013/11/how-to-run-nested-esxi-on-top-of-vsan.html</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/qq_35611533/article/details/51917475">http://blog.csdn.net/qq_35611533/article/details/51917475</a><br><a target="_blank" rel="noopener" href="https://wenku.baidu.com/view/e502b1365627a5e9856a561252d380eb62942309.html?re=view">https://wenku.baidu.com/view/e502b1365627a5e9856a561252d380eb62942309.html?re=view</a></p>
-<h2 id="测试环境搭建"><a href="#测试环境搭建" class="headerlink" title="测试环境搭建"></a>测试环境搭建</h2><p>坑点<br>1 ESXi不能安装在vsan存储上，尝试安装在hp-3par存储上，成功安装esxi主机。</p>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h2 id="PowerCLI升级"><a href="#PowerCLI升级" class="headerlink" title="PowerCLI升级"></a>PowerCLI升级</h2><p>powercli执行零散命令，vmware官方提供了Orchestrator方案，类似于ansible的tower。通过创建专门的工作流服务器，固话常见的管理任务， 比如创建虚拟机、重装系统等。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#安装打开界面会报错，执行下面语句后重新打开powercli等待加载模块即可。</span><br><span class="line">Set-ExecutionPolicy RemoteSigned</span><br><span class="line">#连接ESXi主机</span><br><span class="line">PowerCLI C:\&gt; connect-viserver 192.168.232.204 –user ‘administrator’ –password ‘VM******’</span><br><span class="line">#查看ESXi主机网卡状态</span><br><span class="line">esxcli network nic list</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/02/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E6%9D%82%E6%83%B3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/06/02/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E6%9D%82%E6%83%B3/" class="post-title-link" itemprop="url">运维杂想</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-06-02 14:13:10" itemprop="dateCreated datePublished" datetime="2017-06-02T14:13:10+08:00">2017-06-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>最近在学习了ansible，通过ad-hoc命令和playbook方式获取主机软硬件信息、安装软件包都很方便。不足之处是编写的脚本经常需要变化，同事之间共享麻烦，没有执行记录等。ansible tower收费产品可能对于一个运维团队来说，是一个不错的产品。</p>
-<p>也了解了腾讯蓝鲸运维平台，其中的配置管理模块和job模块比较好用。配置管理模块有业务视图和三方视图，能记录查询一个业务的结构和资源使用情况，比使用excel好。job模块是结合配置管理的，可在job模块执行临时、定期、定时脚本。脚本变更历史、执行情况都能记录。前提是每台主机需要安装agent，目前还没找到agent安装方法。</p>
-<p>想结合这两个产品，用蓝鲸的配置管理和job模块，但使用asible免agent的方式执行命令，不知可行不？《Ansible权威指南》后面几章讲述了类似方法，后面仔细学习下。</p>
-<p>查询zabbix获取vcenter告警信息时意外想到使用命令行管理vmware虚拟机，找到两篇文章<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/1302_yuanlin_perlvm/">linux</a>，<a target="_blank" rel="noopener" href="http://www.361way.com/powercli-deploy-vmware/4877.html">windows</a>,都可以实现，自己在测试linux机器上安装了，但没有可供测试的ESXi主机，遂搁置。ansible 也有模块操作vsphere,<a target="_blank" rel="noopener" href="http://everythingshouldbevirtual.com/creating-vsphere-vms-using-ansible">ansible创建vmware</a>.发现上面链接的两个地方有大量运维干货，也是意外的惊喜。ibm的比较有逻辑，361way的实践性强。其中一篇<a target="_blank" rel="noopener" href="http://www.361way.com/awk-sed-convert-oneline/5127.html">多行合并一行</a>有用，在使用nmap时就想过，这篇算是解决方案了。zabbix获取vcenter告警信息还没有解决方案，猜想可以通过<a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/3.0/manual/vm_monitoring">虚拟机监控</a>来实现。</p>
-<p>团队可以使用seafile来共享资源和共同编写团队wiki，记录经验。</p>
-<p>django也想学习，太贪婪。想想吴军的关于工作和职业的思考，工作是拿钱给你必须做的事情，职业是自我发展的。有利于职业发展的，不管有钱没钱，都要去做，做好了，有经验了，自己就升值了。赚钱的方式就是让自己值钱并把自己放在合适的位置。知识分为术和道两类，有了心法，各种技术万变不离其中。</p>
-<p>看了一篇<a target="_blank" rel="noopener" href="http://ce.sysu.edu.cn/hope/UploadFiles/Education/2012/2/201202142337246457.pdf">VMware vSphere 基础</a>,对VMware的虚拟化有了进一步认识。VMware虚拟化了3样东西：计算、存储、网络。通过主机迁移、存储迁移、网络端口组，手动管理虚拟机。vcenter有资源调度策略，使用主机迁移、存储迁移、分布式交换机方法，可根据策略（节能、负载均衡）动态调整虚拟机及存储位置。</p>
-<p><a target="_blank" rel="noopener" href="http://www.361way.com/linux-monitor-benchmark-tuning/3745.html">三张图看遍Linux性能监控、测试、优化工具</a>这篇文章应该是linux知识的“道”。监控linux主机时，不知道哪些指标，可以仔细看。内核下接设备驱动，上接系统调用。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/01/ansible-playbook%E5%AE%89%E8%A3%85zabbix-agent/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/06/01/ansible-playbook%E5%AE%89%E8%A3%85zabbix-agent/" class="post-title-link" itemprop="url">ansible-playbook安装zabbix-agent</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-06-01 11:52:26" itemprop="dateCreated datePublished" datetime="2017-06-01T11:52:26+08:00">2017-06-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>ansible-playbook 调试参数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--step #一步一执行</span><br><span class="line">--start-at=“task name” #从某一步开始</span><br><span class="line">-l 192.168.x.x  # 选择主机组中的某一台执行</span><br><span class="line">-C #检查，不执行</span><br><span class="line">-b #become sudo</span><br><span class="line">-K  #输入sudo密码</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>sed 带变量使用双引号（“”）例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip=`hostname -I |awk &#x27;&#123;print $1&#125;&#x27;`; sed -i &quot;s/Hostname=Zabbix server/Hostname=$ip/g&quot; /etc/zabbix/zabbix_agentd.conf&quot;</span><br></pre></td></tr></table></figure>
-<p>添加zabbix-agent</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: many</span><br><span class="line">  sudo: yes</span><br><span class="line">  tasks:</span><br><span class="line">  - name: yum wget</span><br><span class="line">    shell: yum install wget -y</span><br><span class="line">  - name: wget zabbix agent</span><br><span class="line">    shell: cd /usr/src;wget http://X/data/zabbix/agents/centos7/zabbix-agent-3.0.9-1.el7.x86_64.rpm</span><br><span class="line">  - name: yum install</span><br><span class="line">    shell: yum localinstall /usr/src/zabbix-agent-* -y</span><br><span class="line">  - name: modify server ip</span><br><span class="line">    shell: sed -i &#x27;s/Server=127.0.0.1/Server=172.27.2.99/g&#x27; /etc/zabbix/zabbix_agentd.conf</span><br><span class="line">  - name: modify hostname</span><br><span class="line">    shell: ip=`hostname -I |awk &#x27;&#123;print $1&#125;&#x27;`; sed -i &quot;s/Hostname=Zabbix server/Hostname=$ip/g&quot; /etc/zabbix/zabbix_agentd.conf</span><br><span class="line">  - name: restart zabbix-agent</span><br><span class="line">    shell: systemctl enable zabbix-agent;systemctl restart zabbix-agent</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>安装ssh</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: two</span><br><span class="line">  sudo: yes</span><br><span class="line">  tasks:</span><br><span class="line">  - name: install wget</span><br><span class="line">    yum:</span><br><span class="line">      name: wget</span><br><span class="line">      state: latest</span><br><span class="line">  - name: wget tar.gz</span><br><span class="line">    shell: cd /usr/src;wget http://X/data/openssh/7.5/openssl-1.0.2k.tar.gz;wget http://X/data/openssh/7.5/openssh-7.5p1.tar.gz</span><br><span class="line">  - name: tar</span><br><span class="line">    shell: cd /usr/src;tar xzvf openssl-1.0.2k.tar.gz</span><br><span class="line">  - name: install zlib-devel</span><br><span class="line">    yum:</span><br><span class="line">      name: zlib-devel</span><br><span class="line">      state: latest</span><br><span class="line">  - name: make</span><br><span class="line">    shell: cd /usr/src/openssl-1.0.2k;./config shared zlib;make;make install</span><br><span class="line">  - name: rm old openssl</span><br><span class="line">    shell: mv /usr/bin/openssl /tmp/7;cp -r /usr/include/openssl/ /tmp/openssl-old-7;rm -rf /usr/include/openssl</span><br><span class="line">  - name: link</span><br><span class="line">    shell: ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl;ln -s /usr/local/ssl/include/openssl/ /usr/include/openssl</span><br><span class="line">  - name: ldconfig</span><br><span class="line">    shell: echo &quot;/usr/local/ssl/lib&quot; &gt;&gt; /etc/ld.so.conf ;ldconfig -v</span><br><span class="line">  - name: cp ssh</span><br><span class="line">    shell: cp -r /etc/ssh /etc/ssh-bak03</span><br><span class="line">  - name: yum</span><br><span class="line">    shell: yum install pam pam-devel -y</span><br><span class="line">  - name: chmod /etc/ssh/*.key</span><br><span class="line">    shell: chmod 600 /etc/ssh/*_key</span><br><span class="line">  - name: tar</span><br><span class="line">    shell: cd /usr/src;tar zxvf openssh-7.5p1.tar.gz</span><br><span class="line">  - name: install</span><br><span class="line">    shell: cd /usr/src/openssh-7.5p1;./configure --prefix=/usr --sysconfdir=/etc/ssh --without-zlib-version-check --with-ssl-dir=/usr/local/ssl --with-pam;make;make install</span><br><span class="line">  - name: modify sshd_config</span><br><span class="line">    shell: sed -i &#x27;s/#UseLogin no/UseLogin yes/g&#x27; /etc/ssh/sshd_config</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>centos7 防火墙关闭</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#查看防火墙状态</span><br><span class="line">systemctl status firewalld</span><br><span class="line">#关闭防火墙</span><br><span class="line">systemctl stop firewalld</span><br><span class="line">#禁止开机启动</span><br><span class="line">systemctl disable firewalld</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>ansible 学习参考专栏<br><a target="_blank" rel="noopener" href="http://blog.csdn.net/column/details/ansibleheadfirst.html">http://blog.csdn.net/column/details/ansibleheadfirst.html</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/31/Django%E5%AD%A6%E4%B9%A0-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/31/Django%E5%AD%A6%E4%B9%A0-1/" class="post-title-link" itemprop="url">Django学习-1</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-05-31 11:50:41" itemprop="dateCreated datePublished" datetime="2017-05-31T11:50:41+08:00">2017-05-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="http://djangobook.py3k.cn/2.0/chapter02/">http://djangobook.py3k.cn/2.0/chapter02/</a></p>
-<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 操作系统 ubuntu16.04</span><br><span class="line"># python -V</span><br><span class="line">Python 2.7.12</span><br><span class="line">#安装pip</span><br><span class="line">sudo apt-get -y install python-pip</span><br><span class="line">#安装Django</span><br><span class="line">sudo pip install Django==1.11.1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="初步了解"><a href="#初步了解" class="headerlink" title="初步了解"></a>初步了解</h3><p>看完参考资料，对django有了初步了解。<br>url,浏览器请求的地址，<br>views，定义url定义的函数，<br>template，渲染views返回的数据。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#开启一个项目</span><br><span class="line">django-admin.py startproject mysite</span><br><span class="line">#创建一个应用</span><br><span class="line">django-admin startapp blog</span><br><span class="line">hhzzer@hhzzer:~/myweb/django-site$ tree .</span><br><span class="line">.</span><br><span class="line">└── mysite</span><br><span class="line">    ├── blog  #名称为blog的应用</span><br><span class="line">    │   ├── admin.py</span><br><span class="line">    │   ├── admin.pyc</span><br><span class="line">    │   ├── apps.py</span><br><span class="line">    │   ├── __init__.py</span><br><span class="line">    │   ├── __init__.pyc</span><br><span class="line">    │   ├── migrations</span><br><span class="line">    │   │   ├── __init__.py</span><br><span class="line">    │   │   └── __init__.pyc</span><br><span class="line">    │   ├── models.py</span><br><span class="line">    │   ├── models.pyc</span><br><span class="line">    │   ├── tests.py</span><br><span class="line">    │   ├── views.py #url对应的函数保存在这</span><br><span class="line">    │   └── views.pyc</span><br><span class="line">    ├── db.sqlite3</span><br><span class="line">    ├── manage.py  #管理站点的命令，runserver</span><br><span class="line">    └── mysite  #管理站点目录</span><br><span class="line">        ├── __init__.py</span><br><span class="line">        ├── __init__.pyc</span><br><span class="line">        ├── settings.py  #设置包含的app等</span><br><span class="line">        ├── settings.pyc</span><br><span class="line">        ├── urls.py  #绑定url到函数</span><br><span class="line">        ├── urls.pyc</span><br><span class="line">        ├── wsgi.py</span><br><span class="line">        └── wsgi.pyc</span><br><span class="line"></span><br><span class="line">4 directories, 22 files</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <blockquote>
+<p>某次会议领导提出可以通过模板创建虚拟机，速度会快些。今天测试并记录一下。</p>
+</blockquote>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>目前采用虚拟机克隆方式，需要进入系统修改ip地址，通过模板+配置文件，能否更快捷一些？</p>
 
       
     </div>
@@ -592,7 +583,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/55/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/55/">55</a><span class="page-number current">56</span><a class="page-number" href="/page/57/">57</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/57/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/55/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/55/">55</a><span class="page-number current">56</span><a class="page-number" href="/page/57/">57</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/57/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

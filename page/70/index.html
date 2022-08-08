@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/05/13/cisco%20snmp%20oid%E7%A0%94%E7%A9%B6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/09/29/first-page/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/05/13/cisco%20snmp%20oid%E7%A0%94%E7%A9%B6/" class="post-title-link" itemprop="url">cisco snmp oid研究</a>
+          <a href="/2016/09/29/first-page/" class="post-title-link" itemprop="url">first page</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,7 +195,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-05-13 14:11:00" itemprop="dateCreated datePublished" datetime="2016-05-13T14:11:00+08:00">2016-05-13</time>
+      <time title="创建时间：2016-09-29 17:09:10" itemprop="dateCreated datePublished" datetime="2016-09-29T17:09:10+08:00">2016-09-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -215,330 +215,334 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>最近使用zabbix监控cisco交换机相关情况，计划使用snmp协议获取监控指标数据，一边研究一边记录整理。<br>##配置snmp协议<br>首先需要在交换机配置snmp服务,其中xxx为自定义连接字符串，RO为只读。<br><code>hostname(config)#snmp-server community xxx RO</code><br>配置完成snmp协议后，就可以通过命令或工具，附带OID参数，获取感兴趣的数据。<br>##查询snmp信息方法<br>linux中可以通过snmpwalk 查询snmp信息。也可以通过<a target="_blank" rel="noopener" href="http://www.wtcs.org/snmp4tpc/getif.htm">Getif工具</a>在window下查询，运行时注意使用兼容模式运行。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@zabbix ~]# snmpwalk -v 2c -c xxx 192.168.xx.xx SNMPv2-SMI::enterprises.9.3.6.3.0</span><br><span class="line">SNMPv2-SMI::enterprises.9.3.6.3.0 = STRING: &quot;FOCxxxx&quot;</span><br></pre></td></tr></table></figure>
-<p>了解了配置snmp服务和查询方法后，要获取监控指标数据，关键是找到OID（Object Identifiters）,也称对象标识符。OID相当于通过snmp协议释放出大量数据组成数据库中的查询条件，输入不同OID，获得不同结果。上面例子中OID=’SNMPv2-SMI::enterprises.9.3.6.3.0’,就查询出设备序列号。</p>
-<p>##获取OID方法</p>
+          <h1 id="This-is-the-fisrt-page"><a href="#This-is-the-fisrt-page" class="headerlink" title="This is the fisrt page"></a>This is the fisrt page</h1><p>I don’t know what to write<br>just want write something</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/09/05/javascript%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/09/05/javascript%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">javascript笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-09-05 13:04:00" itemprop="dateCreated datePublished" datetime="2016-09-05T13:04:00+08:00">2016-09-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在线运行调试javascript环境<a target="_blank" rel="noopener" href="https://jsfiddle.net/">https://jsfiddle.net/</a>。在一个界面写htlm、javascript、CSS 并展示效果。还可以选择使用什么javascript库。<br>今天想用实现一个小web应用：web界面登录、登录成功返回成功页面，登录失败返回失败页面，后台在数据库查询匹配帐号。感觉是要有一个数据库存储用户信息，一个连接数据库的配置文件、一个登录首页、两个登录结果页面，但无从下手。google挖宝挖到的是<a target="_blank" rel="noopener" href="http://icodeit.org/about-me/%EF%BC%8C%E8%A7%89%E5%BE%97%E4%BB%96%E7%9A%84%E4%B8%80%E4%BA%9B%E5%88%86%E4%BA%AB%E6%9C%89%E4%BA%9B%E6%84%8F%E6%80%9D%EF%BC%8C%E9%81%82%E5%BC%80%E5%A7%8B%E5%AE%9E%E8%B7%B5%E4%BB%96%E7%9A%84book[3">http://icodeit.org/about-me/，觉得他的一些分享有些意思，遂开始实践他的book[3</a> Web Designs in 3 Weeks](<a target="_blank" rel="noopener" href="https://www.gitbook.com/book/juntao/3-web-designs-in-3-weeks/details">https://www.gitbook.com/book/juntao/3-web-designs-in-3-weeks/details</a>).</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/08/20/2016-08-20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/08/20/2016-08-20/" class="post-title-link" itemprop="url">how to study 意译</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-08-20 09:58:00" itemprop="dateCreated datePublished" datetime="2016-08-20T09:58:00+08:00">2016-08-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>##Contents<br>PREFACE<br>INTRODUCTION<br>I. THE PROPER MENTAL ATTITUDE   合适的心态<br>(a)Distinction betwwen reading and understanding    区分阅读和理解<br>(b)Distinction between facts,options,and logical conclusions    区分事实、选项和逻辑结论<br>(c)Importance of the questioning habit  问题习惯的重要性<br>(d)Inquiring into methods of ascertaining facts 寻找调查事实的方法<br>(e)Studying evidence of reliability of a writer 研究作者可靠的证据<br>(f)Importance of scientific attitude of mind    科学思维方法的重要性<br>(h)Intellectual modesty 明智的谦虚<br>(i)Wisdom rather than knowledge the aim 目标是智慧而不是知识<br>II.STUDYING UNDERSTANDINGLY 对学习的理解<br>(a)Importance of definite ideas 明确计划的重要性<br>    (1)Use of the dictionary    字典的使用<br>    (2)Practice in definition   练习的定义<br>    (3)Importance of the study of logic    学习逻辑的重要性<br>(b)Stating a thing in different ways    用不同方式表述一件事<br>(c)Stating a thing nagatively as well as positively     积极和消极的表述一件事<br>(d)Observation of necessary qualifying words or phrases     观察必要合格的单词和片段<br>(e)Reflection,illustration,and application     映像、插图和应用<br>(f)Keep the mind active     保持头脑活跃<br>(g)Study of causes of differences of opinion    学习产生不同意见的原因<br>(h)Discrimination of mere assertion from proof      从证据中区别声明<br>III.SYSTEM  系统<br>(a)Importance of grasping the fundamental idea 抓住基本观点的重要性<br>(b)Preliminary arrangement of ideas     观点的初步准备工作<br>(c)Classification and arrangement       分类和安排<br>IV.MENTAL INITIATIVE    主动精神<br>(a)Interest in subject of study essential   对学习主题感兴趣很重要<br>(b)Formulation of problem essential     规划问题很重要<br>(c)Independent work enssential      独立工作很重要<br>(d)Drawing conclusions independent of author    独立于作者描述结论<br>(e)Independence in arrving at conclusions       独立获得结论<br>(f)book 标注<br>(g)Visualizing results      形象化结论<br>V.HABITS OF WORK    工作习惯<br>(a)Selection of book    书籍的选择<br>(b)Proper number of subjects to be studied at once      一次研究合适数目的主题<br>(c)Haste undesirable    拒绝匆忙<br>(d)Taking studies seriously     严肃对待<br>(e)Judicious skipping   正确跳跃<br>(f)Systematic program of work   系统的安排工作<br>(g)Cultivation of connectration     培养联系<br>(h)Applying what is learned     应用所学<br>(i)Avoidance of indifference    避免忽视<br>(j)Thorough knowlege of a few books     彻底学习几本书<br>(k)List of references should be made    必须做参考列表<br>(i)Frequent reviews desirable       满意的回顾频率<br>(m)Regular times for recreative study       规律次数的娱乐学习<br>(n)Physical exercise enssential     锻炼身体<br>SUGGESTIONS TO TEACHERS     给教师的建议<br>IMPORTANCE OF REFUSING TO BE DISCOURAGED,AND OF SEEKING THE WORKD ONE CAN DO BEST<br>REFERENCES</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/08/03/%E6%94%BE%E5%81%87%E5%89%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/08/03/%E6%94%BE%E5%81%87%E5%89%8D/" class="post-title-link" itemprop="url">放假前</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-08-03 15:47:00" itemprop="dateCreated datePublished" datetime="2016-08-03T15:47:00+08:00">2016-08-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>今天下午过完，就有10多天的假期了，内心还是有些小激动的。再来看看我的博客，好久都没有认真写一篇文章了，激动变成了不安。没有事的时候想在网上找点有意思的看看，有不知道在哪里需寻找。自己订阅的rss个人博客好些人好久都不更新，而36kr每天都更新50条，让我看的厌烦。各种新闻或信息聚合平台推荐的信息也不喜欢，就到<a href="blogbar.cc">blogbar</a>逛一下，虽然首页的推荐文章已经4个月没有跟新过了。<br>逛blogbar有技巧，主要看审核通过的个人博客文章，我翻了5页，也找到几个不错的博客<br><a target="_blank" rel="noopener" href="http://shinrai.cc/">http://shinrai.cc/</a> 在校大学生的日常<br><a target="_blank" rel="noopener" href="http://rainman.me/">http://rainman.me/</a> 前端工程师，在里面发现免费ss账号<br><a target="_blank" rel="noopener" href="http://whzecomjm.com/">http://whzecomjm.com/</a> 以色列留学数学家<br>想要一个地方记录下这些链接，但又想：记录保存待看的重来都不会再看，还不如自己看了写一下感想。以色列的数学留学生中考就使用导数解题，我到现在都忘了导数是啥，这就是差距。在图书馆看书才能看下去，把书买回来就不会再看了。因为潜意识中书买回来了就拥有了，就不会再将书装在脑袋里了。跟我最近买回书来也不看，是一个道理。在他的博客里找到了一个wiki工具<a target="_blank" rel="noopener" href="http://tiddlywiki.com/">tiddlywiki</a>下载下来就是一个网页，但是还没有研究顺手，以后看顺手后是不是可以替代farbox记录本地资料。<br>前端工程师雨人是个雷锋，提供了免费的ss账号，让我不必每天每隔6小时从新输入密码。博主自己SEO博客，看到排名变化也是很兴奋的。<br>shinrai是一个在校大学生，最近沉迷于守望先锋，对开挂者痛恨。期末考试大学物理，过与不过在于概率了。他的博客和我一样都是用farbox建立起的，看起来还是有些亲切感。<br><a target="_blank" rel="noopener" href="http://lifeislikeaboat.com/">http://lifeislikeaboat.com/</a> 深圳人在美国，程序员，每月交税1W RMB</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/07/08/%E5%AF%B9%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%80%9D%E8%80%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/07/08/%E5%AF%B9%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%80%9D%E8%80%83/" class="post-title-link" itemprop="url">对前端学习的思考</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-07-08 12:10:00" itemprop="dateCreated datePublished" datetime="2016-07-08T12:10:00+08:00">2016-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>最近学习有点浮躁，反思一下。<br>一直希望做点有技术的事情，增加自己的不可替代性，遂计划学习，在python爬虫和前端之间徘徊。python也依葫芦画瓢做了一个抓取图片的程序，前端主要学习javascript。今天在知乎上逛，发现的大多数人也有这样的疑惑，其中一些回答我是认同的。<br>结论：内部需求驱动学习，学习要知道所以然。而我自己没有强烈的内部需求，学习就产生惰性。看了阮一峰的博客，知道了些前端的所以然，但没有系统总结。<br>###你要从心里明白为什么<br>作者：于江水<br>链接：<a target="_blank" rel="noopener" href="http://www.zhihu.com/question/39721183/answer/83536633">http://www.zhihu.com/question/39721183/answer/83536633</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 <ol>
-<li>通过<a target="_blank" rel="noopener" href="http://tools.cisco.com/Support/SNMP/do/BrowseOID.do?local=en">cisco官方网站查询</a></li>
-<li>通过下载MIB（Management Infomation Base)库，直接在本地查询。<br>一般是先通过网站，查询OID结构，然后再通过Getif工具查询设备，观察返回数据。</li>
+<li>我想做一个个人网站，或者给我们团队或者小组做一些介绍页面。怎么做？搜索发现要学习：HTML、CSS。</li>
+<li>发现一个网站设计的好漂亮，交互真赞，动画效果真好。我想在我自己网站上也放上，可是我看不懂它的代码？搜索发现要学习：交互视觉、CSS3 动画等。</li>
+<li>他们网站上都有那种点击弹出浮层的功能，还有一些其他的更复杂的交互效果。怎么实现的？学习 JavaScript。</li>
+<li>有小学同学说我的个人网站错位了，问了下他用的是 IE7 访问的，怎么办？搜索了解一些浏览器兼容性问题（不是很必要）、学习使用 jQuery。</li>
+<li>我想在微信朋友圈分享一下我的网站，结果缩放的好小，而且有错位。怎么解决这个问题？搜索发现要学习 响应式相关。</li>
+<li>分享了之后，发现打开速度好慢啊，要等十几秒才能打开。怎么办？学一下前端性能优化相关。</li>
+<li>网站交互功能和效果越来越多，写的 JS 和 CSS 代码越来越多，感觉写起来好慢，出了 bug 很难定位问题。怎么办？搜索发现要学习：Emmet、Less、SCSS 等辅助工具用法，JS 模块化 require.js、sea.js 以及对应的 AMD、CMD 以及 CommonJS 模块化规范等。</li>
+<li>JS 更复杂了，而且要与其他同学合作开发。发现需要学习一些前端框架来提高开发效率，比如 React、Angular、Vue，此外还需要一些打包构建工具，将 JS 编译之后发布使用。需要学习 Webpack、Grunt、Gulp 等工具用法。</li>
+<li>网页和应用是开发好了，可是是静态的，没法有数据更新，怎么办？学习前后端数据沟通，Ajax 请求、JSON 数据格式、Fetch API。当然由此延伸，最好还要了解 PHP、Java Velocity、Nodejs 这些后端的知识，还要对 HTTP 的一些状态码、请求类型等有所了解。</li>
+<li>应用部署到哪里？搜索了解：虚拟主机、域名注册、VPS、云主机、Paas、Laas、DNS 解析、在中国做网站要备案但是服务器放在国外就不需要等等。</li>
+<li>每次新创建应用，在我的服务器上都要配置一遍 PHP 环境、Nodejs 环境，有的应用对 PHP 版本要求还不同，怎么办？搜索了解虚拟化技术，Docker 帮你极好的解决这个问题。</li>
+<li>每次发布还要自己手动上传代码到服务器，而且要自己在本地打包、运行单元测试，好麻烦啊。搜索发现可以自己搭建一套持续集成系统，用 git push 代码，自动触发构建，运行单元测试，成功后自动 build 然后给你上传到服务器上面。你只需要写代码就可以了。推荐：gogs + drone + docker。</li>
 </ol>
-<p>###常用OID整理</p>
-<p>MIB和OID<br>OID(对象标识符），是SNMP代理提供的具有唯一标识的键值。MIB（管理信息基）提供数字化OID到可读文本的映射。<br>iReasoning MIB Brower 使用方法<br>下载全平台包<a target="_blank" rel="noopener" href="http://www.ireasoning.com/download/mibfree/mibbrowser.zip">link</a>,解压后cmd到 mibbrowser\ireasoning\mibbrowser\lib 目录，运行 <code>java -jar brower.jar </code> 运行软件。<br>下载 cisco MIB包<a href="ftp://ftp.cisco.com/pub/mibs/v2/v2.tar.gz">link</a>,使用MIBbroswer加载包后执行。</p>
-<p>参考链接：<br><a target="_blank" rel="noopener" href="http://ywzhou.blog.51cto.com/2785388/1580169">http://ywzhou.blog.51cto.com/2785388/1580169</a><br><a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_4502d59c0101fcy2.html">SNMP介绍，OID及MIB库</a><br><a target="_blank" rel="noopener" href="http://anybaby.blog.51cto.com/319977/1388698">http://anybaby.blog.51cto.com/319977/1388698</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/a9254778/article/details/45444109">http://blog.csdn.net/a9254778/article/details/45444109</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/05/07/%E3%80%8A%E5%AF%8C%E7%88%B8%E7%88%B8%E3%80%81%E7%A9%B7%E7%88%B8%E7%88%B8%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/05/07/%E3%80%8A%E5%AF%8C%E7%88%B8%E7%88%B8%E3%80%81%E7%A9%B7%E7%88%B8%E7%88%B8%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/" class="post-title-link" itemprop="url">《富爸爸、穷爸爸》读后感</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-05-07 21:51:00" itemprop="dateCreated datePublished" datetime="2016-05-07T21:51:00+08:00">2016-05-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>通过在杂货店做3周枯燥的收入低的工作，学习不要为钱工作，要让钱为你工作。<br>现金流表和资产负载表认识。资产是能将钱不断装入你口袋的东西，负债是不断从里口袋掏出钱的东西。获得财富就是不断增加资产的过程。人生钱难，钱生钱容易。<br>打工挣钱和开公司挣钱由于税收不同，财富累积速度差异大。工资收入 纳税 消费，公司收入 消费 纳税。<br>工人付出最大努力以免于被解雇，而雇主提供最低工资以防止工人辞职。</p>
-<p>如何做：处理好恐惧与贪婪的关系，给予后获取。</p>
-<p>鸡汤虽好，不可贪杯。操作手法美国可行性高，国内不高。有些思路是值得学习的，再读一遍后整理到后面。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/05/07/%E6%AC%A2%E4%B9%90%E9%A2%82/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/05/07/%E6%AC%A2%E4%B9%90%E9%A2%82/" class="post-title-link" itemprop="url">欢乐颂</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-05-07 21:13:00" itemprop="dateCreated datePublished" datetime="2016-05-07T21:13:00+08:00">2016-05-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>很火的一部连续剧，今天终于看完了。整部剧节奏感强，剧情紧扣现实热点，能引起很多共鸣。<br>整部剧讲的是5个上海都市女青年成长的故事，一层楼的5个邻居有不同的出生背景，也造就了不同的性格，对同一事物的不同看法的冲突，持续推动剧情的发展。主要说说我从5个主角中获得的吧。</p>
-<p>安迪 是个孤儿却很优秀，逻辑思维能力和分析能力都很厉害，虽说剧中被设定为感情方面欠缺，但人际交往能力还是一流的。早上晨跑，每天阅读2小时，多年自律养成的良好习惯才有了今日的辉煌。清教徒的信仰：努力过好自己的生活，若有余力，帮助他人。</p>
-<p>樊胜美 职场人精。10年的工作把她磨练得随大溜，获取安全感。一大家子的烂事看得直叫人喊虐。装坚强欺骗别人也欺骗自己，但若不这样强撑，恐怕早就逃离了。后几集剧情的真情与前面的装形成巨大反差，做回真正自己的樊大姐还是很招人喜欢的。</p>
-<p>曲筱萧 富二代美女，行走江湖练敏锐洞察力和应变能力。看人看事准，分析起来也头头是道。关爱流浪猫增加爱心值得剧情在我看来有些端庄。与各色人交往多了，练出这样个机灵鬼。</p>
-<p>邱莹莹 一根直肠通大脑。上当受骗哭，找到工作笑，这样一个对生活做出直接反应的人，算是活出真正的我吗？最后获得了小小的幸福，就是大多数普通人的期望吧。</p>
-<p>关雎儿 邻家多才妹妹，努力工作，向优秀的安迪学习，实习期典型性格吧。沉默越久爆发越厉害，她是2202中最有可能爆发的。</p>
-<p>5个主角中够有我喜欢的点，最开始喜欢安迪，小曲的聪明，后来喜欢小蚯蚓的倔强而充满希望的生活方式。安迪、小曲达到了看自己的格局，其他三，随大溜。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/05/02/%E4%B8%80%E5%8F%AA%E4%B8%AD%E5%8D%8E%E7%94%B0%E5%9B%AD%E7%8A%AC%E5%9C%A8%E4%BA%94%E4%B8%80%E8%8A%82%E7%9A%84%E8%87%AA%E7%99%BD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/05/02/%E4%B8%80%E5%8F%AA%E4%B8%AD%E5%8D%8E%E7%94%B0%E5%9B%AD%E7%8A%AC%E5%9C%A8%E4%BA%94%E4%B8%80%E8%8A%82%E7%9A%84%E8%87%AA%E7%99%BD/" class="post-title-link" itemprop="url">一只中华田园犬在五一节的自白</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-05-02 17:18:00" itemprop="dateCreated datePublished" datetime="2016-05-02T17:18:00+08:00">2016-05-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>舔了舔尾巴上的毛，感觉五一假期就要来了，真是好期待。院子里会回来好多人，上学的、在城里工作的都回来了。特别是上学的学生回来之后，各家都会炖点鸡鸭排骨什么的，我也就机会改善伙食了，最近的饭一点油水都没有，叫都懒得叫了。<br>这不，看见院子里新停了一辆车，我把耳朵贴地上一听，就知道是邻居家的少爷回来了。我得打起精神，给他摇几个漂亮的尾巴，第一印象很重要嘛。果然，在我看见他上台阶后，蹦蹦跳跳的摇着尾巴欢迎他，他也过来摸了摸我的头，我就知道这招对付他管用。可能他看我被绳子栓得可怜，就把绳子解开了，把我高兴得直跳。<br>获得自由后的我很兴奋，到处探索。以前我想去的几个地方都去闻了个遍，确认一下是否还有骨头。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/05/02/%E8%AE%BA%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B82%E7%9A%84%E6%B2%89%E8%BF%B7%E7%B3%BB%E7%BB%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/05/02/%E8%AE%BA%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B82%E7%9A%84%E6%B2%89%E8%BF%B7%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">论植物大战僵尸2的沉迷系统</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-05-02 16:54:00" itemprop="dateCreated datePublished" datetime="2016-05-02T16:54:00+08:00">2016-05-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>最近心血来潮，重新打开了ipad上的植物大战僵尸2，完了几天就沉迷进去了，到今天持续了25天。这游戏为什么让我持续的投入时间，有必要分析一下。<br>签到机制吸引人每天不要忘了上线。因为签到动作很简单，获得奖励又很丰厚，有植物、钻石、金币等，往往提醒我，就签个到，花不了多少时间，然后就开启应用。而且持续签到天数越多，获得奖励越丰厚，就不忍中途放弃签到，也是让玩家持续上线的原因。<br>签到完之后就想，反正也打开了，要不收一下菜，反正也就1分种的事。于是资源采集系统又让你沉迷2分钟。训练僵尸，开拓土地，定时收获勋章，这种类似于开心农场的机制让你在收完菜后就计算，还有多少个小时可以再收获多少，提醒你4、5个小时再来收获一次。毕竟资源掠夺过来，不收获就是白费力气了嘛。<br>资源掠夺和收完菜后，在看一下pvp系统，操控僵尸进攻别人的花园，每天成功5次可获得50钻石。这是除充钱、固定关卡和签到获得钻石的最后一个机会，而钻石又要经常用到，那就完成日常吧。10分钟又过去了。<br>逛完pvp系统，左右各有一个感叹号，日常任务标志。植物探索和每日挑战可获得植物碎片、装扮。除了钻石抽奖，就只能通过这两个日常刷了。后面有些关卡，没有高阶植物根本打不过去，又不想充钱抽奖获得碎片，怎么办呢?刷满日常吧，虽说有些枯燥无聊，但有利于后期发展呀。20分钟的日常挑战又过去了。<br>植物探险也是一个需要定时地点操作的任务，就是要时不时的把你拉回来。<br>相比植物大战僵尸1，植物大战僵尸2和腾讯合作发行后，越来越有国产无耻手游的影子。抽奖、集碎片、装扮、配饰，反是能增加游戏玩家在线时间的系统都上，越来越没有乐趣了。</p>
-<p>写完此文章，我已经绑定了账号保存进度，然后计划删除这个游戏，因为这个游戏已经不能叫做植物大战僵尸了。好玩的游戏应该有美感和享受的，而不是设计各种沉迷系统骗钱。bye，我的植物大僵尸。</p>
+<p>###然后看了三个月培养前端的案例，觉得也是一种方式。<br>作者：丁小倪<br>链接：<a target="_blank" rel="noopener" href="http://www.zhihu.com/question/19862294/answer/13918296">http://www.zhihu.com/question/19862294/answer/13918296</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>去年在前一家公司培养过2个实习生，现在的一个已经当了小组的leader，但另一个放弃了这个职业，去考研去了。当时我是接到上面leader的通知，让我来培养今年进来的2个实习生。2个实习生刚来时我出了一些题目测试了一下他们对前端基本知识的掌握程度，当时我就泪奔了。。可以说他们是一张白纸，啥也不会。。唯一有的好像就是兴趣。。好吧，公司既然把这个任务给我了，再难也要迎难而上，也不应该打击2位实习生的信心。</p>
+<p>Leader给我下了硬性指标，三个月内要让他们能参与到项目中来，我粗略算了下 有点紧，但如果他们有学习的动力还是没什么问题的。首先我为他们制定了一个三个月的学习计划，大致上分为第一个月、第二个月、第三个月，然后每个月再划分到每个星期，每个星期划分到每天。每天学习的东西做日报，每周一次周报并且我会出一些测试题给他们做，每月一次综合测试。三个月之后让他们参与一个项目测试并做三个月的总结。（是不是很像大学期间的写论文报告？但工作了之后有时总结真的很重要，能够正视自己的不足）</p>
+<p>当然，学习所有的基本知识之前，第一天需要培养的是“思想”！要让他们知道什么是前端以及当前前端业界的一个趋势，不然在不清楚自己定位的情况下去学东西永远会在迷茫，只有清楚自己想要的才会更好地去努力。我特别传达给他们的概念就是永远不要把自己当做一个代码机器，不然自己以后真的走上前端之路会得抑郁症，在前端工作中享受前端所带来的乐趣是最高的境界。<br>前端不是页面仔，不是美工，前端直接面向了最终用户，前端是针线活，需要细心和耐心，前端需要不断地学习新知识，前端需要不断研究出现的问题，前端需要关注用户体验，前端需要了解用户心理，前端也需要了解程序员的心理，前端还需要了解设计师天马行空的想法 : )</p>
+<p>第一个月主要让他们对一些专业术语和前端整体的知识体系做了概览（包括html、css、js、dom、bom等），当然这里必须要去了解的是W3C的诞生以及它的发展历程，还有各大浏览器厂商的发展历程以及当今不断变化的市场格局。前半个月对html所有的标签做一个系统的学习，并对常用的标签(div\p\h1-h6\span\img\ul\dl\ol\li)做重点的理解和DEMO书写，这里我特别传达了语义化的概念给他们希望他们合理的使用标签，而不是根据自己的心情随意的使用标签。后半个月对css的所有属性做通览，并对常用的CSS属性做重点理解和实战，这里我没有让他们对所有的CSS属性做很详细的了解（有些CSS属性可能我们自己一辈子都不会用到，以后遇到的时候学会查API即可）。这过程中还传达了hack这个概念给他们，以及对待hack的态度和常用实例。</p>
+<p>第二个月主要是JS的学习（话说一个月学习JS真的是太难太难了，虽然是个脚本语言但要注意的地方特别多），首先对JS基础的一些东西的学习（词法结构、数据类型和值、变量、表达式和运算符、语句等等一些基础知识），在学JS期间我发现他们明显比第一个月学习html和css来的烦躁，但好得他们有学过编程，有些基础。基础学好之后，就是客户端的一些知识的学习，dom\bom等等，如何对dom操作，关于性能这方面的东西暂时没有传达给他们，等他们达到一定知识程度上我希望他们学习如何优化。后半个月就是让他们接触一个JS框架，并学会高效快速的写出页面交互代码。</p>
+<p>第三个月基本就是实战，html+css+js，每周基本都要写好几个页面，然后我会带他们一起去review，并指出所存在的问题，顺便让他们自己记录下，总结，下次再写页面时避免。</p>
+<p>当然这三个月期间，他们还需要学会前端工具的使用(svn\dw\notepad++\vim\zen-coding\ps等等)，工具我没有过多的去教他们，这个纯粹是一个使用熟练度的问题，只要自己多操作即可。</p>
+<p>最后再这三个月的学习过程中我发现其中一个（是个女孩子）每天下班后经常留在公司，把白天遇到的一些问题代码实战，然后发现了她的一个本本，上面记录了遇到的问题，另外一个男孩子也偶尔会留下来，但几乎很少。三个月之后男孩子说自己要考研了，走了，我想他可能真的不适合前端，也许是有自己的理想，女孩子留了下来，并且迅速的融入了项目团队。（这里我对我这个徒弟还是比较自豪的，前端没有性别之分，女孩子也可以很出色）</p>
 
       
     </div>
@@ -558,7 +562,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/69/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><span class="page-number current">70</span><a class="page-number" href="/page/71/">71</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/71/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/69/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><span class="page-number current">70</span><a class="page-number" href="/page/71/">71</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/71/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

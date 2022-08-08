@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/20/yuque/python%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E6%B5%AA%E6%BD%AEBMC/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/yuque/%E5%9C%A8%E7%BA%BF-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/20/yuque/python%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E6%B5%AA%E6%BD%AEBMC/" class="post-title-link" itemprop="url">python模拟登录浪潮BMC</a>
+          <a href="/2022/06/29/yuque/%E5%9C%A8%E7%BA%BF-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">在线-读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -194,15 +194,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-20 15:16:19" itemprop="dateCreated datePublished" datetime="2022-06-20T15:16:19+08:00">2022-06-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:49" itemprop="dateModified" datetime="2022-06-29T11:46:49+08:00">2022-06-29</time>
+      <time title="创建时间：2022-06-29 11:20:27 / 修改时间：11:46:40" itemprop="dateCreated datePublished" datetime="2022-06-29T11:20:27+08:00">2022-06-29</time>
     </span>
 
   
@@ -215,16 +209,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>服务器带外密码经常不正确，需要有一个工具去巡检服务器带外的登录信息是否准确，考虑使用 python requests 去模拟登录。</p>
-<h2 id="页面分析"><a href="#页面分析" class="headerlink" title="页面分析"></a>页面分析</h2><h3 id="浏览器设置"><a href="#浏览器设置" class="headerlink" title="浏览器设置"></a>浏览器设置</h3><p>chrome 浏览器访问带外地址，F12 开启调试模式，勾选“Preserve log”，记录跳转日志。<br><img src="http://huilu-blog.colinspace.com//FhU3ozhge7NRZ65PEi1aqX8lyUzh.png"></p>
-<h3 id="输入错误的密码，观察页面跳转"><a href="#输入错误的密码，观察页面跳转" class="headerlink" title="输入错误的密码，观察页面跳转"></a>输入错误的密码，观察页面跳转</h3><p>输入错误密码后，发现有 3 个请求页面<br>randomtag 页面，使用 get 方法，返回一个随机 tag<br><img src="http://huilu-blog.colinspace.com//Fsa1aVTc2X684yjrCGjsF390557p.png"><br><img src="http://huilu-blog.colinspace.com//FksX6BT8ELB_-pA6xnC8D0yfeOyT.png"><br>红色 session 页面<br>使用 delete 方法，删除存在的 session，删除失败。<br><img src="http://huilu-blog.colinspace.com//FoatGRyio3TZxN6Rom9x6GYAvzLy.png"><br>第二个 session<br>post 请求，ajax 请求。post 数据中需要 4 个字段，用户名、密码加密过，login_tag 为 randomtag 请求的返回值。<br>response 内容为认证信息，其中的 CSRFToken 字段需要注意。<br><img src="http://huilu-blog.colinspace.com//FiTaMSO2LIVzxBRAXEFD8kZNMB4G.png"><br><img src="http://huilu-blog.colinspace.com//FnyYUC91eP75WDs1y9IxIWcEmN4g.png"><br><img src="http://huilu-blog.colinspace.com//FlZARZlErTjqRiviPFYksWITvOe9.png"><br><img src="http://huilu-blog.colinspace.com//FlsfhC9PA1a9xqgqStX7munvQG04.png"></p>
-<h3 id="输入正确登录信息，观察页面"><a href="#输入正确登录信息，观察页面" class="headerlink" title="输入正确登录信息，观察页面"></a>输入正确登录信息，观察页面</h3><p>最开始依然有 3 个请求页面，user 页面应该是登录成功后的页面。<br><img src="http://huilu-blog.colinspace.com//Fs_4dlrhTmUn49OVUbpBHP5pOfIm.png"><br>user 页面为 get 请求，请求头包含了 CSRFToken.返回值看不了，可以看看 user 后面的页面。<br><img src="http://huilu-blog.colinspace.com//Fl7J8Q0wBTF58yk77UAoGJeU73Qs.png"><br>调试工具选择 Fetch/XHR,排除 js，png 的请求。<br><img src="http://huilu-blog.colinspace.com//FvNW3AdpEN7ELGtO9EQZFC--l7aQ.png"><br>查看 chassis-status 请求，get 请求，带 CSRFTokent，返回 json 格式文本。登录成功后可以请求这个页面，能获取期望的值，表明登录成功，获取失败，表明登录失败。<br><img src="http://huilu-blog.colinspace.com//FlVUxucslGVH4-inmxcKwX-paYJa.png"><br><img src="http://huilu-blog.colinspace.com//Fr4S7tHvQsq79VyWjCv8Qs7RLl5H.png"></p>
-<h3 id="加密数据分析"><a href="#加密数据分析" class="headerlink" title="加密数据分析"></a>加密数据分析</h3><p>查看 session 页面提交的 post 数据，发现加密的用户名和密码，多次输入相同的内容，密文不变。表示加密和时间无关。<br>观察输入框页面源码，页面 submit 提交按钮点击后，执行 doValidate()函数。<br><img src="http://huilu-blog.colinspace.com//FnbyKfhkk4h64pZYKrNu8DNjsQMT.png"><br>doValidate（）函数在 signin.js 中，包含了 login 的 ajax 请求函数。<br><img src="http://huilu-blog.colinspace.com//FsSdXRcqHMbjg3bkF9dbRoDAAQJT.png"><br>查看 js 文件，有 signin.js Blowfish.js 两个文件。<br><img src="http://huilu-blog.colinspace.com//FmyHLbN8m6UUK6fNQ17rUGFJ72Aq.png"><br>signin.js 中有加密的函数。Blowfish.js 是一个加密算法，signin 应该引用了加密算法。算法看不懂。</p>
-<p>要完全解密，手动制作密码表，把数字，大小写字母，特殊字符输入到用户名输入框，得到对应关系。<br>也可以把有的用户名，密码都在输入框中加密，获得对应关系，直接在程序中做转换。</p>
-<h2 id="代码编写"><a href="#代码编写" class="headerlink" title="代码编写"></a>代码编写</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> tcpping <span class="keyword">import</span> tcpping</span><br><span class="line"><span class="keyword">import</span> urllib3</span><br><span class="line"></span><br><span class="line">urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check_langchao</span>(<span class="params">ip, user, pwd</span>):</span><br><span class="line">    ping_flag = tcpping(ip, <span class="number">443</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> ping_flag:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;ping error:&#x27;</span> + ip)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;ping check success&#x27;</span>)</span><br><span class="line">        session = requests.session()</span><br><span class="line">        hd1 = &#123;</span><br><span class="line">            <span class="string">&quot;Accept&quot;</span>: <span class="string">&#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,&#x27;</span></span><br><span class="line">            <span class="string">&#x27;*/*;q=0.8,application/signed-exchange;v=b3;q=0.9&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;Accept-Encoding&quot;</span>: <span class="string">&#x27;gzip, deflate, br&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;Accept-Language&quot;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;Cache-Control&quot;</span>: <span class="string">&#x27;max-age=0&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;Connection&quot;</span>: <span class="string">&#x27;keep-alive&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;User-Agent&quot;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span></span><br><span class="line">            <span class="string">&#x27;Chrome/102.0.0.0 Safari/537.36 &#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        url1 = <span class="string">&#x27;https://&#x27;</span> + ip + <span class="string">&#x27;/index.html&#x27;</span></span><br><span class="line">        url2 = <span class="string">&#x27;https://&#x27;</span> + ip + <span class="string">&#x27;/api/randomtag&#x27;</span></span><br><span class="line">        session.get(url1, headers=hd1, verify=<span class="literal">False</span>)</span><br><span class="line">        random_code = session.get(url2, headers=hd1, verify=<span class="literal">False</span>).json()[<span class="string">&#x27;random&#x27;</span>]</span><br><span class="line">        <span class="built_in">print</span>(random_code)</span><br><span class="line">        url3 = <span class="string">&#x27;https://&#x27;</span> + ip + <span class="string">&#x27;/api/session&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> user == <span class="string">&#x27;admin&#x27;</span>:</span><br><span class="line">            username = <span class="string">&quot;用户名密文&quot;</span></span><br><span class="line">            <span class="keyword">if</span> pwd == <span class="string">&#x27;pwd&#x27;</span>:</span><br><span class="line">                password = <span class="string">&quot;密码密文&quot;</span></span><br><span class="line">                login_data = &#123;</span><br><span class="line">                    <span class="string">&quot;username&quot;</span>: username,</span><br><span class="line">                    <span class="string">&quot;password&quot;</span>: password,</span><br><span class="line">                    <span class="string">&quot;encrypt_flag&quot;</span>: <span class="number">1</span>,</span><br><span class="line">                    <span class="string">&quot;login_tag&quot;</span>: random_code</span><br><span class="line">                &#125;</span><br><span class="line">                hd3 = &#123;</span><br><span class="line">                    <span class="string">&#x27;Accept&#x27;</span>: <span class="string">&#x27;application/json, text/javascript, */*; q=0.01&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;Accept-Encoding&#x27;</span>: <span class="string">&#x27;gzip, deflate, br&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;Accept-Language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;Connection&#x27;</span>: <span class="string">&#x27;keep-alive&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;Content-Length&#x27;</span>: <span class="string">&#x27;82&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded; charset=UTF-8&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span></span><br><span class="line">                    <span class="string">&#x27;Chrome/102.0.0.0 Safari/537.36&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;X-Requested-With&#x27;</span>: <span class="string">&#x27;XMLHttpRequest&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">                re3 = session.post(url3, data=login_data, headers=hd3, verify=<span class="literal">False</span>)</span><br><span class="line">                <span class="keyword">if</span> re3.status_code == <span class="number">200</span>:</span><br><span class="line">                    csrf_token = re3.json()[<span class="string">&quot;CSRFToken&quot;</span>]</span><br><span class="line">                    <span class="built_in">print</span>(csrf_token)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;get csrf_token error&#x27;</span>)</span><br><span class="line">                    url4 = <span class="string">&#x27;https://&#x27;</span> + ip + <span class="string">&#x27;/api/session/settings/active-sessions&#x27;</span></span><br><span class="line">                    hd4 = &#123;</span><br><span class="line">                        <span class="string">&#x27;Accept&#x27;</span>: <span class="string">&#x27;*/*&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;Accept-Encoding&#x27;</span>: <span class="string">&#x27;gzip, deflate, br&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;Accept-Language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;Connection&#x27;</span>: <span class="string">&#x27;keep-alive&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span></span><br><span class="line">                        <span class="string">&#x27;Chrome/102.0.0.0 Safari/537.36&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;X-CSRFTOKEN&#x27;</span>: csrf_token,</span><br><span class="line">                        <span class="string">&#x27;X-Requested-With&#x27;</span>: <span class="string">&#x27;XMLHttpRequest&#x27;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    re4 = session.get(url4, headers=hd4, verify=<span class="literal">False</span>)</span><br><span class="line">                    <span class="keyword">if</span> re4.status_code == <span class="number">200</span>:</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&#x27;login success,server ip:&#123;&#125;,client_ip&#123;&#125;,user:&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(ip, re4.json()[<span class="number">0</span>][<span class="string">&#x27;client_ip&#x27;</span>],</span><br><span class="line">                                                                                      re4.json()[<span class="number">0</span>][<span class="string">&#x27;user_name&#x27;</span>]), )</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&#x27;get sessions ok&#x27;</span>)</span><br><span class="line">                        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&#x27;get sessions error&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    check_langchao(<span class="string">&#x27;ip&#x27;</span>, <span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;pwd&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>运行结果<br><img src="http://huilu-blog.colinspace.com//FqWfvX_hnhDK1JZmSk4RXNrjaivy.png"></p>
-<h2 id="待完成"><a href="#待完成" class="headerlink" title="待完成"></a>待完成</h2><p>从文件中读取服务器 ip、厂家、用户、密码，循环调用检测函数，输出检测结果。</p>
+          <p>发表于 2018-07-27<br>leader 推荐王坚博士的《在线》一书，读完写下摘要和感受。<br>全书分为 10 章，主要由媒体访谈内容组成。王坚博士在媒体访谈中的解答可以用 5W2H 梳理。整本书的内容和标题很相符，就是说明：在这个万物互联的时代，数据很有价值，只有在线的数据，才能发挥出数据的价值。</p>
+<h3 id="Why-为什么有阿里云"><a href="#Why-为什么有阿里云" class="headerlink" title="Why 为什么有阿里云"></a>Why 为什么有阿里云</h3><p>对标国际互联网公司，国外有亚马逊和谷歌，国内却没有规模的大公有云计算公司。GWF 和国家信息安全政策环境下，国外云公司很难进入中国。在这片蓝海领域，阿里做公有云计算，做成了类似于水电气的通用资源提供商，可以行成垄断，获利丰厚，很有商业价值。<br>公有云进入门槛高，阿里有技术和资金，应该可以成功。</p>
+<h3 id="When-什么时机做阿里云"><a href="#When-什么时机做阿里云" class="headerlink" title="When 什么时机做阿里云"></a>When 什么时机做阿里云</h3><p>2006 年亚马逊开始提供公有云，2008 年阿里开始做。</p>
+<h3 id="What-什么是阿里云"><a href="#What-什么是阿里云" class="headerlink" title="What 什么是阿里云"></a>What 什么是阿里云</h3><p>阿里云是资源公司。提供计算能力、存储能力、网络能力。接上就能用，而且价格便宜。</p>
+<h3 id="Which"><a href="#Which" class="headerlink" title="Which"></a>Which</h3><h3 id="Where-阿里云的范围"><a href="#Where-阿里云的范围" class="headerlink" title="Where 阿里云的范围"></a>Where 阿里云的范围</h3><p>和电能与电器类比，阿里只做发电机和电力传输网络，负责把资源运送到普通人手里。这些计算、存储、网络能力能怎么用，在什么场景下发挥价值，就是电器厂家的价值所在。</p>
+<h3 id="How-怎么做的"><a href="#How-怎么做的" class="headerlink" title="How 怎么做的"></a>How 怎么做的</h3><p>从 0 做起。做分部署存储系统-盘古，做分布式资源调度系统-女娲，做资源诊断系统-华佗，做钟馗。。。形成一个由 5000 台物理服务器组成的网络操作系统-飞天。</p>
+<h3 id="How-Much-花费"><a href="#How-Much-花费" class="headerlink" title="How Much 花费"></a>How Much 花费</h3><p>前期基础技术研发费用高，一旦研发成功，收益丰富。资源用户可以很便宜的获取资源。<br>计算是在线的，不是私有网络的几个机架的服务器。<br>数据比功能重要，功能很快就能通过技术被模仿，用户需要的是数据支撑的服务。<br>做 app 是在别人的花园里弄盆栽,所以要做 yunos。</p>
 
       
     </div>
@@ -251,7 +242,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/10/yuque/%E3%80%8A%E8%BD%AF%E6%8A%80%E8%83%BD%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B01-%E4%BA%8B%E4%B8%9A/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/27/yuque/hexo%E5%90%8C%E6%AD%A5%E8%AF%AD%E9%9B%80%E7%9F%A5%E8%AF%86%E5%BA%93%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -269,7 +260,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/10/yuque/%E3%80%8A%E8%BD%AF%E6%8A%80%E8%83%BD%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B01-%E4%BA%8B%E4%B8%9A/" class="post-title-link" itemprop="url">《软技能》读书笔记1-事业</a>
+          <a href="/2022/06/27/yuque/hexo%E5%90%8C%E6%AD%A5%E8%AF%AD%E9%9B%80%E7%9F%A5%E8%AF%86%E5%BA%93%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">hexo同步语雀知识库异常处理</a>
         </h2>
 
         <div class="post-meta-container">
@@ -280,14 +271,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-06-10 16:12:04" itemprop="dateCreated datePublished" datetime="2022-06-10T16:12:04+08:00">2022-06-10</time>
+      <time title="创建时间：2022-06-27 10:39:00" itemprop="dateCreated datePublished" datetime="2022-06-27T10:39:00+08:00">2022-06-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
+      <time title="修改时间：2022-06-29 11:46:45" itemprop="dateModified" datetime="2022-06-29T11:46:45+08:00">2022-06-29</time>
     </span>
 
   
@@ -300,19 +291,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>全书从人的角度，解答软件开发人员关于事业、思想、身体、精神四个方面的问题。<br>事业从职业、自我营销两个角度谈。思想从学习、生产力、理财三个角度看。身体=健身，精神=形而上。</p>
-<h2 id="职业"><a href="#职业" class="headerlink" title="职业"></a>职业</h2><blockquote>
-<p>你所能犯的最大错误就是相信自己是在为别人工作。这样以来你对工作的安全感已然尽失。职业发展的驱动力一定是来自个体本身。记住：工作是属于公司的，而职业生涯却是属于你自己的。 –厄尔.南丁格尔</p>
-</blockquote>
-<h3 id="决不要做他人都在做的事"><a href="#决不要做他人都在做的事" class="headerlink" title="决不要做他人都在做的事"></a>决不要做他人都在做的事</h3><p>从商业上来看，稀缺产生价值。做软件开发也好，做运维工作也好，第一重要的是把工作作为一桩生意来看待。软件开发人员是出售自己把想法变成软件产品的能力，运维人员是向业务系统买保险，兼顾理财咨询。<br>没有明确的方向，你的每一步都是徒劳。<br>你希望从你的职业生涯中收获什么？你希望自己 5 年或者 10 年后在哪里？<br>先设置清晰的不那么具体的大目标，用来确定自己是离目标更远还是更近。<br>较小的目标可以让你在航行在自己的轨道上，激励你保持航向朝着更大的目标前进。<br>追踪你的目标，在必要时做调整。定时机制来检查。<br>采取行动：把你的大目标写在自己每天必经之地，每日三省吾身–我在追求什么。</p>
-<h3 id="人际交往能力远比你想象的重要"><a href="#人际交往能力远比你想象的重要" class="headerlink" title="人际交往能力远比你想象的重要"></a>人际交往能力远比你想象的重要</h3><p>在软件开发领域，我们大多数时候是与人，而非与计算机打交到。我们所写的代码首先是供人阅读，其次才是让计算机执行。<br>每个人都希望感到自己很重要。永远不要批评。换位思考，停止用”我想要什么“，考虑什么才是他们需要的。避免争吵，既然逻辑和纯粹的理性无助于说服一个尖声大叫的小孩明白睡觉能让他得到充分的休息，那么，你也不可依此方法来说服一位备受轻视的同事接受“我做事的方式才是最好的”。<br>如果有人不管怎样都无法相处，总是贬低别人，对生活消极，不要试图改变他，要远离他。<br>采取行动：1）跟踪你一天的与人打交道的每件事，2）阅读人性的弱点。</p>
-<h3 id="破解面试之道"><a href="#破解面试之道" class="headerlink" title="破解面试之道"></a>破解面试之道</h3><p>功夫在面试之外，博客，与面试官熟悉。展现当前能做什么和未来的潜力。<br>采取行动：列出你想去的公司，去认识人。</p>
-<h3 id="雇员不是唯一的选择"><a href="#雇员不是唯一的选择" class="headerlink" title="雇员不是唯一的选择"></a>雇员不是唯一的选择</h3><p>雇员、独立咨询师、创业者，你有 3 种选择。<br>采取行动：列出你认识或听说过的三种类型的人员。</p>
-<h3 id="专业化很重要"><a href="#专业化很重要" class="headerlink" title="专业化很重要"></a>专业化很重要</h3><p>虽然我很喜欢海因莱因的下面这段话，但是在聘请律师时还是要找专业的。生活要有各种体验，要从工作，或者职业中交换价值，你必须专业化。</p>
-<blockquote>
-<p>一个人应该能换尿布、杀猪、开船、设计房子、写十四行诗、砌墙、接脱臼的骨头、救濒死的人、服从命令、发送命令、接受合作、独立行动、解数学方程、分析新的问题、铲粪、电脑编程、做出可口的饭菜、善于打架、勇敢的死去，只有昆虫才专业化！–海因莱因</p>
-</blockquote>
-<p>专业化的规则是：专业化程度越深，潜在的机会就越少，但获得这些机会的可能性越大。</p>
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>写博客流程为 1）语雀公开知识库中写文章，2）本地 hexo 执行 yuque-hexo 下载语雀文章到本地，上次图片到七牛云，修改 md 文章中的图片链接，3）hexo g 生成 html 页面，4 hexo d 推送页面到 github page 仓库。<br>以前语雀没有设置防外链，可以不用执行第 2 步，后来设置了防外链，就需要转图片。本文记录 yuque-hexo 工具使用异常的排查结论和过程。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>windows10 上 yuque-hexo 读取环境变量存在问题，需要将 token 写入 js 文件中。<br>yuque-hexo 安装路径中的 config.js 文件，util\imageBeds\qiniu.js，注释掉 token,写上自己的。<br><img src="http://huilu-blog.colinspace.com//FliZvU9pybdLLD1wGT38fQO-EZH_.png"><br><img src="http://huilu-blog.colinspace.com//FvStTX6vSwNnVEdPLgDgp6TdhsSC.png"></p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>git clone 下载项目代码，在 node 中逐个调用函数测试。清除下载后，需要删除 hexo-yuque/source 目录才会重新生成 md 文件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 导入配置</span></span><br><span class="line">const initConfig = require(<span class="string">&#x27;./config&#x27;</span>)</span><br><span class="line"><span class="comment">## 下载</span></span><br><span class="line">const Downloader = require(<span class="string">&#x27;./lib/Downloader&#x27;</span>);</span><br><span class="line">const downloader = new Downloader(initConfig);</span><br><span class="line">downloader.autoUpdate();</span><br><span class="line"><span class="comment">## 清除下载的内容</span></span><br><span class="line">const cleaner = require(<span class="string">&#x27;./lib/cleaner&#x27;</span>);</span><br><span class="line">cleaner.cleanPosts();</span><br><span class="line">cleaner.clearCache();</span><br><span class="line">cleaner.clearLastGenerate();</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -339,7 +321,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/06/yuque/%E6%9C%8B%E5%8F%8B%E5%9C%88%E7%9B%B8%E5%86%8C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/24/yuque/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -357,7 +339,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/10/06/yuque/%E6%9C%8B%E5%8F%8B%E5%9C%88%E7%9B%B8%E5%86%8C/" class="post-title-link" itemprop="url">朋友圈相册</a>
+          <a href="/2022/06/24/yuque/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">为什么要独立博客</a>
         </h2>
 
         <div class="post-meta-container">
@@ -368,7 +350,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-10-06 19:17:05" itemprop="dateCreated datePublished" datetime="2021-10-06T19:17:05+08:00">2021-10-06</time>
+      <time title="创建时间：2022-06-24 14:04:02" itemprop="dateCreated datePublished" datetime="2022-06-24T14:04:02+08:00">2022-06-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -388,194 +370,191 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>晚上和 lp 刷她朋友圈看小朋友以前的照片和视频，突发奇想，要是有个电子相册可以这么翻朋友圈或者自动轮播就好了。洗澡时构思出产品轮廓。<br>硬件：树莓派 + 7 寸触摸屏。<br>软件都安装在树莓派上</p>
-<ol>
-<li>朋友圈同步程序，定时同步自己个人主页发的照片和视频，包括元信息（时间、位置）。</li>
-<li>图片、视频轮播程序，播放个人主页同步的内容。</li>
-<li>打标程序，标记不播放、最爱等。</li>
+          <h2 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h2><p>归档可以查看总共多少文章，每年大概多少。<br>友情链接可以放好友博客。<br>完全自己可控。</p>
+<h2 id="不好"><a href="#不好" class="headerlink" title="不好"></a>不好</h2><p>需要域名费用，10 年 600 多。huilu.run /huilu.life<br>发布需要额外步骤，语雀编写-hexo 同步-hexo 发布。<br>使用 github page 托管访问慢。<br>七牛图床配置<br>多终端切换写不方便</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/24/yuque/hexo%E5%8D%9A%E5%AE%A2%E5%86%8D%E5%87%BA%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/06/24/yuque/hexo%E5%8D%9A%E5%AE%A2%E5%86%8D%E5%87%BA%E5%8F%91/" class="post-title-link" itemprop="url">hexo博客再出发</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-24 11:29:34" itemprop="dateCreated datePublished" datetime="2022-06-24T11:29:34+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 11:46:42" itemprop="dateModified" datetime="2022-06-29T11:46:42+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>间隔 1 年没有更新博客，域名也没续费，新增的文章都在语雀上，没有同步到博客，日常查看还是不方便。这篇文章记录 hexo 博客配置、迁移、同步语雀文档的操作。</p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><ol>
+<li>安装 nodejs</li>
 </ol>
-<p>互联网搜了一圈，没发现类似产品，做出来买个 500 块应该有市场。</p>
-<p>自己编写程序，实现主要功能在说吧。</p>
-<h2 id="已有产品测试"><a href="#已有产品测试" class="headerlink" title="已有产品测试"></a>已有产品测试</h2><h2 id="朋友圈采集备份工具"><a href="#朋友圈采集备份工具" class="headerlink" title="朋友圈采集备份工具"></a>朋友圈采集备份工具</h2><p><a target="_blank" rel="noopener" href="https://mh-studio.cn/works/wxpyq.html">https://mh-studio.cn/works/wxpyq.html</a><br>网络采集，授权有风险，收费软件，通过 ipad 客户端接口登录。<br>需要研究 ipad 登录微信原理</p>
-<h3 id="itchat"><a href="#itchat" class="headerlink" title="itchat"></a>itchat</h3><p><a target="_blank" rel="noopener" href="https://github.com/littlecodersh/ItChat">https://github.com/littlecodersh/ItChat</a> 测试中。主要基于微信网页版是对话、好友管理、群聊功能。未发现朋友圈管理功能。<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/GavinSimons/p/8411157.html">https://www.cnblogs.com/GavinSimons/p/8411157.html</a> itchat 方法说明。<br>paas</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/15/yuque/net.ipv4.tcp_sack%20%E5%AF%BC%E8%87%B4%E7%BD%91%E7%BB%9C%E8%AE%BF%E9%97%AE%E6%85%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/15/yuque/net.ipv4.tcp_sack%20%E5%AF%BC%E8%87%B4%E7%BD%91%E7%BB%9C%E8%AE%BF%E9%97%AE%E6%85%A2/" class="post-title-link" itemprop="url">net.ipv4.tcp_sack 导致网络访问慢</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-15 10:13:24" itemprop="dateCreated datePublished" datetime="2021-04-15T10:13:24+08:00">2021-04-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在阿里云边缘节点开通的 ECS，操作系统 centos，使用 yum 下载安装软件很慢。</p>
-<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>阿里专家通过抓包排查，发现内核参数有问题，建议配置： <code>net.ipv4.tcp_sack =1 </code></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysctl.conf</span><br><span class="line">打开sack</span><br><span class="line">net.ipv4.tcp_sack = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">重载生效</span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
-
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>使用 Selective ACK﹐它可以用来查找特定的遗失的数据报— 因此有助于快速恢复状态。该文件表示是否启用有选择的应答（Selective Acknowledgment），这可以通过有选择地应答乱序接收到的报文来提高性能（这样可以让发送者只发送丢失的报文段）。(对于广域网通信来说这个选项应该启用，但是这会增加对 CPU 的占用。)</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.51cto.com/smileyouth/1753394">https://blog.51cto.com/smileyouth/1753394</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/15/yuque/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E9%87%8A%E3%80%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/15/yuque/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E9%87%8A%E3%80%8B/" class="post-title-link" itemprop="url">《计算机程序的构造和解释》</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-15 09:32:01" itemprop="dateCreated datePublished" datetime="2021-04-15T09:32:01+08:00">2021-04-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>多次拿起这本书，好多示例看不懂，记录一下我理解的，有趣的。后续尝试通过视频学习看看。</p>
-<p>教师，长官是规划者，学生，士兵是被规划者。计算机程序的设计，就是用人的大脑，去规划程序的运行，解决实际问题。规划是复杂的，因为很多数据在运行过程中产生。怎么去解决规划的复杂性，就是本书重点要讲解的。</p>
-<p>本书关注的主要对象是：人的大脑，计算机程序的集合以及计算机本身。<br>解决复杂性的方法：</p>
-<ol>
-<li>通过创建抽象去控制复杂性，包括对过程的抽象和对数据的抽象。（第 1、2 章）</li>
-<li>通过建立约定界面，用对象或过程的方式去组合一些标准的片段，解决并发等问题。（第 3 章）</li>
-<li>创建新的语言，对语言进行抽象（第 4 章）</li>
+<p>下载二进制包 <a target="_blank" rel="noopener" href="https://npmmirror.com/mirrors/node/v18.4.0/node-v18.4.0-win-x64.zip">https://npmmirror.com/mirrors/node/v18.4.0/node-v18.4.0-win-x64.zip</a>，解压到软件目录，并在环境变量中添加软件 path。<br><img src="http://huilu-blog.colinspace.com//FtTUlgrgzfuDlOY05izJcypo9oa0.png"></p>
+<ol start="2">
+<li>安装 hexo 及 next 主题</li>
 </ol>
-<p>里面讲的一些概念，如：正则序，应用序，很重要，慢慢理解。</p>
-<p>金句摘录</p>
-<blockquote>
-<p>每一个计算机程序都是现实中或者精神中的某个过程的一个模型，通过人的头脑孵化出来。</p>
-</blockquote>
-<blockquote>
-<p>如果说艺术解释了我们的梦想，那么计算机就是以程序的名义执行着他们。</p>
-</blockquote>
-<blockquote>
-<p>一个计算机语言并不仅仅是让计算机去执行操作的一种方法，更重要的，他是一种表述有关方法学的思想的媒介。因此，程序必须写的能够供人们阅读，偶尔地去供计算机执行。</p>
-</blockquote>
-<blockquote>
-<p>真正的问题：弄清楚我们需要去计算什么，怎样将问题分解为一组可以控制的部分，如何对这样的部分开展工作。</p>
-</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装hexo</span></span><br><span class="line">npm install hexo-cli -g</span><br><span class="line"><span class="comment"># 创建博客存放目录blog</span></span><br><span class="line">mkdir blog</span><br><span class="line">cd blog</span><br><span class="line">hexo init blog2022</span><br><span class="line">cd blog2022</span><br><span class="line">npm install hexo-theme-<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+
+<p>在 hexo 配置文件中把主题由 landscape 修改为 next ，配置文件路径 blog/blog2022/_config.yml<br><img src="http://huilu-blog.colinspace.com//Fun3wqV7rfxFqZ_iZdX2LDVQXsnh.png"></p>
+<ol start="3">
+<li>同步语雀文档</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm i -g yuque-hexo</span><br><span class="line"><span class="comment"># 配置</span></span><br><span class="line"><span class="comment"># 同步</span></span><br><span class="line"><span class="built_in">set</span> YUQUE_TOKEN=xxx &amp;&amp; yuque-hexo sync</span><br></pre></td></tr></table></figure>
+
+<p>语雀图片设置了防盗链，需要有其他图床，七牛图床需要有域名，哎。</p>
+<ol start="4">
+<li>导入历史文档</li>
+<li>优化主题</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>写个文章发博客，操作真多，还记得最初的梦想吗？</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://nodejs.cn/download/current/">http://nodejs.cn/download/current/</a><br><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a><br><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/">https://theme-next.js.org/docs/getting-started/</a><br><a target="_blank" rel="noopener" href="https://github.com/x-cold/yuque-hexo">https://github.com/x-cold/yuque-hexo</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/21/yuque/%E6%B5%AA%E6%BD%AEBMC%E7%99%BB%E5%BD%95-%E5%8A%A0%E5%AF%86%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/06/21/yuque/%E6%B5%AA%E6%BD%AEBMC%E7%99%BB%E5%BD%95-%E5%8A%A0%E5%AF%86%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">浪潮BMC登录-加密处理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-21 13:39:31" itemprop="dateCreated datePublished" datetime="2022-06-21T13:39:31+08:00">2022-06-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 11:46:55" itemprop="dateModified" datetime="2022-06-29T11:46:55+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>使用 python 登录浪潮服务器的 BMC 登录，发现传递的用户名密码经过了处理，需要在 python 程序中也做处理。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>结论：浪潮 BMC 登录加密用户名密码信息有 2 中方式，不同版本用不同的加密方式。模拟登录对所有版本的 BMC，只要 post 的加密类型（encrypt_flag） 与密文能对应，服务端都能正确认证成功。为模拟登录方便，python 程序中都使用 encrypt_ctrl=1 ，异或编码。</p>
+<p>分析 ajax 传递登录信息的页面，发下有两种类型的密文。<br>第一种密文<br><img src="http://huilu-blog.colinspace.com//FmUA4DiOHZjzJhiuNw2feeX4vxr6.png"><br>观察页面的表单提交执行的函数为 doValidate 中的 doLogin 函数。doLogin 函数中定义了 ajax 传递的内容，username 使用了 bf.base64Encode()对表单中的内容进行加密和编码。加密函数 bf 由 Blowfish 创建。<br><img src="http://huilu-blog.colinspace.com//FnyOHRfoLhFEDfIARpwMDN_cZdHJ.png"><br><img src="http://huilu-blog.colinspace.com//FqzuSxqoJ9GvcPpY05wtCrBYyHha.png"><br>在浏览器 console 中手动运行 bf.base64Encode，输出与 playload 一致。<br><img src="http://huilu-blog.colinspace.com//FiNR6HRJWjjNq37uxYdPfSzuYC_D.png"><br>第二种密文<br><img src="http://huilu-blog.colinspace.com//Frjb_Roeg1CYoOoLStaX1J9YJXV7.png"><br>观察表单页面，也是关联到 doValidate。在 doValidate 函数中，ajax 传递的值是 encrypt_username.<br>encrypt_username 根据 encrypt_ctrl 值不同，有 2 中处理方式。encrypt_ctrl = 1，使用 encryStr 函数加密。encrypt_ctrl=2，使用 bf 函数加密编码。<br><img src="http://huilu-blog.colinspace.com//FgDKtvagmVq-7-XzcSwkUWvjDy_k.png"></p>
+<p>encryStr 函数内容.处理过程为字符串的 unicode 与 127 取异或，然后转换成 16 进制，用-连接起来。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">encryStr</span>(<span class="params">str</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> newStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">if</span> (str == <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; str.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> charCode = str.<span class="title function_">charCodeAt</span>(i);</span><br><span class="line"></span><br><span class="line">    charCode = charCode ^ <span class="number">127</span>;</span><br><span class="line">    <span class="keyword">if</span> (newStr == <span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">      newStr = newStr + <span class="built_in">parseInt</span>(charCode).<span class="title function_">toString</span>(<span class="number">16</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      newStr = newStr + <span class="string">&quot;-&quot;</span> + <span class="built_in">parseInt</span>(charCode).<span class="title function_">toString</span>(<span class="number">16</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//alert(newStr);</span></span><br><span class="line">  <span class="keyword">return</span> newStr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相同功能的 python 函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">encryStr</span>(<span class="params">_<span class="built_in">str</span></span>):</span><br><span class="line">    tmp_list = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> _<span class="built_in">str</span>.encode():</span><br><span class="line">        d = i ^ <span class="number">127</span></span><br><span class="line">        tmp_list.append(<span class="built_in">format</span>(d, <span class="string">&#x27;x&#x27;</span>))</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;-&#x27;</span>.join(tmp_list)</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过分析 post 页面具体的 js 程序，就能明确前端的加密方法，然后用 python 实现。</p>
 
       
     </div>
@@ -595,7 +574,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/30/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/page/32/">32</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/32/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/30/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/page/32/">32</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/32/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

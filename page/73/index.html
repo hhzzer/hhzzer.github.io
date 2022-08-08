@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/03/14/javascript%E5%AD%A6%E4%B9%A0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/04/07/%E7%9C%8B%E5%AE%8Cfenng%E5%8D%9A%E5%AE%A2%E4%B9%8B%E5%90%8E/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/03/14/javascript%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">javascript学习</a>
+          <a href="/2016/04/07/%E7%9C%8B%E5%AE%8Cfenng%E5%8D%9A%E5%AE%A2%E4%B9%8B%E5%90%8E/" class="post-title-link" itemprop="url">看完fenng博客之后</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,7 +195,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-03-14 16:48:00" itemprop="dateCreated datePublished" datetime="2016-03-14T16:48:00+08:00">2016-03-14</time>
+      <time title="创建时间：2016-04-07 11:45:00" itemprop="dateCreated datePublished" datetime="2016-04-07T11:45:00+08:00">2016-04-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -215,16 +215,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>今天开始根据<a target="_blank" rel="noopener" href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000">廖学峰博客</a>学习javascript<br>前几章代码<br>数组</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> arr = [<span class="string">&#x27;小明&#x27;</span>, <span class="string">&#x27;小红&#x27;</span>, <span class="string">&#x27;大军&#x27;</span>, <span class="string">&#x27;阿黄&#x27;</span>];</span><br><span class="line"><span class="keyword">var</span> arr_sort = arr.<span class="title function_">sort</span>();</span><br><span class="line">arr_sort[<span class="number">0</span>] = <span class="string">&#x27;欢迎&#x27;</span>+arr_sort[<span class="number">0</span>];</span><br><span class="line">arr_sort[<span class="number">2</span>] = arr_sort[<span class="number">2</span>]+<span class="string">&#x27;和&#x27;</span> + arr_sort[<span class="number">3</span>]+<span class="string">&#x27;同学！&#x27;</span>;</span><br><span class="line">arr_sort.<span class="title function_">pop</span>();</span><br><span class="line"><span class="title function_">alert</span>(arr_sort);</span><br></pre></td></tr></table></figure>
-<p>条件判断</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> height = <span class="built_in">parseFloat</span>(<span class="title function_">prompt</span>(<span class="string">&#x27;请输入身高(m):&#x27;</span>));</span><br><span class="line"><span class="keyword">var</span> weight = <span class="built_in">parseFloat</span>(<span class="title function_">prompt</span>(<span class="string">&#x27;请输入体重(kg):&#x27;</span>));</span><br><span class="line"><span class="keyword">var</span> bmi = weight/(height*height)</span><br><span class="line"><span class="keyword">if</span>(!<span class="built_in">isNaN</span>(height)&amp;&amp;!<span class="built_in">isNaN</span>(weight))&#123;</span><br><span class="line">   <span class="keyword">if</span> (bmi&lt;<span class="number">18.5</span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&#x27;过轻&#x27;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (bmi&lt;=<span class="number">25</span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&#x27;正常&#x27;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (bmi&lt;=<span class="number">28</span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&#x27;过重&#x27;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (bmi&lt;=<span class="number">32</span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&#x27;肥胖&#x27;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&#x27;严重肥胖&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="title function_">alert</span>(<span class="string">&#x27;请输入数字！&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>循环<br>利用for循环计算1 * 2 * 3 * … * 10的结果：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> i;</span><br><span class="line"><span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">    x = (i+<span class="number">1</span>) * x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">alert</span>(x);</span><br></pre></td></tr></table></figure>
-<p>请利用循环遍历数组中的每个名字，并显示Hello, xxx!：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> arr = [<span class="string">&#x27;Bart&#x27;</span>, <span class="string">&#x27;Lisa&#x27;</span>, <span class="string">&#x27;Adam&#x27;</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> arr)&#123;</span><br><span class="line">    <span class="comment">//alert(i);</span></span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&#x27;Hello,&#x27;</span> +arr[i] +<span class="string">&#x27;!&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>看了两天的javascript学习，也是走马观花完了。基本的概念和其他的语言一样，数据类型、控制过程、函数、对象。特殊的有闭包、异步io。框架讲了jQurey，也是基本模块的讲解。后面在普及下node.js，使javascript可以在nodejs环境中在服务器端运行。这些了解了对于我自己的项目构建还有不远的距离。项目目标：类似北塔软件的网络监控系统。根据snmp信息自动发现生成网络拓扑图，获取实时流量，获取上线设备在线和历史信息，信息包括端口、设备ip、mac、设备类型，均保留历史信息。javascript在这个项目中负责前端展示，异步更新数据。</p>
+          <p>昨天在考虑桌面运维、服务器运维及系统运维的意义时，查看之前做的记录<a target="_blank" rel="noopener" href="http://www.hhzzer.com/post/ji-zhu-xi-lie/yun-wei-bo-ke-he-ji">运维博客合集</a>,看到第一个博客就是<a target="_blank" rel="noopener" href="http://www.xiaomastack.com/2016/03/30/centos7/">小马</a>,点进博客一看，发现更新了一篇关于在CentOS上部署docker的文章。最近也对docker一些<a target="_blank" rel="noopener" href="http://www.hhzzer.com/post/ji-zhu-xi-lie/xiao-mi-kai-yuan-jian-kong-xi-tong">实践</a>,在docker中体验了一下小米的开源监控系统<a target="_blank" rel="noopener" href="http://open-falcon.org/">open-falcon</a>,感觉使用docker体验还是很好的，不用下载源文件、检查依赖包、编译配置等复杂操作，直接在docker中将镜像pull，run，就可以使用一个配置好的应用了。不会因为部署环境与安装手册上的不一致导致长时间去排查各种异常。<br>小马的博客中写道kubernetes，这个词在我订阅的公众号中经常出现，好奇百度，发现CSDN 刘天斯的<a target="_blank" rel="noopener" href="http://www.csdn.net/article/2014-12-24/2823292-Docker-Kubernetes">文章</a>,看完后一知半解，但看了作者简介，发现是一牛人，目前在腾讯运维部工作。遇见了就要抓住不放，百度到其<a target="_blank" rel="noopener" href="http://blog.liuts.com/index.php">博客</a>,几篇文章后了解到其天涯架构师经历，其中一篇文章写道天涯架构从windows平台转到linux平台的过程，链接中有fenng对此的评论连接，好,现在终于转到本文主角了。</p>
+<p>其实早就认识fenng了，第一次接触应该是通过公众号推荐，记不得是mactalk推荐fenng，还是fenng推荐mactalk，反正两个都关注了，而且经常看他们公众号的文章，还打赏了两次，其中一次是fenng过生日。看到刘天斯博客的时候突然想：微信公众号的文章只是一部分，应该有个话痨博客更有趣吧。不费吹灰之力找到<a target="_blank" rel="noopener" href="http://dbanotes.net/">链接</a>，开启了博客观光之旅，耗时昨天下午和今天上午。看完dbanote上最久远的一篇关于Oracle排错的文章后，开始编写本文。</p>
+<p>fenng，东北人，保送大学生物学专业毕业后，离开东北闯荡社会。初为中字国企系统管理员，一年后走。遂入一小公司1月，公司出售，换工作。进韩资外企，混ITpub，开启DBA之路。05入大支付宝，5年后走，2011入丁香园。看他博客中途还看了知乎关于丁香园离职员工吐槽专帖，辩证分析。fenng写了博客，并且坚持到10年，不成技术博客网红才怪。个人感觉原因是读书快，有一篇文章提到开个会的时间就把一本关于马云的书看完。其他原因还有肯记录，思考，也肯和周围人交流。</p>
+<p>kindle要出新的了，出来后买个方便阅读他推荐的书：<br>文明之光、软件随想录、浪潮之巅、黑客与画家</p>
 
       
     </div>
@@ -251,7 +245,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/03/14/%E5%85%AC%E4%BA%A4%E8%BD%A6%E9%98%85%E8%AF%BB%E6%97%B6%E9%97%B4/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/03/24/docker%E5%AD%A6%E4%B9%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -269,7 +263,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/03/14/%E5%85%AC%E4%BA%A4%E8%BD%A6%E9%98%85%E8%AF%BB%E6%97%B6%E9%97%B4/" class="post-title-link" itemprop="url">公交车阅读时间</a>
+          <a href="/2016/03/24/docker%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">docker学习</a>
         </h2>
 
         <div class="post-meta-container">
@@ -280,7 +274,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-03-14 10:17:00" itemprop="dateCreated datePublished" datetime="2016-03-14T10:17:00+08:00">2016-03-14</time>
+      <time title="创建时间：2016-03-24 10:59:00" itemprop="dateCreated datePublished" datetime="2016-03-24T10:59:00+08:00">2016-03-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -300,9 +294,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>最近上班坐公交，在等公交和车上的时候，可以看些公众号文章，感觉还不错。<br>首先看罗辑思维，今天讲的是商业社会。以一个奋发青年创造牛逼产品，准备改变世界，结果融资碰壁为引子，引出现代商业社会的本质。人类社会发现估计要经历三个时代，暴力时代、财富时代、智慧时代，目前处于财富时代。财富时代允许20%人拥有全世界80%财富，实现过程为卖，也称之为交换。交换的内容按层次分为 身体、体力、实用行产品、平台、智慧。前两个层次从事人员为打工者，后三个为商人。要在财富时代获取更多的价值，只有成为商人。</p>
-<p>二看卖桃君，讲开源OpenRsety项目。收获牛人春哥的<a target="_blank" rel="noopener" href="https://yichunzhang.wordpress.com/">博客</a>。大概浏览了下博客，发现春哥实在淘宝搞量子团队，高大上，定期跟踪。</p>
-<p>三看骑行西藏，讲鸡鸣山驿，讲懒。鸡鸣山驿古城的冷清，懒惰的人类创造勤奋的AlphaGO.</p>
+          <p><a target="_blank" rel="noopener" href="https://docs.docker.com/">官方文档</a><br><a target="_blank" rel="noopener" href="http://yun.baidu.com/s/1o6J4zG2">dorker第一本书</a> 连接下载的资料只有44页，不全。<br>csdn docker资料汇总<a target="_blank" rel="noopener" href="http://special.csdncms.csdn.net/BeDocker/">link</a><br>知乎关于docker的建议<a target="_blank" rel="noopener" href="http://www.zhihu.com/question/27227492">link</a><br>企业级docker服务提供商<a target="_blank" rel="noopener" href="https://www.daocloud.io/">DaoCloud</a><br><a target="_blank" rel="noopener" href="https://github.com/hangyan/docker-resources/blob/master/README_zh.md">docker资源列表github</a><br>常用命令<br><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/userguide/">docker engine 手册</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker -v   #查看docker版本</span><br><span class="line">docker info   #查看docker信息</span><br><span class="line">docker images  #查看镜像信息</span><br><span class="line">docker ps  #查看当前运行的容器</span><br><span class="line">docker log  $contener_name  #查看容器输出</span><br><span class="line">docker stop $contenner_name  #停止容器</span><br><span class="line">docker -i -t user-img /bin/bash   #启动镜像并开启bash界面</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -329,7 +322,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/03/10/%E7%8E%8B%E5%B7%9D%E6%8A%95%E8%B5%84%E8%AF%BB%E5%90%8E%E6%84%9F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/03/24/%E4%B8%96%E4%BA%8B%E6%B4%9E%E6%98%8E%E7%9A%86%E5%AD%A6%E9%97%AE%EF%BC%8C%E4%BA%BA%E6%83%85%E7%BB%83%E8%BE%BE%E5%8D%B3%E6%96%87%E7%AB%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -347,7 +340,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/03/10/%E7%8E%8B%E5%B7%9D%E6%8A%95%E8%B5%84%E8%AF%BB%E5%90%8E%E6%84%9F/" class="post-title-link" itemprop="url">王川投资读后感</a>
+          <a href="/2016/03/24/%E4%B8%96%E4%BA%8B%E6%B4%9E%E6%98%8E%E7%9A%86%E5%AD%A6%E9%97%AE%EF%BC%8C%E4%BA%BA%E6%83%85%E7%BB%83%E8%BE%BE%E5%8D%B3%E6%96%87%E7%AB%A0/" class="post-title-link" itemprop="url">世事洞明皆学问，人情练达即文章</a>
         </h2>
 
         <div class="post-meta-container">
@@ -358,7 +351,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-03-10 16:28:00" itemprop="dateCreated datePublished" datetime="2016-03-10T16:28:00+08:00">2016-03-10</time>
+      <time title="创建时间：2016-03-24 10:03:00" itemprop="dateCreated datePublished" datetime="2016-03-24T10:03:00+08:00">2016-03-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -378,11 +371,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>最近把微信公众号<a target="_blank" rel="noopener" href="http://weixin.sogou.com/gzh?openid=oIWsFt62cYKAXnnX3KTXcY5Sw5pk&ext=_vj5mXzN99oZgTixACe2igrhEpBqe7pMC2GyuiGcW37Rm-d2CXsw6UCKkPvtAON-">investguru</a>里整理的「王川自选集」<a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1hq30Dqk">链接</a>阅读完，感触还是颇多的。</p>
-<p>第一：身体健康是优质资产，值得长期投资。自选集中讲到每天早晚4分钟踢腿，顺便练出6块腹肌的办法值得一试（实验期限4年才见效果）。</p>
-<p>第二：退休后或者是经济自由后的计划真到那个时候，可能真不是你想要的生活。较为理想的生活就是每天实践一些退休计划。</p>
-<p>第三：投资房地产，过包租婆生活可能需要消耗更多的时间，在作者认为，房地产不是最佳的资产。</p>
-<p>第四：有所为有所不为，懂得分享共赢，机会自然找上门。</p>
+          <p>昨天和ny讨论后的结论如标题。</p>
+<p>装与不装的的时代，如何与周围人相处？人与人之间需要安全距离，保持安全距离的方法就是礼貌。越尊敬，距离越远。距离越远，造成的伤害越小。这就是人际关系的大学问。</p>
+<p>关于二手车买卖问题，先叫人来估价，估价完成后又不想卖，该如何回答？<br>A：不好意思，我买给朋友了<br>B：同事估价，我也顺便估价一下，最近一年不考虑卖，我要卖的时候再联系你吧。<br>你选择哪种方式？</p>
 
       
     </div>
@@ -409,7 +400,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/03/09/%E8%88%9E%E5%8F%B0%E6%B8%B8%E6%88%8F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/03/23/%E8%82%89%E4%BD%93%E7%9A%84%E8%AF%97%E4%BA%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -427,7 +418,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/03/09/%E8%88%9E%E5%8F%B0%E6%B8%B8%E6%88%8F/" class="post-title-link" itemprop="url">舞台游戏</a>
+          <a href="/2016/03/23/%E8%82%89%E4%BD%93%E7%9A%84%E8%AF%97%E4%BA%BA/" class="post-title-link" itemprop="url">肉体的诗人</a>
         </h2>
 
         <div class="post-meta-container">
@@ -438,7 +429,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-03-09 08:28:00" itemprop="dateCreated datePublished" datetime="2016-03-09T08:28:00+08:00">2016-03-09</time>
+      <time title="创建时间：2016-03-23 11:46:00" itemprop="dateCreated datePublished" datetime="2016-03-23T11:46:00+08:00">2016-03-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -458,8 +449,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>台上一句话“孔子早起不吃肉”<br>台下每个人自己想一个字或词，与台上的一个字组成吃的东西，顺序不限。</p>
-<p>孔：面包圈</p>
+          <p>肉体的诗人<br>惠特曼<br>我是肉体的诗人<br>也是灵魂的诗人<br>我占有天堂的愉悦<br>也占有地狱的痛苦<br>前者我把它嫁接在自己的身上使它生殖<br>后者我把大翻译成一种新的语言<br>啊 我的灵魂<br>我们在破晓的宁静的清凉中<br>找到了我们自己的归宿<br>我的声音追踪着<br>我目力所不及的地方<br>我的舌头一卷<br>就接触了大千世界</p>
+<p>我是丑陋的诗人<br>也是伟大的诗人<br>我享有快乐的极致<br>也享有痛苦的深渊<br>前者我把它降临在自己的身上使它青春永驻<br>后者我把它赋予成一种理性的执着<br>啊 我的灵魂<br>我们在漫长的凄凉的躅行中<br>找到了通往光明的前程<br>我的呐喊鼓动着<br>我幻想所不及的空间<br>我的臂膀一张<br>就拥抱了整个宇宙</p>
+<p>我把自己交给秽土<br>让他在心爱的草丛中成长<br>如果你又需要我<br>请在你的靴子底下寻找我</p>
+<p>一直看了血色浪漫对郑桐念的这首诗很有触动，今天总算是记录全了。昨天晚上看了方励的演讲，心生一种恐惧。他在60岁时还能凭着喜欢去做自己想做的事，而我正值壮年，却被工作无聊透顶。人生也就两万多天，我还能挥霍多少？如果不考虑任何因数，年龄、时间、能力问题，给你自由的选择，目前你最喜欢，最想做啥？面对这个问题我犹豫了，是出于对生活的麻木。每天像混日子一般，碌碌做别人指挥安排的事，你有自己的想法吗？我想做个流浪吉他手，看尽世间喜怒哀乐；我想做个土风舞者，演绎传播世界各地风情。我要做一个独立博客主，记录自己有限的两万多天；我要能独立开发，实现微信就能查询考勤。。。<br>我的偶像有王小波，他的文字灵动并带着思索。我的偶像四火，热爱足球、旅行、文学和编码。我的偶像钟跃民，在路上一直折腾自己喜欢的东西</p>
 
       
     </div>
@@ -486,7 +479,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/03/07/%E6%88%91%E5%96%9C%E7%88%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%AB%99%E7%82%B9/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/03/23/%E5%8D%9A%E5%AE%A2%E8%B5%B7%E5%9B%A01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -504,7 +497,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/03/07/%E6%88%91%E5%96%9C%E7%88%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%AB%99%E7%82%B9/" class="post-title-link" itemprop="url">我喜爱的个人博客站点</a>
+          <a href="/2016/03/23/%E5%8D%9A%E5%AE%A2%E8%B5%B7%E5%9B%A01/" class="post-title-link" itemprop="url">博客起因</a>
         </h2>
 
         <div class="post-meta-container">
@@ -515,7 +508,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-03-07 21:25:00" itemprop="dateCreated datePublished" datetime="2016-03-07T21:25:00+08:00">2016-03-07</time>
+      <time title="创建时间：2016-03-23 11:44:00" itemprop="dateCreated datePublished" datetime="2016-03-23T11:44:00+08:00">2016-03-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -535,7 +528,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/">阮一峰的博客</a><br><a target="_blank" rel="noopener" href="http://www.hustlzp.com/">hustlzp的博客</a><br><a target="_blank" rel="noopener" href="http://www.raychase.net/">四火的唠叨</a><br><a target="_blank" rel="noopener" href="http://www.liaoxuefeng.com/">廖雪峰的官方网站</a><br><a target="_blank" rel="noopener" href="http://azureyu.com/blog/">azureyu的博客</a><br><a target="_blank" rel="noopener" href="http://www.xiaomastack.com/">小马</a> 查询zabbix相关问题时遇见，干货很多。顺带收获<a target="_blank" rel="noopener" href="http://binbin158.blog.51cto.com/">彬彬</a><br><a target="_blank" rel="noopener" href="http://sfzhang88.blog.51cto.com/4995876/1685537">zabbix监控总结</a><br><a target="_blank" rel="noopener" href="http://www.laruence.com/">php7核心开发者</a><br><a target="_blank" rel="noopener" href="http://www.liuts.com/">运维进行时-刘天斯</a><br><a target="_blank" rel="noopener" href="http://dbanotes.net/">冯大辉的博客</a></p>
+          <p>在传统企业做三年多IT，每天应对各种流程故障，突然在某一天开始疲惫，开始迷茫，开始反思工作生活的意义。</p>
+<p>在36kr上看到外面的世界那么热闹，创业、众筹、硬件各种活动风声水气，我只是个旁观者吗？迷茫的时候看到了blogbar ,bar里聚合各种个人博客，看他们的思考与成长是那么清晰记录，而我这三年回想起来是那么模糊，不甘心。当看到四火的博客，特别是其中一遍关于为什么写博客的文章，深深触痛了我。我不该浪费时间，我要成长，我要建立自己的名片。于是这个博客诞生了。</p>
+<p>等老了之后，希望借助这个博客，慢慢回忆</p>
 
       
     </div>
@@ -555,7 +550,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/72/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><span class="page-number current">73</span><a class="page-number" href="/page/74/">74</a><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/74/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/72/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><span class="page-number current">73</span><a class="page-number" href="/page/74/">74</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/74/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

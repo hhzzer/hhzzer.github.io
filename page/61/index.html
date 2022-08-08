@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/01/%E5%8D%8E%E4%B8%BA%E5%88%80%E7%89%87%E5%AE%89%E8%A3%85ESXi%E5%8A%A0%E5%85%A5%E9%9B%86%E7%BE%A4/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/09/ubuntu%E4%B8%8A%E5%AD%A6%E4%B9%A0ansible/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/01/%E5%8D%8E%E4%B8%BA%E5%88%80%E7%89%87%E5%AE%89%E8%A3%85ESXi%E5%8A%A0%E5%85%A5%E9%9B%86%E7%BE%A4/" class="post-title-link" itemprop="url">华为刀片安装ESXi加入集群.md</a>
+          <a href="/2017/05/09/ubuntu%E4%B8%8A%E5%AD%A6%E4%B9%A0ansible/" class="post-title-link" itemprop="url">ubuntu上学习ansible</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,7 +195,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-05-01 20:52:23" itemprop="dateCreated datePublished" datetime="2017-05-01T20:52:23+08:00">2017-05-01</time>
+      <time title="创建时间：2017-05-09 08:25:24" itemprop="dateCreated datePublished" datetime="2017-05-09T08:25:24+08:00">2017-05-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -215,25 +215,23 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>做虚拟化资源，需要不断把主机加入集群，本文简要记录一下加入过程。</p>
-<h3 id="准备资料"><a href="#准备资料" class="headerlink" title="准备资料"></a>准备资料</h3><ul>
-<li>华为刀片iman地址，获取操作目标。</li>
-<li>待分配的管理地址</li>
-<li>安装介质ESXI6-update2</li>
-<li>相关固件补丁包及驱动</li>
-</ul>
-<h3 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h3><ol>
-<li>远程连接刀片，bios中电源管理设置为<code>高性能模式</code>。del键进入。</li>
-<li>raid界面ctrl+S进入raid配置界面，选择两块890G硬盘做raid1,用于安装系统。</li>
-<li>挂载ESXi镜像，开始安装系统。root密码设置为gl，网卡使用eth0和eth1,临时开启ssh服务。</li>
-<li>ssh到ESXi主机，安装网卡驱动补丁，raid卡驱动补丁，ssd驱动补丁，raid管理工具，前端固件。</li>
-<li>将刀片剩余磁盘，通过raid工具做raid0。</li>
-<li>vcenter web界面将主机加入vsan。</li>
-<li>vcenter 客户端界面，将主机加入集群。</li>
-<li>检查每一步是否成功。</li>
-<li>关闭ssh。</li>
-</ol>
-<h3 id="涉及文档"><a href="#涉及文档" class="headerlink" title="涉及文档"></a>涉及文档</h3><p>主要有三个，服务器安装、补丁升级、在线做rain0.</p>
+          <p>学习ansible就在自己主机上学习。</p>
+<h2 id="安装openssh-server-和openssh-client"><a href="#安装openssh-server-和openssh-client" class="headerlink" title="安装openssh server 和openssh client"></a>安装openssh server 和openssh client</h2><p>在添加密钥是报错“ ssh: connect to host localhost port 22: Connection refused”检查sshd服务是否开启</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep sshd</span><br><span class="line">root      3860     1  0 08:19 ?        00:00:00 /usr/sbin/sshd -D #未发现</span><br><span class="line">dpkg -l | grep openssh</span><br><span class="line">#只发现第一个和第三个</span><br><span class="line">#ii  openssh-client                             1:7.2p2-4ubuntu2.1                            amd64        secure shell (SSH) client, for secure access to remote machines</span><br><span class="line">#ii  openssh-server                             1:7.2p2-4ubuntu2.1                            amd64        secure shell (SSH) server, for secure access from remote machines</span><br><span class="line">#ii  openssh-sftp-server                        1:7.2p2-4ubuntu2.1                            amd64        secure shell (SSH) sftp server module, for SFTP access from remote machines</span><br><span class="line">#安装openssh-server</span><br><span class="line">sudo apt-get install openssh-server</span><br><span class="line">#检查和测试ssh登录</span><br><span class="line">ps -ef | grep sshd</span><br><span class="line">ssh xxx@127.0.0.1</span><br></pre></td></tr></table></figure>
+<h2 id="通过key连接ssh"><a href="#通过key连接ssh" class="headerlink" title="通过key连接ssh"></a>通过key连接ssh</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -N &quot;&quot; -b 4096 -t rsa -C &quot;hhzzer&quot; -f /home/hhzzer/.ssh/hhzzer.rsa</span><br><span class="line">#将生成的密钥拷贝到远程主机目录</span><br><span class="line">ssh-copy-id -i ~/.ssh/hhzzer.rsa hhzzer@localhost</span><br><span class="line">ssh hhzzer@localhost #测试发现不用输入密码</span><br></pre></td></tr></table></figure>
+
+<h2 id="ansible-ad-hoc-常用命令"><a href="#ansible-ad-hoc-常用命令" class="headerlink" title="ansible ad-hoc 常用命令"></a>ansible ad-hoc 常用命令</h2><p>使用命令<code>ansible local -m ping</code>时，会报错.原因是host文件中没有指定私钥文件<del>原因是publickey未设置正确，寻找解决办法未果，以后再解决</del></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1 | UNREACHABLE! =&gt; &#123;</span><br><span class="line">    &quot;changed&quot;: false,</span><br><span class="line">    &quot;msg&quot;: &quot;Failed to connect to the host via ssh: Permission denied (publickey,password).\r\n&quot;,</span><br><span class="line">    &quot;unreachable&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过在/etc/ansible/hosts中写入本机的ssh用户和密码先学写ansible的功能。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#name /etc/ansible/hosts</span><br><span class="line">[local]</span><br><span class="line">127.0.0.1 ansible_ssh_pass=xxx ansible_ssh_user=hhzzer #使用密码登录</span><br><span class="line">127.0.0.1 ansible_ssh_private_key_fiel=&quot;/home/hhzzer/.ssh/hhzzer.rsa&quot; ansible_ss</span><br><span class="line">h_user=hhzzer #使用私钥登录</span><br></pre></td></tr></table></figure>
+
+<h3 id="ansible-正则表达式"><a href="#ansible-正则表达式" class="headerlink" title="ansible 正则表达式"></a>ansible 正则表达式</h3><p><code>ansible 192.168.1.* -m ping</code> 能使用此命令的前提是/etc/ansible/hosts 中有此列表。正则表达式匹配对象为主机列表。</p>
+<h3 id="ansible参数"><a href="#ansible参数" class="headerlink" title="ansible参数"></a>ansible参数</h3><p>参数分为三类，基本执行参数、连接参数、权限参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-m 指定模块，模块有ping、command等</span><br><span class="line">-a 模块的参数</span><br><span class="line">-f 指定线程数，默认5</span><br><span class="line">-s sudo执行，sudo密码是空是才能执行成</span><br><span class="line">-l 列表中限定的主机</span><br><span class="line">--list-hosts 列出符合条件的主机</span><br></pre></td></tr></table></figure>
+<h3 id="ansible-Ad-Hoc常用命令"><a href="#ansible-Ad-Hoc常用命令" class="headerlink" title="ansible Ad-Hoc常用命令"></a>ansible Ad-Hoc常用命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible local -a &#x27;df -lh&#x27;</span><br><span class="line">ansible local -a &#x27;free -m&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>通过ansible-doc命令查看ansible可用的模块 <code>ansible-doc 模块名称</code>了解具体用法</p>
+<p>用户相关命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#创建dba组</span><br><span class="line"></span><br><span class="line">ansible local -m group -a &#x27;name=dba gid=1001&#x27; -b -K  #-b 为切换权限，默认sudo，-K为输入sudo密码</span><br><span class="line">--</span><br><span class="line">127.0.0.1 | SUCCESS =&gt; &#123;</span><br><span class="line">    &quot;changed&quot;: true,</span><br><span class="line">    &quot;gid&quot;: 1001,</span><br><span class="line">    &quot;name&quot;: &quot;dba&quot;,</span><br><span class="line">    &quot;state&quot;: &quot;present&quot;,</span><br><span class="line">    &quot;system&quot;: false</span><br><span class="line">&#125;</span><br><span class="line">#检查组是否创建陈宫</span><br><span class="line">ansible local -m raw -a &#x27;tail /etc/group|grep dba&#x27;</span><br><span class="line">--</span><br><span class="line">127.0.0.1 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line">dba:x:1001:</span><br><span class="line">Shared connection to 127.0.0.1 closed.</span><br><span class="line"></span><br><span class="line">#创建用户</span><br><span class="line">ansible local -m user -a &quot;name=dba shell=/bin/bash groups=dba append=yes home=/home/dba/ state=present&quot; -b -K</span><br><span class="line">--</span><br><span class="line">127.0.0.1 | SUCCESS =&gt; &#123;</span><br><span class="line">    &quot;changed&quot;: true,</span><br><span class="line">    &quot;comment&quot;: &quot;&quot;,</span><br><span class="line">    &quot;createhome&quot;: true,</span><br><span class="line">    &quot;group&quot;: 100,</span><br><span class="line">    &quot;groups&quot;: &quot;dba&quot;,</span><br><span class="line">    &quot;home&quot;: &quot;/home/dba/&quot;,</span><br><span class="line">    &quot;name&quot;: &quot;dba&quot;,</span><br><span class="line">    &quot;shell&quot;: &quot;/bin/bash&quot;,</span><br><span class="line">    &quot;state&quot;: &quot;present&quot;,</span><br><span class="line">    &quot;system&quot;: false,</span><br><span class="line">    &quot;uid&quot;: 1001</span><br><span class="line">&#125;</span><br><span class="line">#检查用户</span><br><span class="line">hhzzer@hhzzer:~$ ansible local -m raw -a &#x27;tail /etc/passwd|grep dba&#x27;</span><br><span class="line">127.0.0.1 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line">dba:x:1001:100::/home/dba/:/bin/bash</span><br><span class="line">Shared connection to 127.0.0.1 closed.</span><br><span class="line">#设置用户密码，暂时还不能成功，要在playbook中编写</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -260,7 +258,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/04/27/zabbix%E7%9B%91%E6%8E%A7%E7%A0%94%E7%A9%B6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/04/%E7%89%A9%E7%90%86%E6%9C%BA%E5%A4%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A%E5%8F%8A%E6%A3%80%E6%9F%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -278,7 +276,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/04/27/zabbix%E7%9B%91%E6%8E%A7%E7%A0%94%E7%A9%B6/" class="post-title-link" itemprop="url">zabbix监控研究</a>
+          <a href="/2017/05/04/%E7%89%A9%E7%90%86%E6%9C%BA%E5%A4%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A%E5%8F%8A%E6%A3%80%E6%9F%A5/" class="post-title-link" itemprop="url">linxu网卡绑定</a>
         </h2>
 
         <div class="post-meta-container">
@@ -289,7 +287,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-04-27 15:13:23" itemprop="dateCreated datePublished" datetime="2017-04-27T15:13:23+08:00">2017-04-27</time>
+      <time title="创建时间：2017-05-04 21:51:43" itemprop="dateCreated datePublished" datetime="2017-05-04T21:51:43+08:00">2017-05-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -309,7 +307,28 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 查看主机/目录剩余空间百分比</span><br><span class="line">usr/bin/zabbix_get -s 127.0.0.1 -p 10050 -k &quot;vfs.fs.size[/,pfree]&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <blockquote>
+<p>工作中物理机都需要做网卡冗余，避免单链路故障。通过ifenslave，可以实现链路冗余，中断其中任意一条线路，主机<br>网络都不会受影响。</p>
+</blockquote>
+<h2 id="网卡绑定"><a href="#网卡绑定" class="headerlink" title="网卡绑定"></a>网卡绑定</h2><p>1.确定绑定对象</p>
+<p><code>ifconfig -a</code>,查看所有网卡，<code>ethtools ethx</code>，查看最后一行<strong>Link detected</strong>确定网卡链路状态（yes，连接;no,未连接）。</p>
+<p>2.安装软件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install ifenslave -y</span><br><span class="line">#按道理应该是内核支持，可以不安装软件的</span><br></pre></td></tr></table></figure>
+
+<p>3.设置绑定模式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># mode=1为主备策略</span><br><span class="line"># miimon=100表示每隔100ms检测一次。</span><br><span class="line">echo &quot;bonding mode=1 miimon=100&quot;&gt;&gt;/etc/modules</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>4.修改网卡配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">file=&quot;/etc/network/interfaces&quot;</span><br><span class="line">ip=$(ifconfig |grep &quot;Bcast&quot; |awk &#x27;&#123;print $2&#125;&#x27; |awk -F &#x27;:&#x27; &#x27;&#123;print $2&#125;&#x27;)</span><br><span class="line"># hostname -I 也能显示主机ip</span><br><span class="line">#echo $ip</span><br><span class="line">#echo $file</span><br><span class="line">echo &quot;auto bond0&quot; &gt;$file</span><br><span class="line">echo &quot;iface bond0 inet static&quot; &gt;&gt;$file</span><br><span class="line">echo &quot;address &quot;$ip &gt;&gt;$file</span><br><span class="line">echo &quot;netmask 255.255.0.0&quot;&gt;&gt;$file</span><br><span class="line">echo &quot;gateway 10.252.0.254&quot;&gt;&gt;$file</span><br><span class="line">echo &quot;post-up ifenslave bond0 p4p1 p4p2&quot;&gt;&gt;$file</span><br><span class="line">echo &quot;pre-down inenslave -d bond0 p4p1 p4p2&quot;&gt;&gt;$file</span><br><span class="line">echo $file</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>5.重启生效 <code>init 1</code></p>
+<h2 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h2><p>1.查看bond0配置，确定参与绑定网卡名称</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">abc$ cat /proc/net/bonding/bond0</span><br><span class="line">Ethernet Channel Bonding Driver: v3.7.1 (April 27, 2011)</span><br><span class="line"></span><br><span class="line">Bonding Mode: fault-tolerance (active-backup)</span><br><span class="line">Primary Slave: None</span><br><span class="line">Currently Active Slave: eth3</span><br><span class="line">MII Status: up</span><br><span class="line">MII Polling Interval (ms): 100</span><br><span class="line">Up Delay (ms): 0</span><br><span class="line">Down Delay (ms): 0</span><br><span class="line"></span><br><span class="line">Slave Interface: eth3</span><br><span class="line">MII Status: up</span><br><span class="line">Speed: 10000 Mbps</span><br><span class="line">Duplex: full</span><br><span class="line">Link Failure Count: 1</span><br><span class="line">Permanent HW addr: 9c:e3:74:1b:82:b7</span><br><span class="line">Slave queue ID: 0</span><br><span class="line"></span><br><span class="line">Slave Interface: eth2</span><br><span class="line">MII Status: up</span><br><span class="line">Speed: 10000 Mbps</span><br><span class="line">Duplex: full</span><br><span class="line">Link Failure Count: 1</span><br><span class="line">Permanent HW addr: 9c:e3:74:1b:82:b6</span><br><span class="line">Slave queue ID: 0</span><br></pre></td></tr></table></figure>
+
+<p>2.停掉Active网卡eth3，再检查配置，是否切换到备用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo ifconfig eth3 down</span><br><span class="line">more /proc/bonding/bond0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>3.切换到另一张网卡后，ping网关，检查网络是否通。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="http://linux.vbird.org/linux_enterprise/0110network.php#server_bonding">http://linux.vbird.org/linux_enterprise/0110network.php#server_bonding</a><br><a target="_blank" rel="noopener" href="http://linuxnote.blog.51cto.com/9876511/1680315">http://linuxnote.blog.51cto.com/9876511/1680315</a></p>
 
       
     </div>
@@ -336,7 +355,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/04/27/shell%E5%88%86%E6%9E%90%E7%BD%91%E7%AB%99%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/04/zabbix-discovery-config/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -354,7 +373,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/04/27/shell%E5%88%86%E6%9E%90%E7%BD%91%E7%AB%99%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97/" class="post-title-link" itemprop="url">shell分析网站访问日志</a>
+          <a href="/2017/05/04/zabbix-discovery-config/" class="post-title-link" itemprop="url">zabbix-discovery-config</a>
         </h2>
 
         <div class="post-meta-container">
@@ -365,7 +384,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-04-27 09:41:44" itemprop="dateCreated datePublished" datetime="2017-04-27T09:41:44+08:00">2017-04-27</time>
+      <time title="创建时间：2017-05-04 21:13:29" itemprop="dateCreated datePublished" datetime="2017-05-04T21:13:29+08:00">2017-05-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -385,24 +404,182 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>问题：给定一个web服务器登录日志，分析一段时间内ip访问次数并按次数由高到低排列。</p>
-<p>思路：</p>
-<ol>
-<li>查找时间段内的日志行</li>
-<li>提取每一行中的ip和访问时间</li>
-<li>对ip进行计数</li>
-<li>按ip计数从大到小排列</li>
-</ol>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>日志文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Serving HTTP on 0.0.0.0 port 8000 ...</span><br><span class="line">----------------------------------------</span><br><span class="line">Exception happened during processing of request from (&#x27;127.0.0.1&#x27;, 54902)</span><br><span class="line">----------------------------------------</span><br><span class="line">127.0.0.1 - - [27/Apr/2017 09:58:14] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">127.0.0.1 - - [27/Apr/2017 09:58:14] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">127.0.0.1 - - [27/Apr/2017 09:58:15] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">127.0.0.1 - - [27/Apr/2017 09:58:15] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">127.0.0.1 - - [27/Apr/2017 09:58:15] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">127.0.0.1 - - [27/Apr/2017 09:58:15] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">128.0.0.1 - - [27/Apr/2017 09:58:15] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">129.0.0.1 - - [27/Apr/2017 09:58:15] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">129.0.0.1 - - [27/Apr/2017 09:58:16] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">127.0.0.1 - - [27/Apr/2017 09:58:16] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">121.0.0.1 - - [27/Apr/2017 09:58:16] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">123.0.0.1 - - [27/Apr/2017 09:58:16] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">1273.0.0.1 - - [27/Apr/2017 09:58:16] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">1273.0.0.1 - - [27/Apr/2017 09:58:17] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">1273.0.0.1 - - [27/Apr/2017 09:58:17] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line">127.0.0.1 - - [27/Apr/2017 09:58:17] &quot;GET / HTTP/1.1&quot; 200 -</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>统计登录最多的ip并按降序排列</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 统计访问前10的ip，先取出第一列，然后排序，去重并显示重复次数，按数值大小逆序排列，取出前10</span><br><span class="line">awk &#x27;&#123;print $1&#125;&#x27; | sort |uniq -c |sort -nr | head -n 10</span><br></pre></td></tr></table></figure>
+          <blockquote>
+<p>同事使用zabbix自动发现功能，一直无法发现主机，排查过程遂成此文。</p>
+</blockquote>
+<p>zabbix discovery分为网络发现（net discovery）、活动代理自动注册（Active agent auto-registration）和低级发现（low-level discovery）。网络发现可根据ping或agent或其他网络服务找到满足检查结果的主机，并执行其他动作。可执行的动作有</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Sending notifications #发送通知</span><br><span class="line">Adding/removing hosts #添加或删除主机</span><br><span class="line">Enabling/disabling hosts #启用或禁用主机</span><br><span class="line">Adding hosts to a group #添加到某个组</span><br><span class="line">Removing hosts from a group #移除某组</span><br><span class="line">Linking hosts to/unlinking from a template #关联或取消关联到模板</span><br><span class="line">Executing remote scripts #执行远程脚本</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="配置网络发现"><a href="#配置网络发现" class="headerlink" title="配置网络发现"></a>配置网络发现</h2><p>1 配置-》自动发现 中创建发现规则</p>
+<p>2 配置-》动作 中设置他条件</p>
+<p>3 监控-》自动发现 中查看自动发现的结果</p>
+<h2 id="故障排查"><a href="#故障排查" class="headerlink" title="故障排查"></a>故障排查</h2><p>配置了自动发现一直没有发现主机，先检查是否有自动发现进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep discover</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>若没有，检查/etc/zabbix/zabbix-server.cfg <code>StartDisvoer</code>字段是否有值，或将参数注释去掉，手动设置zabbix discover进程为4，然后重启zabbix-server。</p>
+<p>再检查web界面自动发现规则是否启用，网段是否正确。</p>
+<p>最后检查动作中条件是否引用发现规则。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/3.0/manual/discovery/auto_registration">https://www.zabbix.com/documentation/3.0/manual/discovery/auto_registration</a><br><a target="_blank" rel="noopener" href="http://www.zabbix.com/download">http://www.zabbix.com/download</a><br><a target="_blank" rel="noopener" href="https://zhangge.net/5030.html">https://zhangge.net/5030.html</a></p>
 
-<p>其他有用命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#如果想查看某一天的</span><br><span class="line">cat access.log | grep &quot;07/Nov/2013&quot; | awk &#x27;&#123;print $1&#125;&#x27; |  uniq -c | sort -nr | head -n 10</span><br><span class="line">#结果</span><br><span class="line">   3452 60.**.235.88</span><br><span class="line">   2297 119.**.195.228</span><br><span class="line">   2258 113.**.145.91</span><br><span class="line">   1221 123.**.187.223</span><br><span class="line">    905 211.**.82.175</span><br><span class="line">    899 117.**.5.207</span><br><span class="line">    888 112.**.24.202</span><br><span class="line">    787 110.**.139.183</span><br><span class="line">    576 143.**.5.44</span><br><span class="line">    574 125.**.18.21</span><br><span class="line">#查看访问最多的页面</span><br><span class="line">awk &#x27;&#123;print $11&#125;&#x27; access.log | sort | uniq -c | sort -nr | head -n 10</span><br><span class="line">#结果</span><br><span class="line"></span><br><span class="line">    1420617 &quot;http://***.com/forum.php&quot;</span><br><span class="line">     844547 &quot;http://***.com/?fromuid=1180&quot;</span><br><span class="line">     760045 &quot;http://www.***.com/&quot;</span><br><span class="line">     697515 &quot;http://www.***.com/forum.php&quot;</span><br><span class="line">     436309 &quot;http://www.***.com/?fromuid=1080&quot;</span><br><span class="line">     279609 &quot;http://www.***.com/?fromuid=21&quot;</span><br><span class="line">     172784 &quot;http://www.***.com/?fromuid=2123&quot;</span><br><span class="line">     108563 &quot;http://www.***.com/?fromuid=1090&quot;</span><br><span class="line">      86906 &quot;http://www.***.com/plugin.php?id=sanree_brand:sanree_brand&quot;</span><br><span class="line">      80661 &quot;http://www.***.com/plugin.php?id=sanree_brand_goods:sanree_brand_goods&quot;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/03/ansible%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/05/03/ansible%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">ansible安装与使用</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-03 23:19:45" itemprop="dateCreated datePublished" datetime="2017-05-03T23:19:45+08:00">2017-05-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="安装ansible"><a href="#安装ansible" class="headerlink" title="安装ansible"></a>安装ansible</h2><p>centos7</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install epel-release</span><br><span class="line">$ sudo yum install ansible -y</span><br><span class="line">yum install python-pip</span><br><span class="line">pip install ansible</span><br><span class="line">pip install --upgrade setuptools</span><br></pre></td></tr></table></figure>
+<p>ubuntu</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-add-repository -y ppa:ansible/ansible</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y ansible</span><br></pre></td></tr></table></figure>
+<h2 id="配置使用"><a href="#配置使用" class="headerlink" title="配置使用"></a>配置使用</h2><p>以monitor用户连接主机hosts执行who命令<br>ansible -i ./hosts all -a ‘who’ –ask-pass -u monitor</p>
+<h2 id="错误排查"><a href="#错误排查" class="headerlink" title="错误排查"></a>错误排查</h2><p>1 安装完成后找不到配置文件，无/etc/ansible目录，通过卸载pip安装的ansible<code>sudo pip uninstall ansible</code>,重新使用yum安装解决<code>yum install ansible</code></p>
+<p>2 <code>FAILED =&gt; Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host&#39;s fingerprint to your known_hosts file to manage this host.</code><br>通过修改/etc/ansible/ansible.cfg 中<code>host_key_checking = False</code>行注释去掉。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="http://docs.ansible.com/ansible/intro_installation.html">http://docs.ansible.com/ansible/intro_installation.html</a><br><a target="_blank" rel="noopener" href="https://www.the5fire.com/ansible-guide-cn.html">https://www.the5fire.com/ansible-guide-cn.html</a><br><a target="_blank" rel="noopener" href="https://blog.goquxiao.com/posts/2015/09/01/ansible-simple-tutorial/">https://blog.goquxiao.com/posts/2015/09/01/ansible-simple-tutorial/</a><br><a target="_blank" rel="noopener" href="https://www.gitbook.com/book/ansible-book/ansible-first-book">https://www.gitbook.com/book/ansible-book/ansible-first-book</a><br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/1608_lih_ansible/index.html">https://www.ibm.com/developerworks/cn/linux/1608_lih_ansible/index.html</a><br><a target="_blank" rel="noopener" href="http://www.ideavirgin.com/t/2015-08-30-ansible-tutorial.html">http://www.ideavirgin.com/t/2015-08-30-ansible-tutorial.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/03/shell-learn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/05/03/shell-learn/" class="post-title-link" itemprop="url">shell-learn</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-03 21:51:43" itemprop="dateCreated datePublished" datetime="2017-05-03T21:51:43+08:00">2017-05-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="学习命令"><a href="#学习命令" class="headerlink" title="学习命令"></a>学习命令</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">echo &gt;&gt; file #add content to file</span><br><span class="line">&amp;&amp; #link command</span><br><span class="line">echo monitor:monitor-passwd|chpasswd #change user passwd</span><br><span class="line">sed -i &#x27;/^root/ a\app     ALL=(ALL)      ALL&#x27; $file # add something after a line</span><br><span class="line">host -I #get host ip</span><br><span class="line"></span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2017/04/27/shell%E5%88%86%E6%9E%90%E7%BD%91%E7%AB%99%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97/#more" rel="contents">
+              <a class="btn" href="/2017/05/03/shell-learn/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -425,188 +602,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/04/25/%E6%89%A9%E5%AE%B9LVM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/04/25/%E6%89%A9%E5%AE%B9LVM/" class="post-title-link" itemprop="url">扩容LVM</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-04-25 22:54:23" itemprop="dateCreated datePublished" datetime="2017-04-25T22:54:23+08:00">2017-04-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>通过模板部署虚拟机，磁盘空间只有100G，有时业务需要扩大磁盘空间。</p>
-</blockquote>
-<h2 id="概念与命令"><a href="#概念与命令" class="headerlink" title="概念与命令"></a>概念与命令</h2><p>Linux LVM（Logical Volumes Manager）是在磁盘分区和文件系统之间添加的一个逻辑层，来为文件系统屏蔽下层磁盘分区布局，提供一个抽象的存储卷，在存储卷上建立文件系统。</p>
-<ul>
-<li>物理存储介质，磁盘、带阵列的磁盘</li>
-<li>pv 物理卷</li>
-<li>vg 卷组</li>
-<li>lv 逻辑卷</li>
-<li>文件系统</li>
-</ul>
-<p>如果不使用LVM对磁盘空间管理，管理方式为<br>1 对磁盘进行分区，2 将文件系统装在分区中。磁盘相当于一个冰块，需求将冰块切割成几块，放在固定大小的杯子才能使用。文件系统就养在装水的杯子中。</p>
-<p>若使用lVM对磁盘空间管理，多了一个中间层。磁盘一个冰块，切割成几块（分区）-放进杯子融化（pv）-将水倒进无边池塘（vg）-将池塘水装入可伸缩的气球（lv）-水汽球中装入文件系统</p>
-<p>需要扩容时再那一块冰，放进杯子融化，水倒入池塘，池塘水在注入某个已经存在的气球，然后在刷新文件系统。</p>
-<h2 id="主要思路"><a href="#主要思路" class="headerlink" title="主要思路"></a>主要思路</h2><p>1 制作虚拟机模板时，磁盘采用LVM管理安装系统<br>2 vShere中磁盘空间由100G修改为500G<br>3 使用fdisk工具将新增加空间化为sda3 ，主分区，并转换分区类类型为LVM（t,code 8e）<br>3 将sda3分区创建为物理卷<br>4 使用sda3物理卷扩展vg<br>5 新建lv，关联新建pv<br>6 创建lv挂在目录并设置开机挂载</p>
-<h2 id="详细步骤"><a href="#详细步骤" class="headerlink" title="详细步骤"></a>详细步骤</h2><p>1 通过vShere编辑虚拟机磁盘，由100g调整为500G<br>2 ssh到扩容主机操作</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"># 1 查看硬盘使用情况</span><br><span class="line">fdisk -l  </span><br><span class="line">Disk /dev/sda: 107.4 GB, 107374182400 bytes</span><br><span class="line">255 heads, 63 sectors/track, 13054 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk identifier: 0x000d1298</span><br><span class="line"># 2 对新增空间分区并将分区类型设置为linux LVM格式</span><br><span class="line">[root@vmtest-1 ~]# fdisk /dev/sda</span><br><span class="line"></span><br><span class="line">Command (m for help): p   查看当前分区</span><br><span class="line">Command (m for help): m   帮助信息</span><br><span class="line">Command (m for help): n    新建分区</span><br><span class="line">Command action</span><br><span class="line">   e   extended</span><br><span class="line">   p   primary partition (1-4)   选择主分区</span><br><span class="line">p</span><br><span class="line">Partition number (1-4): 3</span><br><span class="line">First cylinder (13055-19581, default 13055):</span><br><span class="line">Using default value 13055</span><br><span class="line">Last cylinder, +cylinders or +size&#123;K,M,G&#125; (13055-19581, default 19581):</span><br><span class="line">Using default value 19581</span><br><span class="line"></span><br><span class="line">Command (m for help): t  更换分区类型</span><br><span class="line">Partition number (1-4): 3</span><br><span class="line">Hex code (type L to list codes): L  查看分区类型</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Hex code (type L to list codes): 8e</span><br><span class="line">Changed system type of partition 3 to 8e (Linux LVM)</span><br><span class="line"></span><br><span class="line">Command (m for help): w   保存</span><br><span class="line">reboot #重启</span><br><span class="line">partprobe  #让内核重新读取分区表</span><br><span class="line"># 3 新建物理卷标</span><br><span class="line">pvcreate /dev/sda3</span><br><span class="line"></span><br><span class="line"># 查看虚拟卷</span><br><span class="line">vgdispaly</span><br><span class="line"></span><br><span class="line">#使用sda3分区（pv）扩展虚拟卷</span><br><span class="line">vgextend &quot;VG Name&quot; /dev/sda3</span><br><span class="line"># 新建lv</span><br><span class="line">ls /dev/mapper/</span><br><span class="line">lvcreate -L &quot;Free PE/Size&quot; -n lv_name LVM_name</span><br><span class="line"></span><br><span class="line">#将新建的lv格式化为ext4格式</span><br><span class="line">mkfs -t ext4 /dev/mapper/VolGroup-lv_data</span><br><span class="line">#创建挂载点</span><br><span class="line">mkdir /data</span><br><span class="line"># 将创建的卷挂载在/data</span><br><span class="line">mount /dev/mapper/VolGroup-lv_data /data</span><br><span class="line"># 设置开机自动挂载</span><br><span class="line">vi /etc/fstab</span><br><span class="line">添加如下信息</span><br><span class="line">/dev/mapper/VolGroup-lv_data /data                     ext4    defaults        1 2</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/04/18/%E5%BC%80%E5%A7%8B%E5%86%99%E4%BD%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/04/18/%E5%BC%80%E5%A7%8B%E5%86%99%E4%BD%9C/" class="post-title-link" itemprop="url">开始写作</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-04-18 22:11:06" itemprop="dateCreated datePublished" datetime="2017-04-18T22:11:06+08:00">2017-04-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>自己挣扎写作好久，今天听了古典的写作方法和李笑来的写作心法，那就开始写吧。</p>
-</blockquote>
-<h3 id="古典五问写作方法"><a href="#古典五问写作方法" class="headerlink" title="古典五问写作方法"></a>古典五问写作方法</h3><ol>
-<li>找到一个强烈想表达的观点</li>
-<li>这个观点和其他观点的不同</li>
-<li>3个子概念支撑观点</li>
-<li>观点带来的可执行方法</li>
-<li>你对观点的看法</li>
-</ol>
-<h3 id="李笑来写作心法"><a href="#李笑来写作心法" class="headerlink" title="李笑来写作心法"></a>李笑来写作心法</h3><p>认识到世界的不完美和自己的不完美，马上开始去做，在做的过程中不断修正认识。</p>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>工作是你出卖时间获得收益的一个途径。其他观点认为工作是融入社会的一个方式，我认为其实就是一种交易。自己的资本就是时间，在单位时间内，凭借自己的技能或能力能解决别人的需求，这种满足需求能力的稀缺性决定了你的单位时间价格。可执行方法就是做到行业第一，增加自己稀缺性。不断学习东西，触类旁通的学习，不管在目前看来是有用还是无用。我的观点是工作是交易，我是商人，要获得财富就要专业化，专业化提高生产效率，创造更多财富。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/60/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/60/">60</a><span class="page-number current">61</span><a class="page-number" href="/page/62/">62</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/62/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/60/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/60/">60</a><span class="page-number current">61</span><a class="page-number" href="/page/62/">62</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/62/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

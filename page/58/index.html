@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/18/%E5%AE%89%E8%A3%85zabbix-proxy/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/31/Django%E5%AD%A6%E4%B9%A0-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/18/%E5%AE%89%E8%A3%85zabbix-proxy/" class="post-title-link" itemprop="url">安装zabbix-proxy</a>
+          <a href="/2017/05/31/Django%E5%AD%A6%E4%B9%A0-1/" class="post-title-link" itemprop="url">Django学习-1</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,7 +195,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-05-18 16:23:39" itemprop="dateCreated datePublished" datetime="2017-05-18T16:23:39+08:00">2017-05-18</time>
+      <time title="创建时间：2017-05-31 11:50:41" itemprop="dateCreated datePublished" datetime="2017-05-31T11:50:41+08:00">2017-05-31</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -215,18 +215,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>监控主机及项目太多时，需要分布式部署zabbix，通过部署proxy实现。</p>
-</blockquote>
-<h2 id="proxy安装步骤"><a href="#proxy安装步骤" class="headerlink" title="proxy安装步骤"></a>proxy安装步骤</h2><p>1 安装mysql并创建zabbix帐号和zabbix数据库</p>
-<p>2 下载源码使用<code>mysql -u zabbix -p zabbix &lt; database/mysql/schema.sql</code> 初始化数据库</p>
-<p>3 安装包<code>yum install libxml2-devel curl-devel net-snmp-devel OpenIPMI-devel -y</code></p>
-<p>4 编译并安装</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./configure --enable-proxy --with-mysql --with-net-snmp --with-libcurl --with-libxml2 --with-openipmi  --prefix=/apps/svr/zabbix</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<p>5 修改配置文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Server</span><br><span class="line">Hostname=ZabbixProxy1 #与前端添加名称保持一致</span><br><span class="line">DBName</span><br><span class="line">DBUser</span><br><span class="line">DBPassword</span><br><span class="line">ConfigFrequency=60 #60s同步一次配置，确保server配置快速下发。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>6 前端添加proxy</p>
-<p>7 运行<br><code>/apps/svr/zabbix/sbin/zabbix_proxy -c /apps/svr/zabbix/etc/zabbxi_proxy.conf</code></p>
+          <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="http://djangobook.py3k.cn/2.0/chapter02/">http://djangobook.py3k.cn/2.0/chapter02/</a></p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 操作系统 ubuntu16.04</span><br><span class="line"># python -V</span><br><span class="line">Python 2.7.12</span><br><span class="line">#安装pip</span><br><span class="line">sudo apt-get -y install python-pip</span><br><span class="line">#安装Django</span><br><span class="line">sudo pip install Django==1.11.1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="初步了解"><a href="#初步了解" class="headerlink" title="初步了解"></a>初步了解</h3><p>看完参考资料，对django有了初步了解。<br>url,浏览器请求的地址，<br>views，定义url定义的函数，<br>template，渲染views返回的数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#开启一个项目</span><br><span class="line">django-admin.py startproject mysite</span><br><span class="line">#创建一个应用</span><br><span class="line">django-admin startapp blog</span><br><span class="line">hhzzer@hhzzer:~/myweb/django-site$ tree .</span><br><span class="line">.</span><br><span class="line">└── mysite</span><br><span class="line">    ├── blog  #名称为blog的应用</span><br><span class="line">    │   ├── admin.py</span><br><span class="line">    │   ├── admin.pyc</span><br><span class="line">    │   ├── apps.py</span><br><span class="line">    │   ├── __init__.py</span><br><span class="line">    │   ├── __init__.pyc</span><br><span class="line">    │   ├── migrations</span><br><span class="line">    │   │   ├── __init__.py</span><br><span class="line">    │   │   └── __init__.pyc</span><br><span class="line">    │   ├── models.py</span><br><span class="line">    │   ├── models.pyc</span><br><span class="line">    │   ├── tests.py</span><br><span class="line">    │   ├── views.py #url对应的函数保存在这</span><br><span class="line">    │   └── views.pyc</span><br><span class="line">    ├── db.sqlite3</span><br><span class="line">    ├── manage.py  #管理站点的命令，runserver</span><br><span class="line">    └── mysite  #管理站点目录</span><br><span class="line">        ├── __init__.py</span><br><span class="line">        ├── __init__.pyc</span><br><span class="line">        ├── settings.py  #设置包含的app等</span><br><span class="line">        ├── settings.pyc</span><br><span class="line">        ├── urls.py  #绑定url到函数</span><br><span class="line">        ├── urls.pyc</span><br><span class="line">        ├── wsgi.py</span><br><span class="line">        └── wsgi.pyc</span><br><span class="line"></span><br><span class="line">4 directories, 22 files</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -253,7 +245,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/18/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9%E5%88%86%E5%8C%BA/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/27/%E8%85%BE%E8%AE%AF%E8%93%9D%E9%B2%B8%E8%BF%90%E7%BB%B4%E5%B9%B3%E5%8F%B0%E5%88%9D%E6%8E%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -271,7 +263,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/18/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9%E5%88%86%E5%8C%BA/" class="post-title-link" itemprop="url">虚拟机在线扩容分区</a>
+          <a href="/2017/05/27/%E8%85%BE%E8%AE%AF%E8%93%9D%E9%B2%B8%E8%BF%90%E7%BB%B4%E5%B9%B3%E5%8F%B0%E5%88%9D%E6%8E%A2/" class="post-title-link" itemprop="url">腾讯蓝鲸运维平台初探</a>
         </h2>
 
         <div class="post-meta-container">
@@ -282,7 +274,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-05-18 14:51:38" itemprop="dateCreated datePublished" datetime="2017-05-18T14:51:38+08:00">2017-05-18</time>
+      <time title="创建时间：2017-05-27 09:57:59" itemprop="dateCreated datePublished" datetime="2017-05-27T09:57:59+08:00">2017-05-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -303,20 +295,24 @@
     
     <div class="post-body" itemprop="articleBody">
           <blockquote>
-<p>工作中需要对在线的系统扩容分区，不能停业务。使用vmware虚拟机增加磁盘文件和lvm，就能达到要求。</p>
+<p>一入运维深似海，从此床上不折腾。凌晨3点的短信电话告警、无休止的变更，让朝气蓬勃的青年变了样。网传蓝鲸平台标致可人，今日亲测之。</p>
 </blockquote>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
-<li>linxu系统，/data 目录存放数据库，空间不足需扩容。</li>
-<li>不能重启虚拟机</li>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>蓝鲸运维平台3.0需要内测申请，每周2,4审批，故测试2.0版本。</p>
+<p>运维平台也叫工作台，在工作台中可添加系统默认应用和自己编写应用。系统默认应用包括CMDB、job平台。为了便于自己编写应用，工作台中有开发者中心标签，实际为pass平台，用于快速创建在工作台上的应用。rabbitMQ用于异步消息传输，用于应用间消息传递、作业平台命令传递到主机。</p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>使用两台服务器部署，1台部署基础模块+正式应用+MQ，1台部署app测试环境。操作系统版本为centos6.5_X64（使用centos7.2由于内网无法更新部分软件包，遂放弃。）</p>
+<p>安装好系统，配置好网络和yum源后，就可以下载证书和软件了。注册平台帐号，在<a target="_blank" rel="noopener" href="http://bk.tencent.com/download/#ssl">证书下载页面</a>输入mac地址，下载证书。在<a target="_blank" rel="noopener" href="http://bk.tencent.com/download/#community">社区版下载</a>下载v2.0.1版本（需登录）。</p>
+<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#登录服务器创建/data目录</span><br><span class="line">mkdir /data</span><br><span class="line">cd /data/ &amp;&amp; wget 社区版和证书</span><br><span class="line">#按照文档安装基础模块</span><br><span class="line"># 按照文档安装pass正式环境</span><br><span class="line"># 按照文档安装rabbitmq</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="排错处理"><a href="#排错处理" class="headerlink" title="排错处理"></a>排错处理</h3><ol>
+<li>安装后报证书错误<br>输入正确的mac地址后再下载证书，init后，要执行install。</li>
+<li>安装pass正式环境报错找不到register.tmp.<br>需要将基础模块启动后再安装，<a target="_blank" rel="noopener" href="http://bbs.bk.tencent.com/forum.php?mod=viewthread&tid=305&highlight=Error:+token+sid+is+not+in+/data/paa">参考</a>.</li>
+<li>安装rabbitmq时无法启动报错“erl：command not found”<br>表明环境变量设置有问题，先<code>whereis erl</code>找到erl所造目录，然后在～/.bash_profile中添加，然后执行<code>source ~/.bash_profile</code>重新加载</li>
+<li>rabbitmq无法启动，在平台上无法显示<br>在第三方服务中添加第三方服务，输入ip地址、用户名和密码。</li>
 </ol>
-<h3 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h3><ol>
-<li>虚拟机新增一块硬盘在另一个控制器，就能不重启识别新增设备。</li>
-<li>/data 使用的lvm的lv，新硬盘加入vg后，再扩容到/data使用的lv即可。</li>
-</ol>
-<h3 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h3><ol>
-<li>虚拟机-编辑虚拟机设置-添加-硬盘 添加一块100G的硬盘到，选择（1,0）控制器。</li>
-<li>登录虚拟机系统<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l # 查看新增硬盘是否识别，sdb字样</span><br><span class="line">fdisk /dev/sdb #对sdb进行分区，全盘分一个分区sdb1</span><br><span class="line">n</span><br><span class="line">p</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">t #转换分区格式</span><br><span class="line">8e #转换为lvm格式</span><br><span class="line">w</span><br><span class="line">pvcreate /dev/sdb1 #在sdb1分区上创建pv</span><br><span class="line">vgextend VolGroup /dev/sdb1 #使用名为“/dev/sdb1”的pv扩展VolGroup卷</span><br><span class="line">lvextend /dev/VolGroup/LogVol01 /dev/sdb1 #使用“/dev/sdb1”扩展lv</span><br><span class="line">resize2fs /dev/mapper/VolGroup-LogVol01 #重新计算文件系统空间</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ cd extras/rabbitmq</span><br><span class="line"># 安装rabbitmq(涉及到erl的安装，时间较久)</span><br><span class="line">$ ./install.sh -u 管理员账户 -p 管理员密码</span><br><span class="line"># 默认安装到了/data/paas/service/rabbitmq下面</span><br><span class="line"># 检测是否启动成功</span><br><span class="line"># 查看mq服务状态</span><br><span class="line">$ /data/paas/service/rabbitmq/sbin/rabbitmqctl status</span><br><span class="line">/data/pass/service/rabbitmq/sbin/rabbitmqctl start_app #启动服务</span><br><span class="line"># 查看web api接口服务是否启动</span><br><span class="line">$ lsof -i:15672</span><br><span class="line"># 查看mq服务是否启动</span><br><span class="line">$ lsof -i:5672</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="使用体验"><a href="#使用体验" class="headerlink" title="使用体验"></a>使用体验</h2><p>待补充</p>
+<h2 id="开发应用"><a href="#开发应用" class="headerlink" title="开发应用"></a>开发应用</h2><p>待补充</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>待补充</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="http://open.qiniudn.com/ecug-2016/cloud-times-ops.pdf">http://open.qiniudn.com/ecug-2016/cloud-times-ops.pdf</a></p>
 
       
     </div>
@@ -343,7 +339,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/17/ssh%E8%84%9A%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%A4%B1%E8%B4%A5%E5%88%86%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/26/zabbix%E8%84%9A%E6%9C%AC%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -361,7 +357,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/17/ssh%E8%84%9A%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%A4%B1%E8%B4%A5%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">centos7.2脚本升级ssh失败分析</a>
+          <a href="/2017/05/26/zabbix%E8%84%9A%E6%9C%AC%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">zabbix脚本发送邮件配置</a>
         </h2>
 
         <div class="post-meta-container">
@@ -372,7 +368,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-05-17 23:06:44" itemprop="dateCreated datePublished" datetime="2017-05-17T23:06:44+08:00">2017-05-17</time>
+      <time title="创建时间：2017-05-26 16:36:00" itemprop="dateCreated datePublished" datetime="2017-05-26T16:36:00+08:00">2017-05-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -393,20 +389,19 @@
     
     <div class="post-body" itemprop="articleBody">
           <blockquote>
-<p>今天使用shell脚本自动升级ssh，升级完成后无法ssh登录，仔细对比脚本和一步一执行后才发现问题所在。</p>
+<p>使用腾讯企业邮箱发监控告警邮件，由于企业邮箱的限制，会提示输入验证码后再发送。故使用postfix</p>
 </blockquote>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p><code>./configure --prefix=/usr --sysconfdir=/etc/ssh --without-zlib-version-check --with-ssl-dir=/usr/local/ssl --with-pam</code> 行脚本执行时被拆分成两行，<code>--with-pam</code> 参数未执行。</p>
-<h2 id="脚本（顺序执行1-2）"><a href="#脚本（顺序执行1-2）" class="headerlink" title="脚本（顺序执行1,2）"></a>脚本（顺序执行1,2）</h2><p>1 升级openssl</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">yum install pam pam-devel  zlib-devel -y</span><br><span class="line">cd /usr/src</span><br><span class="line">wget http://x.x.x.x/data/openssh/7.5/openssl-1.0.2k.tar.gz</span><br><span class="line">wget http://x.x.x.x/data/openssh/7.5/openssh-7.5p1.tar.gz</span><br><span class="line">tar xzvf openssl-1.0.2k.tar.gz</span><br><span class="line">cd openssl-1.0.2k</span><br><span class="line">./config shared zlib</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">mv /usr/bin/openssl /tmp/6</span><br><span class="line">ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl</span><br><span class="line">ln -s /usr/local/ssl/include/openssl/ /usr/include/openssl</span><br><span class="line">echo &quot;/usr/local/ssl/lib&quot; &gt;&gt; /etc/ld.so.conf</span><br><span class="line">ldconfig -v</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>2 升级openssh</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cp -r /etc/ssh /etc/ssh-bak03</span><br><span class="line">cd /usr/src</span><br><span class="line">tar zxvf openssh-7.5p1.tar.gz</span><br><span class="line">cd openssh-7.5p1</span><br><span class="line">./configure --prefix=/usr --sysconfdir=/etc/ssh --without-zlib-version-check --with-ssl-dir=/usr/local/ssl --with-pam</span><br><span class="line">chmod 600 /etc/ssh/*_key</span><br><span class="line">make    </span><br><span class="line">make install  </span><br><span class="line">service sshd restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="配置本机postfix邮件发送"><a href="#配置本机postfix邮件发送" class="headerlink" title="配置本机postfix邮件发送"></a>配置本机postfix邮件发送</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#1.本机若安装sendmail，则必须关闭并卸载。</span><br><span class="line">service sendmail stop</span><br><span class="line">chkconfig sendmail off</span><br><span class="line">rpm -e sendmail --nodeps</span><br><span class="line">#2.安装postfix （centos6.3下默认yum源，默认postfix系统自带）</span><br><span class="line">yum install postfix -y</span><br><span class="line">#更改postfix配置文件中的参数</span><br><span class="line">postconf -e myhostname=mail.zabbix.example.cn</span><br><span class="line">postconf -e myorigin=zabbix.example.cn</span><br><span class="line">postconf -e mydomain=zabbix.example.cn</span><br><span class="line">postconf -e mydestination=localhost</span><br><span class="line">postconf -e mynetworks=127.0.0.0/8</span><br><span class="line"></span><br><span class="line">#配置完成会添加参数到/etc/postfix/main.cf下末行</span><br><span class="line">vi /etc/hosts</span><br><span class="line">#添加一行：</span><br><span class="line">------------</span><br><span class="line">127.0.0.1 mail.zabbix.example.cn zabbix.example.cn</span><br><span class="line">------------</span><br><span class="line">#重启postfix服务</span><br><span class="line">service postfix restart</span><br><span class="line">#测试发送一封邮件到公网邮箱</span><br><span class="line">echo &quot;test&quot; | mail -s &quot;test&quot; 373220424@qq.com</span><br><span class="line">#动态查看发送的邮件日志</span><br><span class="line">tail -f /var/log/maillog</span><br><span class="line">#若远程邮箱收到，则配置成功</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="编写sendmail脚本"><a href="#编写sendmail脚本" class="headerlink" title="编写sendmail脚本"></a>编写sendmail脚本</h2><p>路径 /zabbix/alertscripts/</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">file=/tmp/mail</span><br><span class="line">echo &quot;$3&quot; &gt; $file</span><br><span class="line">#将文件转码，避免内容显示为附件</span><br><span class="line">dos2unix -k $file</span><br><span class="line">#echo &quot;$file&quot; | mail -s &quot;$2&quot; $1</span><br><span class="line">mail -s &quot;$2&quot; $1 &lt; $file</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="附加"><a href="#附加" class="headerlink" title="附加"></a>附加</h2><p>centos7部分改动</p>
-<ol>
-<li>无ifconfig命令，通过安装<code>net-tools</code>解决。</li>
-<li>防火墙改为firewalld,关闭并禁止开机启动使用命令<code>systemctl stop firewalld</code>,<code>systemctl disable firewalld</code></li>
-<li>安装<code>ntp</code>配置时间同步，使用<code>systemctl start ntpd</code>,<code>systemctl enable ntpd</code>开启并开机启动。配置文件为<code>/etc/ntp.conf</code></li>
-</ol>
+<h2 id="zabbix前端配置"><a href="#zabbix前端配置" class="headerlink" title="zabbix前端配置"></a>zabbix前端配置</h2><p>1 添加媒介类型script，添加三个参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;ALERT.SENDTO&#125;</span><br><span class="line">&#123;ALERT.SUBJECT&#125;</span><br><span class="line">&#123;ALERT.MESSAGE&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2 添加用户，并为用户添加媒体和主机权限</p>
+<p>3 创建动作，触发器变更时发送信息</p>
+<p>4 查看 报表&gt;动作日志，检查邮件发送结果。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.linuxidc.com/Linux/2013-05/84744.htm">http://www.linuxidc.com/Linux/2013-05/84744.htm</a><br><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/b91ba941f2aa">http://www.jianshu.com/p/b91ba941f2aa</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/kimsoft/article/details/8091734">http://blog.csdn.net/kimsoft/article/details/8091734</a> 改时区</p>
 
       
     </div>
@@ -433,7 +428,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/16/centos7%E5%AE%89%E8%A3%85mysql/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/25/%E8%B7%9F%E8%B8%AA%E7%BB%8F%E6%B5%8E%E7%9A%84%E6%80%9D%E8%80%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -451,7 +446,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/16/centos7%E5%AE%89%E8%A3%85mysql/" class="post-title-link" itemprop="url">centos7安装mysql</a>
+          <a href="/2017/05/25/%E8%B7%9F%E8%B8%AA%E7%BB%8F%E6%B5%8E%E7%9A%84%E6%80%9D%E8%80%83/" class="post-title-link" itemprop="url">跟踪经济的思考</a>
         </h2>
 
         <div class="post-meta-container">
@@ -462,7 +457,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-05-16 23:26:20" itemprop="dateCreated datePublished" datetime="2017-05-16T23:26:20+08:00">2017-05-16</time>
+      <time title="创建时间：2017-05-25 08:16:30" itemprop="dateCreated datePublished" datetime="2017-05-25T08:16:30+08:00">2017-05-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -483,19 +478,17 @@
     
     <div class="post-body" itemprop="articleBody">
           <blockquote>
-<p>centos7官方源中无mysql，要安装myql需要下载rpm包手动安装。</p>
+<p>物联网的本质是跟踪，充分利用工作的环境，理解物联网，挣大钱。</p>
 </blockquote>
-<h2 id="ansible-ad-hoc"><a href="#ansible-ad-hoc" class="headerlink" title="ansible ad-hoc"></a>ansible ad-hoc</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible zs  -a &quot;wget http://192.168.12.205:8000/mysql-5.7.18-1.el7.x86_64.rpm-bundle.tar -O /tmp/mysql-5.7.18-1.el7.x86_64.rpm-bundle.tar&quot;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>untar 、install shell</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">rpm -e --nodeps $(rpm -qa | grep mariadb) #删除mariadb lib</span><br><span class="line">tar -vxf mysql-5.7.18-1.el7.x86_64.rpm-bundle.tar</span><br><span class="line">rpm -ivh mysql-community-common-*</span><br><span class="line">rpm -ivh mysql-community-libs-*</span><br><span class="line">rpm -ivh mysql-community-client-*</span><br><span class="line">rpm -ivh mysql-community-devel-*   #不安装编译zabbix会报错“MySQL library not found”</span><br><span class="line">rpm -ivh mysql-community-server-5*</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>设置root密码并登录</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">systemctl set-environment MYSQLD_OPTS=&quot;--skip-grant-tables&quot; #跳过权限验证</span><br><span class="line">systemctl start mysqld #启动mysql</span><br><span class="line">mysql -u root -p</span><br><span class="line">mysql&gt; UPDATE mysql.user SET authentication_string = PASSWORD(&#x27;passwd&#x27;) WHERE User = &#x27;root&#x27; AND Host = &#x27;localhost&#x27;;</span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br><span class="line">mysql&gt; quit</span><br><span class="line">#改回正常启动</span><br><span class="line">systemctl stop mysqld</span><br><span class="line">systemctl unset-environment MYSQLD_OPTS</span><br><span class="line">systemctl start mysqld</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.18-1.el7.x86_64.rpm-bundle.tar</span><br><span class="line">tar -vxf mysql-5.7.18-1.el7.x86_64.rpm-bundle.tar</span><br><span class="line">[root@localhost tmp]# rpm -ivh mysql-community-common-5.7.18-1.el7.x86_64.rpm</span><br><span class="line">[root@localhost tmp]# rpm -ivh mysql-community-libs-5.7.18-1.el7.x86_64.rpm</span><br><span class="line">[root@localhost tmp]# rpm -ivh mysql-community-client-5.7.18-1.el7.x86_64.rpm</span><br><span class="line">[root@localhost tmp]# rpm -ivh mysql-community-devel-5.7.18-1.el7.x86_64.rpm</span><br><span class="line">[root@localhost tmp]# rpm -ivh mysql-community-server-5.7.18-1.el7.x86_64.rpm</span><br><span class="line">[root@localhost tmp]# rpm -ivh mysql-community-libs-compat-5.7.18-1.el7.x86_64.rpm</span><br><span class="line">systemctl start mysqld</span><br><span class="line">ps -ef | grep mysqld</span><br><span class="line">mysql -u root -p</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="报错处理"><a href="#报错处理" class="headerlink" title="报错处理"></a>报错处理</h2><ol>
-<li><code>ERROR 1045 (28000): Access denied for user &#39;root&#39;@&#39;localhost&#39; (using password: NO)</code><br>是由于不能空密码登录，需要单用户模式设置root密码<br>参考<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/33510184/change-mysql-root-password-on-centos7">http://stackoverflow.com/questions/33510184/change-mysql-root-password-on-centos7</a><br>其他报错<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE USER &#x27;zabbix&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;zabbix&#x27;;</span><br><span class="line">ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.</span><br><span class="line">重设密码</span><br><span class="line"> set password = password(&quot;复杂密码&quot;)</span><br><span class="line">mysql&gt;CREATE USER &#x27;zabbix&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;zabbix&#x27;;</span><br><span class="line"># 报错 Please use mysql_upgrade to fix this error</span><br><span class="line"> mysql_upgrade -u root -p</span><br></pre></td></tr></table></figure></li>
-</ol>
+<p>吴军在《硅谷来信》中讲了未来经济的特点共享经济、跟踪经济、合作经济、众筹经济。跟踪经济分两天讲，重点来理解下。</p>
+<p>物联网的到来，让我们对人和物的跟踪方便便宜。传感器收集信息方便。</p>
+<p>机器智能使得分析跟踪产生的大量数据，抽象出模型，产生价值花费减少。</p>
+<p>跟踪的目的是更详细的了解跟踪对象，对象包括人和物品。</p>
+<p>对物品的深入了解有助于物品的生产者、销售者和消费者。制造者了解物品的生产过程、流通过程和消费用户，能获得直接的反馈信息，用于改善设计、质量。销售者获取物品上下游信息历史数据有助于精准营销。消费者了解物品渠道和生产信息能减少购买假货、劣质品。</p>
+<p>对人的跟踪包括对行为的跟踪和对健康数据的跟踪。行为数据通过模型分析可以推测健康数据。个人对于自我的跟踪目的也是更好的了解自己，改善自我效率、目标、价值、健康等。</p>
+<p>跟踪经济的核心是人。第一代通过邮箱或帐号作为识别ID，用cookies跟踪个体的上网行为，投其所好，引导消费。第二代用手机号作为识别ID，手机、电脑多方位收集支付信息、位置信息、交流信息更多维度刻画用户。第三代利用可联网的传感器从外部收集人的信息，各种维度，能更准确的识别人，滴滴出行、共享单车、支付宝。</p>
+<p>腾讯通过发身份证，再引导用户使用各种网络服务、社交活动，了解人。阿里通过网络行为、线下团购、出行等特征，合成一个人。最终两家公司会完全了解你，你的性格、喜好、收入、工作，完全掌握，然后把你玩弄于手掌之中。</p>
+<p>家庭摄像头产生原因是老龄化、二娃及对安全缺失的恐惧。智能手环收集运动信息并做朋友排名，满足健康和虚荣需求。智能跑鞋和运动手表用于收集和分析运动数据，优化训练。儿童手表跟踪位置和主动确定行为，解决父母对儿童安全的恐惧。</p>
 
       
     </div>
@@ -522,7 +515,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/16/zabbix-server%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/23/ansible-playbook%E5%AD%A6%E4%B9%A01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -540,7 +533,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/16/zabbix-server%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">centos7.2 安装zabbix-server</a>
+          <a href="/2017/05/23/ansible-playbook%E5%AD%A6%E4%B9%A01/" class="post-title-link" itemprop="url">ansible-playbook学习1</a>
         </h2>
 
         <div class="post-meta-container">
@@ -551,7 +544,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-05-16 09:27:51" itemprop="dateCreated datePublished" datetime="2017-05-16T09:27:51+08:00">2017-05-16</time>
+      <time title="创建时间：2017-05-23 08:55:40" itemprop="dateCreated datePublished" datetime="2017-05-23T08:55:40+08:00">2017-05-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -571,160 +564,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="安装详细步骤"><a href="#安装详细步骤" class="headerlink" title="安装详细步骤"></a>安装详细步骤</h2><ol>
-<li>按照<a target="_blank" rel="noopener" href="http://blog.hhzzer.com/2017/05/16/centos7%E5%AE%89%E8%A3%85mysql/">centos7安装mysql</a>安装完mysql</li>
-<li>按照本文安装剩余步骤。</li>
-</ol>
-<h3 id="配置mysql"><a href="#配置mysql" class="headerlink" title="配置mysql"></a>配置mysql</h3><p>下载zabbix源码到/tmp/<br><code>ansible zs  -a &quot;wget http://192.168.x.x:8000/zabbix-3.0.9.tar.gz -O /tmp/zabbix-3.0.9.tar.gz&quot;</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#启动数据库，创建用户和数据库</span><br><span class="line">systemctl start mysqld</span><br><span class="line">ps -ef | grep mysqld</span><br><span class="line">mysql -u root -p</span><br><span class="line">mysql&gt;create database zabbix character set utf8 collate utf8_bin;</span><br><span class="line">mysql&gt;CREATE USER &#x27;zabbix&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;xxxxxx&#x27;;</span><br><span class="line">mysql&gt;grant all on zabbix.*  to &#x27;zabbix&#x27;@&#x27;localhost&#x27;;</span><br><span class="line">mysql&gt;flush privileges;</span><br><span class="line">#初始化zabbix数据库</span><br><span class="line">tar -xvf /tmp/zabbix-3.0.9.tar.gz</span><br><span class="line">cd /tmp/zabbix-3.0.9/</span><br><span class="line">mysql -u zabbix -p zabbix &lt; database/mysql/schema.sql</span><br><span class="line">mysql -u zabbix -p zabbix &lt; database/mysql/images.sql</span><br><span class="line">mysql -u zabbix -p zabbix &lt; database/mysql/data.sql</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="编译并安装server"><a href="#编译并安装server" class="headerlink" title="编译并安装server"></a>编译并安装server</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">yum install libxml2-devel curl-devel net-snmp-devel OpenIPMI-devel -y</span><br><span class="line">cd /tmp/zabbix-3.0.9/</span><br><span class="line">./configure --enable-server --enable-agent --with-mysql --with-net-snmp --with-libcurl --with-libxml2 --with-openipmi  --prefix=/apps/svr/zabbix</span><br><span class="line">make install</span><br><span class="line">#添加用户和组</span><br><span class="line">groupadd zabbix</span><br><span class="line">useradd -g zabbix zabbix</span><br><span class="line">chown -R zabbix /apps/svr/zabbix</span><br><span class="line">chmod 777 /tmp/zabbix_server.log</span><br><span class="line">vi /apps/svr/zabbix/etc/zabbix_server.conf #修改DBPassword为mysql设置的密码</span><br><span class="line">#启动zabbix_server服务</span><br><span class="line">/apps/svr/zabbix/sbin/zabbix_server -c /apps/svr/zabbix/etc/zabbix_server.conf</span><br><span class="line">#查看启动日志,类似如下表明启动成功。</span><br><span class="line">tail -f /tmp/zabbix_server.log</span><br><span class="line">17315:20170518:135832.205 server #17 started [timer #1]</span><br><span class="line"> 17321:20170518:135832.205 server #23 started [history syncer #4]</span><br><span class="line"> 17319:20170518:135832.205 server #21 started [history syncer #2]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="安装前端界面"><a href="#安装前端界面" class="headerlink" title="安装前端界面"></a>安装前端界面</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 安装前端需要软件</span><br><span class="line">yum install httpd  php php-gd  php-ctype  php-mbstring php-xmlwriter php-xmlreader php-bcmath php-mysql -y</span><br><span class="line">#启动apache</span><br><span class="line">service httpd start</span><br><span class="line">#将前端文件移动到apache目录</span><br><span class="line">cp -r /tmp/zabbix-3.0.9/frontends/php/ /var/www/html/</span><br><span class="line">mv /var/www/html/php /var/www/html/zabbix</span><br><span class="line">#浏览器打开serverip/zabbix,查看自检</span><br><span class="line">copy /etc/php.ini /etc/php.ini.bak</span><br><span class="line">vi /etc/php.ini</span><br><span class="line"></span><br><span class="line">post_max_size=16M</span><br><span class="line">max_execution_time=300</span><br><span class="line">max_input_time=300</span><br><span class="line">date.timezone=Asia/Chongqing</span><br><span class="line"># 输入mysql用户zabbix的密码</span><br><span class="line"># 手动下载zabbix.conf.php，并将文件上传到server /var/www/html/zabbix/conf/</span><br><span class="line"># 上传后点击完成，跳转到登录界面，输入默认用户Admin，密码 zabbix即可登录。</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="报错处理"><a href="#报错处理" class="headerlink" title="报错处理"></a>报错处理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE USER &#x27;zabbix&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;zabbix&#x27;;</span><br><span class="line">ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.</span><br><span class="line">重设密码</span><br><span class="line"> set password = password(&quot;复杂密码&quot;)</span><br><span class="line">mysql&gt;CREATE USER &#x27;zabbix&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;zabbix&#x27;;</span><br><span class="line"># 报错 Please use mysql_upgrade to fix this error</span><br><span class="line"> mysql_upgrade -u root -p</span><br><span class="line"></span><br><span class="line"> 编译zabbix源码报错“MySQL library not found”</span><br><span class="line"> rpm -ivh mysql-community-devel-*   </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="软件依赖查询"><a href="#软件依赖查询" class="headerlink" title="软件依赖查询"></a>软件依赖查询</h2><ul>
-<li>数据库</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Software</th>
-<th>Version</th>
-<th>Comments</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>MySQL</td>
-<td>5.0.3 or later</td>
-<td>Required if MySQL is used as Zabbix backend database. InnoDB engine is required.</td>
-</tr>
-</tbody></table>
-<ul>
-<li>前端</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Software</th>
-<th>Version</th>
-<th>Comments</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Apache</td>
-<td>1.3.12 or later</td>
-<td></td>
-</tr>
-<tr>
-<td>PHP</td>
-<td>5.4.0 or later</td>
-<td>PHP v7 is not supported yet.</td>
-</tr>
-<tr>
-<td>PHP</td>
-<td>extensions:</td>
-<td></td>
-</tr>
-<tr>
-<td>gd</td>
-<td>2.0 or later</td>
-<td>PHP GD extension must support PNG images (–with-png-dir), JPEG (–with-jpeg-dir) images and FreeType 2 (–with-freetype-dir).</td>
-</tr>
-<tr>
-<td>bcmath</td>
-<td></td>
-<td>php-bcmath (–enable-bcmath)</td>
-</tr>
-<tr>
-<td>ctype</td>
-<td></td>
-<td>php-ctype (–enable-ctype)</td>
-</tr>
-<tr>
-<td>libXML</td>
-<td>2.6.15 or later</td>
-<td>php-xml or php5-dom, if provided as a separate package by the distributor.</td>
-</tr>
-<tr>
-<td>xmlreader</td>
-<td></td>
-<td>php-xmlreader, if provided as a separate package by the distributor.</td>
-</tr>
-<tr>
-<td>xmlwriter</td>
-<td></td>
-<td>php-xmlwriter, if provided as a separate package by the distributor.</td>
-</tr>
-<tr>
-<td>session</td>
-<td></td>
-<td>php-session, if provided as a separate package by the distributor.</td>
-</tr>
-<tr>
-<td>sockets</td>
-<td></td>
-<td>php-net-socket (–enable-sockets). Required for user script support.</td>
-</tr>
-<tr>
-<td>mbstring</td>
-<td></td>
-<td>php-mbstring (–enable-mbstring)</td>
-</tr>
-<tr>
-<td>gettext</td>
-<td></td>
-<td>php-gettext (–with-gettext). Required for translations to work.</td>
-</tr>
-<tr>
-<td>mysqli</td>
-<td></td>
-<td>Required if MySQL is used as Zabbix backend database.</td>
-</tr>
-</tbody></table>
-<ul>
-<li>server端可选</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Software</th>
-<th>Discription</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>OpenIPMI</td>
-<td>Required for IPMI support.</td>
-</tr>
-<tr>
-<td>libssh2</td>
-<td>Required for SSH support. Version 1.0 or higher.</td>
-</tr>
-<tr>
-<td>fping</td>
-<td>Required for ICMP ping items.</td>
-</tr>
-<tr>
-<td>libcurl</td>
-<td>Required for web monitoring, VMware monitoring and SMTP authentication. For SMTP authentication, version 7.20.0 or higher is required.</td>
-</tr>
-<tr>
-<td>libiksemel</td>
-<td>Required for Jabber support.</td>
-</tr>
-<tr>
-<td>libxml2</td>
-<td>Required for VMware monitoring.</td>
-</tr>
-<tr>
-<td>net-snmp</td>
-<td>Required for SNMP support.</td>
-</tr>
-</tbody></table>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/starof/p/4680083.html">https://www.cnblogs.com/starof/p/4680083.html</a><br><a target="_blank" rel="noopener" href="http://www.infocool.net/kb/Mysql/201612/246832.html">http://www.infocool.net/kb/Mysql/201612/246832.html</a><br><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/d7b9c468f20d">http://www.jianshu.com/p/d7b9c468f20d</a></p>
+          <blockquote>
+<p>同事写了几个ansible playbook，借鉴学习一下。一个是升级ssh，另外两个是安装zabbix_agentd.</p>
+</blockquote>
+<h3 id="升级ssh"><a href="#升级ssh" class="headerlink" title="升级ssh"></a>升级ssh</h3><p>升级ssh需要升级openssl和openssh，升级方式都是采用源码安装。<br>playbook使用了shell模块，shell模块是在远端开启一个<code>/bin/sh</code>运行命令，与日常ssh到服务操作命令一致。command模块不能使用变量和操作符（$ | &lt;），可以使用<code>who</code>,不能使用<code>ulimit -a</code>。<code>sudo: yes</code>表示执行脚本使用sudo执行，在playbook外部参数中使用<code>-K</code>，手动输入sudo密码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: test</span><br><span class="line">  sudo: yes</span><br><span class="line">  tasks:</span><br><span class="line">  - name: wget tar.gz</span><br><span class="line">    shell: cd /usr/src;wget http://192.168.x.1/data/openssh/7.5/openssl-1.0.2k.tar.gz;wget http://192.168.13.1/data/openssh/7.5/ope</span><br><span class="line">nssh-7.5p1.tar.gz</span><br><span class="line">  - name: tar</span><br><span class="line">    shell: cd /usr/src;tar xzvf openssl-1.0.2k.tar.gz</span><br><span class="line">  - name: make</span><br><span class="line">    shell: cd /usr/src/openssl-1.0.2k;./config shared zlib;make;make install   </span><br><span class="line">  - name: rm old openssl</span><br><span class="line">    shell: mv /usr/bin/openssl /tmp/7;cp -r /usr/include/openssl/ /tmp/openssl-old-7;rm -rf /usr/include/openssl   </span><br><span class="line">  - name: link</span><br><span class="line">    shell: ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl;ln -s /usr/local/ssl/include/openssl/ /usr/include/openssl    </span><br><span class="line">  - name: ldconfig</span><br><span class="line">    shell: echo &quot;/usr/local/ssl/lib&quot; &gt;&gt; /etc/ld.so.conf ;ldconfig -v  </span><br><span class="line">  - name: cp ssh</span><br><span class="line">    shell: cp -r /etc/ssh /etc/ssh-bak03</span><br><span class="line">  - name: yum</span><br><span class="line">    shell: yum install pam pam-devel -y   </span><br><span class="line">  - name: tar</span><br><span class="line">    shell: cd /usr/src;tar zxvf openssh-7.5p1.tar.gz   </span><br><span class="line">  - name: install</span><br><span class="line">    shell: cd /usr/src/openssh-7.5p1;./configure --prefix=/usr --sysconfdir=/etc/ssh --without-zlib-version-check --with-ssl-dir=/us</span><br><span class="line">r/local/ssl --with-pam;make;make install</span><br><span class="line">  - name: modify sshd_config</span><br><span class="line">    shell: sed -i &#x27;s/#UseLogin no/UseLogin yes/g&#x27; /etc/ssh/sshd_config</span><br><span class="line">  - name: restart sshd</span><br><span class="line">    shell: service sshd restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="安装zabbix-agentd"><a href="#安装zabbix-agentd" class="headerlink" title="安装zabbix_agentd"></a>安装zabbix_agentd</h3><p>此playbook hosts 直接写地址，就不用在/etc/ansbible/hosts中定义？<br>使用模块依然是shell，shell中用到了sed命令，用于修改配置文件<code>sed -i &#39;s/Server=127.0.0.1/Server=192.168.x.x/g&#39; /etc/zabbix/zabbix_agentd.conf </code>。使用ansible提前获取的系统信息变量<code>&#123;&#123; ansible_ens160["ipv4"]["address"] &#125;&#125;</code>赋值到配置。<br>针对centos7和centos6因为启动服务命令不同写了两个playbook，后面也可根据setup信息做条件判断。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: 192.168.x.x</span><br><span class="line">  sudo: yes</span><br><span class="line">  tasks:</span><br><span class="line">  - name: yum wget</span><br><span class="line">    shell: yum install wget -y</span><br><span class="line">  - name: wget zabbix agent</span><br><span class="line">    shell: cd /usr/src;wget http://192.168.x.1/data/zabbix/zabbix-agent-3.0.3-1.el7.x86_64.rpm</span><br><span class="line">  - name: yum install</span><br><span class="line">    shell: yum localinstall /usr/src/zabbix-agent-3.0.3-1.el7.x86_64.rpm -y</span><br><span class="line">  - name: copy conf</span><br><span class="line">    shell: cp /etc/zabbix/zabbix_agentd.conf /etc/zabbix/zabbix_agentd.conf.bak  </span><br><span class="line">  - name: modify server ip</span><br><span class="line">    shell: sed -i &#x27;s/Server=127.0.0.1/Server=192.168.x.x/g&#x27; /etc/zabbix/zabbix_agentd.conf      </span><br><span class="line">  - name: modify serveractive ip</span><br><span class="line">    shell: sed -i &#x27;s/ServerActive=127.0.0.1/ServerActive=192.168.x.x/g&#x27; /etc/zabbix/zabbix_agentd.conf         </span><br><span class="line">  - name: modify hostname ip</span><br><span class="line">    shell: sed -i &#x27;s/Hostname=Zabbix server/Hostname=&#123;&#123; ansible_ens160[&quot;ipv4&quot;][&quot;address&quot;] &#125;&#125; /g&#x27; /etc/zabbix/zabbix_agentd.conf     </span><br><span class="line"></span><br><span class="line">  - name: restart zabbix-agent</span><br><span class="line">    shell: systemctl enable zabbix-agent;systemctl restart zabbix-agent</span><br><span class="line">    ##centos6</span><br><span class="line">  - name: restart zabbix-agent</span><br><span class="line">    shell: chkconfig  zabbix-agent on ;service zabbix-agent restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>查看系统版本命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible -i hosts-all ab  -m setup -a &quot;filter=ansible_distribution*&quot; -o  -f 50 |awk &#x27;&#123;print $1 $7 $13&#125;&#x27;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -744,7 +592,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/57/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><span class="page-number current">58</span><a class="page-number" href="/page/59/">59</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/59/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/57/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><span class="page-number current">58</span><a class="page-number" href="/page/59/">59</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/59/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

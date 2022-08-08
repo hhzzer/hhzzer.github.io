@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/04/28/%E6%B8%B8%E6%88%8F%E6%98%AF%E4%B8%AA%E6%80%8E%E6%A0%B7%E7%9A%84%E4%B8%96%E7%95%8C-%E8%A7%82%E5%90%8E%E6%84%9F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/05/14/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%BF%9E%E6%8E%A5NAS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/04/28/%E6%B8%B8%E6%88%8F%E6%98%AF%E4%B8%AA%E6%80%8E%E6%A0%B7%E7%9A%84%E4%B8%96%E7%95%8C-%E8%A7%82%E5%90%8E%E6%84%9F/" class="post-title-link" itemprop="url">游戏是个怎样的世界-观后感</a>
+          <a href="/2016/05/14/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%BF%9E%E6%8E%A5NAS/" class="post-title-link" itemprop="url">树莓派连接NAS</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,7 +195,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-04-28 21:50:00" itemprop="dateCreated datePublished" datetime="2016-04-28T21:50:00+08:00">2016-04-28</time>
+      <time title="创建时间：2016-05-14 14:13:00" itemprop="dateCreated datePublished" datetime="2016-05-14T14:13:00+08:00">2016-05-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -215,10 +215,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>今天看了罗辑思维新一期的视频，以游戏为主题，自己很感兴趣，就认真看了一遍。</p>
-<p>视频以吸毒后的的幻想世界与贩毒的真实世界未引子，引出电子鸦片概念、虚拟与现实到底谁好的问题，开始分析。然后开始将劝解上网少年的故事，并站在上网少年的角度，对劝解提出质疑。一 、沉迷于虚拟世界中不好。对应：好与不好关键在于人多人少，基督教开始时被认为邪教，到后来教徒数量达到超过其他教时，基督教的好坏，别人说了也不算。二、长期玩游戏有害健康。对应：人类发展都是向不健康的趋势发展，原始人到处活动锻炼有益健康，现代人挤在一堆吸汽车尾气有害健康，但社会就这么发展了。三、玩游戏没前途。对应：游戏选手和游戏解说挣大钱，游戏大有钱途。<br>为什么我们喜欢玩游戏？也是从提出假说开始说明的。我们玩游戏是因为游戏细节有趣。辩：俄罗斯方块没啥细节，一样风靡全球。玩游戏是因为能赢？有些游戏一开始就注定要输，比如俄罗斯方块。第三个忘了。 辩驳完假设后提出：我们喜欢玩游戏是因为游戏中给我们的行为提供实时丰富的反馈，而这个对于行为的反馈需求，是刻在基因上的。游戏中的勋章系统、数值系统、排行系统反馈我们在游戏中的过去、现在和将来。游戏的反面不是工作，而是无聊与恐惧。我们对于太容易的事情会感到无聊，对于太困难的事情感到恐惧，做介于无聊和恐惧之间的事情则会产生幸福感。游戏中恰好有很多做这种事情的机会。<br>未来我们会不会迁徙到虚拟世界中？不会从现实中跳进虚拟，而是慢慢迁移。人是什么？人只不过是悬挂在自己编织的意义世界中的动物。用来解释虚拟和现实的区别，感觉就像马斯洛需求金字塔一样，现实是基础，但追究的目标是虚的。</p>
-<p>每次听罗辑思维，都觉得讲得很有条理，待我把这一期多听两遍，梳理各脉络出来，更容易记住。虽然有些观点有些牵强，但这种有条理的表达方式，是我需要认真学习的。</p>
-<p>最后推荐书籍有《游戏改变世界》《有限与无限的游戏》</p>
+          <p>##Enviroment Seting</p>
+<ol>
+<li>install firefox browser<br><code>$ sudo apt-get install iceweasel </code></li>
+<li>access to sambaserver<br><code>smbclient //Sambaserver/public  #CIL way</code><br><code>mount -t cifs -l //sambaserver/public /samba  #mount to /samba #defalt user root</code><br><code>sudo mount.cifs //sambaserver/public /samba -o uid=pi  # user is pi</code></li>
+</ol>
+<p>related links<br><a target="_blank" rel="noopener" href="http://hengxiuxu.blogspot.com/2014/09/raspberry-pi.html">http://hengxiuxu.blogspot.com/2014/09/raspberry-pi.html</a></p>
 
       
     </div>
@@ -245,7 +247,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/04/19/2016-04-19%E6%99%A8%E8%B7%91%E4%B9%8B%E5%90%8E/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/05/13/cisco%20snmp%20oid%E7%A0%94%E7%A9%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -263,7 +265,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/04/19/2016-04-19%E6%99%A8%E8%B7%91%E4%B9%8B%E5%90%8E/" class="post-title-link" itemprop="url">2016-04-19晨跑之后</a>
+          <a href="/2016/05/13/cisco%20snmp%20oid%E7%A0%94%E7%A9%B6/" class="post-title-link" itemprop="url">cisco snmp oid研究</a>
         </h2>
 
         <div class="post-meta-container">
@@ -274,7 +276,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-04-19 06:58:00" itemprop="dateCreated datePublished" datetime="2016-04-19T06:58:00+08:00">2016-04-19</time>
+      <time title="创建时间：2016-05-13 14:11:00" itemprop="dateCreated datePublished" datetime="2016-05-13T14:11:00+08:00">2016-05-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -294,9 +296,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>好久没有早上跑步了，虽然闹钟一直没有取消。昨天又看了王小波的几遍杂文，晚上心情有些激动，就做了今天晨跑的决定。和往常一样，闹钟响了，眼睛还睁不开。摸着墙到洗手间解决并洗漱完毕，穿鞋出门。出电梯到小区道路，看了天边的鱼鳞云，今天又是个好热的天气。<br>跑动起来后，眼睛才完全睁开，因为要注意别撞这来往的车辆。过完十字路口，跑上路旁的人行道，才算步入正规。今天出门，手机都没带，因为带着手机就想一边听歌一边跑步，但是没有找到合适的耳机，跑步老掉下来，索性就不带了。当我们在跑步时，我们在想什么？伴随着旁边工地平地的打桩声，我开始思考这个问题。打桩机让泥土在空中飞舞，最近看的各种博客也让我的思维漂浮。我该写一篇关于最近关于最近看的文章的汇总和看法，来沉淀思维。这是在跑步时做的第一个决定。真的，只有通过写的过程，才能网住思维的蝴蝶。</p>
-<p>在工作的间隙空闲，我就喜欢看rss。以前看科技新闻比较多，现在看个人博客较多。因为科技新闻只是你可能需要知晓的，而喜欢的博客主写的博客，则需要思考。怎么发现我喜欢的博客呢，一是看blogbar.cc ,一个个人博客的聚合，看了个人博客之后再看他的朋友链接，这样就能拉出一个大象。另外就是看更自动化的博客聚合github，看偶像的关注。看的个人博客技术方面基本上都是关于docker、node.js 、react native、javascript等偏前端的东西，因为一个人独立创造一个东西，虽然还没想好要创造什么。然后就看了博主些关于工作的一些看法，其中四火和hustlzp有几篇对工作生活态度的文章写的很好。工作，不是为了绩效、公司或其他人的看法，工作成果的第一责任人是自己。工作中获得些许金钱，但更多的财富是工作中积累的技术能力，沟通能力及对事物的一些看法。</p>
-<p>我还看了静风说、黑客与画家、沉默的大多数。</p>
+          <p>最近使用zabbix监控cisco交换机相关情况，计划使用snmp协议获取监控指标数据，一边研究一边记录整理。<br>##配置snmp协议<br>首先需要在交换机配置snmp服务,其中xxx为自定义连接字符串，RO为只读。<br><code>hostname(config)#snmp-server community xxx RO</code><br>配置完成snmp协议后，就可以通过命令或工具，附带OID参数，获取感兴趣的数据。<br>##查询snmp信息方法<br>linux中可以通过snmpwalk 查询snmp信息。也可以通过<a target="_blank" rel="noopener" href="http://www.wtcs.org/snmp4tpc/getif.htm">Getif工具</a>在window下查询，运行时注意使用兼容模式运行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@zabbix ~]# snmpwalk -v 2c -c xxx 192.168.xx.xx SNMPv2-SMI::enterprises.9.3.6.3.0</span><br><span class="line">SNMPv2-SMI::enterprises.9.3.6.3.0 = STRING: &quot;FOCxxxx&quot;</span><br></pre></td></tr></table></figure>
+<p>了解了配置snmp服务和查询方法后，要获取监控指标数据，关键是找到OID（Object Identifiters）,也称对象标识符。OID相当于通过snmp协议释放出大量数据组成数据库中的查询条件，输入不同OID，获得不同结果。上面例子中OID=’SNMPv2-SMI::enterprises.9.3.6.3.0’,就查询出设备序列号。</p>
+<p>##获取OID方法</p>
+<ol>
+<li>通过<a target="_blank" rel="noopener" href="http://tools.cisco.com/Support/SNMP/do/BrowseOID.do?local=en">cisco官方网站查询</a></li>
+<li>通过下载MIB（Management Infomation Base)库，直接在本地查询。<br>一般是先通过网站，查询OID结构，然后再通过Getif工具查询设备，观察返回数据。</li>
+</ol>
+<p>###常用OID整理</p>
+<p>MIB和OID<br>OID(对象标识符），是SNMP代理提供的具有唯一标识的键值。MIB（管理信息基）提供数字化OID到可读文本的映射。<br>iReasoning MIB Brower 使用方法<br>下载全平台包<a target="_blank" rel="noopener" href="http://www.ireasoning.com/download/mibfree/mibbrowser.zip">link</a>,解压后cmd到 mibbrowser\ireasoning\mibbrowser\lib 目录，运行 <code>java -jar brower.jar </code> 运行软件。<br>下载 cisco MIB包<a href="ftp://ftp.cisco.com/pub/mibs/v2/v2.tar.gz">link</a>,使用MIBbroswer加载包后执行。</p>
+<p>参考链接：<br><a target="_blank" rel="noopener" href="http://ywzhou.blog.51cto.com/2785388/1580169">http://ywzhou.blog.51cto.com/2785388/1580169</a><br><a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_4502d59c0101fcy2.html">SNMP介绍，OID及MIB库</a><br><a target="_blank" rel="noopener" href="http://anybaby.blog.51cto.com/319977/1388698">http://anybaby.blog.51cto.com/319977/1388698</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/a9254778/article/details/45444109">http://blog.csdn.net/a9254778/article/details/45444109</a></p>
 
       
     </div>
@@ -323,7 +333,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/04/08/%E6%8A%80%E6%9C%AF%E5%85%83%E7%B4%A0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/05/07/%E3%80%8A%E5%AF%8C%E7%88%B8%E7%88%B8%E3%80%81%E7%A9%B7%E7%88%B8%E7%88%B8%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -341,7 +351,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/04/08/%E6%8A%80%E6%9C%AF%E5%85%83%E7%B4%A0/" class="post-title-link" itemprop="url">技术元素</a>
+          <a href="/2016/05/07/%E3%80%8A%E5%AF%8C%E7%88%B8%E7%88%B8%E3%80%81%E7%A9%B7%E7%88%B8%E7%88%B8%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/" class="post-title-link" itemprop="url">《富爸爸、穷爸爸》读后感</a>
         </h2>
 
         <div class="post-meta-container">
@@ -352,7 +362,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-04-08 17:12:00" itemprop="dateCreated datePublished" datetime="2016-04-08T17:12:00+08:00">2016-04-08</time>
+      <time title="创建时间：2016-05-07 21:51:00" itemprop="dateCreated datePublished" datetime="2016-05-07T21:51:00+08:00">2016-05-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -372,7 +382,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>看了fenng的年度总结，其中一年推荐的书为《技术元素》，在微信读书上索要了一本，开始阅读。</p>
+          <p>通过在杂货店做3周枯燥的收入低的工作，学习不要为钱工作，要让钱为你工作。<br>现金流表和资产负载表认识。资产是能将钱不断装入你口袋的东西，负债是不断从里口袋掏出钱的东西。获得财富就是不断增加资产的过程。人生钱难，钱生钱容易。<br>打工挣钱和开公司挣钱由于税收不同，财富累积速度差异大。工资收入 纳税 消费，公司收入 消费 纳税。<br>工人付出最大努力以免于被解雇，而雇主提供最低工资以防止工人辞职。</p>
+<p>如何做：处理好恐惧与贪婪的关系，给予后获取。</p>
+<p>鸡汤虽好，不可贪杯。操作手法美国可行性高，国内不高。有些思路是值得学习的，再读一遍后整理到后面。</p>
 
       
     </div>
@@ -399,7 +411,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/04/08/%E3%80%8A%E8%BD%AF%E4%BB%B6%E9%9A%8F%E6%83%B3%E5%BD%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/05/07/%E6%AC%A2%E4%B9%90%E9%A2%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -417,7 +429,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/04/08/%E3%80%8A%E8%BD%AF%E4%BB%B6%E9%9A%8F%E6%83%B3%E5%BD%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《软件随想录》读书笔记</a>
+          <a href="/2016/05/07/%E6%AC%A2%E4%B9%90%E9%A2%82/" class="post-title-link" itemprop="url">欢乐颂</a>
         </h2>
 
         <div class="post-meta-container">
@@ -428,7 +440,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-04-08 09:19:00" itemprop="dateCreated datePublished" datetime="2016-04-08T09:19:00+08:00">2016-04-08</time>
+      <time title="创建时间：2016-05-07 21:13:00" itemprop="dateCreated datePublished" datetime="2016-05-07T21:13:00+08:00">2016-05-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -448,24 +460,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>看书先看目录结构，然后找兴趣点、重点。这本随想录是joel的网络博客合集，目录应该是按照标签编排的。一天时间看完。</p>
-<p>###人员管理<br>通过暑期实习，招聘最优秀的员工。为实习生提供豪华的纽约体验以便回校后正面宣传。</p>
-<h3 id="写给未来的程序员"><a href="#写给未来的程序员" class="headerlink" title="写给未来的程序员"></a>写给未来的程序员</h3><p>主要将大学课程和成长建议，对于工作5年仍感迷茫的我有些帮助。其中的7个建议摘抄如下</p>
-<ul>
-<li>毕业前练好写作  #曾经想练习，没有具体的方法指导，现在通过博客练习写作。指导文件为金字塔原理和fenng、阮一峰。</li>
-<li>毕业前学好C语言   </li>
-<li>毕业前学好微观经济学 #这一点比较感兴趣</li>
-<li>不要因为枯燥就补选修非计算机专业的课程</li>
-<li>选修有大量编程实践的课程</li>
-<li>别担心所有工作被印度人抢走</li>
-<li>找一份好的暑期实习工作</li>
-<li>寻求专业人士帮助，培养你的自信心。</li>
-</ul>
-<h3 id="设计的作用"><a href="#设计的作用" class="headerlink" title="设计的作用"></a>设计的作用</h3><p>微软和苹果对于字体渲染技术的选择，苹果方式更接近于真实出版。</p>
-<h3 id="管理大型项目"><a href="#管理大型项目" class="headerlink" title="管理大型项目"></a>管理大型项目</h3><h3 id="编程建议"><a href="#编程建议" class="headerlink" title="编程建议"></a>编程建议</h3><p>函数式编程，map reduce</p>
-<h3 id="开办软件公司"><a href="#开办软件公司" class="headerlink" title="开办软件公司"></a>开办软件公司</h3><p>开办软件公司和种植类似，能获得控制感。前提是不要做内部程序，要有耐心饲养软件。<br>天才程序员性价比更高，类似于高音歌手。</p>
-<h3 id="经营软件公司"><a href="#经营软件公司" class="headerlink" title="经营软件公司"></a>经营软件公司</h3><h3 id="发布软件"><a href="#发布软件" class="headerlink" title="发布软件"></a>发布软件</h3><p>发布软件要找到符合公司的节奏，定价策略满足长久交易，避免一次性买卖</p>
-<h3 id="修订软件"><a href="#修订软件" class="headerlink" title="修订软件"></a>修订软件</h3><p>软件修订问5w，定价购买确定新功能是否开发和开发次序</p>
+          <p>很火的一部连续剧，今天终于看完了。整部剧节奏感强，剧情紧扣现实热点，能引起很多共鸣。<br>整部剧讲的是5个上海都市女青年成长的故事，一层楼的5个邻居有不同的出生背景，也造就了不同的性格，对同一事物的不同看法的冲突，持续推动剧情的发展。主要说说我从5个主角中获得的吧。</p>
+<p>安迪 是个孤儿却很优秀，逻辑思维能力和分析能力都很厉害，虽说剧中被设定为感情方面欠缺，但人际交往能力还是一流的。早上晨跑，每天阅读2小时，多年自律养成的良好习惯才有了今日的辉煌。清教徒的信仰：努力过好自己的生活，若有余力，帮助他人。</p>
+<p>樊胜美 职场人精。10年的工作把她磨练得随大溜，获取安全感。一大家子的烂事看得直叫人喊虐。装坚强欺骗别人也欺骗自己，但若不这样强撑，恐怕早就逃离了。后几集剧情的真情与前面的装形成巨大反差，做回真正自己的樊大姐还是很招人喜欢的。</p>
+<p>曲筱萧 富二代美女，行走江湖练敏锐洞察力和应变能力。看人看事准，分析起来也头头是道。关爱流浪猫增加爱心值得剧情在我看来有些端庄。与各色人交往多了，练出这样个机灵鬼。</p>
+<p>邱莹莹 一根直肠通大脑。上当受骗哭，找到工作笑，这样一个对生活做出直接反应的人，算是活出真正的我吗？最后获得了小小的幸福，就是大多数普通人的期望吧。</p>
+<p>关雎儿 邻家多才妹妹，努力工作，向优秀的安迪学习，实习期典型性格吧。沉默越久爆发越厉害，她是2202中最有可能爆发的。</p>
+<p>5个主角中够有我喜欢的点，最开始喜欢安迪，小曲的聪明，后来喜欢小蚯蚓的倔强而充满希望的生活方式。安迪、小曲达到了看自己的格局，其他三，随大溜。</p>
 
       
     </div>
@@ -492,7 +493,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/04/07/%E7%9C%8B%E5%AE%8Cfenng%E5%8D%9A%E5%AE%A2%E4%B9%8B%E5%90%8E/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/05/02/%E4%B8%80%E5%8F%AA%E4%B8%AD%E5%8D%8E%E7%94%B0%E5%9B%AD%E7%8A%AC%E5%9C%A8%E4%BA%94%E4%B8%80%E8%8A%82%E7%9A%84%E8%87%AA%E7%99%BD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -510,7 +511,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/04/07/%E7%9C%8B%E5%AE%8Cfenng%E5%8D%9A%E5%AE%A2%E4%B9%8B%E5%90%8E/" class="post-title-link" itemprop="url">看完fenng博客之后</a>
+          <a href="/2016/05/02/%E4%B8%80%E5%8F%AA%E4%B8%AD%E5%8D%8E%E7%94%B0%E5%9B%AD%E7%8A%AC%E5%9C%A8%E4%BA%94%E4%B8%80%E8%8A%82%E7%9A%84%E8%87%AA%E7%99%BD/" class="post-title-link" itemprop="url">一只中华田园犬在五一节的自白</a>
         </h2>
 
         <div class="post-meta-container">
@@ -521,7 +522,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-04-07 11:45:00" itemprop="dateCreated datePublished" datetime="2016-04-07T11:45:00+08:00">2016-04-07</time>
+      <time title="创建时间：2016-05-02 17:18:00" itemprop="dateCreated datePublished" datetime="2016-05-02T17:18:00+08:00">2016-05-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -541,10 +542,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>昨天在考虑桌面运维、服务器运维及系统运维的意义时，查看之前做的记录<a target="_blank" rel="noopener" href="http://www.hhzzer.com/post/ji-zhu-xi-lie/yun-wei-bo-ke-he-ji">运维博客合集</a>,看到第一个博客就是<a target="_blank" rel="noopener" href="http://www.xiaomastack.com/2016/03/30/centos7/">小马</a>,点进博客一看，发现更新了一篇关于在CentOS上部署docker的文章。最近也对docker一些<a target="_blank" rel="noopener" href="http://www.hhzzer.com/post/ji-zhu-xi-lie/xiao-mi-kai-yuan-jian-kong-xi-tong">实践</a>,在docker中体验了一下小米的开源监控系统<a target="_blank" rel="noopener" href="http://open-falcon.org/">open-falcon</a>,感觉使用docker体验还是很好的，不用下载源文件、检查依赖包、编译配置等复杂操作，直接在docker中将镜像pull，run，就可以使用一个配置好的应用了。不会因为部署环境与安装手册上的不一致导致长时间去排查各种异常。<br>小马的博客中写道kubernetes，这个词在我订阅的公众号中经常出现，好奇百度，发现CSDN 刘天斯的<a target="_blank" rel="noopener" href="http://www.csdn.net/article/2014-12-24/2823292-Docker-Kubernetes">文章</a>,看完后一知半解，但看了作者简介，发现是一牛人，目前在腾讯运维部工作。遇见了就要抓住不放，百度到其<a target="_blank" rel="noopener" href="http://blog.liuts.com/index.php">博客</a>,几篇文章后了解到其天涯架构师经历，其中一篇文章写道天涯架构从windows平台转到linux平台的过程，链接中有fenng对此的评论连接，好,现在终于转到本文主角了。</p>
-<p>其实早就认识fenng了，第一次接触应该是通过公众号推荐，记不得是mactalk推荐fenng，还是fenng推荐mactalk，反正两个都关注了，而且经常看他们公众号的文章，还打赏了两次，其中一次是fenng过生日。看到刘天斯博客的时候突然想：微信公众号的文章只是一部分，应该有个话痨博客更有趣吧。不费吹灰之力找到<a target="_blank" rel="noopener" href="http://dbanotes.net/">链接</a>，开启了博客观光之旅，耗时昨天下午和今天上午。看完dbanote上最久远的一篇关于Oracle排错的文章后，开始编写本文。</p>
-<p>fenng，东北人，保送大学生物学专业毕业后，离开东北闯荡社会。初为中字国企系统管理员，一年后走。遂入一小公司1月，公司出售，换工作。进韩资外企，混ITpub，开启DBA之路。05入大支付宝，5年后走，2011入丁香园。看他博客中途还看了知乎关于丁香园离职员工吐槽专帖，辩证分析。fenng写了博客，并且坚持到10年，不成技术博客网红才怪。个人感觉原因是读书快，有一篇文章提到开个会的时间就把一本关于马云的书看完。其他原因还有肯记录，思考，也肯和周围人交流。</p>
-<p>kindle要出新的了，出来后买个方便阅读他推荐的书：<br>文明之光、软件随想录、浪潮之巅、黑客与画家</p>
+          <p>舔了舔尾巴上的毛，感觉五一假期就要来了，真是好期待。院子里会回来好多人，上学的、在城里工作的都回来了。特别是上学的学生回来之后，各家都会炖点鸡鸭排骨什么的，我也就机会改善伙食了，最近的饭一点油水都没有，叫都懒得叫了。<br>这不，看见院子里新停了一辆车，我把耳朵贴地上一听，就知道是邻居家的少爷回来了。我得打起精神，给他摇几个漂亮的尾巴，第一印象很重要嘛。果然，在我看见他上台阶后，蹦蹦跳跳的摇着尾巴欢迎他，他也过来摸了摸我的头，我就知道这招对付他管用。可能他看我被绳子栓得可怜，就把绳子解开了，把我高兴得直跳。<br>获得自由后的我很兴奋，到处探索。以前我想去的几个地方都去闻了个遍，确认一下是否还有骨头。</p>
 
       
     </div>
@@ -564,7 +562,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/70/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><span class="page-number current">71</span><a class="page-number" href="/page/72/">72</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/72/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/70/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><span class="page-number current">71</span><a class="page-number" href="/page/72/">72</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/72/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

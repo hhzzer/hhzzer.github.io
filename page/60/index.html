@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/04/%E7%89%A9%E7%90%86%E6%9C%BA%E5%A4%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A%E5%8F%8A%E6%A3%80%E6%9F%A5/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/16/zabbix-server%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/04/%E7%89%A9%E7%90%86%E6%9C%BA%E5%A4%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A%E5%8F%8A%E6%A3%80%E6%9F%A5/" class="post-title-link" itemprop="url">linxu网卡绑定</a>
+          <a href="/2017/05/16/zabbix-server%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">centos7.2 安装zabbix-server</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,7 +195,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-05-04 21:51:43" itemprop="dateCreated datePublished" datetime="2017-05-04T21:51:43+08:00">2017-05-04</time>
+      <time title="创建时间：2017-05-16 09:27:51" itemprop="dateCreated datePublished" datetime="2017-05-16T09:27:51+08:00">2017-05-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -215,386 +215,516 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>工作中物理机都需要做网卡冗余，避免单链路故障。通过ifenslave，可以实现链路冗余，中断其中任意一条线路，主机<br>网络都不会受影响。</p>
-</blockquote>
-<h2 id="网卡绑定"><a href="#网卡绑定" class="headerlink" title="网卡绑定"></a>网卡绑定</h2><p>1.确定绑定对象</p>
-<p><code>ifconfig -a</code>,查看所有网卡，<code>ethtools ethx</code>，查看最后一行<strong>Link detected</strong>确定网卡链路状态（yes，连接;no,未连接）。</p>
-<p>2.安装软件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install ifenslave -y</span><br><span class="line">#按道理应该是内核支持，可以不安装软件的</span><br></pre></td></tr></table></figure>
-
-<p>3.设置绑定模式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># mode=1为主备策略</span><br><span class="line"># miimon=100表示每隔100ms检测一次。</span><br><span class="line">echo &quot;bonding mode=1 miimon=100&quot;&gt;&gt;/etc/modules</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>4.修改网卡配置</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">file=&quot;/etc/network/interfaces&quot;</span><br><span class="line">ip=$(ifconfig |grep &quot;Bcast&quot; |awk &#x27;&#123;print $2&#125;&#x27; |awk -F &#x27;:&#x27; &#x27;&#123;print $2&#125;&#x27;)</span><br><span class="line"># hostname -I 也能显示主机ip</span><br><span class="line">#echo $ip</span><br><span class="line">#echo $file</span><br><span class="line">echo &quot;auto bond0&quot; &gt;$file</span><br><span class="line">echo &quot;iface bond0 inet static&quot; &gt;&gt;$file</span><br><span class="line">echo &quot;address &quot;$ip &gt;&gt;$file</span><br><span class="line">echo &quot;netmask 255.255.0.0&quot;&gt;&gt;$file</span><br><span class="line">echo &quot;gateway 10.252.0.254&quot;&gt;&gt;$file</span><br><span class="line">echo &quot;post-up ifenslave bond0 p4p1 p4p2&quot;&gt;&gt;$file</span><br><span class="line">echo &quot;pre-down inenslave -d bond0 p4p1 p4p2&quot;&gt;&gt;$file</span><br><span class="line">echo $file</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>5.重启生效 <code>init 1</code></p>
-<h2 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h2><p>1.查看bond0配置，确定参与绑定网卡名称</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">abc$ cat /proc/net/bonding/bond0</span><br><span class="line">Ethernet Channel Bonding Driver: v3.7.1 (April 27, 2011)</span><br><span class="line"></span><br><span class="line">Bonding Mode: fault-tolerance (active-backup)</span><br><span class="line">Primary Slave: None</span><br><span class="line">Currently Active Slave: eth3</span><br><span class="line">MII Status: up</span><br><span class="line">MII Polling Interval (ms): 100</span><br><span class="line">Up Delay (ms): 0</span><br><span class="line">Down Delay (ms): 0</span><br><span class="line"></span><br><span class="line">Slave Interface: eth3</span><br><span class="line">MII Status: up</span><br><span class="line">Speed: 10000 Mbps</span><br><span class="line">Duplex: full</span><br><span class="line">Link Failure Count: 1</span><br><span class="line">Permanent HW addr: 9c:e3:74:1b:82:b7</span><br><span class="line">Slave queue ID: 0</span><br><span class="line"></span><br><span class="line">Slave Interface: eth2</span><br><span class="line">MII Status: up</span><br><span class="line">Speed: 10000 Mbps</span><br><span class="line">Duplex: full</span><br><span class="line">Link Failure Count: 1</span><br><span class="line">Permanent HW addr: 9c:e3:74:1b:82:b6</span><br><span class="line">Slave queue ID: 0</span><br></pre></td></tr></table></figure>
-
-<p>2.停掉Active网卡eth3，再检查配置，是否切换到备用。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo ifconfig eth3 down</span><br><span class="line">more /proc/bonding/bond0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>3.切换到另一张网卡后，ping网关，检查网络是否通。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="http://linux.vbird.org/linux_enterprise/0110network.php#server_bonding">http://linux.vbird.org/linux_enterprise/0110network.php#server_bonding</a><br><a target="_blank" rel="noopener" href="http://linuxnote.blog.51cto.com/9876511/1680315">http://linuxnote.blog.51cto.com/9876511/1680315</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/04/zabbix-discovery-config/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/04/zabbix-discovery-config/" class="post-title-link" itemprop="url">zabbix-discovery-config</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-05-04 21:13:29" itemprop="dateCreated datePublished" datetime="2017-05-04T21:13:29+08:00">2017-05-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>同事使用zabbix自动发现功能，一直无法发现主机，排查过程遂成此文。</p>
-</blockquote>
-<p>zabbix discovery分为网络发现（net discovery）、活动代理自动注册（Active agent auto-registration）和低级发现（low-level discovery）。网络发现可根据ping或agent或其他网络服务找到满足检查结果的主机，并执行其他动作。可执行的动作有</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Sending notifications #发送通知</span><br><span class="line">Adding/removing hosts #添加或删除主机</span><br><span class="line">Enabling/disabling hosts #启用或禁用主机</span><br><span class="line">Adding hosts to a group #添加到某个组</span><br><span class="line">Removing hosts from a group #移除某组</span><br><span class="line">Linking hosts to/unlinking from a template #关联或取消关联到模板</span><br><span class="line">Executing remote scripts #执行远程脚本</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="配置网络发现"><a href="#配置网络发现" class="headerlink" title="配置网络发现"></a>配置网络发现</h2><p>1 配置-》自动发现 中创建发现规则</p>
-<p>2 配置-》动作 中设置他条件</p>
-<p>3 监控-》自动发现 中查看自动发现的结果</p>
-<h2 id="故障排查"><a href="#故障排查" class="headerlink" title="故障排查"></a>故障排查</h2><p>配置了自动发现一直没有发现主机，先检查是否有自动发现进程</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep discover</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>若没有，检查/etc/zabbix/zabbix-server.cfg <code>StartDisvoer</code>字段是否有值，或将参数注释去掉，手动设置zabbix discover进程为4，然后重启zabbix-server。</p>
-<p>再检查web界面自动发现规则是否启用，网段是否正确。</p>
-<p>最后检查动作中条件是否引用发现规则。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/3.0/manual/discovery/auto_registration">https://www.zabbix.com/documentation/3.0/manual/discovery/auto_registration</a><br><a target="_blank" rel="noopener" href="http://www.zabbix.com/download">http://www.zabbix.com/download</a><br><a target="_blank" rel="noopener" href="https://zhangge.net/5030.html">https://zhangge.net/5030.html</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/03/ansible%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/03/ansible%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">ansible安装与使用</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-05-03 23:19:45" itemprop="dateCreated datePublished" datetime="2017-05-03T23:19:45+08:00">2017-05-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="安装ansible"><a href="#安装ansible" class="headerlink" title="安装ansible"></a>安装ansible</h2><p>centos7</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install epel-release</span><br><span class="line">$ sudo yum install ansible -y</span><br><span class="line">yum install python-pip</span><br><span class="line">pip install ansible</span><br><span class="line">pip install --upgrade setuptools</span><br></pre></td></tr></table></figure>
-<p>ubuntu</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-add-repository -y ppa:ansible/ansible</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y ansible</span><br></pre></td></tr></table></figure>
-<h2 id="配置使用"><a href="#配置使用" class="headerlink" title="配置使用"></a>配置使用</h2><p>以monitor用户连接主机hosts执行who命令<br>ansible -i ./hosts all -a ‘who’ –ask-pass -u monitor</p>
-<h2 id="错误排查"><a href="#错误排查" class="headerlink" title="错误排查"></a>错误排查</h2><p>1 安装完成后找不到配置文件，无/etc/ansible目录，通过卸载pip安装的ansible<code>sudo pip uninstall ansible</code>,重新使用yum安装解决<code>yum install ansible</code></p>
-<p>2 <code>FAILED =&gt; Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host&#39;s fingerprint to your known_hosts file to manage this host.</code><br>通过修改/etc/ansible/ansible.cfg 中<code>host_key_checking = False</code>行注释去掉。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="http://docs.ansible.com/ansible/intro_installation.html">http://docs.ansible.com/ansible/intro_installation.html</a><br><a target="_blank" rel="noopener" href="https://www.the5fire.com/ansible-guide-cn.html">https://www.the5fire.com/ansible-guide-cn.html</a><br><a target="_blank" rel="noopener" href="https://blog.goquxiao.com/posts/2015/09/01/ansible-simple-tutorial/">https://blog.goquxiao.com/posts/2015/09/01/ansible-simple-tutorial/</a><br><a target="_blank" rel="noopener" href="https://www.gitbook.com/book/ansible-book/ansible-first-book">https://www.gitbook.com/book/ansible-book/ansible-first-book</a><br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/1608_lih_ansible/index.html">https://www.ibm.com/developerworks/cn/linux/1608_lih_ansible/index.html</a><br><a target="_blank" rel="noopener" href="http://www.ideavirgin.com/t/2015-08-30-ansible-tutorial.html">http://www.ideavirgin.com/t/2015-08-30-ansible-tutorial.html</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/03/shell-learn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/03/shell-learn/" class="post-title-link" itemprop="url">shell-learn</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-05-03 21:51:43" itemprop="dateCreated datePublished" datetime="2017-05-03T21:51:43+08:00">2017-05-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="学习命令"><a href="#学习命令" class="headerlink" title="学习命令"></a>学习命令</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">echo &gt;&gt; file #add content to file</span><br><span class="line">&amp;&amp; #link command</span><br><span class="line">echo monitor:monitor-passwd|chpasswd #change user passwd</span><br><span class="line">sed -i &#x27;/^root/ a\app     ALL=(ALL)      ALL&#x27; $file # add something after a line</span><br><span class="line">host -I #get host ip</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/05/03/shell-learn/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/02/zabbix%E6%B7%BB%E5%8A%A0%E9%82%AE%E4%BB%B6%E5%8F%8A%E5%BE%AE%E4%BF%A1%E6%8A%A5%E8%AD%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/02/zabbix%E6%B7%BB%E5%8A%A0%E9%82%AE%E4%BB%B6%E5%8F%8A%E5%BE%AE%E4%BF%A1%E6%8A%A5%E8%AD%A6/" class="post-title-link" itemprop="url">zabbix3.0添加邮件和微信报警</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-05-02 22:54:23" itemprop="dateCreated datePublished" datetime="2017-05-02T22:54:23+08:00">2017-05-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>最近和同事重新部署zabbix，参考附件中的文章对本文做了一些更新。更新日期（2017-05-27）</p>
-</blockquote>
-<h3 id="重要结论"><a href="#重要结论" class="headerlink" title="重要结论"></a>重要结论</h3><ol>
-<li>使用shell脚本发微信，容易造成中文信息丢失和换行问题，建议使用python脚本。</li>
-<li>使用zabbix发邮件告警，建议使用shell脚本方式调用本地mail命令发送。直接使用公网邮箱容易被公网邮件服务判定为帐号异常。</li>
-<li>按照文末<a target="_blank" rel="noopener" href="https://www.oschina.net/news/75588/zabbix-3.0.3">参考文章</a>部署，亲测有效。</li>
+          <h2 id="安装详细步骤"><a href="#安装详细步骤" class="headerlink" title="安装详细步骤"></a>安装详细步骤</h2><ol>
+<li>按照<a target="_blank" rel="noopener" href="http://blog.hhzzer.com/2017/05/16/centos7%E5%AE%89%E8%A3%85mysql/">centos7安装mysql</a>安装完mysql</li>
+<li>按照本文安装剩余步骤。</li>
 </ol>
-<h3 id="邮件报警"><a href="#邮件报警" class="headerlink" title="邮件报警"></a>邮件报警</h3><p>zabbix低版本2.0以下，不支持添加带密码验证的邮箱，用于发送报警邮件，这就导致好多教程写通过shell实现发送邮件报警。zabbix2.0以后版本都支持带密码验证的邮箱。</p>
-<ol>
-<li><p>邮件报警配置界面如下图,配置的邮箱类型为qq企业邮箱。<br><img src="../img/zabbix%E9%82%AE%E4%BB%B6%E6%8A%A5%E8%AD%A6%E6%88%AA%E5%9B%BE.png" alt="邮件报警"></p>
-</li>
-<li><p>添加完媒介类型后，再添加用户媒介类型，选择邮箱后输入邮箱名即可。<br><img src="../img/zabbix-user-mail.png" alt="用户媒介配置"></p>
-</li>
-<li><p>在触发器触发后执行的动作中添加发送到邮件媒体<br><img src="../img/zabbix-action.png" alt="动作发送到所有媒体"></p>
-</li>
-<li><p>添加测试项目测试并在日志中查看动作日志<br><img src="../img/zabbix-action-log.png" alt="查看动作日志"></p>
-</li>
-</ol>
-<h3 id="微信报警"><a href="#微信报警" class="headerlink" title="微信报警"></a>微信报警</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/05/02/zabbix%E6%B7%BB%E5%8A%A0%E9%82%AE%E4%BB%B6%E5%8F%8A%E5%BE%AE%E4%BF%A1%E6%8A%A5%E8%AD%A6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+<h3 id="配置mysql"><a href="#配置mysql" class="headerlink" title="配置mysql"></a>配置mysql</h3><p>下载zabbix源码到/tmp/<br><code>ansible zs  -a &quot;wget http://192.168.x.x:8000/zabbix-3.0.9.tar.gz -O /tmp/zabbix-3.0.9.tar.gz&quot;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#启动数据库，创建用户和数据库</span><br><span class="line">systemctl start mysqld</span><br><span class="line">ps -ef | grep mysqld</span><br><span class="line">mysql -u root -p</span><br><span class="line">mysql&gt;create database zabbix character set utf8 collate utf8_bin;</span><br><span class="line">mysql&gt;CREATE USER &#x27;zabbix&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;xxxxxx&#x27;;</span><br><span class="line">mysql&gt;grant all on zabbix.*  to &#x27;zabbix&#x27;@&#x27;localhost&#x27;;</span><br><span class="line">mysql&gt;flush privileges;</span><br><span class="line">#初始化zabbix数据库</span><br><span class="line">tar -xvf /tmp/zabbix-3.0.9.tar.gz</span><br><span class="line">cd /tmp/zabbix-3.0.9/</span><br><span class="line">mysql -u zabbix -p zabbix &lt; database/mysql/schema.sql</span><br><span class="line">mysql -u zabbix -p zabbix &lt; database/mysql/images.sql</span><br><span class="line">mysql -u zabbix -p zabbix &lt; database/mysql/data.sql</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="编译并安装server"><a href="#编译并安装server" class="headerlink" title="编译并安装server"></a>编译并安装server</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">yum install libxml2-devel curl-devel net-snmp-devel OpenIPMI-devel -y</span><br><span class="line">cd /tmp/zabbix-3.0.9/</span><br><span class="line">./configure --enable-server --enable-agent --with-mysql --with-net-snmp --with-libcurl --with-libxml2 --with-openipmi  --prefix=/apps/svr/zabbix</span><br><span class="line">make install</span><br><span class="line">#添加用户和组</span><br><span class="line">groupadd zabbix</span><br><span class="line">useradd -g zabbix zabbix</span><br><span class="line">chown -R zabbix /apps/svr/zabbix</span><br><span class="line">chmod 777 /tmp/zabbix_server.log</span><br><span class="line">vi /apps/svr/zabbix/etc/zabbix_server.conf #修改DBPassword为mysql设置的密码</span><br><span class="line">#启动zabbix_server服务</span><br><span class="line">/apps/svr/zabbix/sbin/zabbix_server -c /apps/svr/zabbix/etc/zabbix_server.conf</span><br><span class="line">#查看启动日志,类似如下表明启动成功。</span><br><span class="line">tail -f /tmp/zabbix_server.log</span><br><span class="line">17315:20170518:135832.205 server #17 started [timer #1]</span><br><span class="line"> 17321:20170518:135832.205 server #23 started [history syncer #4]</span><br><span class="line"> 17319:20170518:135832.205 server #21 started [history syncer #2]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="安装前端界面"><a href="#安装前端界面" class="headerlink" title="安装前端界面"></a>安装前端界面</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 安装前端需要软件</span><br><span class="line">yum install httpd  php php-gd  php-ctype  php-mbstring php-xmlwriter php-xmlreader php-bcmath php-mysql -y</span><br><span class="line">#启动apache</span><br><span class="line">service httpd start</span><br><span class="line">#将前端文件移动到apache目录</span><br><span class="line">cp -r /tmp/zabbix-3.0.9/frontends/php/ /var/www/html/</span><br><span class="line">mv /var/www/html/php /var/www/html/zabbix</span><br><span class="line">#浏览器打开serverip/zabbix,查看自检</span><br><span class="line">copy /etc/php.ini /etc/php.ini.bak</span><br><span class="line">vi /etc/php.ini</span><br><span class="line"></span><br><span class="line">post_max_size=16M</span><br><span class="line">max_execution_time=300</span><br><span class="line">max_input_time=300</span><br><span class="line">date.timezone=Asia/Chongqing</span><br><span class="line"># 输入mysql用户zabbix的密码</span><br><span class="line"># 手动下载zabbix.conf.php，并将文件上传到server /var/www/html/zabbix/conf/</span><br><span class="line"># 上传后点击完成，跳转到登录界面，输入默认用户Admin，密码 zabbix即可登录。</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="报错处理"><a href="#报错处理" class="headerlink" title="报错处理"></a>报错处理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE USER &#x27;zabbix&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;zabbix&#x27;;</span><br><span class="line">ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.</span><br><span class="line">重设密码</span><br><span class="line"> set password = password(&quot;复杂密码&quot;)</span><br><span class="line">mysql&gt;CREATE USER &#x27;zabbix&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;zabbix&#x27;;</span><br><span class="line"># 报错 Please use mysql_upgrade to fix this error</span><br><span class="line"> mysql_upgrade -u root -p</span><br><span class="line"></span><br><span class="line"> 编译zabbix源码报错“MySQL library not found”</span><br><span class="line"> rpm -ivh mysql-community-devel-*   </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="软件依赖查询"><a href="#软件依赖查询" class="headerlink" title="软件依赖查询"></a>软件依赖查询</h2><ul>
+<li>数据库</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Software</th>
+<th>Version</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MySQL</td>
+<td>5.0.3 or later</td>
+<td>Required if MySQL is used as Zabbix backend database. InnoDB engine is required.</td>
+</tr>
+</tbody></table>
+<ul>
+<li>前端</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Software</th>
+<th>Version</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Apache</td>
+<td>1.3.12 or later</td>
+<td></td>
+</tr>
+<tr>
+<td>PHP</td>
+<td>5.4.0 or later</td>
+<td>PHP v7 is not supported yet.</td>
+</tr>
+<tr>
+<td>PHP</td>
+<td>extensions:</td>
+<td></td>
+</tr>
+<tr>
+<td>gd</td>
+<td>2.0 or later</td>
+<td>PHP GD extension must support PNG images (–with-png-dir), JPEG (–with-jpeg-dir) images and FreeType 2 (–with-freetype-dir).</td>
+</tr>
+<tr>
+<td>bcmath</td>
+<td></td>
+<td>php-bcmath (–enable-bcmath)</td>
+</tr>
+<tr>
+<td>ctype</td>
+<td></td>
+<td>php-ctype (–enable-ctype)</td>
+</tr>
+<tr>
+<td>libXML</td>
+<td>2.6.15 or later</td>
+<td>php-xml or php5-dom, if provided as a separate package by the distributor.</td>
+</tr>
+<tr>
+<td>xmlreader</td>
+<td></td>
+<td>php-xmlreader, if provided as a separate package by the distributor.</td>
+</tr>
+<tr>
+<td>xmlwriter</td>
+<td></td>
+<td>php-xmlwriter, if provided as a separate package by the distributor.</td>
+</tr>
+<tr>
+<td>session</td>
+<td></td>
+<td>php-session, if provided as a separate package by the distributor.</td>
+</tr>
+<tr>
+<td>sockets</td>
+<td></td>
+<td>php-net-socket (–enable-sockets). Required for user script support.</td>
+</tr>
+<tr>
+<td>mbstring</td>
+<td></td>
+<td>php-mbstring (–enable-mbstring)</td>
+</tr>
+<tr>
+<td>gettext</td>
+<td></td>
+<td>php-gettext (–with-gettext). Required for translations to work.</td>
+</tr>
+<tr>
+<td>mysqli</td>
+<td></td>
+<td>Required if MySQL is used as Zabbix backend database.</td>
+</tr>
+</tbody></table>
+<ul>
+<li>server端可选</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Software</th>
+<th>Discription</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OpenIPMI</td>
+<td>Required for IPMI support.</td>
+</tr>
+<tr>
+<td>libssh2</td>
+<td>Required for SSH support. Version 1.0 or higher.</td>
+</tr>
+<tr>
+<td>fping</td>
+<td>Required for ICMP ping items.</td>
+</tr>
+<tr>
+<td>libcurl</td>
+<td>Required for web monitoring, VMware monitoring and SMTP authentication. For SMTP authentication, version 7.20.0 or higher is required.</td>
+</tr>
+<tr>
+<td>libiksemel</td>
+<td>Required for Jabber support.</td>
+</tr>
+<tr>
+<td>libxml2</td>
+<td>Required for VMware monitoring.</td>
+</tr>
+<tr>
+<td>net-snmp</td>
+<td>Required for SNMP support.</td>
+</tr>
+</tbody></table>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/starof/p/4680083.html">https://www.cnblogs.com/starof/p/4680083.html</a><br><a target="_blank" rel="noopener" href="http://www.infocool.net/kb/Mysql/201612/246832.html">http://www.infocool.net/kb/Mysql/201612/246832.html</a><br><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/d7b9c468f20d">http://www.jianshu.com/p/d7b9c468f20d</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/15/%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85zabbix-agentd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/05/15/%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85zabbix-agentd/" class="post-title-link" itemprop="url">使用ansible批量安装zabbix_agentd</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-15 15:51:59" itemprop="dateCreated datePublished" datetime="2017-05-15T15:51:59+08:00">2017-05-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="ansible-hosts内容"><a href="#ansible-hosts内容" class="headerlink" title="ansible hosts内容"></a>ansible hosts内容</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/ansible/hosts</span><br><span class="line">[test]</span><br><span class="line">192.168.1.2</span><br></pre></td></tr></table></figure>
+<h2 id="ansible-playbook-安装与卸载zabbix-agentd"><a href="#ansible-playbook-安装与卸载zabbix-agentd" class="headerlink" title="ansible playbook 安装与卸载zabbix_agentd"></a>ansible playbook 安装与卸载zabbix_agentd</h2><p>1 安装zabbix-agentd</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: test</span><br><span class="line">  tasks:</span><br><span class="line">  - name: &#x27;ping&#x27;</span><br><span class="line">    ping:</span><br><span class="line">  - name: &quot;add user and dir&quot;</span><br><span class="line">    script: /home/app/zabbix/install-zabbix-agentd.sh</span><br><span class="line">  - name: &quot;copy file to  /init.d/zabbix_agent.d&quot;</span><br><span class="line">    copy:</span><br><span class="line">      src: /home/app/zabbix/zabbix_agentd</span><br><span class="line">      dest: /etc/init.d/</span><br><span class="line">  - name: &quot;copy zabbix_agnetd deamon to /usr/local/zabbix/sbin/&quot;</span><br><span class="line">    copy:</span><br><span class="line">      src: /home/app/zabbix/sbin/zabbix_agentd</span><br><span class="line">      dest: /usr/local/zabbix/sbin/</span><br><span class="line">  - name: &quot;modify rights and start zabbix_agentd&quot;</span><br><span class="line">    script: /home/app/zabbix/start-zabbix-agentd.sh</span><br></pre></td></tr></table></figure>
+<p>运行方式 <code>ansible-playbook install.yml   -v  --sudo --ask-sudo-pass</code></p>
+<p>2 卸载zabbix-agentd</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: test</span><br><span class="line">  tasks:</span><br><span class="line">  - name: &#x27;ping&#x27;</span><br><span class="line">    ping:</span><br><span class="line">  - name: &quot;stop agentd&quot;</span><br><span class="line">    command: service zabbix_agentd stop</span><br><span class="line">  - name: &quot;remove from chkconfig&quot;</span><br><span class="line">    command: chkconfig --del zabbix_agentd</span><br><span class="line">  - name: &quot;remove uzer zabbix&quot;</span><br><span class="line">    command: userdel  zabbix</span><br><span class="line">  - name: &quot;remove /usr/local/zabbix/&quot;</span><br><span class="line">    command: rm -rf /usr/local/zabbix/</span><br><span class="line">  - name: &quot;remove rm -f /etc/init.d/zabbix_agentd&quot;</span><br><span class="line">    command: rm -f /etc/init.d/zabbix_agentd</span><br><span class="line">  - name: &quot;remove /usr/local/etc/zabbix_agentd.conf&quot;</span><br><span class="line">    command: rm /usr/local/etc/zabbix_agentd.conf</span><br></pre></td></tr></table></figure>
+<p>运行方式  <code>ansible-playbook unistall-zabbix   -v  --sudo --ask-sudo-pass</code></p>
+<h2 id="ansible-Ad-Hoc-安装与卸载"><a href="#ansible-Ad-Hoc-安装与卸载" class="headerlink" title="ansible Ad-Hoc 安装与卸载"></a>ansible Ad-Hoc 安装与卸载</h2><p>1 安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ansible -i test a -m script -a &#x27;/home/app/zabbix/install-zabbix-agentd.sh&#x27; -u app -k -b -K</span><br><span class="line"></span><br><span class="line">ansible -i test a -m copy -a &quot;src=/home/app/zabbix/zabbix_agentd dest=/etc/init.d/&quot; -u app -k -b -K</span><br><span class="line">ansible -i test a -m copy -a &quot;src=/home/app/zabbix/sbin/zabbix_agentd dest=/usr/local/zabbix/sbin/&quot; -u app -k -b -K</span><br><span class="line">ansible -i test a -m script -a &#x27;/home/app/zabbix/start-zabbix-agentd.sh&#x27; -u app -k -b -K</span><br></pre></td></tr></table></figure>
+<p>2 卸载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#1 停止服务 service zabbix_agentd stop</span><br><span class="line">ansible -i test a -a &#x27;service zabbix_agentd stop&#x27; -u app -k -b -K</span><br><span class="line">#2 chkconfig 中删除 `chkconfig --del zabbix_agnetd`</span><br><span class="line">ansible -i test a -a &#x27;chkconfig --del zabbix_agentd&#x27; -u app -k -b -K</span><br><span class="line">#3 删除用户</span><br><span class="line">ansible -i test a -a &#x27;userdel  zabbix&#x27; -u app -k -b -K</span><br><span class="line">#4 删除目录和文件</span><br><span class="line">ansible -i test a -a &#x27;rm -rf /usr/local/zabbix/&#x27; -u app -k -b -K</span><br><span class="line">ansible -i test a -a &#x27;rm -f /etc/init.d/zabbix_agentd&#x27; -u app -k -b -K</span><br><span class="line">ansible -i test a -a &#x27;rm /usr/local/etc/zabbix_agentd.conf&#x27; -u app -k -b -K</span><br></pre></td></tr></table></figure>
+<h2 id="需要的文件"><a href="#需要的文件" class="headerlink" title="需要的文件"></a>需要的文件</h2><p>1 install-zabbix-agentd.sh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">groupadd zabbix</span><br><span class="line">useradd -s /sbin/nologin -M -g zabbix zabbix</span><br><span class="line">mkdir /usr/local/zabbix/sbin/ -p</span><br><span class="line">cat &gt; /usr/local/etc/zabbix_agentd.conf &lt;&lt;EOF</span><br><span class="line">Server=192.168.2.x</span><br><span class="line">Hostname=localhost</span><br><span class="line">BufferSize=1024</span><br><span class="line">DebugLevel=2</span><br><span class="line">LogFileSize=1024</span><br><span class="line">LogFile=/tmp/zabbix_agentd.log</span><br><span class="line">EnableRemoteCommands=1</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p>2 /etc/init.d/zabbix_agentd 服务控制文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">SERVICE=&quot;Zabbix agent&quot;</span><br><span class="line">DAEMON=/usr/local/zabbix/sbin/zabbix_agentd</span><br><span class="line">PIDFILE=/tmp/zabbix_agentd.pid</span><br><span class="line">BASEDIR=/usr/local/zabbix</span><br><span class="line">ZABBIX_AGENTD=$BASEDIR/sbin/zabbix_agentd</span><br><span class="line">case $1 in</span><br><span class="line">  &#x27;start&#x27;)</span><br><span class="line">    if [ -x $&#123;DAEMON&#125; ]</span><br><span class="line">    then</span><br><span class="line">      $DAEMON</span><br><span class="line">      # Error checking here would be good...</span><br><span class="line">      echo &quot;$&#123;SERVICE&#125; started.&quot;</span><br><span class="line"> else</span><br><span class="line">      echo &quot;Can&#x27;t find file $&#123;DAEMON&#125;.&quot;</span><br><span class="line">      echo &quot;$&#123;SERVICE&#125; NOT started.&quot;</span><br><span class="line">    fi</span><br><span class="line">  ;;</span><br><span class="line">  &#x27;stop&#x27;)</span><br><span class="line">    if [ -s $&#123;PIDFILE&#125; ]</span><br><span class="line">    then</span><br><span class="line">      if kill `cat $&#123;PIDFILE&#125;` &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">      then</span><br><span class="line">        echo &quot;$&#123;SERVICE&#125; stoped.&quot;</span><br><span class="line">        rm -f $&#123;PIDFILE&#125;</span><br><span class="line">      fi</span><br><span class="line">    fi</span><br><span class="line">  ;;</span><br><span class="line">  &#x27;restart&#x27;)</span><br><span class="line">    $0 stop</span><br><span class="line">    sleep 10</span><br><span class="line">    $0 start</span><br><span class="line">  ;;</span><br><span class="line">  *)</span><br><span class="line">    echo &quot;Usage: $0 start|stop|restart&quot;</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+
+<p>3 zabbix_agentd 可执行文件（deamon）<br>通过官网下载<a target="_blank" rel="noopener" href="http://www.zabbix.com/downloads/3.0.4/zabbix_agents_3.0.4.linux2_6_23.amd64.tar.gz">linux2_6_23X64预编译文件下载地址</a></p>
+<p>4 start-zabbix-agentd.sh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /etc/init.d/zabbix_agentd</span><br><span class="line">chmod +x /usr/local/zabbix/sbin/zabbix_agentd</span><br><span class="line">service zabbix_agentd start &amp;&amp; chkconfig zabbix_agentd on</span><br><span class="line">echo `ps -ef | grep zabbix`</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/10/linux%E7%A1%AC%E4%BB%B6%E8%B5%84%E6%BA%90%E6%9F%A5%E7%9C%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/05/10/linux%E7%A1%AC%E4%BB%B6%E8%B5%84%E6%BA%90%E6%9F%A5%E7%9C%8B/" class="post-title-link" itemprop="url">linux硬件资源信息查看</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-10 21:13:29" itemprop="dateCreated datePublished" datetime="2017-05-10T21:13:29+08:00">2017-05-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>分配了主机资源后，需要检查分配主机是否满足工单需求，主要是cpu、内存、磁盘、系统版本、ip地址等，通过下面语句可以快速检查。</p>
+</blockquote>
+<h2 id="shell查看硬件信息"><a href="#shell查看硬件信息" class="headerlink" title="shell查看硬件信息"></a>shell查看硬件信息</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo | grep &quot;physical id&quot;|uniq |wc -l</span><br><span class="line">cat /proc/cpuinfo | grep &quot;core id&quot;|uniq |wc -l</span><br><span class="line">cat /proc/cpuinfo | grep &quot;processor&quot;|uniq |wc -l</span><br><span class="line"></span><br><span class="line">free -h | grep Mem |awk &#x27;&#123;print $2&#125;&#x27;</span><br><span class="line"></span><br><span class="line">fdisk -l |grep &quot;Disk /dev/sd&quot; |awk &#x27;&#123;print $3&#125;&#x27;</span><br><span class="line">dmesg |grep sd |grep logical|awk -F &#x27;(&#x27; &#x27;&#123;print $2&#125;&#x27;|awk &#x27;&#123;print $1&#125;&#x27;</span><br></pre></td></tr></table></figure>
+<h2 id="ansible-模块查看硬件信息"><a href="#ansible-模块查看硬件信息" class="headerlink" title="ansible 模块查看硬件信息"></a>ansible 模块查看硬件信息</h2><p><code>ansible -i hosts test -m setup</code><br>可以输出很多信息，将这些信息提取并以合适的方式展现，也是一个很好的办法，<strong>以后做一个playbook</strong>.</p>
+<p>ansible playbook查看服务器硬件信息（ip、os、cup、内存、硬盘）<br>使用debug模块，目前只能查询出一个硬盘，尝试寻找变量通配符，返回多个硬盘信息。</p>
+<p>setup 返回信息为json格式，列表通过“.”访问，数组通过”[]”访问。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: local</span><br><span class="line">  tasks:</span><br><span class="line">  - name: print info</span><br><span class="line">    debug:</span><br><span class="line">      msg: &quot;ip:&#123;&#123;ansible_all_ipv4_addresses[0]&#125;&#125; ipv4:&#123;&#123;ansible_default_ipv4.address&#125;&#125; OS:&#123;&#123;ansible_distribution&#125;&#125;-&#123;&#123;ansible_distribution_version&#125;&#125; CUP:&#123;&#123;ansible_processor_vcpus&#125;&#125; Memory:&#123;&#123;ansibsile_memtotal_mb&#125;&#125; Disk:&#123;&#123;ansible_devices.sda.size&#125;&#125;&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行方式及输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook  book4  | grep msg</span><br><span class="line">..</span><br><span class="line">    &quot;msg&quot;: &quot;ip:192.168.199.186 ipv4:192.168.199.186 OS:Ubuntu-16.04 CUP:2 Memory:3845 Disk:111.79 GB&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输出详细</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1 | SUCCESS =&gt; &#123;</span><br><span class="line">    &quot;ansible_facts&quot;: &#123;</span><br><span class="line">        &quot;ansible_all_ipv4_addresses&quot;: [</span><br><span class="line">            &quot;192.168.214.173&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;ansible_all_ipv6_addresses&quot;: [</span><br><span class="line">            &quot;fe80::2d40:6de:d336:c8ca&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;ansible_apparmor&quot;: &#123;</span><br><span class="line">            &quot;status&quot;: &quot;enabled&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ansible_architecture&quot;: &quot;x86_64&quot;,</span><br><span class="line">        &quot;ansible_bios_date&quot;: &quot;06/25/2009&quot;,</span><br><span class="line">        &quot;ansible_bios_version&quot;: &quot;6DET55WW (3.05 )&quot;,</span><br><span class="line">        &quot;ansible_cmdline&quot;: &#123;</span><br><span class="line">            &quot;BOOT_IMAGE&quot;: &quot;/boot/vmlinuz-4.4.0-75-generic&quot;,</span><br><span class="line">            &quot;quiet&quot;: true,</span><br><span class="line">            &quot;ro&quot;: true,</span><br><span class="line">            &quot;root&quot;: &quot;UUID=9883fbeb-0f74-4672-aa84-b854ca6185bf&quot;,</span><br><span class="line">            &quot;splash&quot;: true,</span><br><span class="line">            &quot;vt.handoff&quot;: &quot;7&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ansible_date_time&quot;: &#123;</span><br><span class="line">            &quot;date&quot;: &quot;2017-05-10&quot;,</span><br><span class="line">            &quot;day&quot;: &quot;10&quot;,</span><br><span class="line">            &quot;epoch&quot;: &quot;1494383678&quot;,</span><br><span class="line">            &quot;hour&quot;: &quot;10&quot;,</span><br><span class="line">            &quot;iso8601&quot;: &quot;2017-05-10T02:34:38Z&quot;,</span><br><span class="line">            &quot;iso8601_basic&quot;: &quot;20170510T103438375203&quot;,</span><br><span class="line">            &quot;iso8601_basic_short&quot;: &quot;20170510T103438&quot;,</span><br><span class="line">            &quot;iso8601_micro&quot;: &quot;2017-05-10T02:34:38.375337Z&quot;,</span><br><span class="line">            &quot;minute&quot;: &quot;34&quot;,</span><br><span class="line">            &quot;month&quot;: &quot;05&quot;,</span><br><span class="line">            &quot;second&quot;: &quot;38&quot;,</span><br><span class="line">            &quot;time&quot;: &quot;10:34:38&quot;,</span><br><span class="line">            &quot;tz&quot;: &quot;CST&quot;,</span><br><span class="line">            &quot;tz_offset&quot;: &quot;+0800&quot;,</span><br><span class="line">            &quot;weekday&quot;: &quot;星期三&quot;,</span><br><span class="line">            &quot;weekday_number&quot;: &quot;3&quot;,</span><br><span class="line">            &quot;weeknumber&quot;: &quot;19&quot;,</span><br><span class="line">            &quot;year&quot;: &quot;2017&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ansible_default_ipv4&quot;: &#123;</span><br><span class="line">            &quot;address&quot;: &quot;192.168.214.173&quot;,</span><br><span class="line">            &quot;alias&quot;: &quot;enp0s25&quot;,</span><br><span class="line">            &quot;broadcast&quot;: &quot;192.168.214.255&quot;,</span><br><span class="line">            &quot;gateway&quot;: &quot;192.168.214.1&quot;,</span><br><span class="line">            &quot;interface&quot;: &quot;enp0s25&quot;,</span><br><span class="line">            &quot;macaddress&quot;: &quot;00:1f:16:25:ee:24&quot;,</span><br><span class="line">            &quot;mtu&quot;: 1500,</span><br><span class="line">            &quot;netmask&quot;: &quot;255.255.255.0&quot;,</span><br><span class="line">            &quot;network&quot;: &quot;192.168.214.0&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;ether&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ansible_default_ipv6&quot;: &#123;&#125;,</span><br><span class="line">        &quot;ansible_devices&quot;: &#123;</span><br><span class="line">            &quot;sda&quot;: &#123;</span><br><span class="line">                &quot;holders&quot;: [],</span><br><span class="line">                &quot;host&quot;: &quot;SATA controller: Intel Corporation 82801IBM/IEM (ICH9M/ICH9M-E) 4 port SATA Controller [AHCI mode] (rev 03)&quot;,</span><br><span class="line">                &quot;model&quot;: &quot;WDC WD1200BEVS-2&quot;,</span><br><span class="line">                &quot;partitions&quot;: &#123;</span><br><span class="line">                    &quot;sda1&quot;: &#123;</span><br><span class="line">                        &quot;holders&quot;: [],</span><br><span class="line">                        &quot;sectors&quot;: &quot;78188544&quot;,</span><br><span class="line">                        &quot;sectorsize&quot;: 512,</span><br><span class="line">                        &quot;size&quot;: &quot;37.28 GB&quot;,</span><br><span class="line">                        &quot;start&quot;: &quot;2048&quot;,</span><br><span class="line">                        &quot;uuid&quot;: &quot;9883fbeb-0f74-4672-aa84-b854ca6185bf&quot;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    &quot;sda2&quot;: &#123;</span><br><span class="line">                        &quot;holders&quot;: [],</span><br><span class="line">                        &quot;sectors&quot;: &quot;2&quot;,</span><br><span class="line">                        &quot;sectorsize&quot;: 512,</span><br><span class="line">                        &quot;size&quot;: &quot;1.00 KB&quot;,</span><br><span class="line">                        &quot;start&quot;: &quot;78192638&quot;,</span><br><span class="line">                        &quot;uuid&quot;: null</span><br><span class="line">                    &#125;,</span><br><span class="line">                    &quot;sda5&quot;: &#123;</span><br><span class="line">                        &quot;holders&quot;: [],</span><br><span class="line">                        &quot;sectors&quot;: &quot;7999488&quot;,</span><br><span class="line">                        &quot;sectorsize&quot;: 512,</span><br><span class="line">                        &quot;size&quot;: &quot;3.81 GB&quot;,</span><br><span class="line">                        &quot;start&quot;: &quot;226441216&quot;,</span><br><span class="line">                        &quot;uuid&quot;: &quot;8f626dbf-8c87-4474-a08f-a4bcf6f6c14f&quot;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    &quot;sda6&quot;: &#123;</span><br><span class="line">                        &quot;holders&quot;: [],</span><br><span class="line">                        &quot;sectors&quot;: &quot;128716800&quot;,</span><br><span class="line">                        &quot;sectorsize&quot;: 512,</span><br><span class="line">                        &quot;size&quot;: &quot;61.38 GB&quot;,</span><br><span class="line">                        &quot;start&quot;: &quot;78192640&quot;,</span><br><span class="line">                        &quot;uuid&quot;: &quot;7217a3e2-67e4-412a-8b73-031cceab2742&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;removable&quot;: &quot;0&quot;,</span><br><span class="line">                &quot;rotational&quot;: &quot;1&quot;,</span><br><span class="line">                &quot;sas_address&quot;: null,</span><br><span class="line">                &quot;sas_device_handle&quot;: null,</span><br><span class="line">                &quot;scheduler_mode&quot;: &quot;deadline&quot;,</span><br><span class="line">                &quot;sectors&quot;: &quot;234441648&quot;,</span><br><span class="line">                &quot;sectorsize&quot;: &quot;512&quot;,</span><br><span class="line">                &quot;size&quot;: &quot;111.79 GB&quot;,</span><br><span class="line">                &quot;support_discard&quot;: &quot;0&quot;,</span><br><span class="line">                &quot;vendor&quot;: &quot;ATA&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ansible_distribution&quot;: &quot;Ubuntu&quot;,</span><br><span class="line">        &quot;ansible_distribution_major_version&quot;: &quot;16&quot;,</span><br><span class="line">        &quot;ansible_distribution_release&quot;: &quot;xenial&quot;,</span><br><span class="line">        &quot;ansible_distribution_version&quot;: &quot;16.04&quot;,</span><br><span class="line">        &quot;ansible_dns&quot;: &#123;</span><br><span class="line">            &quot;nameservers&quot;: [</span><br><span class="line">                &quot;127.0.1.1&quot;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ansible_domain&quot;: &quot;&quot;,</span><br><span class="line">        &quot;ansible_effective_group_id&quot;: 1000,</span><br><span class="line">        &quot;ansible_effective_user_id&quot;: 1000,</span><br><span class="line">        &quot;ansible_enp0s25&quot;: &#123;</span><br><span class="line">            &quot;active&quot;: true,</span><br><span class="line">            &quot;device&quot;: &quot;enp0s25&quot;,</span><br><span class="line">            &quot;features&quot;: &#123;</span><br><span class="line">                &quot;busy_poll&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;fcoe_mtu&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;generic_receive_offload&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;generic_segmentation_offload&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;highdma&quot;: &quot;on [fixed]&quot;,</span><br><span class="line">                &quot;hw_tc_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;l2_fwd_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;large_receive_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;loopback&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;netns_local&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;ntuple_filters&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;receive_hashing&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;rx_all&quot;: &quot;off&quot;,</span><br><span class="line">                &quot;rx_checksumming&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;rx_fcs&quot;: &quot;off&quot;,</span><br><span class="line">                &quot;rx_vlan_filter&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_vlan_offload&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;rx_vlan_stag_filter&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_vlan_stag_hw_parse&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;scatter_gather&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tcp_segmentation_offload&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tx_checksum_fcoe_crc&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksum_ip_generic&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tx_checksum_ipv4&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksum_ipv6&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksum_sctp&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksumming&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tx_fcoe_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_gre_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_gso_robust&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_ipip_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_lockless&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_nocache_copy&quot;: &quot;off&quot;,</span><br><span class="line">                &quot;tx_scatter_gather&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tx_scatter_gather_fraglist&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_sit_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_tcp6_segmentation&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tx_tcp_ecn_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_tcp_segmentation&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tx_udp_tnl_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_vlan_offload&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tx_vlan_stag_hw_insert&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;udp_fragmentation_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;vlan_challenged&quot;: &quot;off [fixed]&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;ipv4&quot;: &#123;</span><br><span class="line">                &quot;address&quot;: &quot;192.168.214.173&quot;,</span><br><span class="line">                &quot;broadcast&quot;: &quot;192.168.214.255&quot;,</span><br><span class="line">                &quot;netmask&quot;: &quot;255.255.255.0&quot;,</span><br><span class="line">                &quot;network&quot;: &quot;192.168.214.0&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;ipv6&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;address&quot;: &quot;fe80::2d40:6de:d336:c8ca&quot;,</span><br><span class="line">                    &quot;prefix&quot;: &quot;64&quot;,</span><br><span class="line">                    &quot;scope&quot;: &quot;link&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            &quot;macaddress&quot;: &quot;00:1f:16:25:ee:24&quot;,</span><br><span class="line">            &quot;module&quot;: &quot;e1000e&quot;,</span><br><span class="line">            &quot;mtu&quot;: 1500,</span><br><span class="line">            &quot;pciid&quot;: &quot;0000:00:19.0&quot;,</span><br><span class="line">            &quot;promisc&quot;: false,</span><br><span class="line">            &quot;speed&quot;: 1000,</span><br><span class="line">            &quot;type&quot;: &quot;ether&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ansible_env&quot;: &#123;</span><br><span class="line">            &quot;HOME&quot;: &quot;/home/hhzzer&quot;,</span><br><span class="line">            &quot;LANG&quot;: &quot;en_US.UTF-8&quot;,</span><br><span class="line">            &quot;LANGUAGE&quot;: &quot;en_US:en&quot;,</span><br><span class="line">            &quot;LC_ADDRESS&quot;: &quot;zh_CN.UTF-8&quot;,</span><br><span class="line">            &quot;LC_IDENTIFICATION&quot;: &quot;zh_CN.UTF-8&quot;,</span><br><span class="line">            &quot;LC_MEASUREMENT&quot;: &quot;zh_CN.UTF-8&quot;,</span><br><span class="line">            &quot;LC_MONETARY&quot;: &quot;zh_CN.UTF-8&quot;,</span><br><span class="line">            &quot;LC_NAME&quot;: &quot;zh_CN.UTF-8&quot;,</span><br><span class="line">            &quot;LC_NUMERIC&quot;: &quot;zh_CN.UTF-8&quot;,</span><br><span class="line">            &quot;LC_PAPER&quot;: &quot;zh_CN.UTF-8&quot;,</span><br><span class="line">            &quot;LC_TELEPHONE&quot;: &quot;zh_CN.UTF-8&quot;,</span><br><span class="line">            &quot;LC_TIME&quot;: &quot;zh_CN.UTF-8&quot;,</span><br><span class="line">            &quot;LOGNAME&quot;: &quot;hhzzer&quot;,</span><br><span class="line">            &quot;MAIL&quot;: &quot;/var/mail/hhzzer&quot;,</span><br><span class="line">            &quot;PAPERSIZE&quot;: &quot;a4&quot;,</span><br><span class="line">            &quot;PATH&quot;: &quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games&quot;,</span><br><span class="line">            &quot;PWD&quot;: &quot;/home/hhzzer&quot;,</span><br><span class="line">            &quot;SHELL&quot;: &quot;/bin/bash&quot;,</span><br><span class="line">            &quot;SHLVL&quot;: &quot;1&quot;,</span><br><span class="line">            &quot;SSH_CLIENT&quot;: &quot;127.0.0.1 59794 22&quot;,</span><br><span class="line">            &quot;SSH_CONNECTION&quot;: &quot;127.0.0.1 59794 127.0.0.1 22&quot;,</span><br><span class="line">            &quot;SSH_TTY&quot;: &quot;/dev/pts/20&quot;,</span><br><span class="line">            &quot;TERM&quot;: &quot;xterm-256color&quot;,</span><br><span class="line">            &quot;USER&quot;: &quot;hhzzer&quot;,</span><br><span class="line">            &quot;XDG_RUNTIME_DIR&quot;: &quot;/run/user/1000&quot;,</span><br><span class="line">            &quot;XDG_SESSION_ID&quot;: &quot;4&quot;,</span><br><span class="line">            &quot;_&quot;: &quot;/bin/sh&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ansible_fips&quot;: false,</span><br><span class="line">        &quot;ansible_form_factor&quot;: &quot;Notebook&quot;,</span><br><span class="line">        &quot;ansible_fqdn&quot;: &quot;hhzzer&quot;,</span><br><span class="line">        &quot;ansible_gather_subset&quot;: [</span><br><span class="line">            &quot;hardware&quot;,</span><br><span class="line">            &quot;network&quot;,</span><br><span class="line">            &quot;virtual&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;ansible_hostname&quot;: &quot;hhzzer&quot;,</span><br><span class="line">        &quot;ansible_interfaces&quot;: [</span><br><span class="line">            &quot;lo&quot;,</span><br><span class="line">            &quot;enp0s25&quot;,</span><br><span class="line">            &quot;wls1&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;ansible_kernel&quot;: &quot;4.4.0-75-generic&quot;,</span><br><span class="line">        &quot;ansible_lo&quot;: &#123;</span><br><span class="line">            &quot;active&quot;: true,</span><br><span class="line">            &quot;device&quot;: &quot;lo&quot;,</span><br><span class="line">            &quot;features&quot;: &#123;</span><br><span class="line">                &quot;busy_poll&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;fcoe_mtu&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;generic_receive_offload&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;generic_segmentation_offload&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;highdma&quot;: &quot;on [fixed]&quot;,</span><br><span class="line">                &quot;hw_tc_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;l2_fwd_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;large_receive_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;loopback&quot;: &quot;on [fixed]&quot;,</span><br><span class="line">                &quot;netns_local&quot;: &quot;on [fixed]&quot;,</span><br><span class="line">                &quot;ntuple_filters&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;receive_hashing&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_all&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_checksumming&quot;: &quot;on [fixed]&quot;,</span><br><span class="line">                &quot;rx_fcs&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_vlan_filter&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_vlan_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_vlan_stag_filter&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_vlan_stag_hw_parse&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;scatter_gather&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tcp_segmentation_offload&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tx_checksum_fcoe_crc&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksum_ip_generic&quot;: &quot;on [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksum_ipv4&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksum_ipv6&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksum_sctp&quot;: &quot;on [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksumming&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tx_fcoe_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_gre_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_gso_robust&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_ipip_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_lockless&quot;: &quot;on [fixed]&quot;,</span><br><span class="line">                &quot;tx_nocache_copy&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_scatter_gather&quot;: &quot;on [fixed]&quot;,</span><br><span class="line">                &quot;tx_scatter_gather_fraglist&quot;: &quot;on [fixed]&quot;,</span><br><span class="line">                &quot;tx_sit_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_tcp6_segmentation&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tx_tcp_ecn_segmentation&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tx_tcp_segmentation&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;tx_udp_tnl_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_vlan_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_vlan_stag_hw_insert&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;udp_fragmentation_offload&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;vlan_challenged&quot;: &quot;on [fixed]&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;ipv4&quot;: &#123;</span><br><span class="line">                &quot;address&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">                &quot;broadcast&quot;: &quot;host&quot;,</span><br><span class="line">                &quot;netmask&quot;: &quot;255.0.0.0&quot;,</span><br><span class="line">                &quot;network&quot;: &quot;127.0.0.0&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;ipv6&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;address&quot;: &quot;::1&quot;,</span><br><span class="line">                    &quot;prefix&quot;: &quot;128&quot;,</span><br><span class="line">                    &quot;scope&quot;: &quot;host&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            &quot;mtu&quot;: 65536,</span><br><span class="line">            &quot;promisc&quot;: false,</span><br><span class="line">            &quot;type&quot;: &quot;loopback&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ansible_lsb&quot;: &#123;</span><br><span class="line">            &quot;codename&quot;: &quot;xenial&quot;,</span><br><span class="line">            &quot;description&quot;: &quot;Ubuntu 16.04.2 LTS&quot;,</span><br><span class="line">            &quot;id&quot;: &quot;Ubuntu&quot;,</span><br><span class="line">            &quot;major_release&quot;: &quot;16&quot;,</span><br><span class="line">            &quot;release&quot;: &quot;16.04&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ansible_machine&quot;: &quot;x86_64&quot;,</span><br><span class="line">        &quot;ansible_machine_id&quot;: &quot;7809e95a8d4a45d99b5f1a68169fe306&quot;,</span><br><span class="line">        &quot;ansible_memfree_mb&quot;: 135,</span><br><span class="line">        &quot;ansible_memory_mb&quot;: &#123;</span><br><span class="line">            &quot;nocache&quot;: &#123;</span><br><span class="line">                &quot;free&quot;: 1432,</span><br><span class="line">                &quot;used&quot;: 2413</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;real&quot;: &#123;</span><br><span class="line">                &quot;free&quot;: 135,</span><br><span class="line">                &quot;total&quot;: 3845,</span><br><span class="line">                &quot;used&quot;: 3710</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;swap&quot;: &#123;</span><br><span class="line">                &quot;cached&quot;: 0,</span><br><span class="line">                &quot;free&quot;: 3902,</span><br><span class="line">                &quot;total&quot;: 3905,</span><br><span class="line">                &quot;used&quot;: 3</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ansible_memtotal_mb&quot;: 3845,</span><br><span class="line">        &quot;ansible_mounts&quot;: [</span><br><span class="line">            &#123;</span><br><span class="line">                &quot;device&quot;: &quot;/dev/sda1&quot;,</span><br><span class="line">                &quot;fstype&quot;: &quot;ext4&quot;,</span><br><span class="line">                &quot;mount&quot;: &quot;/&quot;,</span><br><span class="line">                &quot;options&quot;: &quot;rw,relatime,errors=remount-ro,data=ordered&quot;,</span><br><span class="line">                &quot;size_available&quot;: 30012063744,</span><br><span class="line">                &quot;size_total&quot;: 39269847040,</span><br><span class="line">                &quot;uuid&quot;: &quot;9883fbeb-0f74-4672-aa84-b854ca6185bf&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                &quot;device&quot;: &quot;/dev/sda6&quot;,</span><br><span class="line">                &quot;fstype&quot;: &quot;ext4&quot;,</span><br><span class="line">                &quot;mount&quot;: &quot;/home&quot;,</span><br><span class="line">                &quot;options&quot;: &quot;rw,relatime,data=ordered&quot;,</span><br><span class="line">                &quot;size_available&quot;: 49615581184,</span><br><span class="line">                &quot;size_total&quot;: 64730685440,</span><br><span class="line">                &quot;uuid&quot;: &quot;7217a3e2-67e4-412a-8b73-031cceab2742&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        &quot;ansible_nodename&quot;: &quot;hhzzer&quot;,</span><br><span class="line">        &quot;ansible_os_family&quot;: &quot;Debian&quot;,</span><br><span class="line">        &quot;ansible_pkg_mgr&quot;: &quot;apt&quot;,</span><br><span class="line">        &quot;ansible_processor&quot;: [</span><br><span class="line">            &quot;GenuineIntel&quot;,</span><br><span class="line">            &quot;Intel(R) Core(TM)2 Duo CPU     P8400  @ 2.26GHz&quot;,</span><br><span class="line">            &quot;GenuineIntel&quot;,</span><br><span class="line">            &quot;Intel(R) Core(TM)2 Duo CPU     P8400  @ 2.26GHz&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;ansible_processor_cores&quot;: 2,</span><br><span class="line">        &quot;ansible_processor_count&quot;: 1,</span><br><span class="line">        &quot;ansible_processor_threads_per_core&quot;: 1,</span><br><span class="line">        &quot;ansible_processor_vcpus&quot;: 2,</span><br><span class="line">        &quot;ansible_product_name&quot;: &quot;74574UC&quot;,</span><br><span class="line">        &quot;ansible_product_serial&quot;: &quot;NA&quot;,</span><br><span class="line">        &quot;ansible_product_uuid&quot;: &quot;NA&quot;,</span><br><span class="line">        &quot;ansible_product_version&quot;: &quot;ThinkPad X200&quot;,</span><br><span class="line">        &quot;ansible_python&quot;: &#123;</span><br><span class="line">            &quot;executable&quot;: &quot;/usr/bin/python&quot;,</span><br><span class="line">            &quot;has_sslcontext&quot;: true,</span><br><span class="line">            &quot;type&quot;: &quot;CPython&quot;,</span><br><span class="line">            &quot;version&quot;: &#123;</span><br><span class="line">                &quot;major&quot;: 2,</span><br><span class="line">                &quot;micro&quot;: 12,</span><br><span class="line">                &quot;minor&quot;: 7,</span><br><span class="line">                &quot;releaselevel&quot;: &quot;final&quot;,</span><br><span class="line">                &quot;serial&quot;: 0</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;version_info&quot;: [</span><br><span class="line">                2,</span><br><span class="line">                7,</span><br><span class="line">                12,</span><br><span class="line">                &quot;final&quot;,</span><br><span class="line">                0</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ansible_python_version&quot;: &quot;2.7.12&quot;,</span><br><span class="line">        &quot;ansible_real_group_id&quot;: 1000,</span><br><span class="line">        &quot;ansible_real_user_id&quot;: 1000,</span><br><span class="line">        &quot;ansible_selinux&quot;: &#123;</span><br><span class="line">            &quot;status&quot;: &quot;disabled&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ansible_service_mgr&quot;: &quot;systemd&quot;,</span><br><span class="line">        &quot;ansible_ssh_host_key_dsa_public&quot;: &quot;AAAAB3NzaC1kc3MAAACBAKdsuPqhqzTfJn4X9IwgFYtbtmEa/RKfVwf6AG8Xl5K/ElfMn5WqKoGU/uttzB2UNZGkTAuFWxMu9x3wamWbfjVuWvNXooHnq0NTV09OMULzj/kQhly75a3S1zoVmYBo+ZW+VGL2lKNtRdgAX66mUY14X5zsxkYMdFwaBUGLlthPAAAAFQCjy8+4gIufHpLUn1nRKmXj61wveQAAAIAWei7kqlU5G4xoDll3OouCwQM3qkdBOsK1Qw3aK1KVnFous7bmbFX3+L5Nlrkj6HI0q0K6kALAqlofMv4LAN+Y8LO2MM7znqtfX4nSRMyTE91con5rJygK9OkvEKRcKLVCjJZRKw6yum+F6n3hxiDMkTQbotVvKGDk3GT2bu97lwAAAIBdugt2Hw0y3R572UJ8yw19xxyCIjakKVAweh3pNiFylSfDMFaqDHKqmQEpLL7Gw2qJZkKgdOBDUUTEtoILtocLkjgwyQTe7gXgAgk9MXSY+Z2XHAEu2Y/9SO0PIDbvRn8pbgxgcOmBzesR5o2YZGAuMtYpifQYMLP/XjoxyxyGeA==&quot;,</span><br><span class="line">        &quot;ansible_ssh_host_key_ecdsa_public&quot;: &quot;AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCjiUTgLchp5o6RtJKAJ4NWp8cXUNAqOhX5B8Fz1PJ8Rfnzi2OFIgRth8LIJL20YArp7BHA36c5Elw2kCiM3Hvw=&quot;,</span><br><span class="line">        &quot;ansible_ssh_host_key_ed25519_public&quot;: &quot;AAAAC3NzaC1lZDI1NTE5AAAAIFHyll/efPamXM5xWZ1qXyloE8mAsdVZADcCcXGDP13M&quot;,</span><br><span class="line">        &quot;ansible_ssh_host_key_rsa_public&quot;: &quot;AAAAB3NzaC1yc2EAAAADAQABAAABAQC2XWD54JzVVe2oDdVUZgDxWafnfR4sPBuDYsl9RWRTLn9c/qU7gBwwkf5Ip0qgSet3bR+ibRHobkQq2EQ+ZK+VZWr3eR4xesO4JzuEW/pal0nrrB38UzZDMptw0jFoUyn6iQ3HbpUsw9NN2TRgBmJ7auP3IXbQHqOxZkvfD7m52O/7ycG2peXlOm5PnM/bnIxCArmVAYee3D6HcKTqdxyuL8bHF1msm5R/A8ZuEdfO34/aJ7rAOinFhXtEZz6OBR0aSRO7usciM0Uh/E3H+aOj9puKBNQav2QqzpjpcpPfgoOURPuUEh4XGAOIMwfLVwuHDuNe+gI2Q9njiVBozsLz&quot;,</span><br><span class="line">        &quot;ansible_swapfree_mb&quot;: 3902,</span><br><span class="line">        &quot;ansible_swaptotal_mb&quot;: 3905,</span><br><span class="line">        &quot;ansible_system&quot;: &quot;Linux&quot;,</span><br><span class="line">        &quot;ansible_system_capabilities&quot;: [</span><br><span class="line">            &quot;&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;ansible_system_capabilities_enforced&quot;: &quot;True&quot;,</span><br><span class="line">        &quot;ansible_system_vendor&quot;: &quot;LENOVO&quot;,</span><br><span class="line">        &quot;ansible_uptime_seconds&quot;: 8419,</span><br><span class="line">        &quot;ansible_user_dir&quot;: &quot;/home/hhzzer&quot;,</span><br><span class="line">        &quot;ansible_user_gecos&quot;: &quot;hhzzer,,,&quot;,</span><br><span class="line">        &quot;ansible_user_gid&quot;: 1000,</span><br><span class="line">        &quot;ansible_user_id&quot;: &quot;hhzzer&quot;,</span><br><span class="line">        &quot;ansible_user_shell&quot;: &quot;/bin/bash&quot;,</span><br><span class="line">        &quot;ansible_user_uid&quot;: 1000,</span><br><span class="line">        &quot;ansible_userspace_architecture&quot;: &quot;x86_64&quot;,</span><br><span class="line">        &quot;ansible_userspace_bits&quot;: &quot;64&quot;,</span><br><span class="line">        &quot;ansible_virtualization_role&quot;: &quot;host&quot;,</span><br><span class="line">        &quot;ansible_virtualization_type&quot;: &quot;kvm&quot;,</span><br><span class="line">        &quot;ansible_wls1&quot;: &#123;</span><br><span class="line">            &quot;active&quot;: false,</span><br><span class="line">            &quot;device&quot;: &quot;wls1&quot;,</span><br><span class="line">            &quot;features&quot;: &#123;</span><br><span class="line">                &quot;busy_poll&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;fcoe_mtu&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;generic_receive_offload&quot;: &quot;on&quot;,</span><br><span class="line">                &quot;generic_segmentation_offload&quot;: &quot;off [requested on]&quot;,</span><br><span class="line">                &quot;highdma&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;hw_tc_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;l2_fwd_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;large_receive_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;loopback&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;netns_local&quot;: &quot;on [fixed]&quot;,</span><br><span class="line">                &quot;ntuple_filters&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;receive_hashing&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_all&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_checksumming&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_fcs&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_vlan_filter&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_vlan_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_vlan_stag_filter&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;rx_vlan_stag_hw_parse&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;scatter_gather&quot;: &quot;off&quot;,</span><br><span class="line">                &quot;tcp_segmentation_offload&quot;: &quot;off&quot;,</span><br><span class="line">                &quot;tx_checksum_fcoe_crc&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksum_ip_generic&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksum_ipv4&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksum_ipv6&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksum_sctp&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_checksumming&quot;: &quot;off&quot;,</span><br><span class="line">                &quot;tx_fcoe_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_gre_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_gso_robust&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_ipip_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_lockless&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_nocache_copy&quot;: &quot;off&quot;,</span><br><span class="line">                &quot;tx_scatter_gather&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_scatter_gather_fraglist&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_sit_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_tcp6_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_tcp_ecn_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_tcp_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_udp_tnl_segmentation&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_vlan_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;tx_vlan_stag_hw_insert&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;udp_fragmentation_offload&quot;: &quot;off [fixed]&quot;,</span><br><span class="line">                &quot;vlan_challenged&quot;: &quot;off [fixed]&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;macaddress&quot;: &quot;00:1e:65:6e:72:1c&quot;,</span><br><span class="line">            &quot;module&quot;: &quot;iwlwifi&quot;,</span><br><span class="line">            &quot;mtu&quot;: 1500,</span><br><span class="line">            &quot;pciid&quot;: &quot;0000:03:00.0&quot;,</span><br><span class="line">            &quot;promisc&quot;: false,</span><br><span class="line">            &quot;type&quot;: &quot;ether&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;module_setup&quot;: true</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;changed&quot;: false</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/10/zabbix%E6%A8%A1%E6%9D%BF%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/05/10/zabbix%E6%A8%A1%E6%9D%BF%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">zabbix 监控linux主机模板配置</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-10 10:20:29" itemprop="dateCreated datePublished" datetime="2017-05-10T10:20:29+08:00">2017-05-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>zabbix 自带的监控linux系统的模板监控项太多，需要优化以减轻服务器压力。可以完全克隆模板后，禁用全部监控项。然后手动创建cpu和内存的item，修改文件系统和网络监控的自动发现。</p>
+</blockquote>
+<h2 id="cpu监控"><a href="#cpu监控" class="headerlink" title="cpu监控"></a>cpu监控</h2><p>cpu监控主要监控cpu核数，cpu总使用率、用户空间使用率、内核空间使用率。<br>item<br>system.cpu.num #cup核数</p>
+<p>proc.cpu.util[,,total]<br>proc.cpu.util[,,user]<br>proc.cpu.util[,,system]</p>
+<h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p>vm.memory.size[<mode>]</p>
+<p>used=total-free 即 total=used+free<br>实际内存占用：used-buffers-cached 即 total-free-buffers-cached<br>实际可用内存：buffers+cached+free</p>
+<p>system.swap.size[<device>,<type>]<br>pfree</p>
+<p>##文件系统自动发现</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/10/zabbix-agent-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/05/10/zabbix-agent-install/" class="post-title-link" itemprop="url">zabbix agent 绿色安装</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-10 10:13:29" itemprop="dateCreated datePublished" datetime="2017-05-10T10:13:29+08:00">2017-05-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="zabbix-agent-基本信息"><a href="#zabbix-agent-基本信息" class="headerlink" title="zabbix agent 基本信息"></a>zabbix agent 基本信息</h2><p>zabbix版本 3.0</p>
+<p>官方文档上介绍，zabbix_agentd 安装是使用yum或apt安装，都需要配置好源。安装好后还需修改zabbix_agentd.conf文件。为了实现方便的一键安装，结合网上的方法，实现了一键安装。</p>
+<p>zabbix官网上有编译好的agent包，所以可以直接绿色安装。agent包下载后解压包含内容如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[app@zabbix-server zabbix_agent]$ tree ./</span><br><span class="line">./</span><br><span class="line">├── bin</span><br><span class="line">│?? ├── zabbix_get  #zabbix获取数据接口</span><br><span class="line">│?? └── zabbix_sender #zabbix发送数据接口</span><br><span class="line">├── conf</span><br><span class="line">│?? ├── zabbix_agentd</span><br><span class="line">│?? │?? ├── userparameter_examples.conf</span><br><span class="line">│?? │?? └── userparameter_mysql.conf</span><br><span class="line">│?? └── zabbix_agentd.conf #zabbix_agentd配置文件</span><br><span class="line">├── sbin</span><br><span class="line">│?? └── zabbix_agentd #zabbix_agentd执行文件</span><br><span class="line">└── zabbix_agents_3.0.4.linux2_6_23.amd64.tar.gz</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="zabbix-agent必备文件"><a href="#zabbix-agent必备文件" class="headerlink" title="zabbix agent必备文件"></a>zabbix agent必备文件</h2><p><a target="_blank" rel="noopener" href="http://www.zabbix.com/downloads/3.0.4/zabbix_agents_3.0.4.linux2_6_23.amd64.tar.gz">linux2_6_23X64预编译文件下载地址</a></p>
+<p>安装agent必须的文件这个压缩包中两个文件，一个是<code>/sbin/zabbix_agentd</code>,另一个是<code>/conf/zabbix_agentd.conf</code>.<br>另外缺少的是控制zabbix_agentd启动停止的文件缺失。<br>因为<del>官方编译时</del>服务控制脚本指定了目录，故需要将下载的文件复制到如下目录<br><code>/usr/local/zabbix/sbin/zabbix_agentd</code><br><code>/usr/local/etc/zabbix_agentd.conf</code><br>agetd执行文件下载下来，放到上面的目录，更改用户和添加执行权限即可。<br>conf文件可以自己编写简化版如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#name /usr/local/etc/zabbix_agentd.conf</span><br><span class="line">Server=192.168.12.205</span><br><span class="line">Hostname=192.168.94.212</span><br><span class="line">BufferSize=1024</span><br><span class="line">DebugLevel=2</span><br><span class="line">LogFile=/tmp/zabbix_agentd.log</span><br><span class="line">LogFileSize=1024</span><br><span class="line">EnableRemoteCommands=1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>另一个控制文件放置在<br><code>/etc/init.d/</code>,名称为zabbix_agentd(和下载下来的同名，但内容不一样。)<br>/etc/init.d/zabbix_agentd 内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"> #chkconfig: 345 95 95</span><br><span class="line"> #description:Zabbix agent</span><br><span class="line"> # Zabbix</span><br><span class="line"> # Copyright (C) 2001-2013 Zabbix SIA</span><br><span class="line"> #</span><br><span class="line"> # This program is free software; you can redistribute it and/or modify</span><br><span class="line"> # it under the terms of the GNU General Public License as published by</span><br><span class="line"> # the Free Software Foundation; either version 2 of the License, or</span><br><span class="line"> # (at your option) any later version.</span><br><span class="line"> #</span><br><span class="line"> # This program is distributed in the hope that it will be useful,</span><br><span class="line"> # but WITHOUT ANY WARRANTY; without even the implied warranty of</span><br><span class="line"> # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the</span><br><span class="line"> # GNU General Public License for more details.</span><br><span class="line"> #</span><br><span class="line"> # You should have received a copy of the GNU General Public License</span><br><span class="line"> # along with this program; if not, write to the Free Software</span><br><span class="line"> # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.</span><br><span class="line"> # Start/Stop the Zabbix agent daemon.</span><br><span class="line"> # Place a startup script in /sbin/init.d, and link to it from /sbin/rc[023].d</span><br><span class="line"> SERVICE=&quot;Zabbix agent&quot;</span><br><span class="line"> DAEMON=/usr/local/zabbix/sbin/zabbix_agentd</span><br><span class="line"> PIDFILE=/tmp/zabbix_agentd.pid</span><br><span class="line"> BASEDIR=/usr/local/zabbix</span><br><span class="line"> ZABBIX_AGENTD=$BASEDIR/sbin/zabbix_agentd</span><br><span class="line"> case $1 in</span><br><span class="line">   &#x27;start&#x27;)</span><br><span class="line">     if [ -x $&#123;DAEMON&#125; ]</span><br><span class="line">     then</span><br><span class="line">       $DAEMON</span><br><span class="line">       # Error checking here would be good...</span><br><span class="line">       echo &quot;$&#123;SERVICE&#125; started.&quot;</span><br><span class="line">  else</span><br><span class="line">       echo &quot;Can&#x27;t find file $&#123;DAEMON&#125;.&quot;</span><br><span class="line">       echo &quot;$&#123;SERVICE&#125; NOT started.&quot;</span><br><span class="line">     fi</span><br><span class="line">   ;;</span><br><span class="line">   &#x27;stop&#x27;)</span><br><span class="line">     if [ -s $&#123;PIDFILE&#125; ]</span><br><span class="line">     then</span><br><span class="line">       if kill `cat $&#123;PIDFILE&#125;` &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">       then</span><br><span class="line">         echo &quot;$&#123;SERVICE&#125; stoped.&quot;</span><br><span class="line">         rm -f $&#123;PIDFILE&#125;</span><br><span class="line">       fi</span><br><span class="line">     fi</span><br><span class="line">   ;;</span><br><span class="line">   &#x27;restart&#x27;)</span><br><span class="line">     $0 stop</span><br><span class="line">     sleep 10</span><br><span class="line">     $0 start</span><br><span class="line">   ;;</span><br><span class="line">   *)</span><br><span class="line">     echo &quot;Usage: $0 start|stop|restart&quot;</span><br><span class="line">     ;;</span><br><span class="line"> esac</span><br></pre></td></tr></table></figure>
+
+<h2 id="自动安装脚本"><a href="#自动安装脚本" class="headerlink" title="自动安装脚本"></a>自动安装脚本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">groupadd zabbix</span><br><span class="line">useradd -s /sbin/nologin -M -g zabbix zabbix</span><br><span class="line">mkdir /usr/local/zabbix/sbin/ -p</span><br><span class="line">cat &gt; /usr/local/etc/zabbix_agentd.conf &lt;&lt;EOF</span><br><span class="line">Server=192.168.12.205</span><br><span class="line">Hostname=192.168.12.30</span><br><span class="line">BufferSize=1024</span><br><span class="line">DebugLevel=2</span><br><span class="line">LogFileSize=1024</span><br><span class="line">LogFile=/tmp/zabbix_agentd.log</span><br><span class="line">EnableRemoteCommands=1</span><br><span class="line">EOF</span><br><span class="line">wget -P /etc/init.d/ http://192.168.12.205:8000/zabbix_agentd</span><br><span class="line">wget -P /usr/local/zabbix/sbin/ http://192.168.12.205:8000/sbin/zabbix_agentd</span><br><span class="line">chmod +x /etc/init.d/zabbix_agentd</span><br><span class="line">chmod +x /usr/local/zabbix/sbin/zabbix_agentd</span><br><span class="line">service zabbix_agentd start &amp;&amp; chkconfig zabbix_agentd on</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>参考：<a target="_blank" rel="noopener" href="https://zhangge.net/5030.html">https://zhangge.net/5030.html</a></p>
+
       
     </div>
 
@@ -613,7 +743,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/59/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/59/">59</a><span class="page-number current">60</span><a class="page-number" href="/page/61/">61</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/61/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/59/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/59/">59</a><span class="page-number current">60</span><a class="page-number" href="/page/61/">61</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/61/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/ganglia%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%A0%94%E7%A9%B6%E4%B8%8E%E5%AE%9E%E8%B7%B5/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF%E5%8F%98%E7%8E%B0-%E4%B8%93%E6%A0%8F%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/ganglia%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%A0%94%E7%A9%B6%E4%B8%8E%E5%AE%9E%E8%B7%B5/" class="post-title-link" itemprop="url">ganglia监控系统研究与实践</a>
+          <a href="/2022/07/04/yuque/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF%E5%8F%98%E7%8E%B0-%E4%B8%93%E6%A0%8F%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">如何实现技术变现-专栏总结</a>
         </h2>
 
         <div class="post-meta-container">
@@ -196,7 +196,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 16:44:32 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:44:32+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 16:53:45 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:53:45+08:00">2022-07-04</time>
     </span>
 
   
@@ -209,15 +209,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-10-18<br>在大型网站架构及原理分析一书中看到 ganglia 监控系统用于监控集群，今天看完那本电子书实际部署了一下，记录过程</p>
-<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>了解 ganglia 监控系特点和适用环境，安装 ganglia 监控系统记录安装过程。试用分析 ganglia 监控系统，列出优势、劣势。</p>
-<h2 id="ganglia-监控系统概述"><a href="#ganglia-监控系统概述" class="headerlink" title="ganglia 监控系统概述"></a>ganglia 监控系统概述</h2><p>ganglia 监控系统由 gmond,gmetad,RRDtool,gweb 组成。<br>gmond 安装在被监控主机上，用于采集主机性能参数并传递数据。<br>gmetad 用于轮询采集 gmond 产生的数据。<br>RRDtool 用于将数据保存到文件，循环覆盖机制能有效节省硬盘空间。<br>gweb 用于在浏览器展示可视化的监控数据结果。</p>
-<h2 id="ganglia-安装"><a href="#ganglia-安装" class="headerlink" title="ganglia 安装"></a>ganglia 安装</h2><p>安装环境 centos6.9 x64 最小化安装<br>···</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">yum search ganglia-gmond</span><br><span class="line">yum install  ganglia-gmond</span><br><span class="line">yum search ganglia-gmetad</span><br><span class="line">yum install ganglia-gmetad</span><br><span class="line"><span class="comment">## 安装web前端</span></span><br><span class="line">wget https://ncu.dl.sourceforge.net/project/ganglia/ganglia-web/<span class="number">3.7</span><span class="number">.2</span>/ganglia-web-<span class="number">3.7</span><span class="number">.2</span>.tar.gz</span><br><span class="line">yum install php httpd</span><br><span class="line">tar -xzvf ganglia-web-<span class="number">3.7</span><span class="number">.2</span>.tar.gz</span><br><span class="line">cd ganglia-web-<span class="number">3.7</span><span class="number">.2</span> &amp;&amp; vi  Makefile</span><br><span class="line"><span class="comment">## 修改makefile中“GDESTDIR = /var/www/html/ganglia2”，“APACHE_USER = apache”</span></span><br><span class="line">make install <span class="comment">#会执行一系列指令拷贝相关文件</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="ganglia-配置并运行"><a href="#ganglia-配置并运行" class="headerlink" title="ganglia 配置并运行"></a>ganglia 配置并运行</h2><p>被监控主机需要修改/etc/ganlia/gmond.conf 中修改集群名称即可。<br>传输方式使用多播，多播为一个保留的 ipv4 地址段，管理权限多播地址为 239.0.0.0~239.255.255.255，可供组织内部使用，类似于私有 IP 地址，不能用于 Internet，可限制多播范围。同一个集群机器设置同一个多播地址即可。<br>在 web 界面可以看到同一集群的资源累加情况</p>
-<h2 id="后续工作"><a href="#后续工作" class="headerlink" title="后续工作"></a>后续工作</h2><p>了解多播传输原理，跨网段传输等。<br>多播原理参考<a target="_blank" rel="noopener" href="http://blog.csdn.net/liuhaomatou/article/details/41047919">http://blog.csdn.net/liuhaomatou/article/details/41047919</a><br>监控项自定义，增加磁盘 IO 监控项</p>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>集群监控好工具<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F/"># 监控系统</a></p>
+          <p>发表于 2017-10-26<br>订阅了左耳朵耗子的专栏，重读 123 篇。</p>
+<h2 id="洞悉技术本质，享受科技乐趣"><a href="#洞悉技术本质，享受科技乐趣" class="headerlink" title="洞悉技术本质，享受科技乐趣"></a>洞悉技术本质，享受科技乐趣</h2><p>开篇文章回答四个问题，我是谁、我为什么要开专栏、我要讲什么、目标群体是谁。<br>专栏作者左耳朵耗子，94 年昆明一个大学毕业，目前 45 岁左右。大学学习计算机专业，大二打五笔快，打字挣钱，给老师做项目挣钱，老师也介绍项目给他。第一次工作在工行，能上网写个人主页，玩网页制作技术兼职给电脑报投稿，收入为当时工资一半。放弃房子辞职，投身信息时代浪潮。上海面试北京工作 platm 工业级软件开发。汤森路透做网络高速传输系统，学会高并发高性能调试能力，管理能力。亚马逊工作获得看问题和做事情不同的视角。开会看资料、举证、决策。之后到阿里巴巴，经历双十一，发现一种完全不同的文化。离开阿里巴巴，做企业咨询和企业内训，解决高并发性能相关问题。<br>开专栏于企业咨询类似，收费给有价值的东西。专栏受众广，边际成本低，作者赚多。读者花小成本，获得可信赖信息筛选器和价值参考，有收集。双赢。<br>专栏内容讲 5 方面。1）重要技术核心分析、2）技术和个人成长、3）管理方法、4）热点新闻分享及分析、 5）每月答疑。<br>目标群体：1）IT 从业新手，2）IT 从业几年技术人员 3）技术领导</p>
+<h2 id="如何技术变现"><a href="#如何技术变现" class="headerlink" title="如何技术变现"></a>如何技术变现</h2><p>分两篇文章讲解，第一篇讲自己技术变现的过程，第二篇讲变现知道思想或行动。<br>第一篇变现过程主要是 打字-功能软件开发-技术投稿-解决难题，可以发现使用到的技术在特定时代下都是稀缺的，技术复用率逐渐增高。<br>第二篇总结了 9 个观点，可总结为两眼看世界，一眼看外部市场，一眼看自我。在市场中发现高价值付费需求，通过科学的方法提升自己能力满足需求获得报酬。</p>
+<h3 id="外部市场"><a href="#外部市场" class="headerlink" title="外部市场"></a>外部市场</h3><p>1 市场在哪里<br>对于架构、性能方面的市场，需求在高速发展的公司里。大公司架构成熟，看中稳定性，尝试新技术意愿不强。大公司高级技术人员多，外部技术顾问不具有稀缺性。初创公司第一关注业务，业务跑起来证明可成功后再才有架构和性能优化方面的需求。<br>2 技术付费点是什么？<br>帮别人挣钱的地方，帮别人省钱的地方。开源：扩大用户规模、提高挣钱速度。节流：节省挣钱过程的开销。方案具有稀缺性。</p>
+<h3 id="自我产品化"><a href="#自我产品化" class="headerlink" title="自我产品化"></a>自我产品化</h3><p>1 积累小成功，让自己有信心，让别人知道你的能力。帮助别人并获得认可能正向激励自己研究探索未知领域，满足虚荣心。<br>2 在信息源头接受高浓度信息，学得更快。掌握英文搜索和阅读的能力，信息收集更准确。<br>3 技术能落地，能出活。实践编码能力强，能将方案转换为可交互的产品。产品给客户带来价值（开源节流）。<br>4 观点和价值观输出。输出倒必输入，能提高学习效率，典型的就是费曼学习法。确定一个问题，研究问题的解决方法，讲述给别人直到他能听懂。</p>
+<h3 id="市场推广"><a href="#市场推广" class="headerlink" title="市场推广"></a>市场推广</h3><p>1 有案例才可信。要经历和见证了成功，才能让别人相信你能带来成功。累积自己的经历和能力。<br>2 朋友圈运营。朋友圈是近处的市场和远处的自我。朋友圈是同行熟人交流，聚焦领域类似，观点和方法有差异，能和自己对照。见贤思齐焉，见不贤而内自省也。熟人能带来熟人生意，信任感能降低交易成本。</p>
+<h2 id="我的行动"><a href="#我的行动" class="headerlink" title="我的行动"></a>我的行动</h2><p>找问题给自己挑战，积累自己成功经验。<br>写总结记录文章，理顺思维，清晰表达。<br>高人指路获取视野，增大可选范围和判断目前方法是否有效。吴军、古典、陈皓。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4/"># 极客时间</a></p>
 
       
     </div>
@@ -244,7 +242,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93-11%E6%96%B0%E5%B9%B4%E5%B1%95%E6%9C%9B-13%E6%8B%96%E5%BB%B6%E7%97%87/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E7%9C%8B%E4%BA%86coolshell10%E7%AF%87%E6%96%87%E7%AB%A0%E4%BB%A5%E5%90%8E/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -262,7 +260,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93-11%E6%96%B0%E5%B9%B4%E5%B1%95%E6%9C%9B-13%E6%8B%96%E5%BB%B6%E7%97%87/" class="post-title-link" itemprop="url">超级个体-11新年展望-13拖延症</a>
+          <a href="/2022/07/04/yuque/%E7%9C%8B%E4%BA%86coolshell10%E7%AF%87%E6%96%87%E7%AB%A0%E4%BB%A5%E5%90%8E/" class="post-title-link" itemprop="url">看了coolshell10篇文章以后</a>
         </h2>
 
         <div class="post-meta-container">
@@ -274,7 +272,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 16:42:55 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:42:55+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 16:52:52 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:52:52+08:00">2022-07-04</time>
     </span>
 
   
@@ -287,10 +285,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-10-18</p>
-<h3 id="2017-年新年展望"><a href="#2017-年新年展望" class="headerlink" title="2017 年新年展望"></a>2017 年新年展望</h3><p>第一篇写个人及职业发展趋势，第二篇写组织和管理变化，第三篇写人工智能技术对个人职业的影响。<br>个人职业发展，工作的定义由一个稳定的带薪岗位变更为一项需要完成的任务。变化依据是企业招临时人员变多，办公地点分布式，工作不再是一个稳定的带薪的岗位。工作定义的改变导致 2017 年个人职业发展三组关键词<br>_自由职业态和结果思维_，_投资自己和与组织共赢_，_保持观察和避免蠢动_。<br>组织发展和管理，招聘市场化、人员管理教练化、工作氛围设计化。<br>人工智能和个人职业发展，人工智能替代简单重复劳动，初级白领，不能替代决策判断，沟通。个人应该发展自己专业，了解人工智能技术，装备好先进生产工具，提升竞争力。</p>
-<h3 id="拖延症"><a href="#拖延症" class="headerlink" title="拖延症"></a>拖延症</h3><hr>
-<p>拖延症是什么？<br>拖延是一种处理事的方式，不是所有的拖延都有害。可以从有害性和能否避免两个维度区分拖延。只有本该可以避免推迟，避免受到伤害的拖延才是拖延症，得治。其他三种拖延坦然接受。拖延症对事不对人，是具体的事让人产生的拖延而不是人患病而习惯性拖延。<br>为什么会拖延？<br>目前社会时期拖延问题凸显，升级为拖延症是由基因、结果导向、外界诱惑三方面原因共同造成的。拖延让我们避免冒险，节省能量，从而生存下来。工业社会的结果导向让我们聚焦结果忽视过程。结果反馈慢于过程反馈，无法得到及时的反馈让我们焦虑然后匆匆决定“以后再说”，拖延产生。外界的各种诱惑会给你及时反馈的快感让你脱离正在做的事，也让拖延发生。<br>通过观察拖延行为能有效了解真正自己，所以拖延发生时的处理流程是：接纳拖延、和拖延谈判、我你他三角度分析原因。<br>如何处理拖延症？<br>如何处理因本可避免的推迟造成的伤害呢？心法为战胜 60%的拖延，实操为增兵减灶。将拖延战胜到 60%的程度，收获/精力时间的值最大，投入产出比最高。增兵减灶即表面上轻视拖延，实际上重视拖延。骗骗自己说不定能管用呢。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E7%BD%97%E8%BE%91%E6%80%9D%E7%BB%B4/"># 罗辑思维</a></p>
+          <p>发表于 2017-10-25<br>极客时间上开卖了 3 个专栏，第一个是左耳多耗子的。犹豫要不要购买一年的订阅时，看了他的独立博客 coolshell，可以做决定了。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>订阅 1 年专栏，花费 199.</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>1 成功才能带来成功<br>左耳多从毕业到现在，工作了近 20 年。以开发者角色经历了银行系统开发、路透社、亚马逊、阿里，见多识广。<br>2 表达能力强<br>通过阅读博客文章，大部分文章观点鲜明，逻辑清晰，有态度。我喜欢<br>3 部分相似<br>看的书单类似，也可能都是看 it 领域的畅销书原因。</p>
+<h2 id="交叉联想"><a href="#交叉联想" class="headerlink" title="交叉联想"></a>交叉联想</h2><p>个人价值观的 VVG 模型，value、view、goal。个人的价值观 value 由视野和目标决定。视野开阔了，才知道选择什么。<br>数据挖掘领域三个角色，数据科学家-抽象建模，数据分析师-收集、清理、统计分析数据，开发工程师-使用成熟算法开发出适用的分析工具。数据科学家，数学背景，一般国外。数据分析师，苦活脏活但最重要。开发工程师，工具装配人员。数据挖掘数据中间状态，会过度到人工智能分析。<br>工作选择方法，价值链倒推。公司给客户提供什么价值，公司哪些部门提供，部门的谁提供的？<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/life/"># life</a></p>
 
       
     </div>
@@ -317,7 +315,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/ganglia%E7%BB%84%E7%BD%91%E6%96%B9%E5%BC%8F%E5%8F%8A%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -335,7 +333,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/" class="post-title-link" itemprop="url">极客时间产品体验</a>
+          <a href="/2022/07/04/yuque/ganglia%E7%BB%84%E7%BD%91%E6%96%B9%E5%BC%8F%E5%8F%8A%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">ganglia组网方式及配置</a>
         </h2>
 
         <div class="post-meta-container">
@@ -347,7 +345,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 16:42:20 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:42:20+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 16:51:41 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:51:41+08:00">2022-07-04</time>
     </span>
 
   
@@ -360,8 +358,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-10-18<br>昨天关注的多个公众号都在推荐“极客时间”这个产品，晚上下载这个产品听完 3 个免费试听的内容和知识新闻，整体感受是<strong>得到-程序员版</strong></p>
-<h3 id="结论：程序员值得拥有"><a href="#结论：程序员值得拥有" class="headerlink" title="结论：程序员值得拥有"></a>结论：程序员值得拥有</h3><h3 id="产品分析"><a href="#产品分析" class="headerlink" title="产品分析"></a>产品分析</h3><p>产品布局与得到类似，用起来有很熟悉的感觉。三个主菜单：发现、专栏、我的，功能分区明确。发现页面主要展示新闻类资讯，每天有科技界新闻语音播报，视频用于其他专题信息发布。专栏为付费购买内容，目前有三个，每个专栏订阅费用为 199/年。我的页面展示用户信息。<br>重点分析一下内容布局。<br>每日新闻刷新知，增加获得感，减缓技术焦虑。作为牙刷功能，能让用户养成使用习惯，提高产品的打开率。<br>专栏为知识变现途径，是产品的盈利模块，盈利能力强弱和内容生产者有很大关系。目前有三个专栏,左耳朵耗子、人工智能、科技公司历史。<br>左耳朵耗子专栏主打个人技术成长及职业发展，是我听了最想订阅的一个专栏。成长是永恒的话题，赚钱也是钢需。期望在这个专栏了解偶像的成长经历，作为自己的行动参考。大牛实现的收获是期望目标，让专栏学习有明确的目标。<br>第二个讲人工智能，主讲人的管理者身份让这个专栏目前倾向于人工智能格局及工程方法，头两篇讲了数据团队的搭建，三种角色：数据收集预处理工程师、数据分析工程师、数据建模工程师。数据收集是分析和建模的基础，内容重要但技术成熟，使用 python 爬虫再结合具体应用就可以了。需要人工智能技术的是数据分析工程师和算法建模工程师。数据分析工程师需要有统计学思维，科学的逻辑推理，用于支持产品迭代决策。常用的情景是：通过数据收集，分析出用户行为特征，为达到公司的愿景（拉新、提升日活、付费率、服务优化）需要对产品做什么方向的升级，升级后的预期是什么？升级完成后对结果进行重新分析，是否符合预期，符合度多少，哪些方面影响了预期？算法建模工程师主要。。。。（没记住）<br>第三个讲科技公司历史。以铜为镜可以正衣冠，以史为镜可以知兴衰，以人为镜可以明得失。开篇讲西雅图的 RealNetwork 公司，作为在线多媒体的鼻祖，以技术创新实现在低带宽下的多媒体播放，后来被微软和苹果用免费产品打败。证明关键入口要卡位，不然别人卡住你的上游，你就完蛋。做入口级产品，整合上下游垄断，挣大钱。在垄断产业中与垄断者合作共赢，挣小钱。最近使用了凭证云在线签合同，就是一个于垄断者合作的好项目。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4/"># 极客时间</a></p>
+          <p>发表于 2017-10-24<br>上次写了 ganglia 安装，这次聊聊组网方式</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>单播：一对一信息发送模式，目前 ip 网路主要运行在这种模式下。优点是路由方便，缺点是带宽利用率低。<br>组播/多播：信息统一发送到一个多播地址，需要信息的读取此多播地址就能获取。共用多播地址和水渠类似。优点是节省带宽，缺点是路由复杂。跨网段传送多播需要在路由上开启 IGMP 协议。<br>广播：一对所有。多播是限制范围的一种广播。<br>gmond：ganglia 监控系统核心组件，分为两部分。一部分是采集监控指标并将指标数据发送到网络，另一部分是接受网络数据模块。监控数据通过配置文件定义的 2 个数据传输接口，1 个是 udp 协议的接口，可以发送到多播地址或其他 gmond 的 udp recive 接口；另一个是 tcp 监听接口，可以接受 gmetad 轮询，返回 xml 格式的监控数据。一主动，一被动。<br>gmetad：ganglia 监控数据汇总模块。功能为 1）轮询 gmond 获取监控数据，2）将监控数据转发给 RRDtool，便于 RRDtool 将数据存储为文件和画图。3）可轮询其他 gmetad，组成层次化数据传输结构。<br>gweb：使用 RRDtool 读取监控数据并将数据展示在 web 浏览器。</p>
+<h2 id="组网方式"><a href="#组网方式" class="headerlink" title="组网方式"></a>组网方式</h2><ol>
+<li>同一个子网内使用多播收发<br>此种方式为 ganglia 默认组网方式，每个 gmond 都从网络获取相同多播地址的集群状态。使用 gstat -a 可以查询所有机器状态。gmated 选择轮寻 1,2 个机器就能知道集群内所有机器资源使用情况。缺点：默认多播不能跨网段传输。</li>
+<li>同一子网使用单发单收模式<br>并不是所有的 gmond 都需要获取整个集群性能数据，可以配置大部分 gmond 节点为单发模式，发送给集群内特定的几台 gmond 节点。特定的 gmond 节点作为数据汇总节点，不作为集群成员参与性能统计。gmond 单收节点获取集群性能后等待 gmetad 论询。优点：节省资源。</li>
+<li>同一子网单播收发模式<br>与传统监控系统类似，gmond 节点设置中心节点地址，主动将数据发送到中心节点。gmetad 论询中心节点获取集群性能。</li>
+<li>不同子网多播单播混合模式。<br>同一子网内 gmond 使用多播收发模式，gmetad 位于集群子网内或外，能访问 gmond 节点的 tcp 8649 端口。gmetad 论询其中 1，2 台 gmond 主机即可。</li>
+</ol>
+<h2 id="故障排查"><a href="#故障排查" class="headerlink" title="故障排查"></a>故障排查</h2><p>gstat -a 无数据<br>gstat 默认向本地或多播地址查询数据，若本地 gmond udp send chanel 设置为其他地址，gstat -a 就无法查询到数据。可使用 gstat -i ip -a 向指定接收地址查询数据。<br>修改配置文件中 debug 字段&gt;1 ,启动 gmond 或 gmetad 服务就会在前台运行并打印日志，debug 级别越高，日志记录越详细。</p>
+<h2 id="后续问题"><a href="#后续问题" class="headerlink" title="后续问题"></a>后续问题</h2><p>自定义监控项</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.ttlsa.com/ganglia/ganglia-monitor-system/">http://www.ttlsa.com/ganglia/ganglia-monitor-system/</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/airsong23/p/3895684.html">http://www.cnblogs.com/airsong23/p/3895684.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E7%9B%91%E6%8E%A7/"># 监控</a></p>
 
       
     </div>
@@ -388,7 +395,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93-8-10/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/linux%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -406,7 +413,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93-8-10/" class="post-title-link" itemprop="url">超级个体-8-10</a>
+          <a href="/2022/07/04/yuque/linux%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">linux运维常用命令</a>
         </h2>
 
         <div class="post-meta-container">
@@ -418,7 +425,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 16:39:49 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:39:49+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 16:49:54 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:49:54+08:00">2022-07-04</time>
     </span>
 
   
@@ -431,7 +438,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-10-16<br>通勤时间单程 2 小时，听 3 周得到。<br>今天听了古典的 8，9,10 三周内容。<br>8 周内容讲的是精力管理。以前工业化时代生产力和时间正相关，所以进行时间管理能优化生产力。现在信息时代一直在线，随时干扰，时间管理开始失效，需要进行精力管理。精力管理对象呈现金字塔结构，从低到顶依次是：体力管理、情绪管理、思维管理、意志力管理。精力花费是有节奏的，找到合适的节奏，在不同精力下做合适的事情有利于管理。避免使用直线消耗型，应该使用钟摆型，忙里偷闲。精力训练的行动策略是像肌肉一样锻炼，耗尽精力，突破极限，花费时间恢复。<br>9 周内容讲自我管理工具“三件事”。标准格式 1/7 第一件事 第二件事 第三件事 细小而确定的幸福 昨日收益。早上想，写出来，发出去。三件事的底层逻辑：以终为始的结果思维，这样才能做大化做事的价值。事情价值最大化原则三问：学习的结果是什么，这个结果对你又有什么意义，这个结果可能最别人产生什么价值？结果思维是一种把自己的能力和行动转化为价值的思维方式。结果定律 1）结果&gt;过程，2）有交付的结果&gt;无交付的结果，3）能复制的结果&gt;不能复制的结果。如何修炼结果思维？把自己当成一家外包公司。1）确认结果，很多时候职业认识对于对方交付的只知道动作，不知道结果，要反复确认结果。2）多给选项，不要给问答题，要给选择题。人们喜欢选择，这本身就是一种价值。3）超出预期，尽可能的超出别人的预期一点点，就是这一点让人永远记住你。<br>10 周内容为结构化。人们能记住有结构的内容，不能记住随机的内容。结构化内容要求“论证类比”，先说结论，下层证明上层，归类分组，逻辑递进。逻辑递进有一定的顺序，常见的逻辑顺序有时间、重要程度、结构顺序。结构化内容可用在汇报和说服上面。汇报文章采用自上而下的表达结构，自下而上上推证明。说服需要采用自问自答方式，也可采用自顶向下结构，采用 5W2H 多方面提问和回答。至少需要 2W1H，为什么，做什么，怎么做。<br>文章表述逻辑<br>文章表述总共有 5 个模块，观察、概念、策略、总结、问题。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E7%BD%97%E8%BE%91%E6%80%9D%E7%BB%B4/"># 罗辑思维</a></p>
+          <p>发表于 2017-10-24<br>记录 linux 常用命令</p>
+<ul>
+<li>添加脚本到服务，可用 service 启动，设置开机启动等。</li>
+</ul>
+<p>在 centos6 下设置方法<br>在/etc/init.d/ 目录新建脚本并赋执行权限</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/init.d</span><br><span class="line">touch test &amp;&amp; chmod +x test</span><br><span class="line">vi test</span><br><span class="line">chkconfig --add test <span class="comment">#注册到服务</span></span><br><span class="line">service test <span class="comment"># 启动服务</span></span><br><span class="line">chkconfig test on <span class="comment">#设置开机启动</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>test 内容如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># chkconfig: 345 85 15</span></span><br><span class="line"><span class="comment"># description: ifc</span></span><br><span class="line">echo `ifconfig`</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
 
       
     </div>
@@ -458,7 +475,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E8%A1%8C%E4%B8%9A%E5%88%86%E6%9E%90-%E9%87%8D%E5%BA%86-%E6%88%90%E9%83%BD/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/nrpe%E6%8F%92%E4%BB%B6%E4%BC%A0%E9%80%92%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -476,7 +493,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E8%A1%8C%E4%B8%9A%E5%88%86%E6%9E%90-%E9%87%8D%E5%BA%86-%E6%88%90%E9%83%BD/" class="post-title-link" itemprop="url">行业分析-重庆-成都</a>
+          <a href="/2022/07/04/yuque/nrpe%E6%8F%92%E4%BB%B6%E4%BC%A0%E9%80%92%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0/" class="post-title-link" itemprop="url">nrpe插件传递命令参数</a>
         </h2>
 
         <div class="post-meta-container">
@@ -488,7 +505,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 16:37:34 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:37:34+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 16:47:40 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:47:40+08:00">2022-07-04</time>
     </span>
 
   
@@ -501,12 +518,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-10-15<br>择一城而终？<br>家在西南，投身信息产业，重庆还是成都，其实显而易见。目标：成都。<br>商业分析外部维度：环境、政策、人口</p>
-<h2 id="区域产业分析"><a href="#区域产业分析" class="headerlink" title="区域产业分析"></a>区域产业分析</h2><p>重庆规划的产业有 1）装备制造业，2）微电子产业，3）金融服务业。成都规划产业有 1）信息软件产业，2）服务业，3）轻工业。-未查证，读完政府报告后更正。<br>做信息产业国内重点城市为北上广深杭，住房压力较大。转移压力到二线，成都、武汉、西安。成都的人才政策，本科生直接落户直接可购房。</p>
-<h2 id="环境分析"><a href="#环境分析" class="headerlink" title="环境分析"></a>环境分析</h2><p>重庆山城，形成抗争的性格。成都平原，生活享乐。少不入川蜀，一是道路艰难，而是生活安逸，容易失去最初的梦想，三是离权利中心远，政治经济资源贫乏。以前觉得重庆比较抗争有干劲，就在重庆待了 6 年。现在看来川蜀都一样，成都还是二线互联网城市，重庆排不上号。</p>
-<h2 id="人口分析"><a href="#人口分析" class="headerlink" title="人口分析"></a>人口分析</h2><p>人口总量分析四川&gt;重庆，成都辐射整个四川，重庆辐射大重庆，人口基数相差较多。人口流入流出，应该是四川流出人口多，近年流入人口也多。重庆人口流动性差一些。</p>
-<h2 id="两地热点区域分析"><a href="#两地热点区域分析" class="headerlink" title="两地热点区域分析"></a>两地热点区域分析</h2><p>重庆热点区域为嘉陵江以北，包括江北区、渝北区、沙坪坝区，北边有机场、高铁站，轨道交通围绕观音桥为核心。<br>成都热点区域为东部、南部，高新区天府新区的软件产业发展迅速。东部龙泉装备制造业。东部南部连接德阳、绵阳，与重庆距离最短，有利于打造成渝经济带城市群。</p>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>成都，东南区域。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/life/"># life</a></p>
+          <p>发表于 2017-10-23</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>使用 nagios 监控主机资源情况，告警阀值目前只能通过到被监控主机端，修改/usr/local/nagios/nrpe/etc/nrpe.cfg 文件中命令来设置，无法在服务端传递阀值参数。<br>查看了 nrpe -h,发现有-a 选项可以传递命令参数，遂实验解决过程。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>在 nagios 为核心的监控系统中，nagios 为监控轮询器，负责将 nagios 配置监控主机、服务、模板等。nagios 配置文件一般有前端 web 界面生成，也可以自己在后台查看/usr/local/nagios/,包括命令配置文件、服务配置文件、主机配置文件、服务模板配置文件等。<br>被监控端资源状况数据需要 nagios 的插件提供，nagios 不做具体的信息收集，比如 cpu、内存、硬盘使用情况这类。nagios 插件使用最广泛的是 nrpe 插件。nrpe 插件分为 nrpe 服务端和 check_nrpe 客户端两部分。nagios 服务上安装 check_nrpe，用于连接 nrpe 服务端并控制 nrpe 服务端在被监控主机上执行资源检测命令。<br>nrpe 服务一般使用 xinetd 管理，需要在/etc/services 中定义 nrpe 服务名称和默认端口.。xinetd 中关于 nrpe 服务的配置文件中设置 nrpe 的开启状态，允许访问的主机。<br>nrpe 配置文件/usr/local/nagios/etc/nrpe.cfg 中定义日志记录情况、是否允许命令传递参数、带参数命令的定义等。</p>
+<h2 id="测试过程"><a href="#测试过程" class="headerlink" title="测试过程"></a>测试过程</h2><h3 id="nrpe-安装"><a href="#nrpe-安装" class="headerlink" title="nrpe 安装"></a>nrpe 安装</h3><p>nagios 服务器 ip 192.168.123.136，安装 centreon web，centreon-engine(nagios 的一个分支)，拷贝 check_nrpe 命令并配置权限，确保 nagios 服务器可以正常执行/usr/lib64/nagios/plugins/check_nrpe -H 192.168.123.132 -c check_load 命令。<br>被监控服务器 ip 192.168.123.132，安装 openssl-devel、xinetd、nrpe 服务端，插件包。<br>···</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">yum install openssl-devel <span class="comment">#不安装configure阶段会报错找不到ssl header</span></span><br><span class="line">yum install xinetd</span><br><span class="line">tar -xzvf nrpe-<span class="number">3.2</span><span class="number">.1</span>.tar.gz</span><br><span class="line">cd nrpe-<span class="number">3.2</span><span class="number">.1</span></span><br><span class="line">./configure  --enable-command-args  <span class="comment">#编译nrpe deamon，允许命令参数传递</span></span><br><span class="line">make <span class="built_in">all</span></span><br><span class="line">make install-groups-users  <span class="comment">#自动根据编译文件定义创建用户和组</span></span><br><span class="line">make install</span><br><span class="line">make install-config</span><br><span class="line">make install-inetd</span><br><span class="line"><span class="comment">#安装可执行的命令，之后可以在/usr/local/nagios/libexec看见可执行脚本</span></span><br><span class="line">tar -zxvf nagios-plugins-<span class="number">2.2</span><span class="number">.1</span>.tar.gz</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="nrpe-配置"><a href="#nrpe-配置" class="headerlink" title="nrpe 配置"></a>nrpe 配置</h3><p>1 /etc/services 中末尾加上‘nrpe 5666/tcp’<br>echo “nrpe 5666/tcp &gt;&gt;/etc/services”<br>2 修改 xinetd 中 nrpe 配置/etc/xinetd.d/nrpe<br>disable = no,only_from 中添加允许连接的 ip<br>3 修改 nrpe 配置文件 vi /usr/local/nagios/etc/nrpe.cfg</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">log_file=/usr/local/nagios/var/nrpe.log <span class="comment">#log file 文件配置</span></span><br><span class="line">debug=<span class="number">1</span> <span class="comment">#开启debug</span></span><br><span class="line">dont_blame_nrpe=<span class="number">1</span> <span class="comment">#允许命令参数</span></span><br><span class="line">command[check_users]=/usr/local/nagios/libexec/check_users $ARG1$ <span class="comment">#命令中添加参数</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>4 重启 xinetdservice xinetd restart</p>
+<h3 id="参数传递测试"><a href="#参数传递测试" class="headerlink" title="参数传递测试"></a>参数传递测试</h3><p>在 nagios 服务器执行带参数命令,返回成功</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@central centreon-engine]<span class="comment"># /usr/lib64/nagios/plugins/check_nrpe -H 192.168.123.132  -c check_users -a &quot;-w 4 -c 10&quot;</span></span><br><span class="line">USERS OK - <span class="number">2</span> users currently logged <span class="keyword">in</span> |users=<span class="number">2</span>;<span class="number">4</span>;<span class="number">10</span>;<span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在被监控端查看日志 tail -f /usr/local/nagios/var/nrpe.log,能发现正确的返回记录<br>在 web 端配置命令参数<br>1 配置命令 $USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$ -a $ARG2$，参考参数!check_user!”-w 4 -c 10”<br>2 配置服务模板使用此命令 命令选择 check_nrpe,参数内容为 check_users -a “-w 4 -c 10”<br>3 配置主机模板，应用此服务<br>4 主机应用主机模板，生成服务。可在 serviceTemples 中看到服务中命令的详细参数类似 check_nrpe!check_users -a “-w 4 -c 10”<br>5 导出配置文件，重启 nagios 轮询器，web 界面查看返回结果。</p>
+<h2 id="在用-nrpe-主机配置切换方案"><a href="#在用-nrpe-主机配置切换方案" class="headerlink" title="在用 nrpe 主机配置切换方案"></a>在用 nrpe 主机配置切换方案</h2><p>1 nrpe 需要重新编译安装，添加允许传递命令参数功能<br>2 nrpe.cfg 配置文件修改，开启 dont_blame_nrpe=1,启用带参数的命令<br>3 web 前端配置新命令和模板</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/yjf512/p/3666070.html">http://www.cnblogs.com/yjf512/p/3666070.html</a><br><a target="_blank" rel="noopener" href="http://m.blog.csdn.net/newjueqi/article/details/22867881?from=singlemessage&isappinstalled=0">http://m.blog.csdn.net/newjueqi/article/details/22867881?from=singlemessage&amp;isappinstalled=0</a><br><a target="_blank" rel="noopener" href="http://support.nagios.com/knowledgebase/faqs/index.php?option=com_content&view=article&id=52&catid=35&faq_id=439&expand=false&showdesc=true">http://support.nagios.com/knowledgebase/faqs/index.php?option=com_content&amp;view=article&amp;id=52&amp;catid=35&amp;faq_id=439&amp;expand=false&amp;showdesc=true</a><br><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s/ElSJS9OCJNZX7HOGqIk3lA">http://mp.weixin.qq.com/s/ElSJS9OCJNZX7HOGqIk3lA</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E7%9B%91%E6%8E%A7/"># 监控</a></p>
 
       
     </div>
@@ -526,7 +553,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

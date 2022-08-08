@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/02/13/%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85ubuntu%E7%B3%BB%E7%BB%9F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/03/10/%E6%8B%9B%E8%81%98%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/02/13/%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85ubuntu%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">重新安装ubuntu系统</a>
+          <a href="/2017/03/10/%E6%8B%9B%E8%81%98%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">招聘需求分析</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,7 +195,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-02-13 09:29:19" itemprop="dateCreated datePublished" datetime="2017-02-13T09:29:19+08:00">2017-02-13</time>
+      <time title="创建时间：2017-03-10 10:59:00" itemprop="dateCreated datePublished" datetime="2017-03-10T10:59:00+08:00">2017-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -215,193 +215,18 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>最初硬盘规划时，ubuntu系统只占100G硬盘空间，在使用4个月左右，系统空间开始不足，考虑重新调整分区或安装系统。以前分区4个主分区已用完，调整分区变得比较麻烦，最终决定格式化硬盘重新分区安装系统。</p>
-</blockquote>
-<h1 id="系统规划"><a href="#系统规划" class="headerlink" title="系统规划"></a>系统规划</h1><p>硬盘320G<br>第一主分区50G，用于安装ubuntu操作系统，挂在/目录。<br>第二分区为扩展分区，占用230G，用于创建swap 8G,/home。<br>剩余50G空间待规划，以后可安装其他系统。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">设备       启动     Start    末尾    扇区   Size Id 类型</span><br><span class="line">/dev/sda1  *         2048  99999743  99997696  47.7G 83 Linux</span><br><span class="line">/dev/sda2       100001790 566550527 466548738 222.5G  5 扩展</span><br><span class="line">/dev/sda5       100001792 116000767  15998976   7.6G 82 Linux 交换 / Solaris</span><br><span class="line">/dev/sda6       116002816 566550527 450547712 214.9G 83 Linux</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="http://www.alonely.com.cn/Ubuntu/20110511/1058.html">http://www.alonely.com.cn/Ubuntu/20110511/1058.html</a></p>
-</blockquote>
-<h1 id="系统恢复"><a href="#系统恢复" class="headerlink" title="系统恢复"></a>系统恢复</h1><p>ubuntu自带备份系统软件，在格式化硬盘前执行一遍备份并将备份文件拷贝到移动硬盘。待新系统安装好后，使用备份软件的恢复功能，即可恢复完大部分配置和文档，但<strong>软件</strong>是要重新安装的。</p>
-<h1 id="软件部署"><a href="#软件部署" class="headerlink" title="软件部署"></a>软件部署</h1><p>常用的软件有输入法、secureCRT、迅雷、atom、firefox-flash、hexo</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#firefox-flash-player</span><br><span class="line">sudo apt-get install flashplugin-installer</span><br><span class="line">#刻录软件（刻录后文件名在windows系统中显示为乱码）</span><br><span class="line">sudo apt-get install brasero</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>hexo部署排错</li>
-</ul>
-<p>1 安装nodejs和npm<br>2 配置npm源为淘宝源<br>3 新建软链接</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$sudo apt-get install nodejs npm</span><br><span class="line">vim ~/.npmrc</span><br><span class="line">registry = https://registry.npm.taobao.org</span><br><span class="line">$ cd /usr/bin</span><br><span class="line">$ ln -s nodejs node</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-util/issues/9">https://github.com/hexojs/hexo-util/issues/9</a><br><a target="_blank" rel="noopener" href="https://cnodejs.org/topic/4f9904f9407edba21468f31e">https://cnodejs.org/topic/4f9904f9407edba21468f31e</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/01/19/%E6%96%B0%E6%96%B9%E6%B3%95%E8%AE%A1%E7%AE%97%E7%94%9F%E5%91%BD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/01/19/%E6%96%B0%E6%96%B9%E6%B3%95%E8%AE%A1%E7%AE%97%E7%94%9F%E5%91%BD/" class="post-title-link" itemprop="url">新方法计算生命</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-01-19 09:29:19" itemprop="dateCreated datePublished" datetime="2017-01-19T09:29:19+08:00">2017-01-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>如果我能活80岁，从1989年3月到2069年3月，我在这世界上能存在共计29220天。截至今天，我已使用10185天，花费完生命的1/3，我获得了什么？</p>
-</blockquote>
-<p>一想到前面的问题，难免心里一惊。如果把单位天转换为一元钱，我只有将近3万块可以花，现在也花了1万多，还没买到个啥，我该是一个什么感受？难怪孔子有“逝者如斯夫，不舍昼夜”的感慨，仔细一盘算，我也有了类似感觉。我们对时间很容易忘记，在慌忙着处理各种生活和工作的事情时，任凭时间流逝。我们无法拽住时间让它减慢，我伸手在空中抓，难以感受到空气的流动，我伸手在水里、在沙子里抓还能感受水和沙子的流逝。这也是我写博客、写每日回顾的原因，我要让文字成为我感受时间流逝的介质，让这些记录告知我时间正在流逝，我不能蹉跎岁月。</p>
-<p>可否有一个屏幕，让我在每天出门和回家时，告知我生命余额。可否有一个机器，记录我的一天时间花费清单，在扣减余额时打印出来。看到余额减一，日清单内容时，我应该可以更具体的感受时间了。日清单的内容，目前能自动记录的有运动量等生命体征，还应有活动范围和活动内容。记录维度尽可能丰富，打印或显示维度根据个人偏好和时间阶段选择。类似于在网络中再造一个自我，并通过现实的显示和纸张和网络中的自我互动，共同养成。</p>
-<p>每日博客或每日回顾内容可以多样化，昨天在公交车上回顾《论语十则》曾子曰：“吾日三省吾身：为人谋而不忠乎？与朋友交而不信乎？传不习乎？”，就是回顾的实践方法。转换为自己的内容：”今天做的事让我向目标（有钱、有趣）靠近了么？提升了我实现目标的技能（写作、写程序）等级了么？“等问题，目前只想到这两个问题，后面还可以增加，但大脑缓存有限，问题不超过3个。胡适的《赠与今年毕业的大学生》中讲到，毕业后重要带几个问题研究研究，就是自省的道理。阮一峰博文中提到”不要别人点什么菜，就做什么菜“，在每日回顾中也可以想”今天我对别人点的菜，有分析过么？“。采铜《精进》讲要做高价值长半衰期事情，”我今天做的事情是什么类型的，价值如何，半衰期多长？“。</p>
-<p>吴军硅谷来信《向死而生》讲到过”活着总要做些事情，但是考虑到最终要死掉，并没有时间什么事情都做。我的想法常常和别人不同，我是倒着思考该做什么事情的，或则说，向死而生。我并不奢望活得比我父亲长很多，因此很容易算清楚这辈子还有多少天可以做事情。然后我把要做的事情，从最重要的开始，列一个单子，就尽量开始做了。” 他的2016年总结，30%-40%做投资，100个学时讲课，剩下时间写书两本，开专栏一个，学习两门课程。可见投资赚钱，是他最重要的事情。这应该是我写这篇博客的目的，向死而生。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/01/13/%E7%8E%8B%E9%98%B3%E6%98%8E%E5%BF%83%E5%AD%A6%E5%88%9D%E6%8E%A2-md/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/01/13/%E7%8E%8B%E9%98%B3%E6%98%8E%E5%BF%83%E5%AD%A6%E5%88%9D%E6%8E%A2-md/" class="post-title-link" itemprop="url">王阳明心学初探</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-01-13 19:48:02" itemprop="dateCreated datePublished" datetime="2017-01-13T19:48:02+08:00">2017-01-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>无善无恶心之体，有善有恶意之动，知善知恶是良知，为善去恶是格物。</p>
-</blockquote>
-<p>看了罗辑思维204期，赶紧趁热打铁写点节目概述和感受。</p>
-<h2 id="讲述逻辑"><a href="#讲述逻辑" class="headerlink" title="讲述逻辑"></a>讲述逻辑</h2><p>道歉，大自然厌恶真空，为了自己的商业成功，以后一定坚持做好这个视频节目。<br>定讲王阳明的调子，个人学习王阳明的心得。粗略认识王阳明，明代中期的思想家、大官、伯爵。<br>加官进爵，文人军功封爵不易，王阳明做到了，厉害。#这段是废话。<br>王阳明心学不是成功学，是儒学的一个分支，儒学随时代变迁很复杂。<br>看儒学的一个视角：他的思想和谁对话？儒学思想做为皇权的解毒剂，一直在和皇权对话，这是儒学不变的。<br>看儒学另一个视角：儒学的目标是塑造一个君子人格。<br>儒学还有一个自以为是的目标，通过君子人格获得世俗成功（大官、有钱）。</p>
-<blockquote>
-<p>两个目标：君子人格和世俗成功，针对不同人准备的不同回答。君王问什么是儒学，回答时就需要让答案显得高尚一些，要回答”儒学的目的是做一个君子品格的人，忠君报国、舍己为人、刚正不阿都是君子品格内涵“。帝王听了想，“你们一心帮我管理社稷，还不要我的权力和钱财”，很高兴，放心让他们帮忙了。孩子问家长什么是儒学，家长就要回答“你想升官发财有漂亮老婆吗？”，那就学儒学。<br>成功有很多说辞上的原因，都是在成功之后才说的。马云成功了，所以他说成功靠”相信我说的”。马化腾成功了，所以他说“成功源于民主讨论”。谁知道马云当年买过多少假货，马化腾当年占了多少电信局资源玩站点，这些都不重要。</p>
-</blockquote>
+          <p>目标-》方法-》行动 思考流程</p>
+<h3 id="用户分析"><a href="#用户分析" class="headerlink" title="用户分析"></a>用户分析</h3><h4 id="做什么"><a href="#做什么" class="headerlink" title="做什么"></a>做什么</h4><ol>
+<li>编写网页，与设计师协作，设计并编写出高质量的网页。<br>翻译：与设计师配合，能根据设计稿，切图成html网页，网页结构用语义化标签合理实现。</li>
+<li>设计UI原型和特效，与后台工程师合作，协助制作页面原型，网页特效。<br>翻译：与后端配合制作UI原型，协作过程中需要结合原型讨论。</li>
+<li>代码审查，对个项目网页做浏览性兼容，W3C规范的检查。<br>翻译：了解网页兼容性常见处理方法和测试方法，了解W3C规范，检查外协公司代码合规性。</li>
+<li>技术研究，对项目的页面交互和可操作性做深入研究和应用<br>翻译：从技术角度对项目页面进行用户交互分析，洞察用户心里和行为。</li>
+<li>完成复杂的设计实现，能够利用各种技术将设计转换为最终用户界面。<br>翻译：只要能想出来，就要做出来，方法总比问题多，肯钻研技术难题。</li>
+<li>前台技术解决，根据用户的需求，分析给出最优的前台解决方案。<br>翻译：熟悉各种前端框架特点，能根据具体应用判断并做最优选型。</li>
+<li>其他任务，完成上级领导交办的其他各项相关任务。<br>翻译：需要你解决的问题，都要去解决，范围不限。
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2017/01/13/%E7%8E%8B%E9%98%B3%E6%98%8E%E5%BF%83%E5%AD%A6%E5%88%9D%E6%8E%A2-md/#more" rel="contents">
+              <a class="btn" href="/2017/03/10/%E6%8B%9B%E8%81%98%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -432,7 +257,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/01/10/%E6%9C%AA%E6%9D%A5%E4%B8%96%E7%95%8C%E7%9A%84%E5%B9%B8%E5%AD%98%E8%80%85-%E8%AF%BB%E5%90%8E%E6%84%9F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/03/08/%E4%B8%80%E4%B8%AA%E7%94%B5%E8%AF%9D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -450,7 +275,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/01/10/%E6%9C%AA%E6%9D%A5%E4%B8%96%E7%95%8C%E7%9A%84%E5%B9%B8%E5%AD%98%E8%80%85-%E8%AF%BB%E5%90%8E%E6%84%9F/" class="post-title-link" itemprop="url">《未来世界幸存者》读后感</a>
+          <a href="/2017/03/08/%E4%B8%80%E4%B8%AA%E7%94%B5%E8%AF%9D/" class="post-title-link" itemprop="url">一个电话引起的学习思考</a>
         </h2>
 
         <div class="post-meta-container">
@@ -461,7 +286,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-01-10 11:51:00" itemprop="dateCreated datePublished" datetime="2017-01-10T11:51:00+08:00">2017-01-10</time>
+      <time title="创建时间：2017-03-08 18:50:28" itemprop="dateCreated datePublished" datetime="2017-03-08T18:50:28+08:00">2017-03-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -482,21 +307,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <blockquote>
-<p>今天阮大神更新博文总结2017年并重磅推出整理后的一个小的博文集《未来世界的幸存者》，读后有些感触，特记录下来。</p>
+<p>开始学习一项事情，并打算把此本领作为谋生手段时，你是怎样思考这件事情的?</p>
 </blockquote>
-<blockquote>
-<p>文章地址：<a target="_blank" rel="noopener" href="https://ruanyf.github.io/survivor/index.html">https://ruanyf.github.io/survivor/index.html</a></p>
-</blockquote>
-<p>最近喜欢先梳理框架再理解细节，算是在强迫自己使用非条件反射思考模式，即“慢思考”。整个博文集分为5部分：</p>
-<ul>
-<li>旧世界的崩塌</li>
-<li>人生的B计划</li>
-<li>方法论</li>
-<li>创业说</li>
-<li>新方向
+<h3 id="你为什么开始学习前端开发呢？"><a href="#你为什么开始学习前端开发呢？" class="headerlink" title="你为什么开始学习前端开发呢？"></a>你为什么开始学习前端开发呢？</h3><p><strong>符合我“有钱，有趣”的价值观。</strong><br>学习动机都是和个人价值观相关联的，做每一样事情都是为了达到自己认可的目的。我生活的目的是做一个有钱，有趣的人。前端开发随着移动互联网的发展，越来越供不应求，导致前端开发资源稀缺，拥有前端开发能力的人在市场上议价能力强，能挣较多的钱，所以学习前端开发。内心中有一股创造的欲望，能把自己的想法变成一个可用的产品，能让特定用户使用产生价值，是一件有趣的事情。就像栽一棵数或养一个孩子，看见他每天成长并能给别人带来价值，也是很有趣的。前端开发能快速实现一个产品，让我在培养过程中感受到他的成长。类比玩游戏过程中每一步操作都能给你及时反馈，反馈符合你的预期，就能感受到游戏的快感。所以做一个能获得及时反馈的产品能像游戏一样给你及时反馈，是能让人开心的。</p>
+<h3 id="你怎么学习的前端开发"><a href="#你怎么学习的前端开发" class="headerlink" title="你怎么学习的前端开发"></a>你怎么学习的前端开发</h3><ol>
+<li>你获取信息的途径
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2017/01/10/%E6%9C%AA%E6%9D%A5%E4%B8%96%E7%95%8C%E7%9A%84%E5%B9%B8%E5%AD%98%E8%80%85-%E8%AF%BB%E5%90%8E%E6%84%9F/#more" rel="contents">
+              <a class="btn" href="/2017/03/08/%E4%B8%80%E4%B8%AA%E7%94%B5%E8%AF%9D/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -527,7 +345,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/12/23/%E7%BD%97%E8%BE%91%E6%80%9D%E7%BB%B4%E6%8B%9B%E8%81%98%E8%A7%86%E9%A2%91%E6%9C%89%E6%84%9F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/02/27/ife2017-xiaowei-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -545,7 +363,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/12/23/%E7%BD%97%E8%BE%91%E6%80%9D%E7%BB%B4%E6%8B%9B%E8%81%98%E8%A7%86%E9%A2%91%E6%9C%89%E6%84%9F/" class="post-title-link" itemprop="url">罗辑思维招聘视频有感</a>
+          <a href="/2017/02/27/ife2017-xiaowei-1/" class="post-title-link" itemprop="url">ife2017-小薇学院-HTML常用标签</a>
         </h2>
 
         <div class="post-meta-container">
@@ -556,7 +374,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-12-23 19:23:07" itemprop="dateCreated datePublished" datetime="2016-12-23T19:23:07+08:00">2016-12-23</time>
+      <time title="创建时间：2017-02-27 17:56:12" itemprop="dateCreated datePublished" datetime="2017-02-27T17:56:12+08:00">2017-02-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -577,13 +395,300 @@
     
     <div class="post-body" itemprop="articleBody">
           <blockquote>
-<p>“但有一件事我必须说说，作为一个表演着，我为五万人表演过，也为五十个人表演过，我可以告诉你的是，给五十个人表演更难。因为五万人会有单一的人格，而五十个人不会。每一个人都会是一个个体，有独立的身份和对世界不同的看法，他们会更清晰地感知事物，会检阅你的真诚，以及你如何用自己的才华将其表达。”  – 鲍勃.迪伦</p>
+<p>HTML标签是web的骨架，熟悉HTML标签需要分类记忆。人脑记忆范围为5+-2,即分类在3～7个比较合适。</p>
 </blockquote>
-<p>周四晚上吃完饭，兴冲冲的回家准备看新一期的罗辑思维，看到标题却是《一个长达30分钟的道歉和招聘》。看完视频后，除了认同视频标题确实起得很准确以外，还是有引起我的思考。</p>
-<p>这周老罗感冒，不能高强度工作二三十个小时精心准备视频节目，就真诚的道歉。其实作为老观众，已经认可老罗这个人，他这期视频没录，道不道歉我都会继续支持他，希望他、他们能成功。没录视频，可以没有任何理由。用看似多荒唐的理由，比如“最近霧霾大”“这次不想录了”，我都相信他的真诚。当然节目后面讲了他们公司的招聘，干货还是很足。</p>
+<h2 id="HTML文档标签"><a href="#HTML文档标签" class="headerlink" title="HTML文档标签"></a>HTML文档标签</h2><ol>
+<li><code>&lt;!DOCTYPE&gt;</code>:</li>
+<li><code>&lt;html&gt;</code>:</li>
+<li><code>&lt;head&gt;</code>:</li>
+<li><code>&lt;body&gt;</code>:</li>
+</ol>
+<h2 id="布局标签-amp-语义化"><a href="#布局标签-amp-语义化" class="headerlink" title="布局标签&amp;语义化"></a>布局标签&amp;语义化</h2><ol>
+<li><code>&lt;div&gt;</code>:</li>
+<li><code>&lt;span&gt;</code>:</li>
+<li><code>&lt;header&gt;</code>:</li>
+<li><code>&lt;footer&gt;</code>:</li>
+<li><code>&lt;section&gt;</code>:</li>
+<li><code>&lt;article&gt;</code>:</li>
+<li><code>&lt;aside&gt;</code>:</li>
+<li><code>&lt;details&gt;</code>:</li>
+<li><code>&lt;summary&gt;</code>:</li>
+<li><code>&lt;dialog&gt;</code>:</li>
+<li><code>&lt;nav&gt;</code>:</li>
+<li><code>&lt;hgroup&gt;</code>:</li>
+</ol>
+<h2 id="格式标签"><a href="#格式标签" class="headerlink" title="格式标签"></a>格式标签</h2><h3 id="1-文章标签"><a href="#1-文章标签" class="headerlink" title="1.文章标签"></a>1.文章标签</h3><ol>
+<li><code>&lt;h1&gt;</code>~`<h6>`:定义文章标题等级。</li>
+<li><code>&lt;p&gt;</code>:</li>
+<li><code>&lt;br&gt;</code>:</li>
+<li><code>&lt;hr&gt;</code>:</li>
+<li><code>&lt;bdo&gt;</code>:</li>
+<li><code>&lt;pre&gt;</code>:</li>
+<li><code>&lt;abbr&gt;</code>:</li>
+<li><code>&lt;address&gt;</code>:</li>
+<li><code>&lt;ins&gt;</code>:</li>
+<li><code>&lt;del&gt;</code>:</li>
+<li><code>&lt;time&gt;</code>:</li>
+</ol>
+<h3 id="2-短语元素标签"><a href="#2-短语元素标签" class="headerlink" title="2.短语元素标签"></a>2.短语元素标签</h3><ol>
+<li><code>&lt;em&gt;</code>:</li>
+<li><code>&lt;strong&gt;</code>:</li>
+<li><code>&lt;dfn&gt;</code>:</li>
+<li><code>&lt;code&gt;</code>:</li>
+<li><code>&lt;samp&gt;</code>:</li>
+<li><code>&lt;kbd&gt;</code>:</li>
+<li><code>&lt;var&gt;</code>:</li>
+<li><code>&lt;sup&gt;</code>:</li>
+<li><code>&lt;sub&gt;</code>:</li>
+<li><code>&lt;cite&gt;</code>:</li>
+<li><code>&lt;blokqoute&gt;</code>:</li>
+<li><code>&lt;q&gt;</code>:</li>
+</ol>
+<h3 id="3-字体样式标签"><a href="#3-字体样式标签" class="headerlink" title="3.字体样式标签"></a>3.字体样式标签</h3><ol>
+<li><code>&lt;i&gt;</code>:</li>
+<li><code>&lt;b&gt;</code>:</li>
+<li><code>&lt;big&gt;</code>:</li>
+<li><code>&lt;small&gt;</code>:</li>
+<li><code>&lt;mark&gt;</code>:</li>
+</ol>
+<h2 id="图像-amp-链接标签"><a href="#图像-amp-链接标签" class="headerlink" title="图像&amp;链接标签"></a>图像&amp;链接标签</h2><ol>
+<li><code>&lt;img&gt;</code>:</li>
+<li><code>&lt;a&gt;</code>: anchor,link的端点。</li>
+<li><code>&lt;map&gt;</code>:</li>
+<li><code>&lt;area&gt;</code>:</li>
+<li><code>&lt;figure&gt;</code>:</li>
+<li><code>&lt;figcaption&gt;</code>:</li>
+</ol>
+<h2 id="表单标签"><a href="#表单标签" class="headerlink" title="表单标签"></a>表单标签</h2><ol>
+<li><code>&lt;from&gt;</code>:</li>
+<li><code>&lt;input&gt;</code>:</li>
+<li><code>&lt;textarea&gt;</code>:</li>
+<li><code>&lt;label&gt;</code>:</li>
+<li><code>&lt;fieldset&gt;</code>:</li>
+<li><code>&lt;legend&gt;</code>:</li>
+<li><code>&lt;select&gt;</code>:</li>
+<li><code>&lt;optgroup&gt;</code>:</li>
+<li><code>&lt;option&gt;</code>:</li>
+<li><code>&lt;button&gt;</code>:</li>
+<li><code>&lt;fieldset&gt;</code>:</li>
+<li><code>&lt;legend&gt;</code>:</li>
+<li><code>&lt;fieldset&gt;</code>:</li>
+<li><code>&lt;keygen&gt;</code>:</li>
+<li><code>&lt;output&gt;</code>:</li>
+</ol>
+<h2 id="列表标签"><a href="#列表标签" class="headerlink" title="列表标签"></a>列表标签</h2><ol>
+<li><code>&lt;ul&gt;</code>:</li>
+<li><code>&lt;ol&gt;</code>:</li>
+<li><code>&lt;li&gt;</code>:</li>
+<li><code>&lt;dl&gt;</code>:</li>
+<li><code>&lt;dt&gt;</code>:</li>
+<li><code>&lt;dd&gt;</code>:</li>
+</ol>
+<h2 id="表格标签"><a href="#表格标签" class="headerlink" title="表格标签"></a>表格标签</h2><ol>
+<li><code>&lt;table&gt;</code>:</li>
+<li><code>&lt;thead&gt;</code>:</li>
+<li><code>&lt;tbody&gt;</code>:</li>
+<li><code>&lt;tfoot&gt;</code>:</li>
+<li><code>&lt;caption&gt;</code>:</li>
+<li><code>&lt;th&gt;</code>:</li>
+<li><code>&lt;tr&gt;</code>:</li>
+<li><code>&lt;td&gt;</code>:</li>
+</ol>
+<h2 id="多媒体标签"><a href="#多媒体标签" class="headerlink" title="多媒体标签"></a>多媒体标签</h2><ol>
+<li><code>&lt;audio&gt;</code>:</li>
+<li><code>&lt;source&gt;</code>:</li>
+<li><code>&lt;track&gt;</code>:</li>
+<li><code>&lt;video&gt;</code>:</li>
+</ol>
+<h2 id="框架标签"><a href="#框架标签" class="headerlink" title="框架标签"></a>框架标签</h2><ol>
+<li><code>&lt;iframe&gt;</code>:</li>
+</ol>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
+<li><code>&lt;canvas&gt;</code>:</li>
+<li><code>&lt;meter&gt;</code>:</li>
+<li><code>&lt;progress&gt;</code>:</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/02/23/%E6%89%B9%E9%87%8F%E6%A3%80%E6%B5%8Bip%E5%BD%92%E5%B1%9E%E8%BF%90%E8%90%A5%E5%95%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/02/23/%E6%89%B9%E9%87%8F%E6%A3%80%E6%B5%8Bip%E5%BD%92%E5%B1%9E%E8%BF%90%E8%90%A5%E5%95%86/" class="post-title-link" itemprop="url">批量查询ip归属运营商</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-02-23 15:19:22" itemprop="dateCreated datePublished" datetime="2017-02-23T15:19:22+08:00">2017-02-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>F5做链路负载是需要识别接入端用户使用的什么运营商，虽然可以在ip138上一个一个查，但做个批量查询能省大量时间</p>
+</blockquote>
+<p>实现思路为</p>
+<ol>
+<li>ip地址为文本文档保存，每行一个</li>
+<li>shell逐行读取文本，并调用查询ip归属运营商api，返回需要的数据</li>
+</ol>
+<p>read-line.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">! /bin/bash</span></span><br><span class="line">cat ~/tmp/ip-list | while read LINE</span><br><span class="line">do</span><br><span class="line">echo $LINE </span><br><span class="line">curl http://freeapi.ipip.net/$LINE </span><br><span class="line">echo -e &quot;\n&quot;</span><br><span class="line">sleep 1</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>将ip保存在<code>ip-list</code>中，执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./read-line.sh &gt;&gt;result.txt</span><br></pre></td></tr></table></figure>
+
+<p>后续改善</p>
+<ol>
+<li>输出格式需要做字符窜截取，达到“ip  运营商名称”效果。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/02/17/vim-markdown-plug/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/02/17/vim-markdown-plug/" class="post-title-link" itemprop="url">ubuntu系统使用vim编辑预览markdown文件</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-02-17 15:56:00" itemprop="dateCreated datePublished" datetime="2017-02-17T15:56:00+08:00">2017-02-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2017-06-16 16:19:09" itemprop="dateModified" datetime="2017-06-16T16:19:09+08:00">2017-06-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>使用atom一段时间后，发现启动速度和命令行查看不习惯，尝试一下vim+markdown插件如何？</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li>安装vim插件管理工具Vundle</li>
+</ol>
+<p><code>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</code></p>
+<p>修改vimrc,如下内容添加在配置文件末尾<code>sudo /etc/vim/vimrc</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">set nocompatible    &quot; be iMproved, required</span><br><span class="line">filetype off &quot; required</span><br><span class="line">&quot; 启用vundle来管理vim插件</span><br><span class="line">set rtp+=~/.vim/bundle/Vundle.vim</span><br><span class="line">call vundle#begin()</span><br><span class="line">&quot; 安装插件写在这之后</span><br><span class="line">&quot; let Vundle manage Vundle, required</span><br><span class="line">Plugin &#x27;VundleVim/Vundle.vim&#x27;</span><br><span class="line">Plugin &#x27;suan/vim-instant-markdown&#x27;</span><br><span class="line">&quot; 安装插件写在这之前</span><br><span class="line">call vundle#end() &quot; required</span><br><span class="line">filetype plugin on </span><br><span class="line">&quot; required&quot; 常用命令</span><br><span class="line">&quot; :PluginList - 查看已经安装的插件</span><br><span class="line">&quot; :PluginInstall - 安装插件</span><br><span class="line">&quot; :PluginUpdate - 更新插件</span><br><span class="line">&quot; :PluginSearch - 搜索插件，例如 :PluginSearch xml就能搜到xml相关的插件</span><br><span class="line">&quot; :PluginClean - 删除插件，把安装插件对应行删除，然后执行这个命令即可</span><br><span class="line">&quot; h: vundle - 获取帮助</span><br></pre></td></tr></table></figure>
+<p>打开vim<code>sudo vim</code>，在命令模式执行<code>PluginInstall</code>，即可安装成功。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2016/12/23/%E7%BD%97%E8%BE%91%E6%80%9D%E7%BB%B4%E6%8B%9B%E8%81%98%E8%A7%86%E9%A2%91%E6%9C%89%E6%84%9F/#more" rel="contents">
+              <a class="btn" href="/2017/02/17/vim-markdown-plug/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -607,7 +712,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/63/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/63/">63</a><span class="page-number current">64</span><a class="page-number" href="/page/65/">65</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/65/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/63/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/63/">63</a><span class="page-number current">64</span><a class="page-number" href="/page/65/">65</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/65/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

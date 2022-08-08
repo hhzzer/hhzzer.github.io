@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/27/yuque/docker-daemon%E4%BB%A3%E7%90%86%E5%9D%91/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/19/yuque/%E3%80%8A%E6%88%98%E5%A4%A9%E4%BA%AC%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/07/27/yuque/docker-daemon%E4%BB%A3%E7%90%86%E5%9D%91/" class="post-title-link" itemprop="url">docker-daemon代理坑</a>
+          <a href="/2020/08/19/yuque/%E3%80%8A%E6%88%98%E5%A4%A9%E4%BA%AC%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/" class="post-title-link" itemprop="url">《战天京》读后感</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,7 +195,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-07-27 17:04:04" itemprop="dateCreated datePublished" datetime="2020-07-27T17:04:04+08:00">2020-07-27</time>
+      <time title="创建时间：2020-08-19 11:50:56" itemprop="dateCreated datePublished" datetime="2020-08-19T11:50:56+08:00">2020-08-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -215,93 +215,31 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>服务器无互联网访问权限，docker 拉取镜像。</p>
-<h2 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h2><p>docker daemon https 代理填写 http 代理。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/systemd/system/docker.service.d/https-proxy.conf</span><br><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTPS_PROXY=http://proxy.esl.cisco.com:80/&quot;</span><br></pre></td></tr></table></figure>
-
-<p>参考<br><a target="_blank" rel="noopener" href="https://github.com/docker/for-linux/issues/415">https://github.com/docker/for-linux/issues/415</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/michael9/p/12300824.html#_labelTop?tdsourcetag=s_pctim_aiomsg">https://www.cnblogs.com/michael9/p/12300824.html#_labelTop?tdsourcetag=s_pctim_aiomsg</a><br><a target="_blank" rel="noopener" href="https://www.ilanni.com/?p=14534">https://www.ilanni.com/?p=14534</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/20/yuque/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/07/20/yuque/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">深入理解计算机系统-笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-07-20 14:35:07" itemprop="dateCreated datePublished" datetime="2020-07-20T14:35:07+08:00">2020-07-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>学习极客时间-左耳听风专栏，程序员练级攻略一系列文章了解到，需要克服三座大山：1 编程语言，2 理论知识，3 系统知识。工作中系统知识用得较多，就重点突破这一领域。系统知识列出了必读书《深入理解计算机系统》、《Unix 高级环境编程》、《Unix 网络编程》《TCP/IP 详解卷 I 协议》。以上 4 本为经典版，知识密度高。若难以理解经典版，可阅读解析版书籍《Linuc C 编程一站式学习》《TCP/IP 网络编程》《图解 TCP/IP》《The TCP/IP Guide》.实践指导书《Wireshark 数据包分析实战》《Linux/Unix 系统编程手册》/《Linux System Programming》/《Linux 系统编程》-罗伯特.拉姆<br>本文记录看完第一遍《深入理解计算机系统》感受和 get 的知识点，4 天时间。</p>
-<h2 id="还剩下的"><a href="#还剩下的" class="headerlink" title="还剩下的"></a>还剩下的</h2><p>目录：计算机系统漫游、信息的表示和处理、程序的机器级表示、处理器体系结构、优化程序性能、存储器层次结构、链接、异常控制流、虚拟存储器、系统级 IO、网络编程、并发编程。<br>信息表示和处理：大端序和小端序，存储器中高位在左还是右。2 进制、16 进制、10 进制转换及算数运算。如何用电路实现运算和存储。<br>程序的机器级表示：程序的编译分为预处理、汇编、编译、链接，最终的可执行文件是链接器能够加载的字节码。C 语言转换为汇编语言过程解读。<br>处理器体系结构：CPU 结构。包括 PC 程序计数器，用于指定 CPU 当前执行的指令。MCU 运算单元，执行逻辑运算。8 个寄存器。<br>优化程序性能：使用局部性原理，减少跳转。</p>
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>大玩家张磊推荐了这本书，4 天看完，对清末太平天国期间的人和事增进了解。</p>
+<h2 id="有意思的"><a href="#有意思的" class="headerlink" title="有意思的"></a>有意思的</h2><ul>
+<li>曾国藩教他弟写奏折</li>
+</ul>
+<p>军机处老大奕昕买了 7 艘英国战舰，增加国内打击太平天国的战力，问各大臣意见。曾国藩回复：战舰好，战舰打南京有损帝国威风，先不用于打南京吧，以后大不了送人。曾国荃回复：我要攻克南京了，不需要战舰，战舰调到东南打海盗吧。奕昕看了取消曾国荃回帖的权力。<br>曾国藩就教弟弟怎么写奏折。道光皇帝 30 岁登基，已经会玩文字游戏了，回帖可以顾左右而言他，咸丰 10 多岁当皇帝，需要简明扼要，慈禧更是要直白。<br>充分调研文章受众后，再根据受众的背景知识，写符合他们的文章。最后还把攻克南京捷报的模板发给曾国荃，让他参考。</p>
+<ul>
+<li>李鸿章不抢曾国荃的战果</li>
+</ul>
+<p>曾国荃久攻不下南京，李鸿章淮军在上海、江苏一带凭借红衣大炮攻城威风八面。朝廷看曾国荃拖着没进展，耗费大量军费，就让李鸿章去助攻。李鸿章各种借口，就是不去。他明白其中的利害关系，湘军长年苦战，就靠攻克南京邀功，曾国藩，曾国荃大饼已经给湘军将士画好了，如果李鸿章去强半熟的饼，必然遭湘军记恨，说不定还兵变。李鸿章也是曾国藩的学生，明白老师的意思，就拖着。后面朝廷也大概明白了，就让他们拖着，耗点钱怕啥，维稳才是关键。</p>
+<ul>
+<li>左宗棠和曾国藩对比</li>
+</ul>
+<p>曾国藩低眉观音，左宗棠怒目金刚。两人都在清末混得风生水起，源于忠心为国，为民。尽管看到朝廷腐败，国家动荡，但他们没有放弃。曾国藩放弃个人清高洁癖，把志向改成为民做成事后，团结一切可以团结的力量，就为实现“为天地立心，为生民立命，为往圣继绝学，为万世开太平”的理想。<br>左宗棠不是简单的横冲直撞，文章 3 大好手之一，肯定各种文章都能写，而不是只写批斗文。对事不对人，把曾危难时力保自己亲家郭嵩焘弹劾下去。郭嵩焘在广州当差 2 年了，剿匪还是不利，和朝廷打哈哈，左宗棠看不下去，就参奏弹劾。</p>
+<ul>
+<li>从保左宗棠看结党</li>
+</ul>
+<p>朝廷要集权，所有权力都从皇帝下发。官员要生存，就要相互照顾。官员结党，就会威胁皇帝的地位，所以历来严查结党。没有对错，只有利益。皇帝和百官平衡利益，游戏就能继续。</p>
+<h2 id="摘录"><a href="#摘录" class="headerlink" title="摘录"></a>摘录</h2><p>曾偷偷练习写挽联，笑了。</p>
 <blockquote>
-<p>你能获得的对程序最大的加速比，就是当你第一次让它工作起来的时候。</p>
+<p>挽联固然是小道，但是不刻苦锤炼，也写不出上品。曾国藩当京官的时候，就苦练过这种功夫。不过，挽联是盖棺定论，对象不死，素材就不完整，挽联也就不好落笔，曾国藩哪里找那么多死人来练习呢？他玩了招绝的：生挽。所谓生挽，就是给活人写挽联。活人还得挑熟悉的，不然搞不清平生行事，下笔未免落空。可是，活人都忌讳死，谁愿意触这种霉头呢？于是，他得偷偷地写，不敢让人发现。</p>
 </blockquote>
-<p>所以运行起来最关键。<br>存储器层次结构：寄存器-高速缓存-内存-硬盘，逐渐变慢，逐渐便宜。SDD 存储器有写入擦除次数限制，SSD 存储将多个块组成一个页作为读写管理单元，擦除是以页为单位。SSD 被写坏一定比例，会加速写坏过程，所以 IOS 系统保留大量 SSD 空间，避免 SSD 加速写坏，所以苹果手机运行很久都比较流畅。Android 系统保留 SSD 空间较少，一旦剩余空间不足 80%，SSD 磨损加速，之后 SSD 可用空间减少，行成恶性循环。所以使用 SSD 要保留 20%空间空闲，增加 SSD 寿命。<br>链接：as 工具整合目标文件为一个可被链接器执行的链接文件。链接的目的是大型系统模块解耦，只用重新编译变化的部分，不用整个项目重新编译。静态链接，将公共库汇编后的目标文件 libc.a（字节码）拷贝到编译程序的目标文件中，整合在一起。动态链接，链接器将共享库 libc.so 地址写入可执行文件，程序运行时加载这些字节码，这些字节码在内存中，其他程序可共享。-fPIC 生成成与位置无关的字节码，会增加一层引用。<br>异常控制流分为 4 种，中断 interpret，陷阱 trap、故障 fault、终止 abort。中断用于硬件设备之间通信。陷阱用于实现系统调用。<br>虚拟存储器：进程是可执行文件运行的实例，进程上下文保存在内存中。虚拟存储器是为了简化程序到执行的过程。对所有程序都提供一个相同的地址空间。CPU 可直接访问 PA 物理内存，也可以 CPU 访问虚拟地址 VA，地址翻译器将 VA 转换为 PA。地址翻译器由 CPU 和操作系统内核共同维护。内核控制虚拟存储器资源分配，虚拟内存以页为单位管理，内存不足引起的缺页软中断会导致程序性能下降。linux 系统 SLB 分配器。内存的几种标识，cache、不可分配，在查看内存是要看内存泄漏，看其中的某类型内存。<br>系统级 IO，网络编程、并发编程都是系统上层应用。并发编程 3 种实现：1 多进程，进程间通信效率低。2IO 多路复用，select 函数.3 多线程，控制锁，使用信号量。</p>
-<h2 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h2><p>在排查 nfs 服务内存占用持续高，需要定时重启 nfs 时，需要内存分配相关知识，可以分析更明确。<br>编译 openssh-server 时，系统 openssl 库和 openssh 使用的库不一致，如何解决，都是动态链接库，难道要静态编译？<br>程序报错排查 strace,oom-killer 等，是需要了解编译-运行-结束全过程的。程序运行的环境，就是系统知识。<br>后面还需再次阅读。</p>
+<p>左宗棠给曾国藩的挽联</p>
+<blockquote>
+<p>谋国之忠，知人之明，自愧不如元辅；同心若金，攻错若石，相期无负平生。</p>
+</blockquote>
 
       
     </div>
@@ -328,7 +266,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/06/04/yuque/%E7%BF%BB%E8%AF%91-%E5%BF%AB%E9%80%9F%E6%8F%90%E5%8D%87%E7%BC%96%E7%A8%8B%E8%83%BD%E5%8A%9B%E7%9A%84%E5%85%B3%E9%94%AE/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/19/yuque/%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E5%AD%A6%E4%B9%A01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -346,7 +284,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/06/04/yuque/%E7%BF%BB%E8%AF%91-%E5%BF%AB%E9%80%9F%E6%8F%90%E5%8D%87%E7%BC%96%E7%A8%8B%E8%83%BD%E5%8A%9B%E7%9A%84%E5%85%B3%E9%94%AE/" class="post-title-link" itemprop="url">翻译-快速提升编程能力的关键</a>
+          <a href="/2020/08/19/yuque/%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E5%AD%A6%E4%B9%A01/" class="post-title-link" itemprop="url">《算法图解》学习1</a>
         </h2>
 
         <div class="post-meta-container">
@@ -357,7 +295,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-06-04 21:00:43" itemprop="dateCreated datePublished" datetime="2020-06-04T21:00:43+08:00">2020-06-04</time>
+      <time title="创建时间：2020-08-19 11:18:34" itemprop="dateCreated datePublished" datetime="2020-08-19T11:18:34+08:00">2020-08-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -377,60 +315,97 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>原文链接  <a target="_blank" rel="noopener" href="http://blog.thefirehoseproject.com/posts/learn-to-code-and-be-self-reliant/">http://blog.thefirehoseproject.com/posts/learn-to-code-and-be-self-reliant/</a></p>
-<p>当你学习编程时，有一个阶段你发现万物都在改变。在消防带培训中心，我们叫做编程的转折点。过了这个阶段，你开发的方式会显著不同。越过转折点，将会进入一个自给自足的编程阶段-你不在需要手把手的指导。那将是一个令人沮丧的经历，但是一旦你越过，你会有难以置信的能量。<br>在消防带，我们的目标不仅是教你 Ruby，如何构建 web 应用程序或编写测试用例。尽管我们确实会教那些技能，而且更多。我们的主要目标是促进学生穿过转折点，之后他们将获得解决他们遇到问题的能力。我们相信，能够解决自己的问题是一个无价的技能。这种教学方法相比于简单的学习构建一系列 app 能伴随你走得更远。</p>
-<h3 id="辅导阶段（3-8-周的认真编程）"><a href="#辅导阶段（3-8-周的认真编程）" class="headerlink" title="辅导阶段（3-8 周的认真编程）"></a>辅导阶段（3-8 周的认真编程）</h3><p>当你开始学习编程时，有些信息你不知道。这些信息叫做特定领域知识。例如：如何用 ruby 写一个循环或如用 Ruby On Ralis 从数据库提取一些信息。每个编程语言环境都包含的独一无二的领域专业知识。<br>成为自给自足的开发者的第一步是学习如何处理特定的任务。一旦你胜任某些任务的处理，你就会知道如何将多个任务协调处理。过了一段时间，你会开始意识到一些编程范式，最终，一开始感觉困惑和陌生的东西会变得习以为常。</p>
-<h3 id="对于初学者，获得的最关键的技能是注重细节"><a href="#对于初学者，获得的最关键的技能是注重细节" class="headerlink" title="对于初学者，获得的最关键的技能是注重细节"></a>对于初学者，获得的最关键的技能是注重细节</h3><p>开始过文档和指导材料时，最重要的是密切关注细节。甚至是那些错别字和拼写错误都会导致报错和 bug。一开始，看到报错信息会令人沮丧，但是这是学习过程中一个重要的阶段。在安全的环境中处理报错和问题会教会你这一阶段最重要的技能：注重细节。<br><strong>排查故障信息是非常重要的。</strong>事情的真相是，报错信息是就是编程的一部分。对新手和经验丰富的人都一样。唯一不同的是，你处理报错信息的经验越多，你修复他们花费的时间越少，那是因为：</p>
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>有些专业基础知识，无论怎样是绕不过的。主要分为操作系统、网络、数据结构和算法、编程语言及工程方法。<br>有些非专业知识，也是需要持续学习的，比如对世界的认识，对商业的认识，对自我的认识。<br>在合适的心情下，选择这些类别学习，持续学习，一定可以自我增值。</p>
+<p>对数是幂运算的逆运算<br>幂运算：10 个 2 相乘，结果是多少？210 = ？ ，答案 1024<br>对数运算：多少个 2 相乘，等于 1024？log21024 = ？答案 10</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 二分查找</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">binary_search</span>(<span class="params">search_list, item</span>):</span><br><span class="line">    low = <span class="number">0</span></span><br><span class="line">    high = <span class="built_in">len</span>(search_list) - <span class="number">1</span></span><br><span class="line"><span class="comment">#     print low, high</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> low &lt;= high:</span><br><span class="line">        mid = (low + high) / <span class="number">2</span></span><br><span class="line">        guess = search_list[mid]</span><br><span class="line"><span class="comment">#         print low, high, mid, guess</span></span><br><span class="line">        <span class="keyword">if</span> guess == item:</span><br><span class="line">            <span class="keyword">return</span> mid</span><br><span class="line">        <span class="keyword">if</span> guess &gt; item:</span><br><span class="line">            high = mid -<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            low = mid + <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">my_list = [<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>]</span><br><span class="line"><span class="built_in">print</span> binary_search(my_list, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span> binary_search(my_list, -<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># print binary_search(my_list, -1)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">None</span><br></pre></td></tr></table></figure>
+
+<p>1.2 练习</p>
+<ol>
+<li>有 128 个名字有序列表，使用二分查找其中一个名字，最多需要多少步？<br>log128 = 7</li>
+<li>列表长度翻倍，最多需要多少步？<br>log256 = 8</li>
+</ol>
+<p>算法是一组完成任务的指令，任何代码片段都可以视为算法。<br>大 O 表示法表示算法的速度有多快。<br>大 O 表示法运行时间随着列表增长如何增长。<br>大 O 表示法指出最糟糕情况下的运行时间。<br>从快到慢常用的 5 种大 O 运算时间</p>
+<ol>
+<li>O(log n) 对数时间，二分查找</li>
+<li>O(n) 线性时间，简单查找</li>
+<li>O(n * log n) 快速排序</li>
+<li>O(n^2) 选择排序</li>
+<li>O(n!)旅行商问题</li>
+</ol>
+<p>算法的速度并非指时间，而是操作数的增速<br>算法的速度是指随着输入的增加，其运算时间将以怎样的速度增加。</p>
+<p>1.3 练习<br>用大 O 表示下列情况运行时间</p>
+<ol>
+<li>电话簿中根据名字查找电话号码  O(log n)</li>
+<li>电话簿中根据电话号码找人 O(n)</li>
+<li>阅读电话簿中每个人的电话号码 O(n)</li>
+<li>阅读电话簿中以 A 打头的人的电话号码 电话簿以名排序，要阅读以 A 姓开头的电话号码。 O(n * log n) ?</li>
+</ol>
 <ul>
-<li>一段时间后，你学会了<strong>如何快速阅读错误信息</strong>和提取问题的相关细节。第一次看见错误信息，会花费你一定的时间去理解是什么意思。当你看过了成百个报错信息后，你会指出问题的所在和修复问题需要的相关细节。</li>
-<li>你会<strong>从每一个你处理过的问题中积累经验。</strong>不要只是修复问题就完了，你要要明白代码哪里错了。每一次从报错中学到的，都会让你在下一次处理问题时更快。</li>
-<li>最初你对每个你遇到的问题都要去寻求帮助，一段时间后，你会减少错误代码直接 google 搜索的频率。</li>
+<li>链表和数组<br>数组     链表<br>读取  O(1)    O(n)<br>插入  O(n)    O(1)<br>删除  O(n)    O(1)<br>数组适合随机访问，链表适合增删改。</li>
 </ul>
-<p>在初学阶段，你会跟随教程。最初你发现不容易跟上教程并且错误频发。一段时间后，你会提升你排错的能力并且更关注细节，编码会更快。当你经历过了初学阶段，你会注意到你编码更快。<br>在这个时候，部分人感觉充满自信-视乎可以离开学步车开始在没有指导手册情况下构建一些东西-乐于深入其中。另一些人会寻找更多的辅导，尝试掌握更多的专业领域知识以期望“完全掌握”。不幸的是，入门手册只能带你走这么远，在入门手册中不能找到真正的自信。真正的自信源于不断解决你不知道答案的问题，自己独立的找到解决方法。<br><strong>关于编程，不幸的小秘密是…</strong><br>你永远不会知道你需要解决问题的全部知识。你大概期望你学完了你需要学习的所有知识，然后全副武装的出发。这个时刻永远不会发生。<br>编程是一个终生学习的过程。老练的软件工程师会寻找那些他们还没有解决过的问题去解决，因为这让他们有机会学习更多。如果发现你一直在等待你感觉 ok，学会了所有关于编码知识的时刻，你要认识到这一天永远不会到来。这真是美妙的事情。<br><strong>你会开始进入你旅程的下一阶段，当你：</strong></p>
+<p>练习 插入多，读取少，使用链表。<br>点餐程序，队尾加菜，队首取菜单做菜。使用链表，不存在随机读。在链表头删除元素，在链表尾增加元素都只操作 1 次。<br>Facebook 登陆，后台账号查找使用什么来存储用户名？ 数组，因为要求随机访问。<br>数组中插入数据有何缺点？只能插入再队尾，要想快速查找到用户还需排序。<br>链表数组，长度为 26 的数组，每个数组元素指向一个链表。这种混合数据结构再查找和插入和单纯的数组、链表对比快慢？二分查找<br>数组     链表     链表数组(n 个数组中存放长度为 m 的链表)<br>查找 O(1)    O(n)    O((log n) _ n )<br>插入 O(n)    O(1)    O(log n _ 1)<br>链表数组，查找比数组慢，比链表快；插入比数组快，比链表慢。</p>
 <ul>
-<li>你遇见了足够多的报错，<strong>报错不再惊吓到你。</strong>相反，你知道如何破解报错信息，哪里去寻找代码里的问题。</li>
-<li><strong>你能够专业的 google 解决方案。</strong>当你增加新功能或看到令人沮丧的错误信息是，你知道搜索什么来找到你需要的信息。</li>
-<li>你能够<strong>参考你应用程序中其他部分中的代码并且遵循编程范式，</strong>而不是一步一步跟随指导。</li>
+<li>选择排序和快速排序<br>选择排序，每次遍历列表，将最大的添加到新列表，需要操作次数为 n _ （1/2 _ n）。大 O 记法省略掉常数，故记作 O(n _ n). 第一个 n 表示对每个元素都要加入新列表，1/2 _ n 表示筛选出最大元素平均需要 1/2 _ n 次，即第一次 n，第二次 n-1，第 n 次 1 ，总次数 n + n-1 + n-2…+ 1=(1+n)_ (1/2 * n).</li>
 </ul>
-<h3 id="转折点（2-4-周正确的心态）"><a href="#转折点（2-4-周正确的心态）" class="headerlink" title="转折点（2-4 周正确的心态）"></a>转折点（2-4 周正确的心态）</h3><p>在编程学习过程中，转折点阶段是一个令人沮丧的阶段。但总的来所，这是最关键的一个阶段。这个阶段，你开始丢掉手册，开始解决没人给你准备好解决方案的问题。<br>某些时候，你会感觉到你还没有准备好来应付这一阶段的问题，期望回去做那些有精确指导的事情。不要陷入这种心态。你感觉沮丧的原因是：</p>
-<h3 id="在转折点阶段，你编程速度会比前一个阶段慢-10-20-倍。"><a href="#在转折点阶段，你编程速度会比前一个阶段慢-10-20-倍。" class="headerlink" title="在转折点阶段，你编程速度会比前一个阶段慢 10-20 倍。"></a>在转折点阶段，你编程速度会比前一个阶段慢 10-20 倍。</h3><p>你会开始怀疑自己，疑惑自己是否有能力成为一个程序员。在这个阶段感到沮丧和疑惑是正常的。<br>事实上，仅管你会感觉到你在学习和完成事情上速度变慢，事实上你正在获得最重要的东西。当你特定领域知识学完后，你将学的所有知识都是过程性知识。<br>过程性知识是一种一直伴随你的自学能力。当你需要实现某些新功能，该到 gogoole 上去搜索什么呢？在这个时间点上，当很多事情要你完成是时，你感觉自己深处黑暗当中。学会如何自己找到光是决定性的，因为永远不会知道你需要知道的所有事情。所以你需要一边自学一边解决问题。<br><strong>大多数人没有意识到，为了学习编程，既要学习特定领域知识，也要学习过程性知识。</strong></p>
-<h3 id="在余生，每一天都要突破你的极限。"><a href="#在余生，每一天都要突破你的极限。" class="headerlink" title="在余生，每一天都要突破你的极限。"></a>在余生，每一天都要突破你的极限。</h3><p>有些工程师在找到立足点后一直待在他们的舒适区。这种类型的程序员被叫做维护型程序员-不是你需要成为的类型。相反，你需要在余生的每一天中都努力走出你的舒适区。程序员辞掉他们工作最主要原因是：“自从我解决了我感兴趣后的问题后，再也没有任何挑战了。”<br>相比在舒适区编程，你更需要用舒适区外部的技能去解决问题。这是唯一一种扩展你技能的方式。<br>有一个在消防带度过转折点阶段的学员说过</p>
-<blockquote>
-<p>我至今仍然陷入其中，我只是获得一些我曾经获得过的舒适知识。</p>
-</blockquote>
-<h3 id="在-Web-开发中，确实会有两个转折点同时到来。"><a href="#在-Web-开发中，确实会有两个转折点同时到来。" class="headerlink" title="在 Web 开发中，确实会有两个转折点同时到来。"></a>在 Web 开发中，确实会有两个转折点同时到来。</h3><p><strong>web 开发转折点</strong>是你有能力构建任何你想构建的数据驱动应用。意味着你能构建一个多页面的 web 应用，并用一个简单的数据库存储和关联信息。web 开发者称这个叫做“精通增删改查”。在这个阶段，你应该能通过 github 上或博客上的文档集成一些简单的三方库。<br><strong>算法和数据结构转折点</strong>是一个更深层次的转折点，但实际上更重要。攻克了这一阶段就会精通他们所使用的编程语言。除了掌握编程的基本原理，也会对解决复杂编码问题有深入理解。<br>掌握了数据结构和算法的人能够：</p>
-<ul>
-<li>写排序算法</li>
-<li>实现和翻转链表</li>
-<li>理解并借助栈、队列、和树来编程</li>
-<li>使用递归和迭代方法来写计算机程序</li>
-</ul>
-<p>简而言之，一旦你跨越了这个转折点，你会掌握数据处理方法，并了解影响代码新性能的关键。传统的计算机科学教育只关注于让他们的学生跨越算法和数据结构阶段。很多学校通过已经不在工业界使用的编程语言来教授这些知识，比如 Schema、Racket 或 LISP。<br><strong>大多数技术面试，面试官会假定你已经越过了 web 开发阶段，考虑到那是更容易做到的。他们的问题更聚焦于考察你的数据结构和算法能力。</strong>那些问题通常关注于上述我们提到的话题：排序算法、翻转链表、使用栈、队列和树。</p>
-<h3 id="一旦开发者跨越了-web-开发阶段和数据结构及算法阶段，他就掌握了通向编程王国的钥匙。"><a href="#一旦开发者跨越了-web-开发阶段和数据结构及算法阶段，他就掌握了通向编程王国的钥匙。" class="headerlink" title="一旦开发者跨越了 web 开发阶段和数据结构及算法阶段，他就掌握了通向编程王国的钥匙。"></a>一旦开发者跨越了 web 开发阶段和数据结构及算法阶段，他就掌握了通向编程王国的钥匙。</h3><p>那些开发者能解决一些交叉问题：在高级 web 应用环境中构建需要的复杂算法。那正是高级 web 开发者每天处理的问题。</p>
-<h3 id="转折点结论"><a href="#转折点结论" class="headerlink" title="转折点结论"></a>转折点结论</h3><p>转折点最大的结论听起来有点违反直觉，先深呼吸一下：</p>
-<blockquote>
-<p>在学习编程的整个宏大事项中，特定领域知识并不重要</p>
-</blockquote>
-<p>是的，我不是在开玩笑，它真的不重要。一旦你跨过了转折点阶段，那些概念可以在一两周，甚至几天通过入门手册学会。<br><strong>最后，真正关键的是：</strong></p>
-<ul>
-<li>你对一个<strong>web 框架有牢固的理解</strong></li>
-<li>你对使用任何语言<strong>编写复杂算法代码有牢固的理解</strong></li>
-</ul>
-<h3 id="招聘经理期望开发者有牢固的-web-开发和算法技能。"><a href="#招聘经理期望开发者有牢固的-web-开发和算法技能。" class="headerlink" title="招聘经理期望开发者有牢固的 web 开发和算法技能。"></a>招聘经理期望开发者有牢固的 web 开发和算法技能。</h3><p>当我在 PayPal 工作时，我们组招聘了一个没有任何 Ralis 经验的高级 Rails 开发-但是他在 Python、LISP、Perl 方面有很多编码经验。几天后，他已经在组内有较大影响力了。在几周内，有巨大影响力。他很快成为技术组的主管。这是我们做过的最成功的招聘决定。<br><strong>别迷恋技术栈。</strong>很多人都会这么说“AngularJS 最近正火”，“Javascript 正在上升”，“最新的趋势是…”,我的回复是：“那有如何？”。当你学习如何编程时，你主要目的是找到转折点并跨越它。一旦你做到了，学习新的，时尚性感的语言都不困难。<br><strong>变得独立自主。</strong>有能力通过不通过指导手册学习新的编码技能意味着你不再需要等待任何人的帮助。意味着对于大多数你需要学习的，通过简单的搜索和阅读特定的你需要的材料就行。<br>这并不意味着你会立刻“知道”一切，只是你能“算出”一切。本质上讲，你将无坚不摧。</p>
-<h3 id="在转折点阶段你要发展的技能"><a href="#在转折点阶段你要发展的技能" class="headerlink" title="在转折点阶段你要发展的技能"></a>在转折点阶段你要发展的技能</h3><p>作为软件开发者，最好的参考材料时你以前写过的类似的代码。当你完全理解了你写的代码，你不需要记录所有的细节到你脑中。这意味着<strong>当你要开发一个新功能时，第一个要问自己的问题是：“我是否曾经做过类似的？”。</strong>如果做过，在脑中一行一行回顾和检查这些代码。重新理解是怎么做的并问自己“我现在能用相同的方式吗”？<br>你会花大量时间去看视频因为<strong>视频沉溺于解释特定领域细节。</strong>例如当你要集成一个 google 地图 API 时，如果你曾经做过，你会花费不到一分钟的时间去打开 github 上的代码，然后拷贝粘贴到新项目中。如果看视频，可能需要 10-30 分钟的时间重复观看。</p>
-<h3 id="高效跨越转折点的策略"><a href="#高效跨越转折点的策略" class="headerlink" title="高效跨越转折点的策略"></a>高效跨越转折点的策略</h3><p>由于跨越转折点时编程学习中最重要的部分，你必须为自己设置一个尽可能顺畅的流程。意味着你需要在辅导之前准备一下，在这段时间保持正确的心态。<br><strong>在辅导阶段，从浏览结构材料中跳出来，让自己一直直面问题。</strong></p>
-<ul>
-<li>对那些重要的经验教训，尝试着跳出指导手册的范围做些事情。如果你看的指导手册提供挑战和自测部分，完成他们。解决没有帮助文档的挑战会让你解决那些没有结构化手册的问题更有经验。</li>
-<li><strong>尽可能的少用手册。</strong>在消防带，我们会让学员直接集成某个模块或则按照手册完成一些事情，而不是像大多数初学者那样跟随手册执行命令。很多学生会读文档，入门手册作为备份。请注意到：文档会把你认为是已经跨越转折点的开发着。能顺畅的阅读和跟随 github 上的文档指导能助你一臂之力。</li>
-<li>关注重要的事情并尽量代码复用。学会做一些通用的事情，例如：从头开始构建一个应用程序，推送新 app 到 github 或则 Heroku，在早期做数据迁移。</li>
-</ul>
-<p>越过转折点是具有挑战性的，这里给出一些建议帮助你越过：</p>
-<ul>
-<li>明白这是一个困难的过程并且放轻松，当然要实事求是。你不能拿你过文档的超级速度和自己学习的蜗牛速度做对比。你要牢记，你在独自学习。并且你在这个阶段，你正在用新技能解决新问题。</li>
-<li>如果你感到不自信，你要明白这种感觉完全正常，继续努力吧。如果你继续奋斗，尝试着和已经跨越转折点阶段的人交流交流。那有助于你找到当前你所处位置，并确保你正在经历的只是暂时性的。<strong>持续工作，但不能过度工作。</strong>在游戏的这个阶段，要明白你每天最多只能高效率的工作 6 小时。超负荷的工作只能延长你跨越转折点的时间。</li>
-</ul>
-<p>在这个阶段，增加自信的最好方法是打破任何你怀疑的。你的情绪开始像过山车一样。有时候你感觉像着了火一样，但是经过 15 分钟一直专研这个问题，你的感觉会完全相反。<br>一个问题如果花费了 5 分钟或 5 小时都毫无头绪，会让人感到沮丧。充足的信心是你每一次你越过障碍并且成功实现了一个新功能的保证。当独立解决了很多难题后，你会沉迷于做舒适区外的事情。</p>
-<h3 id="如何知道你已经跨越了转折点"><a href="#如何知道你已经跨越了转折点" class="headerlink" title="如何知道你已经跨越了转折点"></a>如何知道你已经跨越了转折点</h3><p>转折点最后一个阶段是认同。认同软件开发是一个持续学习的过程。承认成功学会任何事情的感觉，就是意味着开始思考解决更复杂的问题。<br><strong>你感受到转折点阶段了吗？向你的朋友分享并讨论这篇文章，你会惊奇的发现很多人都曾经遇到并越过了转折点。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 选择排序</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">findSmallest</span>(<span class="params">arr</span>):</span><br><span class="line">    smallest = arr[<span class="number">0</span>]</span><br><span class="line">    smallest_index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(arr)):</span><br><span class="line">        <span class="keyword">if</span> arr[i] &lt; smallest:</span><br><span class="line">            smallest = arr[i]</span><br><span class="line">            smallest_index = i</span><br><span class="line">    <span class="keyword">return</span> smallest_index</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> findSmallest([<span class="number">5</span>,<span class="number">3</span>,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">selectionSort</span>(<span class="params">arr</span>):</span><br><span class="line">    newArr = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(arr)):</span><br><span class="line">        smallest = findSmallest(arr)</span><br><span class="line">        newArr.append(arr.pop(smallest))</span><br><span class="line">    <span class="keyword">return</span> newArr</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> selectionSort([<span class="number">8</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">[1, 2, 2, 4, 7, 8, 10]</span><br></pre></td></tr></table></figure>
+
+<h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><p>递归只是让解决方案更清晰，并没有性能上的优势。<br>如果使用循环，程序性能可能会更高；如果使用递归，程序可能更容易理解。如何选择要看什么对你来说更重要。<br>每个递归函数都有两部分：基线条件和递归条件。递归条件指的是函数调用自己，基线条件则指函数不再调用自己。<br>栈只有两种方法，从栈顶压入，从栈顶弹出。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">countdown</span>(<span class="params">i</span>):</span><br><span class="line">    <span class="built_in">print</span> i</span><br><span class="line">    <span class="keyword">if</span> i &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        countdown(i-<span class="number">1</span>)</span><br><span class="line"><span class="comment"># print countdown(5)</span></span><br><span class="line"><span class="comment"># 阶乘的递归函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fact</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">if</span> x == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> x * fact(x-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> fact(<span class="number">7</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5040</span><br></pre></td></tr></table></figure>
+
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>快速排序使用分而治之的策略<br>工作原理</p>
+<ol>
+<li>找到简单的基线条件；</li>
+<li>确定如何缩小问题的规模，使其符合基线条件。</li>
+</ol>
+<p>快速排序调用栈深度和选择基准值有关，最差情况基准值选择到最小值，调用栈深度为数组长度 n。最好情况基准值取到平均值，调用栈深度为 logn。<br>每一层调用栈处理的数据都是 n，所以每一层调用栈处理次数为 n。<br>算法的性能在 O(n _ n) ~ O(n _ log n) 之间。<br>选择排序行性能总是 O(n * n)</p>
+<p>练习<br>使用大 O 表示法，下面各种操作都需要多长时间？</p>
+<ol>
+<li>打印数组中每个元素 n</li>
+<li>将数组中每个元素的值都乘以 2 n</li>
+<li>只将数组第一个元素值乘以 2  1</li>
+<li>根据数组元素创建乘法表  n * n</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数组相加</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sum_arr</span>(<span class="params">arr</span>):</span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> arr:</span><br><span class="line">        total = total + x</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line"><span class="built_in">print</span> sum_arr([<span class="number">1</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">8</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sum_arr2</span>(<span class="params">arr</span>):</span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(arr) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="built_in">len</span>(arr) == <span class="number">1</span>:</span><br><span class="line">        total = arr[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        total = sum_arr2(arr[<span class="number">1</span>:]) + arr[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> sum_arr2([<span class="number">1</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">8</span>])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">16</span><br><span class="line">16</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 快速排序</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fast_sort</span>(<span class="params">arr</span>):</span><br><span class="line">    new_arr = []</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(arr) &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> arr</span><br><span class="line">    <span class="keyword">elif</span> <span class="built_in">len</span>(arr) == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">if</span> arr[<span class="number">0</span>] &gt; arr[<span class="number">1</span>]:</span><br><span class="line">            new_arr.append(arr[<span class="number">1</span>])</span><br><span class="line">            new_arr.append(arr[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            new_arr = arr</span><br><span class="line">        <span class="keyword">return</span> new_arr</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        larger = []</span><br><span class="line">        smaller = []</span><br><span class="line">        pivot = arr[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> arr:</span><br><span class="line">            <span class="keyword">if</span> i &lt; pivot:</span><br><span class="line">                smaller.append(i)</span><br><span class="line">            <span class="keyword">elif</span> i &gt; pivot:</span><br><span class="line">                larger.append(i)</span><br><span class="line">        smaller_sorted = fast_sort(smaller)</span><br><span class="line">        larger_sorted = fast_sort(larger)</span><br><span class="line">        <span class="keyword">return</span> smaller_sorted + [pivot] + larger_sorted</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(fast_sort([<span class="number">2</span>,<span class="number">1</span>,<span class="number">8</span>,<span class="number">7</span>,<span class="number">998</span>,<span class="string">&#x27;1&#x27;</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 快熟排序 教程代码</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">quicksort</span>(<span class="params">arr</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(arr) &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> arr</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        pivot = arr[<span class="number">0</span>]</span><br><span class="line">        less = [i <span class="keyword">for</span> i <span class="keyword">in</span> arr[<span class="number">1</span>:] <span class="keyword">if</span> i &lt;= pivot]</span><br><span class="line">        greater = [i <span class="keyword">for</span> i <span class="keyword">in</span> arr[<span class="number">1</span>:] <span class="keyword">if</span> i &gt; pivot]</span><br><span class="line">        <span class="keyword">return</span> quicksort(less) + [pivot] + quicksort(greater)</span><br><span class="line"><span class="built_in">print</span> quicksort([<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">3</span>,<span class="number">8</span>,<span class="number">12</span>])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 7, 8, 998, &#x27;1&#x27;]</span><br><span class="line">[1, 3, 3, 5, 7, 8, 12]</span><br></pre></td></tr></table></figure>
+
+<h1 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h1><p>散列函数是这样的函数，无论你给它什么数据，它都还你一个数字。<br>散列函数将输入映射到数字，满足两个要求：相同输入返回相同输出，一致性；不同输入返回不同输出。<br>python 中字典就是散列表<br>散列表适用于：模拟映射关系，防止重复，缓存数据<br>散列表被用于大海捞针式的查找。<br>散列表（平均） 散列表（最坏）   数组   链表<br>查找  O(1)       O(n)        O(1)    O(n)<br>插入  O(1)       O(n)        O(n)    O(1)<br>删除  O(1)       O(n)        O(n)    O(1)</p>
+<p>使用散列表要避开糟糕情况，方法 1：较低的填装因子（散列表元素个数/ 位置总数），2 良好的散列函数。<br>填装比例操作 70%，数组长度增加 1 倍。</p>
+<p>练习<br>5.5<br>c, 每一个字母开头的姓名都有<br>5.6<br>b，电池尺寸只有 4 种，可根据尺寸名字长度散列。<br>5.7<br>d，每本书作者不超过 10 个，可以用模 10 值散列。</p>
+<h1 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h1><p>图用于模拟不同的东西如何连接。<br>解决最短路径问题的算法被称为广度优先搜索。能回答 1：从节点 A 触发，有前往 B 的路径吗？2：从节点 A 触发，哪条路径最短？</p>
+<p>广度优先搜索运行时间为 O(人数+边数)，V 为顶点，E 为边，通常记作 O(V+E)<br>可以用拓扑排序创建一个有序的任务列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line">graph = &#123;<span class="string">&#x27;you&#x27;</span>: [<span class="string">&#x27;alice&#x27;</span>,<span class="string">&#x27;bob&#x27;</span>,<span class="string">&#x27;claire&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;bob&#x27;</span>: [<span class="string">&#x27;anuj&#x27;</span>,<span class="string">&#x27;peggy&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;alice&#x27;</span>: [<span class="string">&#x27;peggy&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;claire&#x27;</span>: [<span class="string">&#x27;thom&#x27;</span>,<span class="string">&#x27;jonny&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;anuj&#x27;</span>: [],</span><br><span class="line">        <span class="string">&#x27;peggy&#x27;</span>: [],</span><br><span class="line">        <span class="string">&#x27;thom&#x27;</span>: [],</span><br><span class="line">        <span class="string">&#x27;jonny&#x27;</span>: []&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">person_is_seller</span>(<span class="params">name</span>):</span><br><span class="line">    <span class="keyword">return</span> name[-<span class="number">1</span>] == <span class="string">&#x27;m&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find_seller</span>(<span class="params">graph</span>):</span><br><span class="line">    search_queue = deque()</span><br><span class="line">    search_queue.extend(graph[<span class="string">&#x27;you&#x27;</span>])</span><br><span class="line">    searched = []</span><br><span class="line">    <span class="keyword">while</span> search_queue:</span><br><span class="line">        person = search_queue.popleft()</span><br><span class="line">        <span class="keyword">if</span> person <span class="keyword">not</span> <span class="keyword">in</span> searched:</span><br><span class="line">            <span class="keyword">if</span> person_is_seller(person):</span><br><span class="line">                <span class="built_in">print</span> person + <span class="string">&#x27; is a mango seller&#x27;</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                search_queue.extend(graph[person])</span><br><span class="line">                searched.append(person)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> find_seller(graph)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">thom is a mango seller</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<h1 id="狄克斯特拉算法（Dijkstra）"><a href="#狄克斯特拉算法（Dijkstra）" class="headerlink" title="狄克斯特拉算法（Dijkstra）"></a>狄克斯特拉算法（Dijkstra）</h1><p>加权图，计算加权图种的最短路径<br>图中的环导致狄克斯特拉算法失效，有负权边也失效。</p>
+<ol>
+<li>找出最便宜的节点</li>
+<li>更新该节点的邻居的开销</li>
+<li>重复这个过程，直到对图种每个节点都这么做了</li>
+<li>计算最终路径<br>算法适用于有向无环图</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">graph = &#123;</span><br><span class="line">    <span class="string">&#x27;start&#x27;</span>: &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">6</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">2</span>&#125;,</span><br><span class="line">    <span class="string">&#x27;a&#x27;</span>: &#123;<span class="string">&#x27;fin&#x27;</span>: <span class="number">1</span>&#125;,</span><br><span class="line">    <span class="string">&#x27;b&#x27;</span>: &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;fin&#x27;</span>: <span class="number">5</span>&#125;,</span><br><span class="line">    <span class="string">&#x27;fin&#x27;</span>:&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">infinity = <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">costs = &#123;</span><br><span class="line">    <span class="string">&#x27;a&#x27;</span>: <span class="number">6</span>,</span><br><span class="line">    <span class="string">&#x27;b&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;fin&#x27;</span>: infinity</span><br><span class="line">&#125;</span><br><span class="line">parents = &#123;</span><br><span class="line">    <span class="string">&#x27;a&#x27;</span>: <span class="string">&#x27;start&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;b&#x27;</span>: <span class="string">&#x27;start&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;fin&#x27;</span>: <span class="literal">None</span></span><br><span class="line">&#125;</span><br><span class="line">processed = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find_lowest_cost_node</span>(<span class="params">costs</span>):</span><br><span class="line">    lowest_cost = <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">    lowest_cost_node = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">for</span> node <span class="keyword">in</span> costs:</span><br><span class="line">        cost = costs[node]</span><br><span class="line">        <span class="keyword">if</span> cost &lt; lowest_cost <span class="keyword">and</span> node <span class="keyword">not</span> <span class="keyword">in</span> processed:</span><br><span class="line">            lowest_cost = cost</span><br><span class="line">            lowest_cost_node = node</span><br><span class="line">    <span class="keyword">return</span> lowest_cost_node</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dijkstra</span>(<span class="params">costs</span>):</span><br><span class="line">    node = find_lowest_cost_node(costs)</span><br><span class="line">    <span class="keyword">while</span> node <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        cost = costs[node]</span><br><span class="line">        neighbors = graph[node]</span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> neighbors.keys():</span><br><span class="line">            new_cost = cost + neighbors[n]</span><br><span class="line">            <span class="keyword">if</span> costs[n] &gt; new_cost:</span><br><span class="line">                costs[n] = new_cost</span><br><span class="line">                parents[n] = node</span><br><span class="line">        processed.append(node)</span><br><span class="line">        node = find_lowest_cost_node(costs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> find_lowest_cost_node(costs)</span><br><span class="line">dijkstra(costs)</span><br><span class="line"><span class="built_in">print</span> costs, parents, processed</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b</span><br><span class="line">&#123;&#x27;a&#x27;: 5, &#x27;b&#x27;: 2, &#x27;fin&#x27;: 6&#125; &#123;&#x27;a&#x27;: &#x27;b&#x27;, &#x27;b&#x27;: &#x27;start&#x27;, &#x27;fin&#x27;: &#x27;a&#x27;&#125; [&#x27;b&#x27;, &#x27;a&#x27;, &#x27;fin&#x27;]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 练习7.1</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Dijkstra</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,graph_info</span>):</span><br><span class="line">        self.graph = graph_info[<span class="string">&#x27;graph&#x27;</span>]</span><br><span class="line">        self.costs = graph_info[<span class="string">&#x27;costs&#x27;</span>]</span><br><span class="line">        self.parents = graph_info[<span class="string">&#x27;parents&#x27;</span>]</span><br><span class="line">        self.processed = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">find_lowest_cost_node</span>(<span class="params">self</span>):</span><br><span class="line">        lowest_cost = <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">        lowest_cost_node = <span class="literal">None</span></span><br><span class="line">        <span class="built_in">print</span> self.costs</span><br><span class="line">        <span class="keyword">for</span> node <span class="keyword">in</span> self.costs:</span><br><span class="line">            cost = self.costs[node]</span><br><span class="line">            <span class="keyword">if</span> cost &lt; lowest_cost <span class="keyword">and</span> node <span class="keyword">not</span> <span class="keyword">in</span> self.processed:</span><br><span class="line">                lowest_cost = cost</span><br><span class="line">                lowest_cost_node = node</span><br><span class="line">                self.processed.append(node)</span><br><span class="line">        <span class="built_in">print</span> lowest_cost_node</span><br><span class="line">        <span class="keyword">return</span> lowest_cost_node</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">run</span>(<span class="params">self</span>):</span><br><span class="line">        node = find_lowest_cost_node(self)</span><br><span class="line">        <span class="built_in">print</span> node</span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            cost = self.costs[node]</span><br><span class="line">            neighbors = self.graph[node]</span><br><span class="line">            <span class="keyword">for</span> n <span class="keyword">in</span> neighbors.keys():</span><br><span class="line">                new_cost = cost + neighbors[n]</span><br><span class="line">                <span class="keyword">if</span> self.costs[n] &gt; new_cost:</span><br><span class="line">                    self.costs[n] = new_cost</span><br><span class="line">                    self.parents[n] = node</span><br><span class="line">            self.processed.append(node)</span><br><span class="line">            <span class="built_in">print</span> self.processed</span><br><span class="line">            node = find_lowest_cost_node(self)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_result</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span> self.costs, self.parents, self.processed</span><br><span class="line"></span><br><span class="line">graph_1 = &#123;</span><br><span class="line">    <span class="string">&#x27;graph&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;start&#x27;</span>: &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">6</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">2</span>&#125;,</span><br><span class="line">        <span class="string">&#x27;a&#x27;</span>: &#123;<span class="string">&#x27;fin&#x27;</span>: <span class="number">1</span>&#125;,</span><br><span class="line">        <span class="string">&#x27;b&#x27;</span>: &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;fin&#x27;</span>: <span class="number">5</span>&#125;,</span><br><span class="line">        <span class="string">&#x27;fin&#x27;</span>:&#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&#x27;costs&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;a&#x27;</span>: <span class="number">6</span>,</span><br><span class="line">        <span class="string">&#x27;b&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="string">&#x27;fin&#x27;</span>: <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&#x27;parents&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;a&#x27;</span>: <span class="string">&#x27;start&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;b&#x27;</span>: <span class="string">&#x27;start&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;fin&#x27;</span>: <span class="literal">None</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a = Dijkstra(graph_1)</span><br><span class="line">a.find_lowest_cost_node()</span><br><span class="line">a.find_lowest_cost_node()</span><br><span class="line">a.find_lowest_cost_node()</span><br><span class="line">a.find_lowest_cost_node()</span><br><span class="line"><span class="comment">#a.run()</span></span><br><span class="line"><span class="comment"># a.get_result()</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#x27;a&#x27;: 6, &#x27;b&#x27;: 2, &#x27;fin&#x27;: inf&#125;</span><br><span class="line">b</span><br><span class="line">&#123;&#x27;a&#x27;: 6, &#x27;b&#x27;: 2, &#x27;fin&#x27;: inf&#125;</span><br><span class="line">None</span><br><span class="line">&#123;&#x27;a&#x27;: 6, &#x27;b&#x27;: 2, &#x27;fin&#x27;: inf&#125;</span><br><span class="line">None</span><br><span class="line">&#123;&#x27;a&#x27;: 6, &#x27;b&#x27;: 2, &#x27;fin&#x27;: inf&#125;</span><br><span class="line">None</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph_1 = &#123;</span><br><span class="line">    <span class="string">&#x27;graph&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;start&#x27;</span>: &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">6</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">2</span>&#125;,</span><br><span class="line">        <span class="string">&#x27;a&#x27;</span>: &#123;<span class="string">&#x27;fin&#x27;</span>: <span class="number">1</span>&#125;,</span><br><span class="line">        <span class="string">&#x27;b&#x27;</span>: &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;fin&#x27;</span>: <span class="number">5</span>&#125;,</span><br><span class="line">        <span class="string">&#x27;fin&#x27;</span>:&#123;&#125;</span><br><span class="line">    &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>看了 1-7 章，对算法表示法、复杂度计算有一定的认识。学会简单查找、二分查找、简单排序、快速排序、广度优先搜索、狄克斯特拉算法。<br>加深对递归的理解，特别是用递归做出数组内元素求和，感觉很不错。后面摸索编出快速排序。递归中的循环，在调用栈中展开实现的。<br>对数据结构 数组、链表、散列表有更深的认识，数组读快，链表编辑快，散列表结合两者。<br>狄克斯特拉算法的类还没调试正确，后续继续调试。<br>学习分而治之的思想，每次都减少输入参数数量。<br>后面几章贪心算法、背包问题，看着有些吃力，多看两遍试试。</p>
 
       
     </div>
@@ -457,7 +432,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/06/04/yuque/django%E7%AE%80%E5%8D%95%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/14/yuque/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E8%AF%BB%E4%B9%A6%E7%9A%84%E4%B9%A0%E6%83%AF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -475,7 +450,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/06/04/yuque/django%E7%AE%80%E5%8D%95%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">django简单博客总结</a>
+          <a href="/2020/08/14/yuque/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E8%AF%BB%E4%B9%A6%E7%9A%84%E4%B9%A0%E6%83%AF/" class="post-title-link" itemprop="url">我为什么有读书的习惯</a>
         </h2>
 
         <div class="post-meta-container">
@@ -486,7 +461,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-06-04 15:42:21" itemprop="dateCreated datePublished" datetime="2020-06-04T15:42:21+08:00">2020-06-04</time>
+      <time title="创建时间：2020-08-14 08:30:50" itemprop="dateCreated datePublished" datetime="2020-08-14T08:30:50+08:00">2020-08-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -506,20 +481,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>博客功能：用户注册与登陆，登陆后可以发布内容，评论博客。</p>
-<h2 id="dango-auth-模块用于实现用户登陆与注册"><a href="#dango-auth-模块用于实现用户登陆与注册" class="headerlink" title="dango auth 模块用于实现用户登陆与注册"></a>dango auth 模块用于实现用户登陆与注册</h2><p>urls:<br>signup 注册链接<br>login  登陆链接<br>logout  登出链接<br> model：django.contrib.auth.models.User</p>
-<h3 id="views"><a href="#views" class="headerlink" title="views"></a>views</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">from django.shortcuts import render, redirect</span><br><span class="line">from django.http import HttpResponse</span><br><span class="line">from django.contrib.auth.models import User</span><br><span class="line">from django.contrib.auth import views</span><br><span class="line">from django.contrib.auth.forms import UserCreationForm</span><br><span class="line">from django.contrib.auth.decorators import login_required</span><br><span class="line"># Create your views here.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def signup(request):</span><br><span class="line">    if request.method == &#x27;POST&#x27;:</span><br><span class="line">        form = UserCreationForm(request.POST)</span><br><span class="line">        if form.is_valid():</span><br><span class="line">            user = form.save()</span><br><span class="line">            return redirect(&#x27;pri_home&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        form = UserCreationForm</span><br><span class="line">    return render(request, &#x27;signup.html&#x27;, &#123;&#x27;form&#x27;: form&#125;)</span><br><span class="line"></span><br><span class="line">def login(request):</span><br><span class="line">		views.LoginView.as_view(template_name=&#x27;login.html&#x27;)</span><br><span class="line"></span><br><span class="line">def logout(request):</span><br><span class="line">		views.LogoutView.as_view()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="form"><a href="#form" class="headerlink" title="form"></a>form</h3><p>使用内置 form django.contrib.auth.forms.UserCreationForm</p>
-<p>templates:<br>signup.html 渲染 UserCreationForm，和其他一些链接。<br>login.html  内部视图 LoginView.as_view()使用，默认传登陆 form 到模板。</p>
-<h3 id="settings"><a href="#settings" class="headerlink" title="settings"></a>settings</h3><p>设置模板目录</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DIRS&#x27;: [</span><br><span class="line">            os.path.join(BASE_DIR, &#x27;templates&#x27;)</span><br><span class="line">        ],</span><br></pre></td></tr></table></figure>
-
-<p>设置登陆 url，登陆跳转 url，注销跳转 url</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">STATIC_URL = &#x27;/static/&#x27;</span><br><span class="line">LOGIN_REDIRECT_URL = &#x27;pri_home&#x27;</span><br><span class="line">LOGIN_URL = &#x27;login&#x27;</span><br><span class="line">LOGOUT_REDIRECT_URL = &#x27;pub_home&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="视图高级用法"><a href="#视图高级用法" class="headerlink" title="视图高级用法"></a>视图高级用法</h2><p>基于函数的视图 FBV<br>基于类的视图 CBV<br>基于类的通用视图   GCBV</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一开始就学框架很不好，因为你不知道具体细节，只知道遇到这个问题，就这么用就行了，你会不求甚解。积累的都是知道型知识，而不是一套解决问题的通用方法。</p>
+          <p>今天在上班路上，突然就想明白，为什么我有看书的习惯，而我 lp 没有？原因是朋友圈环境影响的。<br>我微信关注的公众号，经常打开阅读的，都是喜欢看书的人，并且时不时发自己的读书笔记和推荐书籍，我接收到这些信息，去看推荐的书籍，去写读书笔记，就慢慢习惯了。</p>
+<p>我 lp 关注的公众号都是母婴、小孩教育、官方新闻机构的公众号、丁香医生等，全部都是推荐买买买或叛卖焦虑。如果不这么带娃、不注意这些、不买买买，你就会死得很惨。另外，机构的公众号只发表一些猎奇、不带观点的信息，除了吸引流量，几乎没有价值。朋友圈也是这样，卖房子、卖钱、卖母婴、衣服，每天都接收这样的信息流，能养成静心阅读的习惯才怪。</p>
+<p>抖音就是饲养场，饲料是短视频。通过奖励你你喜欢的内容，把你训练得像巴普洛夫的狗一样听话，乖乖的爱上这个饲养场，在里面替他赚钱，毫不关心你在里面是否有合适的营养。既然人的天性是喜欢短期及时的刺激，那就一直来吧，不管剂量，只为让你上瘾。如果剂量太大，摧毁了你，那就枯萎做花肥吧，你曾经为这个系统提供过养分，有过价值，现在没有了，系统不需要你了。也联想到阿里王民明关于阿里这个系统的观点：有些人来阿里是为这个系统提供养料的，来了 1 年，养分提供完，就没有在系统内存在的价值了，走吧；有些人在阿里系统里把自己打碎，做了系统的养料，并在系统中重生，开始从系统吸取养料，那就留下吧。</p>
+<p><strong>我们长成我们选择长成的样子。</strong></p>
+<p>过多的信息就是没有信息，屏蔽浪费自己注意力的信息，让自己在一个养分充足，配方合适的信息流里面成长。</p>
+<p>朋友圈买房的保留 2 个，其他的都屏蔽。<br>公众号没态度的，只提供信息的，取关，保留有态度的个人运营的微信公众号。</p>
+<p>我关注的有读书习惯的个人公众号：小道消息、余晟以为、MacTalk、软件那些事、孤独大脑、BetterRead、大玩家张磊、keso 怎么看、唐巧、阮一峰的网络日志、caoz 的梦呓、二爷鉴书、崇旭、孟岩、精进学堂。</p>
+<p>如果你也想养成阅读的习惯，希望这些公众号能帮助到你。</p>
+<p>不断向这个世界释放善意，这个世界也会善待你。 –ETF 拯救世界</p>
 
       
     </div>
@@ -546,7 +516,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/05/26/yuque/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E5%AD%A6%E4%B9%A0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/12/yuque/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%A6%82%E4%BD%95%E6%8A%8A%E6%8E%A7%E8%87%AA%E5%B7%B1%E7%9A%84%E8%81%8C%E4%B8%9A-%E8%AF%BB%E5%90%8E%E6%84%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -564,7 +534,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/05/26/yuque/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">系统设计学习</a>
+          <a href="/2020/08/12/yuque/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%A6%82%E4%BD%95%E6%8A%8A%E6%8E%A7%E8%87%AA%E5%B7%B1%E7%9A%84%E8%81%8C%E4%B8%9A-%E8%AF%BB%E5%90%8E%E6%84%9F/" class="post-title-link" itemprop="url">程序员如何把控自己的职业-读后感</a>
         </h2>
 
         <div class="post-meta-container">
@@ -575,14 +545,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-05-26 10:25:36" itemprop="dateCreated datePublished" datetime="2020-05-26T10:25:36+08:00">2020-05-26</time>
+      <time title="创建时间：2020-08-12 17:56:17" itemprop="dateCreated datePublished" datetime="2020-08-12T17:56:17+08:00">2020-08-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:52" itemprop="dateModified" datetime="2022-06-29T11:46:52+08:00">2022-06-29</time>
+      <time title="修改时间：2022-06-29 11:46:53" itemprop="dateModified" datetime="2022-06-29T11:46:53+08:00">2022-06-29</time>
     </span>
 
   
@@ -595,11 +565,189 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>设计一个在线 bbs<br>参考<a target="_blank" rel="noopener" href="https://foofish.net/django-tutorial-04.html">https://foofish.net/django-tutorial-04.html</a><br>web 开发不仅仅是编码<br><img src="http://huilu-blog.colinspace.com//FjFfrqv7Ui5hFn9hyPRPcRcbimzH.jpeg"></p>
-<h3 id="用例图"><a href="#用例图" class="headerlink" title="用例图"></a>用例图</h3><p>我们的项目是一个论坛系统，维护几个板块，作为话题的分类。在指定板块内，用户可以创建话题讨论，其他用户可以回复讨论。<br>要区分普通用户和管理员，管理员可以创建板块，可以删除话题和评论。普通用户可以创建、修改、删除自己的话题和评论。<br><img src="http://huilu-blog.colinspace.com//FkaWdMcjLadh5VCSH9OMazqm-HJP.svg">图 1：Web Board 提供的核心功能用例图</p>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><p>从用例图中，我们可以开始思考项目的需要创建的实体，就是操作的对象，名词。<br><img src="http://huilu-blog.colinspace.com//FobvFLLtKIw4MpkJzHJU1qb8QMFT.svg">图 2：Web Board 类图<br>需要考虑模型的字段及模型之间的关系。<br><img src="http://huilu-blog.colinspace.com//FrRjUyoCZtoAe8Fy62hSD15mDhQX.svg">图 3：强调类（模型）之间关系的类图<br><img src="http://huilu-blog.colinspace.com//Fo4f6prVeDHRFk00FH3EZn54Hgrd.svg">图 4：强调类（模型）与属性（字段）的类图</p>
-<h3 id="线框图（原型图）"><a href="#线框图（原型图）" class="headerlink" title="线框图（原型图）"></a>线框图（原型图）</h3><p>线框来定义要完成的工作，并清楚的了解我们要做什么<br><img src="http://huilu-blog.colinspace.com//Fpz3OUl_QWnpACe__ZJLzPt585hq.jpeg"></p>
-<p><a target="_blank" rel="noopener" href="https://free.modao.cc/app/bfb7190d9b014c8cfe2faadc9aad5a2e3a2c6bb0/embed/v2">点击查看【modao】</a></p>
+          <p>原文链接 <a target="_blank" rel="noopener" href="https://coolshell.cn/articles/20977.html">https://coolshell.cn/articles/20977.html</a></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>根据学习效率金字塔，一定要讨论、实践和教授给他人，学习内容留存率才高。所以这篇文章的目的是和自己讨论，看完文章后，对文章的总结归纳，个人看法。<br><img src="http://huilu-blog.colinspace.com//Fh7dby3eRVSmmCov9sjG6IEiDOMO.jpeg"></p>
+<h2 id="文章内容"><a href="#文章内容" class="headerlink" title="文章内容"></a>文章内容</h2><p>从了解市场、了解自己、学习方法三个方面展开。<br>如何把控自己职业，不管是程序员还是其他，都需要考虑。职业是一个市场产物，在市场中定价。把控自己的职业就是如何把自己的工作时间卖个好价钱。这需要了解市场、了解自己。了解到自己和市场的差距后，需要方法来缩小自己当前段位和期望段位的差距-学习方法。<br>市场对人才的分类：技工、特种工、工程师、设计师/架构师、经理。<br>通过 google 的技能评测卡了解自己能力所在的位置和发展方向。专业领域包括 TCP/IP Networking、Linux 系统、数据结构和算法、编程语言、人员管理、项目管理。程度分为 10 级，高中低三档。<br>了解自己的特点，然后根据自身特点，选择适合的学习方法。从特长、兴趣、方法、勤奋 4 个维度分析自己。</p>
+<p>学习方法<br>内容要选择一手信息，密度高的信息，不要去嚼别人嚼过的甘蔗，虽然不费牙，但是不甜。<br>内容要选基础信息，吃透原理。以不变应万变。所有的实现都是在基础原理的基础上实现的。<br>要有知识地图，关联相关信息，获得全貌并根据地图检测和排除盲区。<br>学习后要不断思考，举一反三。总结归纳也是举一反三的一个过程。</p>
+<h2 id="个人体会"><a href="#个人体会" class="headerlink" title="个人体会"></a>个人体会</h2><p>在不同企业中，各个工种的价值也不一样。价值由稀缺性确定。例如项目经理在大公司中价值高于工程师，因为项目经理要了解公司战略，协调资源做项目赚钱。创业公司工程师要实现创始人的想法，工程师比较值钱。</p>
+<p>个人定位为工程师，能用合适的工具和方法实现有价值的产品。需要衡量我在工程师中的各项能力等级。<br>工程师能力：1 认清要解决的问题的本质，知道为什么会产生，区别别人说的问题和真正要解决的问题，要对世界和人有深刻的认识。2 熟练的工具和工程方法，优雅的解决问题。<br>对世界、对人、对业务、对商业的认识需要多看书思考总结。熟练的工具、好的方法，需要实践、探索。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/03/yuque/Linux%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-%E7%9B%91%E6%8E%A7%E5%92%8C%E5%9F%BA%E5%87%86%E5%B7%A5%E5%85%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/03/yuque/Linux%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-%E7%9B%91%E6%8E%A7%E5%92%8C%E5%9F%BA%E5%87%86%E5%B7%A5%E5%85%B7/" class="post-title-link" itemprop="url">Linux性能调优-监控和基准工具</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-03 16:00:18" itemprop="dateCreated datePublished" datetime="2020-08-03T16:00:18+08:00">2020-08-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 11:46:58" itemprop="dateModified" datetime="2022-06-29T11:46:58+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="工具概览"><a href="#工具概览" class="headerlink" title="工具概览"></a>工具概览</h3><h4 id="性能监控工具"><a href="#性能监控工具" class="headerlink" title="性能监控工具"></a>性能监控工具</h4><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>top</td>
+<td>处理器活动</td>
+</tr>
+<tr>
+<td>vmstat</td>
+<td>系统活动，硬件和系统信息</td>
+</tr>
+<tr>
+<td>uptime，w</td>
+<td>平均系统负载</td>
+</tr>
+<tr>
+<td>ps，pstree</td>
+<td>显示进程</td>
+</tr>
+<tr>
+<td>free</td>
+<td>内存使用</td>
+</tr>
+<tr>
+<td>iostat</td>
+<td>平均 CPU 负载，磁盘活动</td>
+</tr>
+<tr>
+<td>sar</td>
+<td>收集并报告系统活动</td>
+</tr>
+<tr>
+<td>mpstat</td>
+<td>多处理器</td>
+</tr>
+<tr>
+<td>netstat</td>
+<td>网络统计</td>
+</tr>
+<tr>
+<td>iptraf</td>
+<td>实时网络统计</td>
+</tr>
+<tr>
+<td>tcpdump，ethereal</td>
+<td>详细网络流量分析</td>
+</tr>
+<tr>
+<td>nmon</td>
+<td>收集并报告系统活动</td>
+</tr>
+<tr>
+<td>strace</td>
+<td>系统调用</td>
+</tr>
+<tr>
+<td>Proc file system</td>
+<td>内核变量数据</td>
+</tr>
+</tbody></table>
+<h4 id="基准工具"><a href="#基准工具" class="headerlink" title="基准工具"></a>基准工具</h4><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Imbench</td>
+<td>系统微型基准</td>
+</tr>
+<tr>
+<td>iozone</td>
+<td>文件系统基准</td>
+</tr>
+<tr>
+<td>netperf</td>
+<td>网络性能基准</td>
+</tr>
+</tbody></table>
+<h3 id="监控工具详解"><a href="#监控工具详解" class="headerlink" title="监控工具详解"></a>监控工具详解</h3><h4 id="top"><a href="#top" class="headerlink" title="top"></a>top</h4><p>top 命令显示处理器实际的活动。默认以 CPU 使用率排序（P）、累计运行时间（T）和内存占用排序（M）。<br>c 命令切换显示进程详细路径。</p>
+<h4 id="vmstat"><a href="#vmstat" class="headerlink" title="vmstat"></a>vmstat</h4><p>vmstat 提供关于进程、内存、分页、IO 块，traps 和 CPU 活动信息。可选参数 -m 内核内存分配情况，-a 活动、不活动内存页。<br><img src="http://huilu-blog.colinspace.com//FjeWFRWb4WU0NRCsjXMSkGer2Aa4.png"><br>r：等待执行的进程数<br>b: 不可中断进程数<br>swpd: 虚拟内存使用<br>si: 磁盘交换到内存（KBps），so 内存交换到磁盘<br>bi:块请求到块设备数（blocks/s）,bo: 从块设备收到的块数量<br>in:每秒中断数<br>cs:每秒上下文切换数</p>
+<h4 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h4><p><img src="http://huilu-blog.colinspace.com//Fh1K5DIlv2K6K_DgrN2eZhYxjopd.png"><br>ps -eFy<br>RSS 物理内存使用量,SZ = code+data+stack 内存用量，WCHAN 进程休眠在内核哪个函数，- 正在运行 * 多线程。</p>
+<h4 id="free"><a href="#free" class="headerlink" title="free"></a>free</h4><p><img src="http://huilu-blog.colinspace.com//Fqfor7Lwo3L4BdyHu0ag9P4PhcjG.png"><br>输出图解<br><img src="http://huilu-blog.colinspace.com//FgukgPIFWn0v68YMB0dDi6ZFBc_6.png"></p>
+<h4 id="iostat"><a href="#iostat" class="headerlink" title="iostat"></a>iostat</h4><p><code>iostat</code>系统启动以来的统计数据<br><img src="http://huilu-blog.colinspace.com//FgJx17I8yaCokC2gvaEc9nQbieW2.png"><br><code>iostat -d -x sdb 1</code><br><img src="http://huilu-blog.colinspace.com//FpBJcJIOARwWpJmQkgLZIYEb9-co.png"><br>rrqm/s, wrqm/s: 每秒读写合并数<br>r/s,w/s:每秒读写请求数<br>rsec/s,wsec/s:每秒读写扇区数<br>rkB/s,wkB/s:每秒设备读写量<br>avgrq-sz: 平均请求大小，单位扇区<br>avgqu-sz: 每个请求的平均队列长度<br>await: 内核状态 CPU 利用率<br>svctm: 每个 IO 的平均服务时间<br>%util: IO 请求提交到设备的 CPU 使用时间比例，100%表示设备饱和了，CPU 提交到设备，设备处理不过来。</p>
+<h4 id="mpstat"><a href="#mpstat" class="headerlink" title="mpstat"></a>mpstat</h4><p>多核处理器统计信息，查看应用是否负载到多核<br><img src="http://huilu-blog.colinspace.com//Fht5o_NscArzAo2ZFFQzJpd5njcQ.png"></p>
+<h4 id="pmap"><a href="#pmap" class="headerlink" title="pmap"></a>pmap</h4><p>显示进程的内存分布</p>
+<h4 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h4><p><code>netstat -natuw</code><br><img src="http://huilu-blog.colinspace.com//Fs8EjT-g4MJXScJfwPKKPGoJXHsq.png"></p>
+<h4 id="strace"><a href="#strace" class="headerlink" title="strace"></a>strace</h4><p>strace 命令拦截并记录进程调用的 system calls、收到的信号。<br><code>strace -p &lt;pid&gt;</code> 监控进程<br><code>strace -c &lt;command&gt;</code> 每一个系统调用花费的时间</p>
+<h4 id="proc-file-system"><a href="#proc-file-system" class="headerlink" title="proc file system"></a>proc file system</h4><p><img src="http://huilu-blog.colinspace.com//FrHhYybkCIdDuFGXHEqeIpZnZv9a.png"><br>在/proc 目录中的文件记录了系统相关信息。<br>数字目录： 表示进程 PID<br>bus：总线系统信息，例如 PCI 总线和 USB 接口<br>irq：中断信息<br>net：网络子系统信息<br>scsi：scsi 子系统信息<br>sys：可调整的内核参数<br>tty：虚拟终端和物理设备的关联信息。</p>
+<h3 id="基准工具详解"><a href="#基准工具详解" class="headerlink" title="基准工具详解"></a>基准工具详解</h3><p>基准工具包含这几个功能模块：</p>
+<ul>
+<li>生成负载</li>
+<li>监控性能</li>
+<li>监控系统利用率</li>
+<li>出报告</li>
+</ul>
+<p>LMbench 检查上下文切换，本地通信，内存带宽和文件操作。<br>IOzone 测试磁盘 IO<br>netperf 测试 TCP/IP 性能<br>你必须指基准工具的特点，选择适合你需求的工具。其他有用工具列表<br><img src="http://huilu-blog.colinspace.com//FtF5Adba6eS0RcwxtEo3D7Wdk0Ei.png"></p>
 
       
     </div>
@@ -619,7 +767,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/43/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><span class="page-number current">44</span><a class="page-number" href="/page/45/">45</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/45/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/43/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><span class="page-number current">44</span><a class="page-number" href="/page/45/">45</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/45/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

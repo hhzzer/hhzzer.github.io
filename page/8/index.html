@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/ubuntu%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/play-for-win/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/ubuntu%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-title-link" itemprop="url">ubuntu搭建代理服务器</a>
+          <a href="/2022/07/04/yuque/play-for-win/" class="post-title-link" itemprop="url">play-for-win</a>
         </h2>
 
         <div class="post-meta-container">
@@ -196,7 +196,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:11:49 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:11:49+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:23:03 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:23:03+08:00">2022-07-04</time>
     </span>
 
   
@@ -209,14 +209,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-11-27<br>机器需要临时上网更新或安装软件包，通过代理服务器方式最方便。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install squid</span><br></pre></td></tr></table></figure>
-
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>编辑配置文件，添加允许访问代理服务器的网段<br>vi /etc/squid3/squid.conf 添加如下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">```python</span><br><span class="line">acl internal_network src 172.23.20.0/24</span><br><span class="line">http_access allow internal_network</span><br></pre></td></tr></table></figure>
-
-<p>service squid restart</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>squid 默认使用 3128 端口，在浏览器中添加服务器地址和 3128 即可。<br>centos 系统可在 yum.conf 中添加“proxy=<a href="http://192.16.x.x:3128”,即可通过代理连接外网yum服务器。">http://192.16.x.x:3128”,即可通过代理连接外网yum服务器。</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
+          <p>发表于 2017-12-04<br>要以玩为赢的姿态工作生活，而不是玩为享乐。</p>
+<h3 id="why"><a href="#why" class="headerlink" title="why"></a>why</h3><p>玩能增加经验值。玩是提前做生存预演，演练多了在现实生活中处理事情更有经验，让你更卓越。<br>在游戏中需要配合，就需要知道别人的需求，激发你的共情能力，让你成为社交高手。<br>德鲁克建议做企业家只需学习小说写作和诗歌鉴赏。小说写作培养对人性的洞察离，诗歌鉴赏则让人用有想象力的方式影响他人。<br>玩让你在安全的边缘探索，不断增加你的可能性。</p>
+<h3 id="how"><a href="#how" class="headerlink" title="how"></a>how</h3><p>游戏改变世界中提出的 4 个游戏化因素：目标、规则、即时反馈、自愿参与。<br>通过把工作往这四个方向设计实现游戏化，提高生产力和幸福感。</p>
+<h3 id="心法"><a href="#心法" class="headerlink" title="心法"></a>心法</h3><p>放轻松但不放下期待，目标要盯紧。<br>把失败设计得有趣，能直面失败，接着玩下去。<br>有限游戏无限化，在热爱的领域玩。<br>要以玩为赢的姿态，不要玩为享乐。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/"># 超级个体</a></p>
 
       
     </div>
@@ -243,7 +239,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/centos6%E5%8D%87%E7%BA%A7openssh%E8%84%9A%E6%9C%AC/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/CMDBuild%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -261,7 +257,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/centos6%E5%8D%87%E7%BA%A7openssh%E8%84%9A%E6%9C%AC/" class="post-title-link" itemprop="url">centos6升级openssh脚本</a>
+          <a href="/2022/07/04/yuque/CMDBuild%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">CMDBuild搭建与使用</a>
         </h2>
 
         <div class="post-meta-container">
@@ -273,7 +269,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:10:07 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:10:07+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:22:08 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:22:08+08:00">2022-07-04</time>
     </span>
 
   
@@ -286,12 +282,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-11-23<br>安全整改需要升级 openssh，写个没有副作用的脚本一键升级。</p>
-<h2 id="主要命令及参数解释"><a href="#主要命令及参数解释" class="headerlink" title="主要命令及参数解释"></a>主要命令及参数解释</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wget -N  url -P dist</span><br><span class="line"><span class="comment"># wget -N 会对比本地文件和待下载文件，保留最新的文件</span></span><br><span class="line"><span class="comment"># wget -P 设置文件保存的目录</span></span><br><span class="line">tar xzvf abc.tar.gz -C /usr/pwd/</span><br><span class="line"><span class="comment"># tar -C 解压到指定目录，会覆盖</span></span><br><span class="line">grep <span class="string">&#x27;abc&#x27;</span> || echo <span class="string">&quot;acn&quot;</span> &gt;&gt; file</span><br><span class="line"><span class="comment">#||运算。如果前一条命令返回0，则后一条执行；如果前一条返回1，后一条不执行。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <p>发表于 2017-12-02<br>做运维一直想有一个靠谱简单的 cmdb，知乎上说 cmdbuild 好用，今天搭建测试一下。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>不好用，复杂，学习功能需要花费大量时间。<br>java 开发，不熟悉，不喜欢。<br>下一步还是使用蓝鲸配置平台或者 adminset</p>
+<h2 id="搭建过程"><a href="#搭建过程" class="headerlink" title="搭建过程"></a>搭建过程</h2><h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>操作系统 centos7.2，数据库 postgresql-server9.2,jdk 1.8,tomcat8</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装jdk</span></span><br><span class="line">yum install java-<span class="number">1.8</span><span class="number">.0</span>-openjdk.x86_64</span><br><span class="line">java -version</span><br><span class="line"><span class="comment">#安装tomcat</span></span><br><span class="line">wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-<span class="number">8</span>/v8<span class="number">.5</span><span class="number">.24</span>/<span class="built_in">bin</span>/apache-tomcat-<span class="number">8.5</span><span class="number">.24</span>.tar.gz</span><br><span class="line">tar -xzvf apache-tomcat.tar.gz /usr/local/</span><br><span class="line"><span class="comment">#安装postgresql</span></span><br><span class="line">yum install https://download.postgresql.org/pub/repos/yum/<span class="number">9.3</span>/redhat/rhel-<span class="number">7</span>-x86_64/pgdg-centos93-<span class="number">9.3</span>-<span class="number">3.</span>noarch.rpm</span><br><span class="line">yum makecache</span><br><span class="line">yum install postgresql93-server postgresql93-contrib</span><br><span class="line">systemctl  status postgresql-<span class="number">9.3</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="脚本内容"><a href="#脚本内容" class="headerlink" title="脚本内容"></a>脚本内容</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># update openssh for centos6 or redhat6</span></span><br><span class="line"><span class="comment">## create by hhzzer</span></span><br><span class="line"><span class="comment">## version 0.2</span></span><br><span class="line"></span><br><span class="line">urlopenssl=http://<span class="number">172.23</span><span class="number">.20</span><span class="number">.251</span>:<span class="number">8000</span>/openssl-<span class="number">1.0</span><span class="number">.2</span>k.tar.gz</span><br><span class="line">urlopenssh=http://<span class="number">172.23</span><span class="number">.20</span><span class="number">.251</span>:<span class="number">8000</span>/openssh-<span class="number">7.5</span>p1.tar.gz</span><br><span class="line">url_repo=http://<span class="number">172.23</span><span class="number">.20</span><span class="number">.251</span>:<span class="number">8000</span>/centos.repo</span><br><span class="line"><span class="comment">#wget repo and install pakage</span></span><br><span class="line">mkdir /etc/yum.repos.d/repo-bak</span><br><span class="line">mv /etc/yum.repos.d/Cent* /etc/yum.repos.d/repo-bak</span><br><span class="line">wget  -N $rul_repo  -P /etc/yum.repos.d/</span><br><span class="line">yum clean <span class="built_in">all</span></span><br><span class="line">yum makecache</span><br><span class="line">yum install gcc zlib zlib-devel pam pam-devel wget -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># wget source code and unzip</span></span><br><span class="line">wget  -N $urlopenssl -P  /usr/src/</span><br><span class="line">wget  -N $urlopenssh -P  /usr/src/</span><br><span class="line">tar xzvf /usr/src/openssl-<span class="number">1.0</span><span class="number">.2</span>k.tar.gz -C /usr/src/</span><br><span class="line">tar zxvf /usr/src/openssh-<span class="number">7.5</span>p1.tar.gz -C /usr/src/</span><br><span class="line"></span><br><span class="line"><span class="comment"># make and make install openssl</span></span><br><span class="line">cd /usr/src/openssl-<span class="number">1.0</span><span class="number">.2</span>k</span><br><span class="line">./config shared zlib</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">mv /usr/<span class="built_in">bin</span>/openssl /tmp/<span class="number">7</span></span><br><span class="line">cp -r /usr/include/openssl/ /tmp/openssl-old-<span class="number">7</span></span><br><span class="line">rm -rf /usr/include/openssl</span><br><span class="line">ln -s /usr/local/ssl/<span class="built_in">bin</span>/openssl /usr/<span class="built_in">bin</span>/openssl</span><br><span class="line">ln -s /usr/local/ssl/include/openssl/ /usr/include/openssl</span><br><span class="line">grep <span class="string">&#x27;/usr/local/ssl/lib&#x27;</span> /etc/ld.so.conf || echo <span class="string">&quot;/usr/local/ssl/lib&quot;</span> &gt;&gt; /etc/ld.so.conf</span><br><span class="line">ldconfig -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># make and make install openssh</span></span><br><span class="line">cp -r /etc/ssh /etc/ssh-bak03</span><br><span class="line">cd /usr/src/openssh-<span class="number">7.5</span>p1</span><br><span class="line">./configure --prefix=/usr --sysconfdir=/etc/ssh --without-zlib-version-check --<span class="keyword">with</span>-ssl-<span class="built_in">dir</span>=/usr/local/ssl --<span class="keyword">with</span>-pam</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">sed -i <span class="string">&#x27;s/#UseLogin no/UseLogin yes/g&#x27;</span> /etc/ssh/sshd_config</span><br><span class="line">chmod <span class="number">600</span> /etc/ssh/*_key</span><br><span class="line"></span><br><span class="line"><span class="comment"># restart sshd</span></span><br><span class="line">service sshd restart</span><br><span class="line">ssh -V</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="下载-cmdbuild-并部署到-tomcat"><a href="#下载-cmdbuild-并部署到-tomcat" class="headerlink" title="下载 cmdbuild 并部署到 tomcat"></a>下载 cmdbuild 并部署到 tomcat</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">wget https://ncu.dl.sourceforge.net/project/cmdbuild/<span class="number">2.5</span><span class="number">.0</span>/cmdbuild-<span class="number">2.5</span><span class="number">.0</span>.<span class="built_in">zip</span></span><br><span class="line">unzip cmdbuild-<span class="number">2.5</span><span class="number">.0</span>.<span class="built_in">zip</span></span><br><span class="line">mv cmdbuild-<span class="number">2.5</span><span class="number">.0</span>.war /usr/local/apache-tomcat/webapps/cmdbuild.war</span><br><span class="line">cd extra</span><br><span class="line">unzip shark.<span class="built_in">zip</span></span><br><span class="line">mv shark-<span class="number">2.</span>. /usr/local/apache-tomcat/webapps/shark</span><br><span class="line">cp /tmp/cmdbuild-<span class="number">2.5</span><span class="number">.0</span>/extras/tomcat-libs/<span class="number">6.0</span>/postgresql9<span class="number">.4</span>.jar /usr/loca/apache-tomcat/lib/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>设置 plsql postgres 密码后启动 tomcat，访问<a target="_blank" rel="noopener" href="http://ip:8080/cmdbuild/">http://ip:8080/cmdbuild/</a> 即可通过 web 界面配置</p>
+<h2 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h2><p>1 tomcat 启动不在 tcp 8080 端口监听，只有 tcp6 的 8080 端口<br>解决办法：禁用系统 IPv6，参考<a target="_blank" rel="noopener" href="http://blog.csdn.net/suplxj/article/details/7773423">link</a><br>2 postgres 数据库连接失败<br>无法通过命令 plsq -U postgres -h 127.0.0.1 -p 5432 -d database 登录数据库<br>通过修改 postgres 的配置文件解决 vi pg_hba.conf ident 替换为 trust <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2942485/psql-fatal-ident-authentication-failed-for-user-postgres">link</a><br>3 web 界面初始化时保存最后一步保存配置失败<br>通过查看 tomcat 的 log，发现是无法创建数据库，原因为之前创建过相同名字的数据库，修改一下数据库名称为不一样即可。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/7e95fd0bc91a">http://www.jianshu.com/p/7e95fd0bc91a</a><br><a target="_blank" rel="noopener" href="http://www.cmdbuild.org/file/manuali/technical-manual-in-english">http://www.cmdbuild.org/file/manuali/technical-manual-in-english</a><br><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2013/12/getting_started_with_postgresql.html">http://www.ruanyifeng.com/blog/2013/12/getting_started_with_postgresql.html</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/hbhuanjing/article/details/52292436">http://blog.csdn.net/hbhuanjing/article/details/52292436</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/cmdb/"># cmdb</a></p>
 
       
     </div>
@@ -318,7 +318,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E6%BC%94%E8%AE%B2%E6%80%BB%E7%BB%93/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/ansible%E6%89%B9%E9%87%8F%E6%B7%BB%E5%8A%A0hosts%E5%88%B0zabbix-server/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -336,7 +336,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E6%BC%94%E8%AE%B2%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">演讲总结</a>
+          <a href="/2022/07/04/yuque/ansible%E6%89%B9%E9%87%8F%E6%B7%BB%E5%8A%A0hosts%E5%88%B0zabbix-server/" class="post-title-link" itemprop="url">ansible批量添加hosts到zabbix-server</a>
         </h2>
 
         <div class="post-meta-container">
@@ -348,7 +348,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:09:26 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:09:26+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:20:50 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:20:50+08:00">2022-07-04</time>
     </span>
 
   
@@ -361,10 +361,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-11-23<br>超级个体演讲周总结文章。</p>
-<h2 id="演讲在现在很重要"><a href="#演讲在现在很重要" class="headerlink" title="演讲在现在很重要"></a>演讲在现在很重要</h2><p>演讲是一对多的时时信息传播，正式的演讲和非正式的讲段子、方案等都属于演讲范畴。现在带宽变宽，通过演讲在互联网传播也很高效,所以演讲在现在也越来越重要</p>
-<h2 id="演讲的要素"><a href="#演讲的要素" class="headerlink" title="演讲的要素"></a>演讲的要素</h2><p>演讲和写作不同，不能暂停，所以要求演讲观点明确 1 个，时间不长 15 分钟，论证层次不能太深。<br>演讲结构分为坡道、观点、甜点。<br>坡道解决要讲什么，为什么是你来讲两个问题。观点要单一明确，只展开一层，多用导航语句。甜点让人增加获得感，可以是总结、升华、下一步行动。<br>演讲的血肉 5 类:幽默、金句、类比、案例、数据，理性层度逐渐上升。金句是二次传播关键。类比和案例有助于理解观点。数据要可视化利于理解，是对观点最底层的支撑。幽默是逗号，停顿休息，继续前行。</p>
-<h2 id="如何做"><a href="#如何做" class="headerlink" title="如何做"></a>如何做</h2><p>峰终定律，集中火力设计高潮和结尾。<br>开篇三板斧哇、哈、嗯，给一个惊喜，逗乐观众，让观众认同。如果没有，直接上结构。<br>血肉布局有温度，理性和感性夹杂。疑惑时加水货，烦躁时加干货。问观众一句话总结，看能总结出中心观点不。<br>结尾甜点总结、升华、指示。<br>直面演讲的恐惧，通过想轻松的事、找面善观众、讲段子等方式划过恐惧。<br>用力演好每一天，生活没有 ng。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/"># 超级个体</a></p>
+          <p>发表于 2017-12-01<br>运维自动化，ansible 就是军火库。<br>通过 ansible 批量执行命令可以在被监控主机批量安装和配置 zabbix-agent，但是添加主机到 zabbix-server 还是要手动执行。曾经写了一个 python 脚本批量生成 hosts 的 xml 然后再导入<a target="_blank" rel="noopener" href="http://blog.hhzzer.com/posts/c829b69a/">link</a>，实现了批量添加。今天研究了 ansible 监控模块 zabbix_host 实现了通过 zabbix API 批量添加。</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install ansible</span><br><span class="line">yum install python-pip</span><br><span class="line">pip install zabbix-api --proxy <span class="number">172.</span>x.x.x:<span class="number">3182</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>playbook add-hosts.yaml</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: test</span><br><span class="line">  tasks:</span><br><span class="line">    - name: wget repo file</span><br><span class="line">      get_url:</span><br><span class="line">        url: http://<span class="number">172.</span>x.x.x/CentOS-Base.repo</span><br><span class="line">        dest: /etc/yum.repos.d/</span><br><span class="line">    - name: install zabbix-agent</span><br><span class="line">      yum:</span><br><span class="line">        name: http://<span class="number">172.</span>x.x.x/zabbix/zabbix-agent.rpm</span><br><span class="line">        state: present</span><br><span class="line">        update_cache: yes</span><br><span class="line">    - name: config zabbix-agent</span><br><span class="line">      lineinfile:</span><br><span class="line"></span><br><span class="line">    - name: start <span class="keyword">and</span> enable zabbix-agent</span><br><span class="line">      service :</span><br><span class="line">        name: zabbix-agent</span><br><span class="line">        state: started</span><br><span class="line">        enabled: yes</span><br><span class="line">    - name: create a new host</span><br><span class="line">    local_action:</span><br><span class="line">      module: zabbix_host</span><br><span class="line">      server_url: http://<span class="number">172.23</span><span class="number">.20</span><span class="number">.250</span>/zabbix</span><br><span class="line">      login_user: Admin</span><br><span class="line">      login_password: zabbix</span><br><span class="line">      force: yes</span><br><span class="line">      host_name: <span class="string">&quot;&#123;&#123; ansible_default_ipv4.address &#125;&#125;&quot;</span></span><br><span class="line">      visible_name: <span class="string">&quot;&#123;&#123; ansible_default_ipv4.address &#125;&#125;-责任人&quot;</span></span><br><span class="line">      host_groups:</span><br><span class="line">        - Linux servers</span><br><span class="line">      link_templates:</span><br><span class="line">        - Linux-Templates</span><br><span class="line">      status: enabled</span><br><span class="line">      state: present</span><br><span class="line">      inventory_mode: automatic</span><br><span class="line">      interfaces:</span><br><span class="line">        - <span class="built_in">type</span>: <span class="number">1</span></span><br><span class="line">          main: <span class="number">1</span></span><br><span class="line">          useip: <span class="number">1</span></span><br><span class="line">          ip: <span class="string">&quot;&#123;&#123; ansible_default_ipv4.address &#125;&#125;&quot;</span></span><br><span class="line">          dns: <span class="string">&quot;&quot;</span></span><br><span class="line">          port: <span class="number">10050</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>hosts</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[test]</span><br><span class="line"><span class="number">172.23</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">[test:<span class="built_in">vars</span>]</span><br><span class="line">ansible_ssh_user=xxx</span><br><span class="line">ansible_ssh_pass=aaa</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i hosts add-hosts.yaml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://blog.csdn.net/felix_yujing/article/details/78166295">http://blog.csdn.net/felix_yujing/article/details/78166295</a><br><a target="_blank" rel="noopener" href="https://github.com/igogorevi4/ansible/blob/master/roles/zabbix-agent/tasks/add_to_zabbix.yml">https://github.com/igogorevi4/ansible/blob/master/roles/zabbix-agent/tasks/add_to_zabbix.yml</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/ansible/"># ansible</a></p>
 
       
     </div>
@@ -391,7 +400,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/iptables%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%85%8D%E7%BD%AE/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E8%AF%86%E5%88%AB%E8%A1%A8%E8%B1%A1%E4%B8%8E%E5%AE%9E%E8%B4%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -409,7 +418,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/iptables%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">iptables学习与配置</a>
+          <a href="/2022/07/04/yuque/%E8%AF%86%E5%88%AB%E8%A1%A8%E8%B1%A1%E4%B8%8E%E5%AE%9E%E8%B4%A8/" class="post-title-link" itemprop="url">识别表象与实质</a>
         </h2>
 
         <div class="post-meta-container">
@@ -421,7 +430,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:08:30 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:08:30+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:20:26 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:20:26+08:00">2022-07-04</time>
     </span>
 
   
@@ -434,23 +443,21 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-11-21<br>配置的监控 agent 经常在防火墙开启时无法与服务端链接，需要去修改 iptable 规则。以前不是很理解，今天看了两篇文章，开始有进一步理解。</p>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>防火墙就是在系统上设置几个关卡来控制网络流量的走向。有些在内核，有些在用户空间。具体为 route 前，iput，forward、output、准备路由。<br>iptables 和 firewalld 都是设置规则的工具，可以方便的设置规则有效或无效，达到防火墙开或关的效果。<br>如果有防火墙规则但 iptables 由于非正常关闭，设置生效的规则还是会生效。</p>
-<h2 id="操作记录"><a href="#操作记录" class="headerlink" title="操作记录"></a>操作记录</h2><ol>
-<li>防火墙禁 ping 放开</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">iptables -L -n --line-number</span><br><span class="line"><span class="comment">#INPUT Chain最后无显式drop,就在末尾添加</span></span><br><span class="line">iptables -A INPUT -p icmp --icmp-<span class="built_in">type</span> echo-request -j ACCEPT</span><br><span class="line"><span class="comment">#INPUT Chain最后有显式drop,就在最后一条添加</span></span><br><span class="line">iptables -I INPUT last-<span class="built_in">id</span> -p icmp --icmp-<span class="built_in">type</span> echo-request -j ACCEPT</span><br><span class="line">service iptables save <span class="comment">#centos6有效，centos7不需执行。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>开放 nrpe 5666 端口或 zabbix 10050 端口</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#centos6</span></span><br><span class="line">iptables -I INPUT -p tcp --dport <span class="number">5666</span> -j ACCEPT</span><br><span class="line">service iptables save</span><br><span class="line"><span class="comment">#centos7</span></span><br><span class="line">firewall-cmd --zone=public --add-port=<span class="number">5666</span>/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>nrpe 报错 ssl，需要修改 /etc/xinetd.d/nrpe,添加服务器地址。</li>
-</ol>
-<h2 id="后续改善"><a href="#后续改善" class="headerlink" title="后续改善"></a>后续改善</h2><p>在模板中添加防火墙允许条目，再关闭防火墙。及时业务需要开启也不会影响监控。</p>
-<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/losbyday/p/5850435.html?from=singlemessage&isappinstalled=0">http://www.cnblogs.com/losbyday/p/5850435.html?from=singlemessage&amp;isappinstalled=0</a><br><a target="_blank" rel="noopener" href="http://m.blog.chinaunix.net/uid-26495963-id-3279216.html?from=singlemessage&isappinstalled=0">http://m.blog.chinaunix.net/uid-26495963-id-3279216.html?from=singlemessage&amp;isappinstalled=0</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
+          <p>发表于 2017-12-01<br>左耳朵耗子最新一篇文章回答了他亚马逊朋友的疑惑，也给我不少启发。</p>
+<h2 id="我不知道对什么感兴趣"><a href="#我不知道对什么感兴趣" class="headerlink" title="我不知道对什么感兴趣"></a>我不知道对什么感兴趣</h2><p>兴趣是敲门砖，持续的正反馈才是兴趣保持的关键。</p>
+<h2 id="没有合适的工作，学习不进新的技术"><a href="#没有合适的工作，学习不进新的技术" class="headerlink" title="没有合适的工作，学习不进新的技术"></a>没有合适的工作，学习不进新的技术</h2><p>有技术应用场景、与他人讨论、获得高手的帮助能更快更有效率的学习和成长。</p>
+<h2 id="什么技术才有价值"><a href="#什么技术才有价值" class="headerlink" title="什么技术才有价值"></a>什么技术才有价值</h2><p>有价值的技术和技术含量不是必然关系，应该有如下特点</p>
+<ul>
+<li>能否低成本高效率的解决实际问题；</li>
+<li>是不是众多产品的基础技术</li>
+<li>是不是可以支持规模化的技术</li>
+</ul>
+<h2 id="技术未来发展趋势是什么？"><a href="#技术未来发展趋势是什么？" class="headerlink" title="技术未来发展趋势是什么？"></a>技术未来发展趋势是什么？</h2><p>技术的未来被有钱有权的国家和公司控制，金钱投入哪个领域，哪个领域就是未来的技术。</p>
+<h2 id="个人发展启示"><a href="#个人发展启示" class="headerlink" title="个人发展启示"></a>个人发展启示</h2><ul>
+<li>目前工作层面<br>精通 ansible 这个配置武器库，让工作更高效。<br>优化 zabbix 性能和使用流程<br>构建满足当前需求的 cmdb，实现数据驱动流程。</li>
+<li>职业发展<br>因为运维自动化，关键技术在 pass 层，所以必须掌握和学习 docker、k8s、go 语言。<br>下一步行动为看书。<br>因为懒和技术未来，学习机器学习。<br>下一步行动为学习吴恩达的公开课。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4/"># 极客时间</a></p>
 
       
     </div>
@@ -477,7 +484,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%86%99%E4%BD%9C%E6%96%B9%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%BA%BA%E9%99%85%E7%BD%91%E7%BB%9C-%E4%B8%AA%E4%BA%BA%E5%93%81%E7%89%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -495,7 +502,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E5%86%99%E4%BD%9C%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">写作方法</a>
+          <a href="/2022/07/04/yuque/%E4%BA%BA%E9%99%85%E7%BD%91%E7%BB%9C-%E4%B8%AA%E4%BA%BA%E5%93%81%E7%89%8C/" class="post-title-link" itemprop="url">人际网络-个人品牌</a>
         </h2>
 
         <div class="post-meta-container">
@@ -507,7 +514,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:07:48 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:07:48+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:20:01 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:20:01+08:00">2022-07-04</time>
     </span>
 
   
@@ -520,11 +527,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-11-20<br>超级个体第 26 周，写作专题总结。</p>
-<h2 id="为什么要写作"><a href="#为什么要写作" class="headerlink" title="为什么要写作"></a>为什么要写作</h2><p>写作是出于欲望与虚荣。具体有这三方面的原因：证明自己存在、准确和加深思维、传播自己观点影响他人。对应有三种合适的文体：自由书写，表达自我情绪；文档记录，结构化思维；观点表达。<br>写作是学习的逆向工程。</p>
-<h2 id="怎么写作"><a href="#怎么写作" class="headerlink" title="怎么写作"></a>怎么写作</h2><p>基本结构有两种：写作五问和汉堡包模型。充实结构可使用类比和举例子，优化结构可从信、达、雅三方面修改。<br>五问<br>1 最近有什么观点或想法想表达？观点可以是自己原创的，也可以是看到的别人的。<br>2 这个观点有什么不同，让你想要表达？<br>3 你或者是别人是怎么表达这个观点的？逐渐展开。<br>4 学习和知道了这个观点，有怎样的行动建议？<br>5 你的观点<br>汉堡包：观点和主题是肉，逻辑框架是放置结构，视觉听觉例子是蔬菜和奶酪，情绪是调味料。</p>
-<h2 id="写作诊所"><a href="#写作诊所" class="headerlink" title="写作诊所"></a>写作诊所</h2><p>没有东西写怎么办？<br>用心生活和思考，发现独特之处。<br>写不下去怎么办？<br>不要写作过程中自我评价，写作就写作。<br>不能完成怎么办？<br>写大纲，不求一气呵成，大纲列好，逐步编辑完成。<br>情感泛滥怎么办？<br>思考写作目的，是自由书写还是传播观点。如果是传播观点，记住你的读者和你不同。缺乏品味，怎么的文章才是好文章？<br>简单简洁就是好文章。（爽借清风明借月，动观流水静观山）</p>
-<h2 id="真的该现在开始写作吗"><a href="#真的该现在开始写作吗" class="headerlink" title="真的该现在开始写作吗"></a>真的该现在开始写作吗</h2><p>结合自己的人生规划使用时间完成不同的事，要有主观的判断。别人说的好对你来说不一定是好。<br>要是权衡投资和收益后确定开始写作，写作是可以练习并出成效的。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/"># 超级个体</a></p>
+          <p>发表于 2017-11-29<br>30,31 周总结</p>
+<h2 id="人际关系"><a href="#人际关系" class="headerlink" title="人际关系"></a>人际关系</h2><h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>人际关系的本质是互惠，所有交往的活动都是基于互惠原则。</p>
+<h3 id="为什么"><a href="#为什么" class="headerlink" title="为什么"></a>为什么</h3><p>你的价值由你的朋友决定，人脉的目的是与高手过招，与伟人同行。<br>与他人一起学习成长更快。独学而无友，则固陋而寡闻。</p>
+<h3 id="如何做"><a href="#如何做" class="headerlink" title="如何做"></a>如何做</h3><p>要有持续的好关系，首先个人得有差异化的价值，才能惠及他人。<br>个人差异化价值可以考虑行业资深、资源链接、决策外脑、情绪友人四方面发展。<br>人脉要提前建立。之前认识后帮忙叫互惠，认识后马上帮忙叫互换，互换成本高于互惠。<br>与高手过招，与伟人同行。<br>做高成长、高价值、健康教育相关事情，使自己能力和牛人差异化，有机会能力互补。<br>聪明的让牛人帮小忙，之后回馈建立联系。<br>网络社会联网学习。跟随牛人，整合领域外人，联机伙伴。同一个问题通过与他人交流获得不同角度的认识。</p>
+<h2 id="个人品牌"><a href="#个人品牌" class="headerlink" title="个人品牌"></a>个人品牌</h2><h3 id="为什么需要个人品牌"><a href="#为什么需要个人品牌" class="headerlink" title="为什么需要个人品牌"></a>为什么需要个人品牌</h3><p>个人品牌能提高你的议价<br>个人品牌能降低你的交易成本<br>个人品牌能让你更自由：为职位、为钱、有能力做自己事情。</p>
+<h3 id="品牌的本质是什么"><a href="#品牌的本质是什么" class="headerlink" title="品牌的本质是什么"></a>品牌的本质是什么</h3><p>个人品牌包括品质和名牌。品质是指持续的输出高质量能满足他人需求的东西。名牌是有辨识度的影响了很多人。<br>品牌=价值 × 人数 × 频次。</p>
+<h3 id="如何创建和传播个人品牌"><a href="#如何创建和传播个人品牌" class="headerlink" title="如何创建和传播个人品牌"></a>如何创建和传播个人品牌</h3><p>品牌创建关键要有远景识别度，很远的人能快速分辨出来。<br>创建个人品牌三要素：做对他人和自己有价值的事，品牌要简洁，要有同行认同。<br>品牌传播<br>高频传播，每一个行动都在传递的你个人品牌。<br>体验即品牌，做出好的产品，好产品就是你的品牌。<br>自我介绍框架化，不断强化别人的认知。<br>品牌最终传递的是个人价值观，为什么到这个世界行走 80 年？<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/"># 超级个体</a></p>
 
       
     </div>
@@ -544,7 +553,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/ubuntu%20python%20selenium%20%E8%B0%83%E7%94%A8firefox%E6%89%BE%E4%B8%8D%E5%88%B0%E9%A9%B1%E5%8A%A8%E8%A7%A3%E5%86%B3/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/ubuntu1404%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85openssh-server75/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/ubuntu%20python%20selenium%20%E8%B0%83%E7%94%A8firefox%E6%89%BE%E4%B8%8D%E5%88%B0%E9%A9%B1%E5%8A%A8%E8%A7%A3%E5%86%B3/" class="post-title-link" itemprop="url">ubuntu python selenium 调用firefox找不到驱动解决</a>
+          <a href="/2022/07/04/yuque/ubuntu1404%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85openssh-server75/" class="post-title-link" itemprop="url">ubuntu1404编译安装openssh-server75</a>
         </h2>
 
         <div class="post-meta-container">
@@ -196,7 +196,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 09:12:11 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:12:11+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 09:28:30 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:28:30+08:00">2022-07-04</time>
     </span>
 
   
@@ -209,16 +209,33 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2018-03-31<br>学习 python-web TDD 时遇到 selenium 调用 firefox 问题，记录一下。</p>
-<p>解决方法<br>从 selenium 3.x 开始，selunium 调用 firefox 驱动名称改为’geckodriver’.<br>firefox 47 以上版本需要下载三方驱动放在系统环境变量中。<br>查看当前 selenium 和 firefox 版本信息，发现符合上述两个条件。</p>
-<p>pip list<br>#result<br>Django (1.7)<br>pip (9.0.3)<br>pytz (2018.3)<br>selenium (3.11.0)<br>setuptools (38.5.2)<br>wheel (0.30.0)<br>apt list firefox<br>#result<br>firefox/xenial-security,now 59.0.2+build1-0ubuntu0.16.04.1 amd64 [installed,automatic]<br>下载并移动到环境变量路径中.到<a target="_blank" rel="noopener" href="https://github.com/mozilla/geckodriver/releases">https://github.com/mozilla/geckodriver/releases</a><br>上找到对应的版本，下载。</p>
-<p>tar -xzvf geckodriver-v0.20.0-linux64.tar.gz<br>sudo mv geckodriver /usr/bin/<br>重启 bash，进入 virtual 后，测试故障排除。</p>
-<p>##附加收获 锁定 firefox 版本<br>查看可用版本</p>
-<p>apt-cache show firefox | grep Version<br>结果</p>
-<p>Version: 47.0+build3-0ubuntu0.16.04.1<br>Version: 45.0.2+build1-0ubuntu1<br>install</p>
-<p>sudo apt-get install firefox=45.0.2+build1-0ubuntu1<br>keep this version</p>
-<p>sudo apt-get install firefox=45.0.2+build1-0ubuntu1<br>解除锁定，升级版本</p>
-<p>sudo apt-mark unhold firefox<br>sudo apt-get upgrade firefox<br>参考链接<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/49568096">https://www.zhihu.com/question/49568096</a><br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/37761668/cant-open-browser-with-selenium-after-firefox-update">https://stackoverflow.com/questions/37761668/cant-open-browser-with-selenium-after-firefox-update</a></p>
+          <p>发表于 2018-03-15</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>ubuntu14.04.5 server 上 openssh-server 需要升级到 7.5 版本。<br>通过指定高版本源使用 apt-get install openssh-server 会存在无法重启等故障，决定尝试手动编译安装。</p>
+<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>0 将 openssl 和 openssh-server 源码放到可以下载的地方。<br>1 安装系统,配置代理，配置源</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty main restricted universe multiverse</span><br><span class="line">deb http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-security main restricted universe multiverse</span><br><span class="line">deb http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-updates main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-updates main restricted universe multiverse</span><br><span class="line">deb http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors<span class="number">.163</span>.com/ubuntu/ trusty-backports main restricted universe multiverse</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>取消版本检查，避免版本升级,/etc/update-manager/release-upgrades<br>参数 lts 改为 never<br>2 安装编译环境</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get upgrade</span><br><span class="line">apt-get install gcc make zlib1g-dev -y</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3 安装下载源码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># wget source code and unzip</span></span><br><span class="line">wget  -N http://<span class="number">192.168</span><span class="number">.13</span><span class="number">.1</span>/data/openssh/<span class="number">7.5</span>/openssl-<span class="number">1.0</span><span class="number">.2</span>k.tar.gz -P  /usr/src/</span><br><span class="line">wget  -N  http://<span class="number">192.168</span><span class="number">.13</span><span class="number">.1</span>/data/openssh/<span class="number">7.5</span>/openssh-<span class="number">7.5</span>p1.tar.gz -P  /usr/src/</span><br><span class="line">tar xzvf /usr/src/openssl-<span class="number">1.0</span><span class="number">.2</span>k.tar.gz -C /usr/src/</span><br><span class="line">tar zxvf /usr/src/openssh-<span class="number">7.5</span>p1.tar.gz -C /usr/src/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>4 安装 openssl</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># make and make install openssl</span></span><br><span class="line">cd /usr/src/openssl-<span class="number">1.0</span><span class="number">.2</span>k</span><br><span class="line">./config shared zlib</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">mv /usr/<span class="built_in">bin</span>/openssl /tmp/<span class="number">7</span></span><br><span class="line">mv /lib/x86_64-linux-gnu/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span> /tmp/<span class="number">7</span>/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span>.$(date +%s)</span><br><span class="line">rm -rf /lib/x86_64-linux-gnu/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">ln -s /usr/local/ssl/lib/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span>  /lib/x86_64-linux-gnu/</span><br><span class="line">ln -s /usr/local/ssl/<span class="built_in">bin</span>/openssl /usr/<span class="built_in">bin</span>/openssl;ln -s /usr/local/ssl/include/openssl/ /usr/include/openssl</span><br><span class="line">grep <span class="string">&#x27;/usr/local/ssl/lib&#x27;</span> /etc/ld.so.conf || echo <span class="string">&quot;/usr/local/ssl/lib&quot;</span> &gt;&gt; /etc/ld.so.conf</span><br><span class="line">ldconfig -v</span><br><span class="line">openssl version</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>5 安装 openssh</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#apt-get remove openssh-server</span></span><br><span class="line">cp -r /etc/ssh /etc/ssh-bak03</span><br><span class="line">cd /usr/src/openssh-<span class="number">7.5</span>p1</span><br><span class="line">./configure --prefix=/usr --sysconfdir=/etc/ssh --without-zlib-version-check --<span class="keyword">with</span>-ssl-<span class="built_in">dir</span>=/usr/local/ssl</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">sed -i <span class="string">&#x27;s/#UseLogin no/UseLogin yes/g&#x27;</span> /etc/ssh/sshd_config</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>6 修改启动脚本<br>由于使用系统的脚本/etc/init.d/ssh stop,不能停止 sshd，故重新制作 sshd 服务。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/init/ssh.conf /etc/init/ssh.conf.bak</span><br><span class="line">chmod -x /etc/init.d/ssh</span><br><span class="line">cat &gt; /etc/init/sshd.conf &lt;&lt; EOF</span><br><span class="line">description <span class="string">&quot;Openssh-server&quot;</span></span><br><span class="line">author <span class="string">&quot;root&quot;</span></span><br><span class="line">start on runlevel [<span class="number">2345</span>]</span><br><span class="line">pre-start script</span><br><span class="line">  echo <span class="string">&quot;[`date`] sshd Starting&quot;</span> &gt;&gt; /var/log/sshd.log</span><br><span class="line">end script</span><br><span class="line"><span class="built_in">exec</span> /usr/sbin/sshd -D</span><br><span class="line">EOF</span><br><span class="line">init-checkconf /etc/init/sshd.conf</span><br><span class="line">service sshd status</span><br><span class="line"><span class="comment">#kill 以前sshd进程或重启系统</span></span><br><span class="line">ps aux | grep <span class="string">&#x27;/usr/sbin/sshd&#x27;</span> |awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span> |head -<span class="number">1</span> |xargs kill -<span class="number">9</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>查看 sshd 状态和重启操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># service sshd status</span></span><br><span class="line">sshd start/running, process <span class="number">1312</span></span><br><span class="line">root@ubuntu:~<span class="comment"># service sshd restart</span></span><br><span class="line">sshd stop/waiting</span><br><span class="line">sshd start/running, process <span class="number">1335</span></span><br><span class="line">root@ubuntu:~<span class="comment"># tail /var/log/sshd.log</span></span><br><span class="line">[Thu Mar <span class="number">15</span> <span class="number">22</span>:<span class="number">40</span>:<span class="number">38</span> CST <span class="number">2018</span>] sshd Starting</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 upgrade openssl</span></span><br><span class="line">apt-get update</span><br><span class="line">apt-get install gcc make zlib1g-dev -y</span><br><span class="line">wget  -N http://<span class="number">192.168</span><span class="number">.13</span><span class="number">.1</span>/data/openssh/<span class="number">7.5</span>/openssl-<span class="number">1.0</span><span class="number">.2</span>k.tar.gz -P  /usr/src/</span><br><span class="line">tar xzvf /usr/src/openssl-<span class="number">1.0</span><span class="number">.2</span>k.tar.gz -C /usr/src/</span><br><span class="line">cd /usr/src/openssl-<span class="number">1.0</span><span class="number">.2</span>k</span><br><span class="line">./config shared zlib</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">mv /usr/<span class="built_in">bin</span>/openssl /tmp/<span class="number">7</span></span><br><span class="line">cp /lib/x86_64-linux-gnu/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span> /tmp/<span class="number">7</span>/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span>.$(date +%s)</span><br><span class="line">rm -rf /lib/x86_64-linux-gnu/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">ln -s /usr/local/ssl/lib/libcrypto.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span>  /lib/x86_64-linux-gnu/</span><br><span class="line">ln -s /usr/local/ssl/<span class="built_in">bin</span>/openssl /usr/<span class="built_in">bin</span>/openssl;ln -s /usr/local/ssl/include/openssl /usr/include/openssl</span><br><span class="line">grep <span class="string">&#x27;/usr/local/ssl/lib&#x27;</span> /etc/ld.so.conf || echo <span class="string">&quot;/usr/local/ssl/lib&quot;</span> &gt;&gt; /etc/ld.so.conf</span><br><span class="line">ldconfig -v</span><br><span class="line">openssl version</span><br><span class="line"><span class="comment">#2 openssh upgrade</span></span><br><span class="line">wget  -N  http://<span class="number">192.168</span><span class="number">.13</span><span class="number">.1</span>/data/openssh/<span class="number">7.5</span>/openssh-<span class="number">7.5</span>p1.tar.gz -P  /usr/src/</span><br><span class="line">tar zxvf /usr/src/openssh-<span class="number">7.5</span>p1.tar.gz -C /usr/src/</span><br><span class="line">cp -r /etc/ssh /etc/ssh-bak03</span><br><span class="line">cd /usr/src/openssh-<span class="number">7.5</span>p1</span><br><span class="line">./configure --prefix=/usr --sysconfdir=/etc/ssh --without-zlib-version-check --<span class="keyword">with</span>-ssl-<span class="built_in">dir</span>=/usr/local/ssl</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">sed -i <span class="string">&#x27;s/#UseLogin no/UseLogin yes/g&#x27;</span> /etc/ssh/sshd_config</span><br><span class="line"><span class="comment">#3 sshd-config</span></span><br><span class="line">mv /etc/init/ssh.conf /etc/init/ssh.conf.bak</span><br><span class="line">chmod -x /etc/init.d/ssh</span><br><span class="line">cat &gt; /etc/init/sshd.conf &lt;&lt; EOF</span><br><span class="line">description <span class="string">&quot;Openssh-server&quot;</span></span><br><span class="line">author <span class="string">&quot;root&quot;</span></span><br><span class="line">start on runlevel [<span class="number">2345</span>]</span><br><span class="line">pre-start script</span><br><span class="line">  echo <span class="string">&quot;[`date`] sshd Starting&quot;</span> &gt;&gt; /var/log/sshd.log</span><br><span class="line">end script</span><br><span class="line"><span class="built_in">exec</span> /usr/sbin/sshd -D</span><br><span class="line">EOF</span><br><span class="line">init-checkconf /etc/init/sshd.conf</span><br><span class="line">ps aux | grep <span class="string">&#x27;/usr/sbin/sshd&#x27;</span> |awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span> |head -<span class="number">1</span> |xargs kill -<span class="number">9</span></span><br><span class="line">service sshd start</span><br><span class="line">service sshd status</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题"></a>遗留问题</h2><p>ln -s /usr/local/ssl/lib/libcrypto.so.1.0.0 /lib/x86_64-linux-gnu/<br>解决 1 ：lvconfig -d 会根据/etc/ld.so.conf 重新创建链接文件，会覆盖之前手动创建的 ln -s 关系。执行 cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /tmp/7/libcrypto.so.1.0.0.$(date +%s),将原始文件移动出/lib/x86_64-linux-gnu 目录解决。<br>ps -ef | grep ‘/usr/sbin/sshd’ |awk ‘{print $2}’ |head -1 |xargs kill -9<br>这两行有时不生效。<br>解决 2 ：ps -ef 显示当前用户查看到的进程，使用 ps aux 查看系统所有进程。<br>ps aux | grep ‘/usr/sbin/sshd’ |awk ‘{print $2}’ |head -1 |xargs kill -9</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://blog.csdn.net/jubincn/article/details/6929094">http://blog.csdn.net/jubincn/article/details/6929094</a><br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/19233529/run-bash-script-as-daemon">https://stackoverflow.com/questions/19233529/run-bash-script-as-daemon</a></p>
 
       
     </div>
@@ -245,7 +262,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/python-web%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91-TDD%E5%92%8CDjango%E5%9F%BA%E7%A1%80/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%BD%BF%E7%94%A8powercli%E6%89%B9%E9%87%8F%E5%88%9B%E5%BB%BAvcenter%E8%99%9A%E6%8B%9F%E6%9C%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -263,7 +280,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/python-web%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91-TDD%E5%92%8CDjango%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">python-web测试驱动开发-TDD和Django基础</a>
+          <a href="/2022/07/04/yuque/%E4%BD%BF%E7%94%A8powercli%E6%89%B9%E9%87%8F%E5%88%9B%E5%BB%BAvcenter%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="post-title-link" itemprop="url">使用powercli批量创建vcenter虚拟机</a>
         </h2>
 
         <div class="post-meta-container">
@@ -275,7 +292,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 09:04:50 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:04:50+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 09:26:38 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:26:38+08:00">2022-07-04</time>
     </span>
 
   
@@ -288,8 +305,24 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2018-03-31</p>
-<p>更新：<br>原文无内容，写了标题没有把学习过程写下</p>
+          <p>发表于 2018-03-16</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>经常有需求批量创建类似配置的虚拟机，ui 界面操作比较耗时。能否有脚本调用模板自动创建呢？</p>
+<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>1 下载安装 powerCLI 工具<br>2 使用 PowerCLI 连接 vcenter</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$vc = <span class="string">&#x27;vcip&#x27;</span></span><br><span class="line"><span class="comment">#填VCenter IP</span></span><br><span class="line">Connect-VIServer -Server $vc -username <span class="string">&quot;username&quot;</span> -Password <span class="string">&quot;passwd&quot;</span></span><br><span class="line"><span class="comment">#填VCenter的SSO帐号和密码</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3 根据 csv 内容,导入虚拟机创建时所需变量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$vms = Import-CSV C:\Scripts\CloneVMs.csv</span><br><span class="line"><span class="comment">#获取外部csv文件内容作为变量，csv内容为</span></span><br><span class="line">----</span><br><span class="line">host,template,datastore,custsysprep,name,ip,netmask,gateway</span><br><span class="line">esxi-host，centos，vsan1，规范，vm-namne,vm-ip,vm-netmask,vm-gateway</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>4 自定义规范，设置虚拟机 ip,创建虚拟机</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#foreach循环遍历外部csv文档获取每行的值并赋于定义的变量</span></span><br><span class="line">foreach ($vm <span class="keyword">in</span> $vms)&#123;</span><br><span class="line">      $VMHost = Get-VMHost $vm.host</span><br><span class="line">      $Template = Get-Template $vm.template</span><br><span class="line">      $Datastore = Get-Datastore $vm.datastore</span><br><span class="line">      $Custsysprep = Get-OSCustomizationSpec $vm.custsysprep</span><br><span class="line">      <span class="comment">#获取自定义规范</span></span><br><span class="line">      $VMName = $vm.name</span><br><span class="line">      $IP = $vm.ip</span><br><span class="line">      $Netmask = $vm.netmask</span><br><span class="line">      $Gateway = $vm.gateway</span><br><span class="line">      $custsysprep | Get-OSCustomizationNicMapping | <span class="type">Set</span>-OSCustomizationNicMapping -IpMode UseStaticIP -IpAddress $IP -SubnetMask $Netmask -DefaultGateway $Gateway</span><br><span class="line">       <span class="comment">#通过Set-OSCustomizationNicMapping来重新定义自定义规范的网络信息</span></span><br><span class="line">      New-VM -Name $VMName -Template $Template -VMHost $VMHost -Datastore $Datastore -OSCustomizationspec $Custsysprep -RunAsync</span><br><span class="line">      <span class="comment">#通过从csv和自定义规范的信息来创建虚拟机</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>5 运行 powershell 脚本<br>点开 powerCLI，执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PowerCLI C:]&gt;./clonevm.PS1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>1 虚拟机名称中文乱码<br>解：PS1 脚本采用 GB2312 编码，虚拟机名称直接写在 PS1 脚本中，创建虚拟机能在 vcenter 正常显示。csv 文件为 GB2312，虚拟机名称为中文，创建虚拟机中文乱码。<br>2 虚拟机开机后会两次重启<br>待解决<br>3 创建双网卡虚拟机，需要模板中配置双网卡，规范中添加第二个网卡位置。脚本如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">foreach ($vm <span class="keyword">in</span> $vms)&#123;</span><br><span class="line"></span><br><span class="line">      $VMHost = Get-VMHost $vm.host</span><br><span class="line"></span><br><span class="line">      $Template = Get-Template $vm.template</span><br><span class="line"></span><br><span class="line">      $Datastore = Get-Datastore $vm.datastore</span><br><span class="line"></span><br><span class="line">	  $Custsysprep = Get-OSCustomizationSpec $vm.custsysprep</span><br><span class="line">	  <span class="comment">#获取自定义规范</span></span><br><span class="line">	  $VMName = $vm.name</span><br><span class="line"></span><br><span class="line">	  $IP1 = $vm.ip1</span><br><span class="line">	  $Netmask1 = $vm.netmask1</span><br><span class="line">	  $Gateway1 = $vm.gateway1</span><br><span class="line"></span><br><span class="line">	  $IP2 = $vm.ip2</span><br><span class="line">	  $Netmask2 = $vm.netmask2</span><br><span class="line">	  $Gateway2 = $vm.gateway2</span><br><span class="line"></span><br><span class="line">	  Get-OSCustomizationNicMapping -OSCustomizationSpec $custsysprep | <span class="type">Set</span>-OSCustomizationNicMapping -Position <span class="number">1</span> -IpMode UseStaticIP -IpAddress $IP1 -SubnetMask $Netmask1 -DefaultGateway $Gateway1 -ErrorAction SilentlyContinue | Out-Null</span><br><span class="line">	  Get-OSCustomizationNicMapping -OSCustomizationSpec $custsysprep | <span class="type">Set</span>-OSCustomizationNicMapping -Position <span class="number">2</span> -IpMode UseStaticIP -IpAddress $IP2 -SubnetMask $Netmask2 -DefaultGateway $Gateway2 -ErrorAction SilentlyContinue | Out-Null</span><br><span class="line">       <span class="comment">#通过Set-OSCustomizationNicMapping来重新定义自定义规范的网络信息</span></span><br><span class="line">      New-VM -Name $VMName -Template $Template -VMHost $VMHost -Datastore $Datastore -OSCustomizationspec $Custsysprep -RunAsync</span><br><span class="line">	  <span class="comment">#通过从csv和自定义规范的信息来创建虚拟机</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考连接"><a href="#参考连接" class="headerlink" title="参考连接"></a>参考连接</h2><p><a target="_blank" rel="noopener" href="http://www.361way.com/powercli-deploy-vmware/4877.html">http://www.361way.com/powercli-deploy-vmware/4877.html</a></p>
 
       
     </div>
@@ -316,7 +349,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/sslocal%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/django%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -334,7 +367,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/sslocal%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">sslocal失败解决方法</a>
+          <a href="/2022/07/04/yuque/django%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/" class="post-title-link" itemprop="url">django学习文档</a>
         </h2>
 
         <div class="post-meta-container">
@@ -346,7 +379,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 09:03:18 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:03:18+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 09:25:48 / 修改时间：17:30:58" itemprop="dateCreated datePublished" datetime="2022-07-04T09:25:48+08:00">2022-07-04</time>
     </span>
 
   
@@ -359,16 +392,45 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>好久不锻炼，都不知道动作了。</p>
-</blockquote>
-<p>ss_config</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;server&quot;</span>:<span class="string">&quot;ip&quot;</span>,</span><br><span class="line">    <span class="string">&quot;server_port&quot;</span>:<span class="number">1081</span>,</span><br><span class="line">    <span class="string">&quot;local_address&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;local_port&quot;</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="string">&quot;password&quot;</span>:<span class="string">&quot;pass&quot;</span>,</span><br><span class="line">    <span class="string">&quot;timeout&quot;</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="string">&quot;method&quot;</span>:<span class="string">&quot;aes-256-cfb&quot;</span></span><br><span class="line">    <span class="string">&quot;fast_open&quot;</span>: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>发表于 2018-03-21</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>不会开发的运维不是好司机，自己满足自己的自动化运维需求，能提升效率。</p>
+<h2 id="学习环境"><a href="#学习环境" class="headerlink" title="学习环境"></a>学习环境</h2><p>os：ubuntu1404<br>python：2.7<br>django：1.8</p>
+<h2 id="环境部署"><a href="#环境部署" class="headerlink" title="环境部署"></a>环境部署</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-pip</span><br><span class="line">pip install virtualenv</span><br><span class="line">which python <span class="comment">#查看python位置</span></span><br><span class="line">virtualenv --no-site-packages -python=/<span class="built_in">bin</span>/python py2dj1</span><br><span class="line">source ~/py2dj1/<span class="built_in">bin</span>/active <span class="comment">#进入环境</span></span><br><span class="line">pip install django==<span class="number">1.8</span></span><br><span class="line">deactive <span class="comment">#退出环境</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>使用方法 sslocal -c ss_config<br>使用会报错“AttributeError: /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1: undefined symbol: EVP_CIPHER_CTX_cleanup”，查询后是由于 openssl 版本升级，修改了以前的函数名称，而 ss 还使用了旧函数名。解决方法是修改旧函数名为新名称</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/lib/python2<span class="number">.7</span>/dist-packages/shadowsocks/crypto/openssl.py</span><br><span class="line"><span class="comment">#修改52行和111行的函数，libcrypto.EVP_CIPHER_CTX_cleanup,修改为libcrypto.EVP_CIPHER_CTX_reset</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="主要概念"><a href="#主要概念" class="headerlink" title="主要概念"></a>主要概念</h2><p>view 视图<br>view 是处理业务逻辑的部分。在 view 中写函数实现业务逻辑。<br>url 路由<br>url 是控制部分，用户控制前端访问的 url 由什么函数返回。支持多种正则匹配。匹配返回的元组第二项可以作为视图函数中的第二个变量。<br>template 模版</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">模版用户把html生成语句从view中分离，达到界面展示和业务逻辑松耦合。包含模版标签&#123;\% \%&#125;，支持<span class="keyword">for</span>循环，<span class="keyword">if</span>-<span class="keyword">else</span>判断，equal判断。模版变量\&#123;\&#123; \&#125;\&#125;。模版之间有include和extend关系。一般是使用extend继承关系。</span><br></pre></td></tr></table></figure>
 
-<p>参考链接<br><a target="_blank" rel="noopener" href="https://github.com/shadowsocks/shadowsocks/wiki/Configuration-via-Config-File">https://github.com/shadowsocks/shadowsocks/wiki/Configuration-via-Config-File</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/lzhd24/p/6686803.html">http://www.cnblogs.com/lzhd24/p/6686803.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
+<p>model 模型<br>模型是 django 抽象的描述数据库结构，用于创建数据库和表。可自定义 class 创建数据类型。表之间的关系有 1 对多（forinen key），多对多（manyTomany）。模型中的增删改查有特定的语法。<br>admin 后台<br>admin 后台是所有 web 站点通用的管理后台，用于在后台设置用户及权限，手动输入信息等。</p>
+<h2 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h2><p>django1.1.0 和 1.8 及 2.0 之间差异较多，包括包名称和结构，manage.py 命令。<br>django 与 python 的适配如下</p>
+<table>
+<thead>
+<tr>
+<th><strong>Django version</strong></th>
+<th><strong>Python version</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.8</td>
+<td>2.7，3.2，3.3，3.4，3.5</td>
+</tr>
+<tr>
+<td>1.9，1，10</td>
+<td>2.7，3.4，3.5</td>
+</tr>
+<tr>
+<td>1.11</td>
+<td>2.7，3.4，3.5，3.6</td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>3.4，3.5，3.6</td>
+</tr>
+<tr>
+<td>2.1</td>
+<td>3.5，3.6，3.7</td>
+</tr>
+</tbody></table>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django">https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django</a><br><a target="_blank" rel="noopener" href="http://djangobook.py3k.cn/2.0">http://djangobook.py3k.cn/2.0</a></p>
 
       
     </div>
@@ -395,7 +457,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E9%82%93%E5%B0%8F%E5%B9%B3%E4%BC%A0-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/G9%E5%AE%89%E8%A3%85centos7.2%E5%81%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -413,7 +475,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E9%82%93%E5%B0%8F%E5%B9%B3%E4%BC%A0-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">邓小平传-读书笔记</a>
+          <a href="/2022/07/04/yuque/G9%E5%AE%89%E8%A3%85centos7.2%E5%81%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A/" class="post-title-link" itemprop="url">G9安装centos7.2做网卡绑定</a>
         </h2>
 
         <div class="post-meta-container">
@@ -425,7 +487,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 08:58:39 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T08:58:39+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 09:24:04 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:24:04+08:00">2022-07-04</time>
     </span>
 
   
@@ -438,11 +500,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2018-06-09</p>
-<blockquote>
-<p>好久没更新博客了。一是没有经常使用笔记本，写博客只能在私用笔记上，就发文较少。二是用了一段时间蚂蚁笔记写博客，还充值 50 购买一年会员，以为会在上面常驻，结果不了了之。三是记录工作文档都在语雀上。</p>
-</blockquote>
-<p>在网易蜗牛阅读上，花了 3 周时间把邓小平传看完，记录下。<br>邓小平 1904 年出生在四川广安，有亲戚做生意，资助他上学。清政府洋务运动和法国大革命后缺劳动力，通过层层考试 16 岁去了法国勤工俭学。到法国没上几天学，就去工厂上班糊口。加入法国的华人共产党，给书记周恩来做助理印党内刊物。法国混了一段时间后又去莫斯科，和冯玉祥的儿子一起上学。国共第一次合作时回国参加共产党运动。南昌起义后在广西发动百色起义。国共合作分裂后随红军长征到延安。到延安与第二任妻子结婚，毛泽东等出席。<br>解放战争时刘邓大军，邓小平为政委。文革时期下放到江西鹰潭。文化大革命末期周恩来招进北京，准备重用。对文化大革命的态度导致再次下台修养。1976 年周毛逝去，与华国锋一起领导中国。<br>与华国锋共事时对两个凡事有不同看法，出现分歧。十一届三中全会正式独揽大权，开始改革开放。三个特区深圳、珠海、厦门在开放中迅速发展。<br>对外外交强硬坚毅。解决香港问题，坚定台湾立场。打击越南和苏联，和美国日本亲密接触。<br>1992 年南方专列，加速改革开放。<br>看完后对领导人有了多角度的认识。胡锦涛处理西藏问题厉害，江泽民处理学生问题当主席。曾庆红是延安幼儿园长家的，关系广。薄一波为财政部长，习仲勋广州书记经济建设能力强。朱镕基与世界银行专家一起诊断中国经济，经济能力好。赵紫阳，胡耀邦对言论宽容引发不稳定下台。万里处理铁路运动，李鹏为周恩来养子 1989 年维稳功劳大。叶剑英为上海富家子弟，不热衷政治，大家都好。<br>国家发展哪里，哪里就能发展，读懂政策很重要。深圳特区就是例子。<br>二胎政策开放就是增加房地产需求，供不应求，房价就要涨。<br>后知后觉，要总结经验教训。</p>
+          <p>发表于 2018-03-28</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>网卡绑定遇到一张网卡切换慢，5 分钟才能恢复网络访问。查询相关文章后总算解决</p>
+<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>解决方法为绑定参数添加 arp_interval=1000 arp_ip_target=gw,设置定时去 ping 网关。<br>网卡绑定脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#关闭防火墙，网卡管理软件，selinux</span></span><br><span class="line">systemctl stop NetworkManager</span><br><span class="line">systemctl disable NetworkManager</span><br><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable firewalld</span><br><span class="line">setenforce <span class="number">0</span></span><br><span class="line">sed -i <span class="string">&#x27;s/^SELINUX=.*/SELINUX=disabled/g&#x27;</span> /etc/selinux/config</span><br><span class="line"><span class="comment">#检查并加载bond模块到内核</span></span><br><span class="line">modprobe bonding</span><br><span class="line">lsmod | grep bonding</span><br><span class="line">cd /etc/sysconfig/network-scripts/</span><br><span class="line">cp ifcfg-eno50 bak_ifcfg-eno50</span><br><span class="line">cp ifcfg-ens1f1 bak_ifcfg-ens1f1</span><br><span class="line">cat &gt; /etc/sysconfig/network-scripts/ifcfg-bond_prod &lt;&lt;EOF</span><br><span class="line">DEVICE=bond_prod</span><br><span class="line">BOOTPROTO=static</span><br><span class="line">TYPE=Bond</span><br><span class="line">BONDING_MASTER=yes</span><br><span class="line">ONBOOT=yes</span><br><span class="line">IPADDR=$<span class="number">1</span></span><br><span class="line">NETMASK=gw</span><br><span class="line">GATEWAY=gw</span><br><span class="line">USERCTL=no</span><br><span class="line">BONDING_OPTS=<span class="string">&quot;mode=1 miimon=100 arp_interval=1000 arp_ip_target=gw&quot;</span></span><br><span class="line">EOF</span><br><span class="line">cat &gt;/etc/sysconfig/network-scripts/ifcfg-eno50&lt;&lt;EOF</span><br><span class="line">DEVICE=eno50</span><br><span class="line">BOOTPROTO=none</span><br><span class="line">ONBOOT=yes</span><br><span class="line">MASTER=bond_prod</span><br><span class="line">SLAVE=yes</span><br><span class="line">USERCTL=no</span><br><span class="line">EOF</span><br><span class="line">cat &gt;/etc/sysconfig/network-scripts/ifcfg-ens1f1&lt;&lt;EOF</span><br><span class="line">DEVICE=ens1f1</span><br><span class="line">BOOTPROTO=none</span><br><span class="line">ONBOOT=yes</span><br><span class="line">MASTER=bond_prod</span><br><span class="line">SLAVE=yes</span><br><span class="line">USERCTL=no</span><br><span class="line">EOF</span><br><span class="line">service network restart</span><br><span class="line">cat /proc/net/bonding/bond_prod</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>执行 ansible -i hosts-28 ip -m script -a ‘bond-hp-DL380.sh ip’</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://www.centos.org/docs/5/html/5.1/Deployment_Guide/s3-modules-bonding-directives.html">https://www.centos.org/docs/5/html/5.1/Deployment_Guide/s3-modules-bonding-directives.html</a><br><a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-network_configuration_using_sysconfig_files">https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-network_configuration_using_sysconfig_files</a></p>
 
       
     </div>
@@ -469,7 +533,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/yuque/ELK%20%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%83%A8%E7%BD%B2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/vmware-NSX%E4%BA%A7%E5%93%81%E5%9F%B9%E8%AE%AD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -487,7 +551,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/29/yuque/ELK%20%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">ELK 学习与部署</a>
+          <a href="/2022/07/04/yuque/vmware-NSX%E4%BA%A7%E5%93%81%E5%9F%B9%E8%AE%AD/" class="post-title-link" itemprop="url">vmware-NSX产品培训</a>
         </h2>
 
         <div class="post-meta-container">
@@ -497,15 +561,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-29 12:37:34" itemprop="dateCreated datePublished" datetime="2022-06-29T12:37:34+08:00">2022-06-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-01 17:15:33" itemprop="dateModified" datetime="2022-07-01T17:15:33+08:00">2022-07-01</time>
+      <time title="创建时间：2022-07-04 09:14:48 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T09:14:48+08:00">2022-07-04</time>
     </span>
 
   
@@ -518,33 +576,21 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2018-07-03<br>使用 ELK 收集分析物理设备的日志，确保硬件正常，是否可行？</p>
-<h2 id="基本概念理解"><a href="#基本概念理解" class="headerlink" title="基本概念理解"></a>基本概念理解</h2><p>syslog-ng:一种日志服务软件 ，与系统自带的 syslog 类似，配置较为简单。<br>logstash :日志传输工具，像管道一样接受 input，输出 output，之间可以过滤。iuput 支持多种类型：文件、stdin、syslog、tcp。output 支持输出到 elasticsearch,email,file,nagios,stdout tcp hdfs.<br>Logstash 不只是一个 input | filter | output 的数据流，而是一个 input | decode | filter | encode | output 的数据流！codec 就是用来 decode、encode 事件的。<br>elasticsearch:是一个分布式全文搜索引擎，负责存储 logstash 传递过来的日志。<br>kibana：可视化 web 框架，与 grafana 类似。获取后端数据，在 web 端可视化。<br>Beats:从 packetbeat 发展出来的数据收集系统，beat 收集器可以直接写入 elsaticsearch，也可以传输给 logstash。<br>先玩 logstash，再玩 elasticsearch，再用 kibana。数据收集需要用大 beats 时再说。</p>
-<h2 id="部署测试"><a href="#部署测试" class="headerlink" title="部署测试"></a>部署测试</h2><p>测试学习时使用 tar.gz 文件，解压后手动指定配置文件运行。生产环境使用对应操作系统已编译好的二进制安装包。因为安装包会创建合适的用户和服务启动脚本。</p>
-<h3 id="各个组件部署和测试"><a href="#各个组件部署和测试" class="headerlink" title="各个组件部署和测试"></a>各个组件部署和测试</h3><p>操作系统：centos7.5,安装 2 台，便于测试 elasticsearch 集群功能。配置 4C8G100G。<br>1 下载包并解压包</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装jdk</span></span><br><span class="line">yum install java-<span class="number">1.8</span><span class="number">.0</span>-openjdk.x86_64</span><br><span class="line">cd ~</span><br><span class="line">mkdir ELK &amp;&amp; cd ELK</span><br><span class="line">wget https://artifacts.elastic.co/downloads/logstash/logstash-oss-<span class="number">6.3</span><span class="number">.1</span>.tar.gz</span><br><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-<span class="number">6.3</span><span class="number">.1</span>.tar.gz</span><br><span class="line">wget https://artifacts.elastic.co/downloads/kibana/kibana-oss-<span class="number">6.3</span><span class="number">.1</span>-linux-x86_64.tar.gz</span><br><span class="line">wget https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-oss-<span class="number">6.3</span><span class="number">.1</span>-linux-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
-
-<p>2 运行 logstash<br>logstash 的作用为收集、过滤编码、传输数据。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在命令行输入配置文件，使用标准输入作为logstash输入，标准输出作为logstash输出。</span></span><br><span class="line">cd logstash-<span class="number">6.3</span><span class="number">.1</span></span><br><span class="line"><span class="built_in">bin</span>/logstash -e <span class="string">&#x27;input &#123; stdin &#123; &#125; &#125; output &#123; stdout &#123;&#125; &#125;&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>#在命令行输入配置文件，使用标准输入作为 logstash 输入，标准输出作为 logstash 输出。<br>cd logstash-6.3.1<br>bin/logstash -e ‘input { stdin { } } output { stdout {} }’</p>
-<p>启动成功后输入任意字符，会返回 json 格式的日志。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost logstash-<span class="number">6.3</span><span class="number">.1</span>]<span class="comment"># bin/logstash -e &#x27;input &#123; stdin &#123; &#125; &#125; output &#123; stdout &#123;&#125; &#125;&#x27;</span></span><br><span class="line">Sending Logstash<span class="string">&#x27;s logs to /root/ELK/logstash-6.3.1/logs which is now configured via log4j2.properties</span></span><br><span class="line"><span class="string">[2018-07-13T11:42:29,065][WARN ][logstash.config.source.multilocal] Ignoring the &#x27;</span>pipelines.yml<span class="string">&#x27; file because modules or command line options are specified</span></span><br><span class="line"><span class="string">[2018-07-13T11:42:29,811][INFO ][logstash.runner          ] Starting Logstash &#123;&quot;logstash.version&quot;=&gt;&quot;6.3.1&quot;&#125;</span></span><br><span class="line"><span class="string">[2018-07-13T11:42:32,193][INFO ][logstash.pipeline        ] Starting pipeline &#123;:pipeline_id=&gt;&quot;main&quot;, &quot;pipeline.workers&quot;=&gt;4, &quot;pipeline.batch.size&quot;=&gt;125, &quot;pipeline.batch.delay&quot;=&gt;50&#125;</span></span><br><span class="line"><span class="string">The stdin plugin is now waiting for input:</span></span><br><span class="line"><span class="string">[2018-07-13T11:42:32,400][INFO ][logstash.pipeline        ] Pipeline started successfully &#123;:pipeline_id=&gt;&quot;main&quot;, :thread=&gt;&quot;#&lt;Thread:0x709764de run&gt;&quot;&#125;</span></span><br><span class="line"><span class="string">[2018-07-13T11:42:32,472][INFO ][logstash.agent           ] Pipelines running &#123;:count=&gt;1, :running_pipelines=&gt;[:main], :non_running_pipelines=&gt;[]&#125;</span></span><br><span class="line"><span class="string">[2018-07-13T11:42:32,710][INFO ][logstash.agent           ] Successfully started Logstash API endpoint &#123;:port=&gt;9600&#125;</span></span><br><span class="line"><span class="string">hello world</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">       &quot;message&quot; =&gt; &quot;hello world&quot;,</span></span><br><span class="line"><span class="string">      &quot;@version&quot; =&gt; &quot;1&quot;,</span></span><br><span class="line"><span class="string">    &quot;@timestamp&quot; =&gt; 2018-07-13T03:42:43.934Z,</span></span><br><span class="line"><span class="string">          &quot;host&quot; =&gt; &quot;localhost.localdomain&quot;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>一般情况是使用 beats 收集主机的日志后，再传输到 logstash,logstash 再传输到 elasticsearch.也可以直接使用 logstash 收集日志，传递到 elasticstash。<br>logstash 监视日志并传输到控制台配置文件。先把示例日志下载下来</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.elastic.co/demos/logstash/gettingstarted/logstash-tutorial.log.gz</span><br><span class="line">[root@localhost logstash-<span class="number">6.3</span><span class="number">.1</span>]<span class="comment"># gunzip logstash-tutorial.log.gz</span></span><br><span class="line">[root@localhost logstash-<span class="number">6.3</span><span class="number">.1</span>]<span class="comment"># cat logstash-tutorial.log | wc -l</span></span><br><span class="line"><span class="number">100</span></span><br></pre></td></tr></table></figure>
-
-<p>logstash 配置文件 first-logstash.yml</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">input</span> &#123;</span><br><span class="line">    file &#123;</span><br><span class="line">        path =&gt; <span class="string">&quot;/root/ELK/logstash-6.3.1/*.log&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output &#123;</span><br><span class="line">    stdout &#123; codec =&gt; json &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用配置文件运行 logstash bin/logstash -f config/first-logstash.conf –config.reload.automatic<br>会在控制台显示日志内容。将 output 改为 elasticsearch,即可将日志输出到那边。<br>使用 filter 将非结构化的日志转为格式化。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">filter</span> &#123;</span><br><span class="line">    grok &#123;</span><br><span class="line">        match =&gt; &#123; <span class="string">&quot;message&quot;</span> =&gt; <span class="string">&quot;%&#123;COMBINEDAPACHELOG&#125;&quot;</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output &#123;</span><br><span class="line">    elasticsearch &#123;</span><br><span class="line">        hosts =&gt; [ <span class="string">&quot;localhost:9200&quot;</span> ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>3 运行 elasticsearch<br>elasticsearch 常用 api</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 确认基本信息</span></span><br><span class="line">curl http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">9200</span>/</span><br><span class="line"><span class="comment"># 集群健康检查</span></span><br><span class="line">curl GET http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">9200</span>/_cat/health?v</span><br><span class="line"><span class="comment"># 节点查看</span></span><br><span class="line">curl GET http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">9200</span>/_cat/nodes?v</span><br><span class="line"><span class="comment"># 查看索引</span></span><br><span class="line">curl GET http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">9200</span>/_cat/indices?v</span><br><span class="line"><span class="comment"># 创建索引</span></span><br><span class="line">curl  -X PUT http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">9200</span>/customer?pretty</span><br><span class="line"><span class="comment"># 给索引中添加记录，修改记录在指定的ID位置，传入新值即可。</span></span><br><span class="line">curl -X PUT <span class="string">&quot;localhost:9200/customer/_doc/1?pretty&quot;</span> -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> -d<span class="string">&#x27;&#123;  &quot;name&quot;: &quot;John Doe&quot;&#125;&#x27;</span></span><br><span class="line"><span class="comment"># 更新记录也可以用update</span></span><br><span class="line">curl -X POST <span class="string">&quot;localhost:9200/customer/_doc/1/_update?pretty&quot;</span> -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> -d<span class="string">&#x27;&#123;  &quot;doc&quot;: &#123; &quot;name&quot;: &quot;Jane Doe&quot;, &quot;age&quot;: 20 &#125;&#125;&#x27;</span></span><br><span class="line"><span class="comment"># 查询记录</span></span><br><span class="line">curl GET http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">9200</span>/customer/_doc/<span class="number">1</span>?pretty</span><br><span class="line"><span class="comment"># 删除记录</span></span><br><span class="line">curl -X DELETE <span class="string">&quot;localhost:9200/customer/_doc/2?pretty&quot;</span></span><br><span class="line"><span class="comment"># 删除索引</span></span><br><span class="line">curl -X DELETE <span class="string">&quot;localhost:9200/customer?pretty&quot;</span></span><br><span class="line"><span class="comment"># 批量操作用_bulk</span></span><br><span class="line">POST /customer/_doc/_bulk?pretty</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>索引：数据表的一种名称。在 elasticsearch 中的数据，一个索引会分为 5 片并保留一个副本。分 5 片可提高查询速度。<br>4 运行 kibana</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/hanyifeng/p/5509985.html">http://www.cnblogs.com/hanyifeng/p/5509985.html</a><br><a target="_blank" rel="noopener" href="https://legacy.gitbook.com/book/chenryn/elk-stack-guide-cn/details">https://legacy.gitbook.com/book/chenryn/elk-stack-guide-cn/details</a><br><a target="_blank" rel="noopener" href="https://operational.io/elk-for-network-operations/">https://operational.io/elk-for-network-operations/</a><br><a target="_blank" rel="noopener" href="https://www.elastic.co/cn/">https://www.elastic.co/cn/</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/thinkmore1314/article/details/9469499">https://blog.csdn.net/thinkmore1314/article/details/9469499</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/ELK/"># ELK</a></p>
+          <p>发表于 2018-03-29<br>听了一天的培训，总结记录。</p>
+<h2 id="NSX-是什么"><a href="#NSX-是什么" class="headerlink" title="NSX 是什么"></a>NSX 是什么</h2><p>NSX 是 vmware 推出的网络虚拟化产品，期望达到软件定义网络的效果。实质上是使用 NSX 管理端和安装在 esxi 主机上的代理端，整合 esxi 主机网卡和 esxi 接入交换机接口，在统一网络配置界面实现网络规划、管理功能。能实现是因为在 esxi 主机安装一个可被 NSX 管理的网络代理，二层配置由管理平台下发到 esxi 主机，三层功能在 NSX 管理集群中实现。</p>
+<h2 id="NSX-的优势和劣势"><a href="#NSX-的优势和劣势" class="headerlink" title="NSX 的优势和劣势"></a>NSX 的优势和劣势</h2><h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
+<li>简化 vcenter 集群网络配置，不需要分散配置多个接入 POD 交换机。</li>
+<li>网络管理精细化，针对每虚拟机做网络设置。</li>
+<li>网络安全集中配置，减少外部防火墙压力。</li>
+</ul>
+<h3 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h3><ul>
+<li>额外的费用</li>
+<li>学习配置成本</li>
+<li>迁移代价</li>
+</ul>
+<h2 id="使用到的技术"><a href="#使用到的技术" class="headerlink" title="使用到的技术"></a>使用到的技术</h2><p>巨型帧，mtu 1600，方便对帧封装和定制参数用于检测。<br>基于网卡硬件支持的下一带封装技术，效率更高。<br>分层的分布式架构设计，管理平面同一配置，控制平面分布式调度，转发平面高效转发。<br>二层功能二层实现，流量只在二层流通。<br>三层及以上功能集中式控制。</p>
+<h2 id="术语解释"><a href="#术语解释" class="headerlink" title="术语解释"></a>术语解释</h2><p>eage node，边界节点，用于控制出口流量<br>T0 路由器：汇聚路由器，一个数据中心一个。<br>T1 路由器：接入路由器，每一个业务一个，形成一个独立的路由域。<br>T1 路由器的端口：用于配置网关，实现三层通信。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>边界节点有三种链路，每种链路的实现和功能还不是很理解。</p>
 
       
     </div>
@@ -564,7 +610,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

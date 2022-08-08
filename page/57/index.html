@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/27/%E8%85%BE%E8%AE%AF%E8%93%9D%E9%B2%B8%E8%BF%90%E7%BB%B4%E5%B9%B3%E5%8F%B0%E5%88%9D%E6%8E%A2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/09/ubuntu-Vagrant%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/27/%E8%85%BE%E8%AE%AF%E8%93%9D%E9%B2%B8%E8%BF%90%E7%BB%B4%E5%B9%B3%E5%8F%B0%E5%88%9D%E6%8E%A2/" class="post-title-link" itemprop="url">腾讯蓝鲸运维平台初探</a>
+          <a href="/2017/06/09/ubuntu-Vagrant%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">ubuntu-Vagrant环境部署</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,7 +195,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-05-27 09:57:59" itemprop="dateCreated datePublished" datetime="2017-05-27T09:57:59+08:00">2017-05-27</time>
+      <time title="创建时间：2017-06-09 11:41:10" itemprop="dateCreated datePublished" datetime="2017-06-09T11:41:10+08:00">2017-06-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -216,24 +216,15 @@
     
     <div class="post-body" itemprop="articleBody">
           <blockquote>
-<p>一入运维深似海，从此床上不折腾。凌晨3点的短信电话告警、无休止的变更，让朝气蓬勃的青年变了样。网传蓝鲸平台标致可人，今日亲测之。</p>
+<p>需要学习和掌握ansible，按照台湾那本书安装Vagrante环境学习。</p>
 </blockquote>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>蓝鲸运维平台3.0需要内测申请，每周2,4审批，故测试2.0版本。</p>
-<p>运维平台也叫工作台，在工作台中可添加系统默认应用和自己编写应用。系统默认应用包括CMDB、job平台。为了便于自己编写应用，工作台中有开发者中心标签，实际为pass平台，用于快速创建在工作台上的应用。rabbitMQ用于异步消息传输，用于应用间消息传递、作业平台命令传递到主机。</p>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>使用两台服务器部署，1台部署基础模块+正式应用+MQ，1台部署app测试环境。操作系统版本为centos6.5_X64（使用centos7.2由于内网无法更新部分软件包，遂放弃。）</p>
-<p>安装好系统，配置好网络和yum源后，就可以下载证书和软件了。注册平台帐号，在<a target="_blank" rel="noopener" href="http://bk.tencent.com/download/#ssl">证书下载页面</a>输入mac地址，下载证书。在<a target="_blank" rel="noopener" href="http://bk.tencent.com/download/#community">社区版下载</a>下载v2.0.1版本（需登录）。</p>
-<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#登录服务器创建/data目录</span><br><span class="line">mkdir /data</span><br><span class="line">cd /data/ &amp;&amp; wget 社区版和证书</span><br><span class="line">#按照文档安装基础模块</span><br><span class="line"># 按照文档安装pass正式环境</span><br><span class="line"># 按照文档安装rabbitmq</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="排错处理"><a href="#排错处理" class="headerlink" title="排错处理"></a>排错处理</h3><ol>
-<li>安装后报证书错误<br>输入正确的mac地址后再下载证书，init后，要执行install。</li>
-<li>安装pass正式环境报错找不到register.tmp.<br>需要将基础模块启动后再安装，<a target="_blank" rel="noopener" href="http://bbs.bk.tencent.com/forum.php?mod=viewthread&tid=305&highlight=Error:+token+sid+is+not+in+/data/paa">参考</a>.</li>
-<li>安装rabbitmq时无法启动报错“erl：command not found”<br>表明环境变量设置有问题，先<code>whereis erl</code>找到erl所造目录，然后在～/.bash_profile中添加，然后执行<code>source ~/.bash_profile</code>重新加载</li>
-<li>rabbitmq无法启动，在平台上无法显示<br>在第三方服务中添加第三方服务，输入ip地址、用户名和密码。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ cd extras/rabbitmq</span><br><span class="line"># 安装rabbitmq(涉及到erl的安装，时间较久)</span><br><span class="line">$ ./install.sh -u 管理员账户 -p 管理员密码</span><br><span class="line"># 默认安装到了/data/paas/service/rabbitmq下面</span><br><span class="line"># 检测是否启动成功</span><br><span class="line"># 查看mq服务状态</span><br><span class="line">$ /data/paas/service/rabbitmq/sbin/rabbitmqctl status</span><br><span class="line">/data/pass/service/rabbitmq/sbin/rabbitmqctl start_app #启动服务</span><br><span class="line"># 查看web api接口服务是否启动</span><br><span class="line">$ lsof -i:15672</span><br><span class="line"># 查看mq服务是否启动</span><br><span class="line">$ lsof -i:5672</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="使用体验"><a href="#使用体验" class="headerlink" title="使用体验"></a>使用体验</h2><p>待补充</p>
-<h2 id="开发应用"><a href="#开发应用" class="headerlink" title="开发应用"></a>开发应用</h2><p>待补充</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>待补充</p>
-<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="http://open.qiniudn.com/ecug-2016/cloud-times-ops.pdf">http://open.qiniudn.com/ecug-2016/cloud-times-ops.pdf</a></p>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install virtualbox</span><br><span class="line">sudo apt-get install vagrant</span><br><span class="line">mkdir ~/vagrant_project &amp;&amp; cd ~/vagrant_project</span><br><span class="line">#从云上抓取ubuntu系统并启动它</span><br><span class="line">vagrant init centos/7; vagrant up --provider virtualbox  #抓取并启动centos7</span><br><span class="line">vagrant init ubuntu/trusty64; vagrant up --provider virtualbox  #抓取并启动ubuntu</span><br><span class="line">vagrant init centos/6; vagrant up --provider virtualbox  #抓取并启动centos6</span><br><span class="line">vagrant ssh-config #查看ssh配置</span><br><span class="line"> vagrant ssh   #ssh到虚拟机中</span><br><span class="line"> vagrant box list  #列出本地存在的虚拟机镜像</span><br><span class="line"> vagrant	global-status  #查看本地虚拟机状态</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="报错处理"><a href="#报错处理" class="headerlink" title="报错处理"></a>报错处理</h2><p>1.使用普通用户启动虚拟机报错，改用sudo后解决</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>使用vagrant管理部署虚拟机，有利于开发测试环境部署，浪费资源。</p>
+<p>使用docker较为节省资源。</p>
+<p>vagrant管理虚拟机，如何保存初始状态，如何保存变更？</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://www.olindata.com/en/blog/2014/07/installing-vagrant-and-virtual-box-ubuntu-1404-lts">https://www.olindata.com/en/blog/2014/07/installing-vagrant-and-virtual-box-ubuntu-1404-lts</a></p>
 
       
     </div>
@@ -260,7 +251,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/26/zabbix%E8%84%9A%E6%9C%AC%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E9%85%8D%E7%BD%AE/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/07/ansible%E6%97%A5%E5%B8%B8%E7%94%A8%E9%80%94%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -278,7 +269,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/26/zabbix%E8%84%9A%E6%9C%AC%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">zabbix脚本发送邮件配置</a>
+          <a href="/2017/06/07/ansible%E6%97%A5%E5%B8%B8%E7%94%A8%E9%80%94%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">ansible日常用途总结</a>
         </h2>
 
         <div class="post-meta-container">
@@ -289,7 +280,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-05-26 16:36:00" itemprop="dateCreated datePublished" datetime="2017-05-26T16:36:00+08:00">2017-05-26</time>
+      <time title="创建时间：2017-06-07 21:55:16" itemprop="dateCreated datePublished" datetime="2017-06-07T21:55:16+08:00">2017-06-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -310,19 +301,36 @@
     
     <div class="post-body" itemprop="articleBody">
           <blockquote>
-<p>使用腾讯企业邮箱发监控告警邮件，由于企业邮箱的限制，会提示输入验证码后再发送。故使用postfix</p>
+<p>没有使用ansible工具，运维工作也能持续开展。使用ansible是为了运维效率提升，准确度提升。</p>
 </blockquote>
-<h2 id="配置本机postfix邮件发送"><a href="#配置本机postfix邮件发送" class="headerlink" title="配置本机postfix邮件发送"></a>配置本机postfix邮件发送</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#1.本机若安装sendmail，则必须关闭并卸载。</span><br><span class="line">service sendmail stop</span><br><span class="line">chkconfig sendmail off</span><br><span class="line">rpm -e sendmail --nodeps</span><br><span class="line">#2.安装postfix （centos6.3下默认yum源，默认postfix系统自带）</span><br><span class="line">yum install postfix -y</span><br><span class="line">#更改postfix配置文件中的参数</span><br><span class="line">postconf -e myhostname=mail.zabbix.example.cn</span><br><span class="line">postconf -e myorigin=zabbix.example.cn</span><br><span class="line">postconf -e mydomain=zabbix.example.cn</span><br><span class="line">postconf -e mydestination=localhost</span><br><span class="line">postconf -e mynetworks=127.0.0.0/8</span><br><span class="line"></span><br><span class="line">#配置完成会添加参数到/etc/postfix/main.cf下末行</span><br><span class="line">vi /etc/hosts</span><br><span class="line">#添加一行：</span><br><span class="line">------------</span><br><span class="line">127.0.0.1 mail.zabbix.example.cn zabbix.example.cn</span><br><span class="line">------------</span><br><span class="line">#重启postfix服务</span><br><span class="line">service postfix restart</span><br><span class="line">#测试发送一封邮件到公网邮箱</span><br><span class="line">echo &quot;test&quot; | mail -s &quot;test&quot; 373220424@qq.com</span><br><span class="line">#动态查看发送的邮件日志</span><br><span class="line">tail -f /var/log/maillog</span><br><span class="line">#若远程邮箱收到，则配置成功</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="编写sendmail脚本"><a href="#编写sendmail脚本" class="headerlink" title="编写sendmail脚本"></a>编写sendmail脚本</h2><p>路径 /zabbix/alertscripts/</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">file=/tmp/mail</span><br><span class="line">echo &quot;$3&quot; &gt; $file</span><br><span class="line">#将文件转码，避免内容显示为附件</span><br><span class="line">dos2unix -k $file</span><br><span class="line">#echo &quot;$file&quot; | mail -s &quot;$2&quot; $1</span><br><span class="line">mail -s &quot;$2&quot; $1 &lt; $file</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="zabbix前端配置"><a href="#zabbix前端配置" class="headerlink" title="zabbix前端配置"></a>zabbix前端配置</h2><p>1 添加媒介类型script，添加三个参数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;ALERT.SENDTO&#125;</span><br><span class="line">&#123;ALERT.SUBJECT&#125;</span><br><span class="line">&#123;ALERT.MESSAGE&#125;</span><br></pre></td></tr></table></figure>
-
-<p>2 添加用户，并为用户添加媒体和主机权限</p>
-<p>3 创建动作，触发器变更时发送信息</p>
-<p>4 查看 报表&gt;动作日志，检查邮件发送结果。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.linuxidc.com/Linux/2013-05/84744.htm">http://www.linuxidc.com/Linux/2013-05/84744.htm</a><br><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/b91ba941f2aa">http://www.jianshu.com/p/b91ba941f2aa</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/kimsoft/article/details/8091734">http://blog.csdn.net/kimsoft/article/details/8091734</a> 改时区</p>
+<h2 id="为什么使用ansible"><a href="#为什么使用ansible" class="headerlink" title="为什么使用ansible"></a>为什么使用ansible</h2><p>ansible可以方便的管理大量主机。ansible使用ssh通道传输，被管理主机无需安装任何agent。主机清单文件可使用变量方便设定ssh连接信息。</p>
+<p>ansible管理主机比在主机上执行shell更高效和安全。<br>官方和社区将基础功能（用户管理、文件管理、软件包管理、服务管理）封装成模块，完成特定工作只需调用合适的模块即可，无需自己编写复杂的shell脚本。模块由经验丰富人员编写及大量人员测试，安全性较自编脚本高。</p>
+<h2 id="日常工作内容与ansible结合设想"><a href="#日常工作内容与ansible结合设想" class="headerlink" title="日常工作内容与ansible结合设想"></a>日常工作内容与ansible结合设想</h2><p>1 vmware虚拟机创建</p>
+<p>创建指定cpu、内存、硬盘、操作系统的虚拟机，并配置合适的ip地址，目前使用图形界面方式创建。ansible有虚拟化相关模块，后期考虑是否使用ansible命令创建虚拟机。</p>
+<p>2 虚拟机资源变更</p>
+<p>包括变更磁盘、内存、cpu、网卡。磁盘扩容采用linux命令扩容，考虑是否将扩容语句编写为shell或ansible-playbook。</p>
+<p>3 物理机系统安装及初始化</p>
+<p>根据要求安装操作系统、配置网络及系统初始化。初始化包括：ip设置、网卡绑定、配置源、防火墙关闭、selinux关闭、创建用户及组、设置sudo、修改root密码、设置history时间戳、升级openssl和openssh、安装nagois监控或zabbix监控、时间同步服务器。将系统安装后的初始化工作和检查工作编写为合适的ansible playbook，能极大的提升部署效率和准确率。</p>
+<h2 id="常用ansible模块"><a href="#常用ansible模块" class="headerlink" title="常用ansible模块"></a>常用ansible模块</h2><p>目前使用ansible模块有</p>
+<ul>
+<li>setup 收集主机系统信息，包括主机操作系统、硬件配置、网络设置。</li>
+<li>shell、command、raw 。执行linux命令，检查或配置系统。</li>
+<li>copy 拷贝文件到主机。</li>
+<li>service 启动、停止、重启服务</li>
+<li>yum、apt。安装软件</li>
+<li>user 设置系统用户</li>
+<li>group 设置组</li>
+<li>debug 输出调试信息</li>
+</ul>
+<h2 id="已使用playbook"><a href="#已使用playbook" class="headerlink" title="已使用playbook"></a>已使用playbook</h2><ul>
+<li>检查系统资源</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line"># 使用setup检查系统资源，使用debug输出ip、os版本、cup核数、内存、硬盘信息。</span><br><span class="line">- hosts: local</span><br><span class="line">  tasks:</span><br><span class="line">  - name: print info</span><br><span class="line">    debug:</span><br><span class="line">      msg: &quot;ip:&#123;&#123;ansible_all_ipv4_addresses[0]&#125;&#125; ipv4:&#123;&#123;ansible_default_ipv4.address&#125;&#125; OS:&#123;&#123;ansible_distribution&#125;&#125;-&#123;&#123;ansible_distribution_version&#125;&#125; CUP:&#123;&#123;ansible_processor_vcpus&#125;&#125; Memory:&#123;&#123;ansibsile_memtotal_mb&#125;&#125; Disk:&#123;&#123;ansible_devices.sda.size&#125;&#125;&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>运行方式及结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook  book4  | grep msg</span><br><span class="line">..</span><br><span class="line">    &quot;msg&quot;: &quot;ip:192.168.199.186 ipv4:192.168.199.186 OS:Ubuntu-16.04 CUP:2 Memory:3845 Disk:111.79 GB&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装zabbix-agent<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: many</span><br><span class="line">  sudo: yes</span><br><span class="line">  tasks:</span><br><span class="line">  - name: yum wget</span><br><span class="line">    shell: yum install wget -y</span><br><span class="line">  - name: wget zabbix agent</span><br><span class="line">    shell: cd /usr/src;wget http://x/data/zabbix/agents/centos7/zabbix-agent-3.0.9-1.el7.x86_64.rpm</span><br><span class="line">  - name: yum install</span><br><span class="line">    shell: yum localinstall /usr/src/zabbix-agent-* -y</span><br><span class="line">  - name: modify server ip</span><br><span class="line">    shell: sed -i &#x27;s/Server=127.0.0.1/Server=x/g&#x27; /etc/zabbix/zabbix_agentd.conf</span><br><span class="line">  - name: modify hostname</span><br><span class="line">    shell: ip=`hostname -I |awk &#x27;&#123;print $1&#125;&#x27;`; sed -i &quot;s/Hostname=Zabbix server/Hostname=$ip/g&quot; /etc/zabbix/zabbix_agentd.conf</span><br><span class="line">  - name: restart zabbix-agent</span><br><span class="line">    shell: systemctl enable zabbix-agent;systemctl restart zabbix-agent</span><br><span class="line">~</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>
@@ -349,7 +357,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/25/%E8%B7%9F%E8%B8%AA%E7%BB%8F%E6%B5%8E%E7%9A%84%E6%80%9D%E8%80%83/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/05/vmware%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -367,7 +375,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/25/%E8%B7%9F%E8%B8%AA%E7%BB%8F%E6%B5%8E%E7%9A%84%E6%80%9D%E8%80%83/" class="post-title-link" itemprop="url">跟踪经济的思考</a>
+          <a href="/2017/06/05/vmware%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">vmware PowerCLI命令笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -378,7 +386,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-05-25 08:16:30" itemprop="dateCreated datePublished" datetime="2017-05-25T08:16:30+08:00">2017-05-25</time>
+      <time title="创建时间：2017-06-05 09:27:12" itemprop="dateCreated datePublished" datetime="2017-06-05T09:27:12+08:00">2017-06-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -398,18 +406,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>物联网的本质是跟踪，充分利用工作的环境，理解物联网，挣大钱。</p>
-</blockquote>
-<p>吴军在《硅谷来信》中讲了未来经济的特点共享经济、跟踪经济、合作经济、众筹经济。跟踪经济分两天讲，重点来理解下。</p>
-<p>物联网的到来，让我们对人和物的跟踪方便便宜。传感器收集信息方便。</p>
-<p>机器智能使得分析跟踪产生的大量数据，抽象出模型，产生价值花费减少。</p>
-<p>跟踪的目的是更详细的了解跟踪对象，对象包括人和物品。</p>
-<p>对物品的深入了解有助于物品的生产者、销售者和消费者。制造者了解物品的生产过程、流通过程和消费用户，能获得直接的反馈信息，用于改善设计、质量。销售者获取物品上下游信息历史数据有助于精准营销。消费者了解物品渠道和生产信息能减少购买假货、劣质品。</p>
-<p>对人的跟踪包括对行为的跟踪和对健康数据的跟踪。行为数据通过模型分析可以推测健康数据。个人对于自我的跟踪目的也是更好的了解自己，改善自我效率、目标、价值、健康等。</p>
-<p>跟踪经济的核心是人。第一代通过邮箱或帐号作为识别ID，用cookies跟踪个体的上网行为，投其所好，引导消费。第二代用手机号作为识别ID，手机、电脑多方位收集支付信息、位置信息、交流信息更多维度刻画用户。第三代利用可联网的传感器从外部收集人的信息，各种维度，能更准确的识别人，滴滴出行、共享单车、支付宝。</p>
-<p>腾讯通过发身份证，再引导用户使用各种网络服务、社交活动，了解人。阿里通过网络行为、线下团购、出行等特征，合成一个人。最终两家公司会完全了解你，你的性格、喜好、收入、工作，完全掌握，然后把你玩弄于手掌之中。</p>
-<p>家庭摄像头产生原因是老龄化、二娃及对安全缺失的恐惧。智能手环收集运动信息并做朋友排名，满足健康和虚荣需求。智能跑鞋和运动手表用于收集和分析运动数据，优化训练。儿童手表跟踪位置和主动确定行为，解决父母对儿童安全的恐惧。</p>
+          <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="http://www.vmware.com/support/developer/PowerCLI/PowerCLI65R1/html/index.html">http://www.vmware.com/support/developer/PowerCLI/PowerCLI65R1/html/index.html</a><br><a target="_blank" rel="noopener" href="http://www.vmware.com/support/developer/PowerCLI/PowerCLI65R1/doc/vmware-powecli-65r1-user-guide.pdf">http://www.vmware.com/support/developer/PowerCLI/PowerCLI65R1/doc/vmware-powecli-65r1-user-guide.pdf</a><br><a target="_blank" rel="noopener" href="https://my.vmware.com/en/group/vmware/info?slug=datacenter_cloud_infrastructure/vmware_vsphere/6_5#drivers_tools">下载地址</a>需要登录<br><a target="_blank" rel="noopener" href="http://www.virtuallyghetto.com/2013/11/how-to-run-nested-esxi-on-top-of-vsan.html">http://www.virtuallyghetto.com/2013/11/how-to-run-nested-esxi-on-top-of-vsan.html</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/qq_35611533/article/details/51917475">http://blog.csdn.net/qq_35611533/article/details/51917475</a><br><a target="_blank" rel="noopener" href="https://wenku.baidu.com/view/e502b1365627a5e9856a561252d380eb62942309.html?re=view">https://wenku.baidu.com/view/e502b1365627a5e9856a561252d380eb62942309.html?re=view</a></p>
+<h2 id="测试环境搭建"><a href="#测试环境搭建" class="headerlink" title="测试环境搭建"></a>测试环境搭建</h2><p>坑点<br>1 ESXi不能安装在vsan存储上，尝试安装在hp-3par存储上，成功安装esxi主机。</p>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h2 id="PowerCLI升级"><a href="#PowerCLI升级" class="headerlink" title="PowerCLI升级"></a>PowerCLI升级</h2><p>powercli执行零散命令，vmware官方提供了Orchestrator方案，类似于ansible的tower。通过创建专门的工作流服务器，固话常见的管理任务， 比如创建虚拟机、重装系统等。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#安装打开界面会报错，执行下面语句后重新打开powercli等待加载模块即可。</span><br><span class="line">Set-ExecutionPolicy RemoteSigned</span><br><span class="line">#连接ESXi主机</span><br><span class="line">PowerCLI C:\&gt; connect-viserver 192.168.232.204 –user ‘administrator’ –password ‘VM******’</span><br><span class="line">#查看ESXi主机网卡状态</span><br><span class="line">esxcli network nic list</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -436,7 +436,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/23/ansible-playbook%E5%AD%A6%E4%B9%A01/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/02/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E6%9D%82%E6%83%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -454,7 +454,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/23/ansible-playbook%E5%AD%A6%E4%B9%A01/" class="post-title-link" itemprop="url">ansible-playbook学习1</a>
+          <a href="/2017/06/02/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E6%9D%82%E6%83%B3/" class="post-title-link" itemprop="url">运维杂想</a>
         </h2>
 
         <div class="post-meta-container">
@@ -465,7 +465,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-05-23 08:55:40" itemprop="dateCreated datePublished" datetime="2017-05-23T08:55:40+08:00">2017-05-23</time>
+      <time title="创建时间：2017-06-02 14:13:10" itemprop="dateCreated datePublished" datetime="2017-06-02T14:13:10+08:00">2017-06-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -485,15 +485,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>同事写了几个ansible playbook，借鉴学习一下。一个是升级ssh，另外两个是安装zabbix_agentd.</p>
-</blockquote>
-<h3 id="升级ssh"><a href="#升级ssh" class="headerlink" title="升级ssh"></a>升级ssh</h3><p>升级ssh需要升级openssl和openssh，升级方式都是采用源码安装。<br>playbook使用了shell模块，shell模块是在远端开启一个<code>/bin/sh</code>运行命令，与日常ssh到服务操作命令一致。command模块不能使用变量和操作符（$ | &lt;），可以使用<code>who</code>,不能使用<code>ulimit -a</code>。<code>sudo: yes</code>表示执行脚本使用sudo执行，在playbook外部参数中使用<code>-K</code>，手动输入sudo密码。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: test</span><br><span class="line">  sudo: yes</span><br><span class="line">  tasks:</span><br><span class="line">  - name: wget tar.gz</span><br><span class="line">    shell: cd /usr/src;wget http://192.168.x.1/data/openssh/7.5/openssl-1.0.2k.tar.gz;wget http://192.168.13.1/data/openssh/7.5/ope</span><br><span class="line">nssh-7.5p1.tar.gz</span><br><span class="line">  - name: tar</span><br><span class="line">    shell: cd /usr/src;tar xzvf openssl-1.0.2k.tar.gz</span><br><span class="line">  - name: make</span><br><span class="line">    shell: cd /usr/src/openssl-1.0.2k;./config shared zlib;make;make install   </span><br><span class="line">  - name: rm old openssl</span><br><span class="line">    shell: mv /usr/bin/openssl /tmp/7;cp -r /usr/include/openssl/ /tmp/openssl-old-7;rm -rf /usr/include/openssl   </span><br><span class="line">  - name: link</span><br><span class="line">    shell: ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl;ln -s /usr/local/ssl/include/openssl/ /usr/include/openssl    </span><br><span class="line">  - name: ldconfig</span><br><span class="line">    shell: echo &quot;/usr/local/ssl/lib&quot; &gt;&gt; /etc/ld.so.conf ;ldconfig -v  </span><br><span class="line">  - name: cp ssh</span><br><span class="line">    shell: cp -r /etc/ssh /etc/ssh-bak03</span><br><span class="line">  - name: yum</span><br><span class="line">    shell: yum install pam pam-devel -y   </span><br><span class="line">  - name: tar</span><br><span class="line">    shell: cd /usr/src;tar zxvf openssh-7.5p1.tar.gz   </span><br><span class="line">  - name: install</span><br><span class="line">    shell: cd /usr/src/openssh-7.5p1;./configure --prefix=/usr --sysconfdir=/etc/ssh --without-zlib-version-check --with-ssl-dir=/us</span><br><span class="line">r/local/ssl --with-pam;make;make install</span><br><span class="line">  - name: modify sshd_config</span><br><span class="line">    shell: sed -i &#x27;s/#UseLogin no/UseLogin yes/g&#x27; /etc/ssh/sshd_config</span><br><span class="line">  - name: restart sshd</span><br><span class="line">    shell: service sshd restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="安装zabbix-agentd"><a href="#安装zabbix-agentd" class="headerlink" title="安装zabbix_agentd"></a>安装zabbix_agentd</h3><p>此playbook hosts 直接写地址，就不用在/etc/ansbible/hosts中定义？<br>使用模块依然是shell，shell中用到了sed命令，用于修改配置文件<code>sed -i &#39;s/Server=127.0.0.1/Server=192.168.x.x/g&#39; /etc/zabbix/zabbix_agentd.conf </code>。使用ansible提前获取的系统信息变量<code>&#123;&#123; ansible_ens160["ipv4"]["address"] &#125;&#125;</code>赋值到配置。<br>针对centos7和centos6因为启动服务命令不同写了两个playbook，后面也可根据setup信息做条件判断。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: 192.168.x.x</span><br><span class="line">  sudo: yes</span><br><span class="line">  tasks:</span><br><span class="line">  - name: yum wget</span><br><span class="line">    shell: yum install wget -y</span><br><span class="line">  - name: wget zabbix agent</span><br><span class="line">    shell: cd /usr/src;wget http://192.168.x.1/data/zabbix/zabbix-agent-3.0.3-1.el7.x86_64.rpm</span><br><span class="line">  - name: yum install</span><br><span class="line">    shell: yum localinstall /usr/src/zabbix-agent-3.0.3-1.el7.x86_64.rpm -y</span><br><span class="line">  - name: copy conf</span><br><span class="line">    shell: cp /etc/zabbix/zabbix_agentd.conf /etc/zabbix/zabbix_agentd.conf.bak  </span><br><span class="line">  - name: modify server ip</span><br><span class="line">    shell: sed -i &#x27;s/Server=127.0.0.1/Server=192.168.x.x/g&#x27; /etc/zabbix/zabbix_agentd.conf      </span><br><span class="line">  - name: modify serveractive ip</span><br><span class="line">    shell: sed -i &#x27;s/ServerActive=127.0.0.1/ServerActive=192.168.x.x/g&#x27; /etc/zabbix/zabbix_agentd.conf         </span><br><span class="line">  - name: modify hostname ip</span><br><span class="line">    shell: sed -i &#x27;s/Hostname=Zabbix server/Hostname=&#123;&#123; ansible_ens160[&quot;ipv4&quot;][&quot;address&quot;] &#125;&#125; /g&#x27; /etc/zabbix/zabbix_agentd.conf     </span><br><span class="line"></span><br><span class="line">  - name: restart zabbix-agent</span><br><span class="line">    shell: systemctl enable zabbix-agent;systemctl restart zabbix-agent</span><br><span class="line">    ##centos6</span><br><span class="line">  - name: restart zabbix-agent</span><br><span class="line">    shell: chkconfig  zabbix-agent on ;service zabbix-agent restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>查看系统版本命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible -i hosts-all ab  -m setup -a &quot;filter=ansible_distribution*&quot; -o  -f 50 |awk &#x27;&#123;print $1 $7 $13&#125;&#x27;</span><br></pre></td></tr></table></figure>
+          <p>最近在学习了ansible，通过ad-hoc命令和playbook方式获取主机软硬件信息、安装软件包都很方便。不足之处是编写的脚本经常需要变化，同事之间共享麻烦，没有执行记录等。ansible tower收费产品可能对于一个运维团队来说，是一个不错的产品。</p>
+<p>也了解了腾讯蓝鲸运维平台，其中的配置管理模块和job模块比较好用。配置管理模块有业务视图和三方视图，能记录查询一个业务的结构和资源使用情况，比使用excel好。job模块是结合配置管理的，可在job模块执行临时、定期、定时脚本。脚本变更历史、执行情况都能记录。前提是每台主机需要安装agent，目前还没找到agent安装方法。</p>
+<p>想结合这两个产品，用蓝鲸的配置管理和job模块，但使用asible免agent的方式执行命令，不知可行不？《Ansible权威指南》后面几章讲述了类似方法，后面仔细学习下。</p>
+<p>查询zabbix获取vcenter告警信息时意外想到使用命令行管理vmware虚拟机，找到两篇文章<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/1302_yuanlin_perlvm/">linux</a>，<a target="_blank" rel="noopener" href="http://www.361way.com/powercli-deploy-vmware/4877.html">windows</a>,都可以实现，自己在测试linux机器上安装了，但没有可供测试的ESXi主机，遂搁置。ansible 也有模块操作vsphere,<a target="_blank" rel="noopener" href="http://everythingshouldbevirtual.com/creating-vsphere-vms-using-ansible">ansible创建vmware</a>.发现上面链接的两个地方有大量运维干货，也是意外的惊喜。ibm的比较有逻辑，361way的实践性强。其中一篇<a target="_blank" rel="noopener" href="http://www.361way.com/awk-sed-convert-oneline/5127.html">多行合并一行</a>有用，在使用nmap时就想过，这篇算是解决方案了。zabbix获取vcenter告警信息还没有解决方案，猜想可以通过<a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/3.0/manual/vm_monitoring">虚拟机监控</a>来实现。</p>
+<p>团队可以使用seafile来共享资源和共同编写团队wiki，记录经验。</p>
+<p>django也想学习，太贪婪。想想吴军的关于工作和职业的思考，工作是拿钱给你必须做的事情，职业是自我发展的。有利于职业发展的，不管有钱没钱，都要去做，做好了，有经验了，自己就升值了。赚钱的方式就是让自己值钱并把自己放在合适的位置。知识分为术和道两类，有了心法，各种技术万变不离其中。</p>
+<p>看了一篇<a target="_blank" rel="noopener" href="http://ce.sysu.edu.cn/hope/UploadFiles/Education/2012/2/201202142337246457.pdf">VMware vSphere 基础</a>,对VMware的虚拟化有了进一步认识。VMware虚拟化了3样东西：计算、存储、网络。通过主机迁移、存储迁移、网络端口组，手动管理虚拟机。vcenter有资源调度策略，使用主机迁移、存储迁移、分布式交换机方法，可根据策略（节能、负载均衡）动态调整虚拟机及存储位置。</p>
+<p><a target="_blank" rel="noopener" href="http://www.361way.com/linux-monitor-benchmark-tuning/3745.html">三张图看遍Linux性能监控、测试、优化工具</a>这篇文章应该是linux知识的“道”。监控linux主机时，不知道哪些指标，可以仔细看。内核下接设备驱动，上接系统调用。</p>
 
       
     </div>
@@ -520,7 +519,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/21/%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E5%BB%BA%E8%AE%BE%E6%88%90%E9%95%BF%E5%9E%8B%E5%AE%B6%E5%BA%AD%E7%9A%84%E6%B8%85%E5%8D%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/01/ansible-playbook%E5%AE%89%E8%A3%85zabbix-agent/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -538,7 +537,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/21/%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E5%BB%BA%E8%AE%BE%E6%88%90%E9%95%BF%E5%9E%8B%E5%AE%B6%E5%BA%AD%E7%9A%84%E6%B8%85%E5%8D%95/" class="post-title-link" itemprop="url">关于如何建设成长型家庭的清单</a>
+          <a href="/2017/06/01/ansible-playbook%E5%AE%89%E8%A3%85zabbix-agent/" class="post-title-link" itemprop="url">ansible-playbook安装zabbix-agent</a>
         </h2>
 
         <div class="post-meta-container">
@@ -549,7 +548,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-05-21 10:43:11" itemprop="dateCreated datePublished" datetime="2017-05-21T10:43:11+08:00">2017-05-21</time>
+      <time title="创建时间：2017-06-01 11:52:26" itemprop="dateCreated datePublished" datetime="2017-06-01T11:52:26+08:00">2017-06-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -569,16 +568,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>最近罗辑思维早上60s改版了，语音消息变成图文推送。第一条是各类型清单，今天就写一下建设成长型家庭清单的读后感。</p>
-</blockquote>
-<p>这张清单实质是优化生命环境的一系列建议，生命环境包括这一生要接触的东西，包括独处时刻、家庭时间和工作时间。清单只针对家庭时间来提出优化建议。</p>
-<p>时代变了。以前通过家庭分工抵抗风险，现在靠不断学习抵抗甩你到社会边缘的离心力。家庭要建设为成长型的，才能不被甩到边缘。</p>
-<p>能否建设成长型家庭，要看家庭成员是否具有成长性。考察方式是看最近一个月有没新的知识获取渠道，最近一个月没有，一直也不会有。选择大于努力。相比原始资本，要更看中一个人的成长性。</p>
-<p>有了成长型的成员，成员还需要有独立的自我目标，在实现自我目标的过程中培养自己的合作者姿态，带到家庭中效果才好。个人目标的自我推动力大于家庭目标。</p>
-<p>可以尝试的案例是逛公园分目标，交通路线规划、票价走势分析、植物识别。bbc科学纪录片老少皆宜，开脑洞、增谈资、主动查证。</p>
-<p>小孩孤独可以家庭结伴成长。选择标准依据学习能动性而不是旧情。</p>
-<p>结合最近听吴军硅谷来信，人生最重要的投资（上、下），男生择偶选择聪明的，女生择偶选择对自己好的。两个人结合是相互包容理解的结果，优点缺点都要接受，接受一段时间可能没啥问题，一直这样问题就大。所以要不断优化自己，别指望一直会被包容。</p>
+          <p>ansible-playbook 调试参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--step #一步一执行</span><br><span class="line">--start-at=“task name” #从某一步开始</span><br><span class="line">-l 192.168.x.x  # 选择主机组中的某一台执行</span><br><span class="line">-C #检查，不执行</span><br><span class="line">-b #become sudo</span><br><span class="line">-K  #输入sudo密码</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>sed 带变量使用双引号（“”）例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip=`hostname -I |awk &#x27;&#123;print $1&#125;&#x27;`; sed -i &quot;s/Hostname=Zabbix server/Hostname=$ip/g&quot; /etc/zabbix/zabbix_agentd.conf&quot;</span><br></pre></td></tr></table></figure>
+<p>添加zabbix-agent</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: many</span><br><span class="line">  sudo: yes</span><br><span class="line">  tasks:</span><br><span class="line">  - name: yum wget</span><br><span class="line">    shell: yum install wget -y</span><br><span class="line">  - name: wget zabbix agent</span><br><span class="line">    shell: cd /usr/src;wget http://X/data/zabbix/agents/centos7/zabbix-agent-3.0.9-1.el7.x86_64.rpm</span><br><span class="line">  - name: yum install</span><br><span class="line">    shell: yum localinstall /usr/src/zabbix-agent-* -y</span><br><span class="line">  - name: modify server ip</span><br><span class="line">    shell: sed -i &#x27;s/Server=127.0.0.1/Server=172.27.2.99/g&#x27; /etc/zabbix/zabbix_agentd.conf</span><br><span class="line">  - name: modify hostname</span><br><span class="line">    shell: ip=`hostname -I |awk &#x27;&#123;print $1&#125;&#x27;`; sed -i &quot;s/Hostname=Zabbix server/Hostname=$ip/g&quot; /etc/zabbix/zabbix_agentd.conf</span><br><span class="line">  - name: restart zabbix-agent</span><br><span class="line">    shell: systemctl enable zabbix-agent;systemctl restart zabbix-agent</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>安装ssh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: two</span><br><span class="line">  sudo: yes</span><br><span class="line">  tasks:</span><br><span class="line">  - name: install wget</span><br><span class="line">    yum:</span><br><span class="line">      name: wget</span><br><span class="line">      state: latest</span><br><span class="line">  - name: wget tar.gz</span><br><span class="line">    shell: cd /usr/src;wget http://X/data/openssh/7.5/openssl-1.0.2k.tar.gz;wget http://X/data/openssh/7.5/openssh-7.5p1.tar.gz</span><br><span class="line">  - name: tar</span><br><span class="line">    shell: cd /usr/src;tar xzvf openssl-1.0.2k.tar.gz</span><br><span class="line">  - name: install zlib-devel</span><br><span class="line">    yum:</span><br><span class="line">      name: zlib-devel</span><br><span class="line">      state: latest</span><br><span class="line">  - name: make</span><br><span class="line">    shell: cd /usr/src/openssl-1.0.2k;./config shared zlib;make;make install</span><br><span class="line">  - name: rm old openssl</span><br><span class="line">    shell: mv /usr/bin/openssl /tmp/7;cp -r /usr/include/openssl/ /tmp/openssl-old-7;rm -rf /usr/include/openssl</span><br><span class="line">  - name: link</span><br><span class="line">    shell: ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl;ln -s /usr/local/ssl/include/openssl/ /usr/include/openssl</span><br><span class="line">  - name: ldconfig</span><br><span class="line">    shell: echo &quot;/usr/local/ssl/lib&quot; &gt;&gt; /etc/ld.so.conf ;ldconfig -v</span><br><span class="line">  - name: cp ssh</span><br><span class="line">    shell: cp -r /etc/ssh /etc/ssh-bak03</span><br><span class="line">  - name: yum</span><br><span class="line">    shell: yum install pam pam-devel -y</span><br><span class="line">  - name: chmod /etc/ssh/*.key</span><br><span class="line">    shell: chmod 600 /etc/ssh/*_key</span><br><span class="line">  - name: tar</span><br><span class="line">    shell: cd /usr/src;tar zxvf openssh-7.5p1.tar.gz</span><br><span class="line">  - name: install</span><br><span class="line">    shell: cd /usr/src/openssh-7.5p1;./configure --prefix=/usr --sysconfdir=/etc/ssh --without-zlib-version-check --with-ssl-dir=/usr/local/ssl --with-pam;make;make install</span><br><span class="line">  - name: modify sshd_config</span><br><span class="line">    shell: sed -i &#x27;s/#UseLogin no/UseLogin yes/g&#x27; /etc/ssh/sshd_config</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>centos7 防火墙关闭</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#查看防火墙状态</span><br><span class="line">systemctl status firewalld</span><br><span class="line">#关闭防火墙</span><br><span class="line">systemctl stop firewalld</span><br><span class="line">#禁止开机启动</span><br><span class="line">systemctl disable firewalld</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>ansible 学习参考专栏<br><a target="_blank" rel="noopener" href="http://blog.csdn.net/column/details/ansibleheadfirst.html">http://blog.csdn.net/column/details/ansibleheadfirst.html</a></p>
 
       
     </div>
@@ -598,7 +598,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/56/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/56/">56</a><span class="page-number current">57</span><a class="page-number" href="/page/58/">58</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/58/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/56/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/56/">56</a><span class="page-number current">57</span><a class="page-number" href="/page/58/">58</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/58/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

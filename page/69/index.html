@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/09/05/javascript%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/10/26/ife-task2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/09/05/javascript%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">javascript笔记</a>
+          <a href="/2016/10/26/ife-task2/" class="post-title-link" itemprop="url">ife-day2-任务二：零基础HTML及CSS编码（一）</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,7 +195,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-09-05 13:04:00" itemprop="dateCreated datePublished" datetime="2016-09-05T13:04:00+08:00">2016-09-05</time>
+      <time title="创建时间：2016-10-26 13:41:41" itemprop="dateCreated datePublished" datetime="2016-10-26T13:41:41+08:00">2016-10-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -215,7 +215,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>在线运行调试javascript环境<a target="_blank" rel="noopener" href="https://jsfiddle.net/">https://jsfiddle.net/</a>。在一个界面写htlm、javascript、CSS 并展示效果。还可以选择使用什么javascript库。<br>今天想用实现一个小web应用：web界面登录、登录成功返回成功页面，登录失败返回失败页面，后台在数据库查询匹配帐号。感觉是要有一个数据库存储用户信息，一个连接数据库的配置文件、一个登录首页、两个登录结果页面，但无从下手。google挖宝挖到的是<a target="_blank" rel="noopener" href="http://icodeit.org/about-me/%EF%BC%8C%E8%A7%89%E5%BE%97%E4%BB%96%E7%9A%84%E4%B8%80%E4%BA%9B%E5%88%86%E4%BA%AB%E6%9C%89%E4%BA%9B%E6%84%8F%E6%80%9D%EF%BC%8C%E9%81%82%E5%BC%80%E5%A7%8B%E5%AE%9E%E8%B7%B5%E4%BB%96%E7%9A%84book[3">http://icodeit.org/about-me/，觉得他的一些分享有些意思，遂开始实践他的book[3</a> Web Designs in 3 Weeks](<a target="_blank" rel="noopener" href="https://www.gitbook.com/book/juntao/3-web-designs-in-3-weeks/details">https://www.gitbook.com/book/juntao/3-web-designs-in-3-weeks/details</a>).</p>
+          <p>今天是<a target="_blank" rel="noopener" href="http://ife.baidu.com/task/all">ife学习</a>的第二天，先记录一个在线调试web项目的网站<a target="_blank" rel="noopener" href="https://jsfiddle.net/">JSFiddle</a>,可以在这个网站调试简单的web页面，包括html,css,javascript.</p>
+<h3 id="学习任务二：零基础HTML及CSS编码（一）"><a href="#学习任务二：零基础HTML及CSS编码（一）" class="headerlink" title="学习任务二：零基础HTML及CSS编码（一）"></a>学习任务二：零基础HTML及CSS编码（一）</h3><ul>
+<li>对设计稿样式进行合理的HTML架构，包括常用标签含义及用法，语义化标签构建页面。</li>
+<li>掌握基本css编码，了解css定义概念及发展简史，掌握css选择器含义及用法，掌握css颜色、字体、背景、边框、盒模型、简单布局等样式。</li>
+</ul>
+<p>具体题目为做出<a target="_blank" rel="noopener" href="http://7xrp04.com1.z0.glb.clouddn.com/task_1_2_1.jpg">设计稿界面</a></p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>设计稿HTML架构解析<br>设计稿是由页面头部header、页面主体和底部栏组成。header部分由logo图标、4个导航链接及黑色背景组成，导航链接通过ul-li嵌套a构成。主体部分由三篇文章<br>、一个侧栏组成。三篇文章使用的标签有h1 h2 span p img a ul-li,ol-li,table组成。侧栏由label和form组成。底部footer由<br>版权文字和背景色组成。</p>
+<p>CSS(Cascading Style sheets 层叠样式表)用于告知浏览器如何将文档呈现给用户。最初netscape和IE两种浏览器将各自实现的标签添加到html规范中，导致文档在不同浏览器显示不同。为在不同浏览器显示相同效果，将html规范中关于效果显示的特性独立出来，形成CSS标准。CSS标准在1997年随者HTML4.0标准一起发布。<br>HTML元素可以被多个描述信息定义，其中优先级关系为:内联样式(HTML元素内部style属性)&gt;内部样式(HTML 文档header部分)&gt;外部样式(外部引用.css文件)&gt;浏览器默认样式。CSS语句为选择器+属性申明构成。用<code>,</code>将选择器分组，同一申明可应用在多个元素上。所有HTML子元素都继承父元素样式，子元素单独定义样式优先级高于继承样式。通过多个标签定位一个元素，称为派生，这样能简洁的选择到需要的元素。采用<code>#id</code>形式来使用id选择器，id值在HTML标签中通过id属性设置。采用<code>.class</code>形式使用类选择器。采用<code>[title]</code>形式选择带title属性的元素，属性选择器可通过<code>~ | ^ $ *</code>实现<code>包含、单词匹配、开头字符匹配、结束字符匹配、任意位子字符匹配</code>。元素大小、元素内边距padding、元素边框border、元素外边距margin依次由内到外展开。元素大小的百分比参数是参照父级元素定义的。div、h1、p为块级标签，strong，span为行级标签。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>自己以前没有认真学习CSS，觉得CSS很简单，本次任务实践过程中，才发现并非如此。特别是布局方式float,flex对padding、martin的影响。在查看别人代码过程中发现了HTML更多的语义化标签。figure-&gt;figcaption 用于标记带描述的图片。后面需要看书系统化学习HTML标签和CSS盒模型。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#emmet代码</span><br><span class="line">main&gt;(article&gt;h1+h2+span+span+p)*3</span><br></pre></td></tr></table></figure>
+<p>代码地址链接<a target="_blank" rel="noopener" href="https://github.com/hhzzer/ife">https://github.com/hhzzer/ife</a></p>
 
       
     </div>
@@ -242,7 +252,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/08/20/2016-08-20/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/10/25/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -260,7 +270,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/08/20/2016-08-20/" class="post-title-link" itemprop="url">how to study 意译</a>
+          <a href="/2016/10/25/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
         </h2>
 
         <div class="post-meta-container">
@@ -271,7 +281,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-08-20 09:58:00" itemprop="dateCreated datePublished" datetime="2016-08-20T09:58:00+08:00">2016-08-20</time>
+      <time title="创建时间：2016-10-25 11:10:21" itemprop="dateCreated datePublished" datetime="2016-10-25T11:10:21+08:00">2016-10-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -291,7 +301,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>##Contents<br>PREFACE<br>INTRODUCTION<br>I. THE PROPER MENTAL ATTITUDE   合适的心态<br>(a)Distinction betwwen reading and understanding    区分阅读和理解<br>(b)Distinction between facts,options,and logical conclusions    区分事实、选项和逻辑结论<br>(c)Importance of the questioning habit  问题习惯的重要性<br>(d)Inquiring into methods of ascertaining facts 寻找调查事实的方法<br>(e)Studying evidence of reliability of a writer 研究作者可靠的证据<br>(f)Importance of scientific attitude of mind    科学思维方法的重要性<br>(h)Intellectual modesty 明智的谦虚<br>(i)Wisdom rather than knowledge the aim 目标是智慧而不是知识<br>II.STUDYING UNDERSTANDINGLY 对学习的理解<br>(a)Importance of definite ideas 明确计划的重要性<br>    (1)Use of the dictionary    字典的使用<br>    (2)Practice in definition   练习的定义<br>    (3)Importance of the study of logic    学习逻辑的重要性<br>(b)Stating a thing in different ways    用不同方式表述一件事<br>(c)Stating a thing nagatively as well as positively     积极和消极的表述一件事<br>(d)Observation of necessary qualifying words or phrases     观察必要合格的单词和片段<br>(e)Reflection,illustration,and application     映像、插图和应用<br>(f)Keep the mind active     保持头脑活跃<br>(g)Study of causes of differences of opinion    学习产生不同意见的原因<br>(h)Discrimination of mere assertion from proof      从证据中区别声明<br>III.SYSTEM  系统<br>(a)Importance of grasping the fundamental idea 抓住基本观点的重要性<br>(b)Preliminary arrangement of ideas     观点的初步准备工作<br>(c)Classification and arrangement       分类和安排<br>IV.MENTAL INITIATIVE    主动精神<br>(a)Interest in subject of study essential   对学习主题感兴趣很重要<br>(b)Formulation of problem essential     规划问题很重要<br>(c)Independent work enssential      独立工作很重要<br>(d)Drawing conclusions independent of author    独立于作者描述结论<br>(e)Independence in arrving at conclusions       独立获得结论<br>(f)book 标注<br>(g)Visualizing results      形象化结论<br>V.HABITS OF WORK    工作习惯<br>(a)Selection of book    书籍的选择<br>(b)Proper number of subjects to be studied at once      一次研究合适数目的主题<br>(c)Haste undesirable    拒绝匆忙<br>(d)Taking studies seriously     严肃对待<br>(e)Judicious skipping   正确跳跃<br>(f)Systematic program of work   系统的安排工作<br>(g)Cultivation of connectration     培养联系<br>(h)Applying what is learned     应用所学<br>(i)Avoidance of indifference    避免忽视<br>(j)Thorough knowlege of a few books     彻底学习几本书<br>(k)List of references should be made    必须做参考列表<br>(i)Frequent reviews desirable       满意的回顾频率<br>(m)Regular times for recreative study       规律次数的娱乐学习<br>(n)Physical exercise enssential     锻炼身体<br>SUGGESTIONS TO TEACHERS     给教师的建议<br>IMPORTANCE OF REFUSING TO BE DISCOURAGED,AND OF SEEKING THE WORKD ONE CAN DO BEST<br>REFERENCES</p>
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/deployment.html">Deployment</a></p>
 
       
     </div>
@@ -318,7 +340,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/08/03/%E6%94%BE%E5%81%87%E5%89%8D/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/10/25/ife-task1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -336,7 +358,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/08/03/%E6%94%BE%E5%81%87%E5%89%8D/" class="post-title-link" itemprop="url">放假前</a>
+          <a href="/2016/10/25/ife-task1/" class="post-title-link" itemprop="url">百度前端技术学院-任务一:零基础HTML编码</a>
         </h2>
 
         <div class="post-meta-container">
@@ -347,7 +369,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-08-03 15:47:00" itemprop="dateCreated datePublished" datetime="2016-08-03T15:47:00+08:00">2016-08-03</time>
+      <time title="创建时间：2016-10-25 11:10:21" itemprop="dateCreated datePublished" datetime="2016-10-25T11:10:21+08:00">2016-10-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -367,7 +389,37 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>今天下午过完，就有10多天的假期了，内心还是有些小激动的。再来看看我的博客，好久都没有认真写一篇文章了，激动变成了不安。没有事的时候想在网上找点有意思的看看，有不知道在哪里需寻找。自己订阅的rss个人博客好些人好久都不更新，而36kr每天都更新50条，让我看的厌烦。各种新闻或信息聚合平台推荐的信息也不喜欢，就到<a href="blogbar.cc">blogbar</a>逛一下，虽然首页的推荐文章已经4个月没有跟新过了。<br>逛blogbar有技巧，主要看审核通过的个人博客文章，我翻了5页，也找到几个不错的博客<br><a target="_blank" rel="noopener" href="http://shinrai.cc/">http://shinrai.cc/</a> 在校大学生的日常<br><a target="_blank" rel="noopener" href="http://rainman.me/">http://rainman.me/</a> 前端工程师，在里面发现免费ss账号<br><a target="_blank" rel="noopener" href="http://whzecomjm.com/">http://whzecomjm.com/</a> 以色列留学数学家<br>想要一个地方记录下这些链接，但又想：记录保存待看的重来都不会再看，还不如自己看了写一下感想。以色列的数学留学生中考就使用导数解题，我到现在都忘了导数是啥，这就是差距。在图书馆看书才能看下去，把书买回来就不会再看了。因为潜意识中书买回来了就拥有了，就不会再将书装在脑袋里了。跟我最近买回书来也不看，是一个道理。在他的博客里找到了一个wiki工具<a target="_blank" rel="noopener" href="http://tiddlywiki.com/">tiddlywiki</a>下载下来就是一个网页，但是还没有研究顺手，以后看顺手后是不是可以替代farbox记录本地资料。<br>前端工程师雨人是个雷锋，提供了免费的ss账号，让我不必每天每隔6小时从新输入密码。博主自己SEO博客，看到排名变化也是很兴奋的。<br>shinrai是一个在校大学生，最近沉迷于守望先锋，对开挂者痛恨。期末考试大学物理，过与不过在于概率了。他的博客和我一样都是用farbox建立起的，看起来还是有些亲切感。<br><a target="_blank" rel="noopener" href="http://lifeislikeaboat.com/">http://lifeislikeaboat.com/</a> 深圳人在美国，程序员，每月交税1W RMB</p>
+          <blockquote>
+<p>最近一直挣扎在前端学习门口，强烈希望掌握该方面的专业技能，实现价值。看过阮一峰的博客、各种知乎热贴，都罗列了一大堆学习路径。上周折腾&lt;三周三页面&gt;硬是卡在sass的阶段，各种搜索无果。今天做下决定先从<strong>百度前端技术学院</strong>入手，一课一练一笔记，前端这颗技能树，我终将一步一步点亮。</p>
+</blockquote>
+<h2 id="零基础HTML编码"><a href="#零基础HTML编码" class="headerlink" title="零基础HTML编码"></a>零基础HTML编码</h2><p>任务目的如下</p>
+<ul>
+<li>了解HTML的定义、概念、发展简史</li>
+<li>掌握常用HTML标签含义、用法</li>
+<li>能够基于设计稿来合理规划HTML文档</li>
+<li>理解语义话，合理使用HTML标签来构建页面</li>
+</ul>
+<p>解答</p>
+<p>1 HTML(Hyper Text Markup Language 超文本标记语言)最早是由为CERN工作的Tim Berners-Lee在1980提出的，为了方便搜索，需要通过使用标签对文档进行结构化定义，机器识别标签后就能知道文档的结构，文档应该按照结构来书写。比如<code>&lt;title&gt;&lt;/title&gt;</code>标签内部就应该写文章的标题。1995年产生HTML2.0标准，1997年1月发布HTML3.2。1997年10月发布HTML4.0，1999年10月发布HTML4.0.1,发布HTML4.0标准同时发布CSS，规定在CSS中描述html各个结构形状大小、颜色等，使得HTML文档结构和样式分离。2014年HTML5标准。</p>
+<p>2 HTML规定标签种类、标签层次结构及标签属性，浏览器根据各种标签及属性按照规定的格式显示出页面。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;meta charset=&quot;utf-8&quot; /&gt;</span><br><span class="line">        &lt;titel&gt;文档标题&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;h1&gt;一级标题&lt;/h1&gt;</span><br><span class="line">        &lt;h2&gt;二级标题&lt;/h2&gt;</span><br><span class="line">        &lt;p&gt;段落&lt;/p&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>html标签分为单标签<code>&lt;img /&gt;</code>和对标签<code>&lt;body&gt;&lt;/body&gt;</code>，大多数标签都有属性，属性格式为<code>属性名=&quot;属性值&quot;</code>，填写在起始标签后。除了上面有明显语义的标签外，还有功能性标签如<code>&lt;div&gt;&lt;/div&gt;</code>用于划分页面的区域<br>html文档中由于使用<code>&lt; &gt;</code>做标签识别符，文档中需要展示这些符号，就需要用这些符号的名字，也称命名字符。命名字符有</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&amp;gt 表示&gt;</span><br><span class="line">&amp;lt 表示&lt;</span><br><span class="line">&amp;amp 表示&amp;</span><br><span class="line">&amp;qout 表示&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h2><p>采用html标签实现<a target="_blank" rel="noopener" href="http://7xrp04.com1.z0.glb.clouddn.com/task_1_1_1.jpg">事例</a>中的文档结构，代码见最后。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>作业中用到的知识主要有</p>
+<ul>
+<li>html文档常用标签<code>titile、h1-5、p、a、 img、 div </code></li>
+<li>列表、序列及表格<code>ul、ol、table</code></li>
+<li>表单form，文本输入框，单元，多选，列表，表单验证email，密码隐藏及验证。</li>
+</ul>
+<p>通过sublime emmet插件，可以快速编写html代码，emmet运算符和html标签，自动生成代码。<br>emmet运算符主要运算符有:<code> .  &gt; + * () []</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.表示当前标签的class属性值</span><br><span class="line">&gt;表示生成层级标签</span><br><span class="line">+ 表示生成并列标签</span><br><span class="line">* 表示复制份数</span><br><span class="line">()用于运算前组合</span><br><span class="line">[]用于填写标签属性</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>通过sublime html-css-js格式化插件，自动对齐格式快捷键<code>Ctrl+Shift+h</code><br>sublime 中文输入有问题，通过<code>InputHelper</code>插件实现，快捷键<code>Ctrl+Shift+z</code></p>
+<p><strong>review</strong> 了<a target="_blank" rel="noopener" href="https://github.com/leihangwang/IFE2016_BuptGroup/blob/master/TASK01/leihang/task_1.html">别人提交的代码</a>，发现了自己的一些不足主要有:<br>1 用articale 表示文章，而不用div<br>2 文章一级标题用h2,我也这么用的。<br>3 合并单元格使用td的colspan=”2”<br>4 边侧栏不用使用div<br>5 根据提交信息创建多个form<br>6 表单名称字段采用label标签，用户点击标签区域后，自动聚焦到标签内的input输入框。<br>我做得比较好的是验证密码时采用pattern属性，通过正则表达式限定密码组成和长度<br><code>&lt;input type=&quot;password&quot; pattern=&quot;[0-9A-Za-z]&#123;6,16&#125;&quot;&gt;</code></p>
+<p>代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">DOCTYPE</span> <span class="attr">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>task1_1_1<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>网站一级标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;http://www.baidu.com&quot;</span> <span class="attr">title</span>=<span class="string">&quot;my baidu&quot;</span>&gt;</span> 导航链接一<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&quot;</span>&gt;</span>	导航链接二<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&quot;</span>&gt;</span>导航链接三<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&quot;</span>&gt;</span>导航链接四<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>文章一级标题<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h3</span>&gt;</span>文章二级标题<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>作者 发布时间<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是一个很长很长的段落，长到应该换行为止。<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;http://www.baidu.com&quot;</span>&gt;</span>赤壁赋<span class="tag">&lt;/<span class="name">a</span>&gt;</span>壬戌之秋，七月继望，苏子与客泛舟与赤壁之下。清风徐来，水波不兴。举酒嘱客，颂明月之诗，歌窈窕之章。少焉，月出于东山之上，徘徊与斗牛之间。白鹭横江，水光接天。浩浩乎如冯虚御风，而不知其所止;飘飘乎如遗世之独立，羽化而登仙。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/logo.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;点击图片显示的文字&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是一个很长很长的段落，长到应该换行为止。<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;http://www.baidu.com&quot;</span>&gt;</span>赤壁赋<span class="tag">&lt;/<span class="name">a</span>&gt;</span>壬戌之秋，七月继望，苏子与客泛舟与赤壁之下。清风徐来，水波不兴。举酒嘱客，颂明月之诗，歌窈窕之章。少焉，月出于东山之上，徘徊与斗牛之间。白鹭横江，水光接天。浩浩乎如冯虚御风，而不知其所止;飘飘乎如遗世之独立，羽化而登仙。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h2</span>&gt;</span>第二篇文章的一级标题<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h3</span>&gt;</span>第二篇文章的二级标题<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>writer:mayim date:2016<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;http://www.baidu.com&quot;</span>&gt;</span>赤壁赋<span class="tag">&lt;/<span class="name">a</span>&gt;</span>壬戌之秋，七月继望，苏子与客泛舟与赤壁之下。清风徐来，水波不兴。举酒嘱客，颂明月之诗，歌窈窕之章。少焉，月出于东山之上，徘徊与斗牛之间。白鹭横江，水光接天。浩浩乎如冯虚御风，而不知其所止;飘飘乎如遗世之独立，羽化而登仙。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/logo.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;turbo&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>列表项目一<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>列表项目二<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>列表项目三<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h3</span>&gt;</span>图片<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>好看的图片<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/logo.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>好看的图片<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/logo.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>好看的图片<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/logo.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>好看的图片<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/logo.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h2</span>&gt;</span>最后一片文章的标题<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>autor:www date:2019<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>排名1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>排名2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>排名3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>下面是一个表格，给表格添加了一个border=1,好让你看出来<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">th</span>&gt;</span>表头1<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">th</span>&gt;</span>表头2<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">th</span>&gt;</span>表头3<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>11<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>12<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>13<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>21<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>22<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>23<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>31<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>32<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>33<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>这里以后是边侧栏，这是边侧栏的标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>侧栏注册窗口标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">                请输入邮箱地址：</span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">br</span>&gt;</span>邮箱地址请按照要求格式输入</span><br><span class="line">                <span class="tag">&lt;<span class="name">br</span>&gt;</span>请输入密码:</span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">pattern</span>=<span class="string">&quot;[0-9A-Za-z]&#123;6,16&#125;&quot;</span>&gt;</span> 请重复输入密码：</span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">pattern</span>=<span class="string">&quot;[0-9A-Za-z]&#123;6,16&#125;&quot;</span>&gt;</span> 密码为6-16位英文和数字组成</span><br><span class="line">                <span class="tag">&lt;<span class="name">br</span>&gt;</span> 性别:</span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">value</span>=<span class="string">&quot;男&quot;</span> <span class="attr">checked</span>&gt;</span>男</span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">value</span>=<span class="string">&quot;女&quot;</span>&gt;</span>女</span><br><span class="line">                <span class="tag">&lt;<span class="name">br</span>&gt;</span>城市:</span><br><span class="line">                <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;城市&quot;</span> <span class="attr">id</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span>&gt;</span>上海<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;3&quot;</span>&gt;</span>广州<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">br</span>&gt;</span>爱好</span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">value</span>=<span class="string">&quot;read&quot;</span>&gt;</span> readding</span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">value</span>=<span class="string">&quot;write&quot;</span>&gt;</span> writting</span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">value</span>=<span class="string">&quot;swim&quot;</span>&gt;</span> swiming</span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">value</span>=<span class="string">&quot;run&quot;</span>&gt;</span> running</span><br><span class="line">                <span class="tag">&lt;<span class="name">br</span>&gt;</span>评论</span><br><span class="line">                <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">&quot;commet&quot;</span> <span class="attr">id</span>=<span class="string">&quot;2&quot;</span> <span class="attr">cols</span>=<span class="string">&quot;30&quot;</span> <span class="attr">rows</span>=<span class="string">&quot;10&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span>&gt;</span>确认提交<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>ref<br><a target="_blank" rel="noopener" href="http://ife.baidu.com/task/detail?taskId=1">http://ife.baidu.com/task/detail?taskId=1</a><br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/HTML">https://en.wikipedia.org/wiki/HTML</a><br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/Introduction">https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/Introduction</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/lixinstudio/article/details/7014955">http://blog.csdn.net/lixinstudio/article/details/7014955</a></p>
 
       
     </div>
@@ -394,7 +446,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/07/08/%E5%AF%B9%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%80%9D%E8%80%83/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/10/19/hexo-set2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -412,7 +464,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/07/08/%E5%AF%B9%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%80%9D%E8%80%83/" class="post-title-link" itemprop="url">对前端学习的思考</a>
+          <a href="/2016/10/19/hexo-set2/" class="post-title-link" itemprop="url">Hexo 博客增加ccnz统计和多说评论</a>
         </h2>
 
         <div class="post-meta-container">
@@ -423,7 +475,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-07-08 12:10:00" itemprop="dateCreated datePublished" datetime="2016-07-08T12:10:00+08:00">2016-07-08</time>
+      <time title="创建时间：2016-10-19 14:38:16" itemprop="dateCreated datePublished" datetime="2016-10-19T14:38:16+08:00">2016-10-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -443,30 +495,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>最近学习有点浮躁，反思一下。<br>一直希望做点有技术的事情，增加自己的不可替代性，遂计划学习，在python爬虫和前端之间徘徊。python也依葫芦画瓢做了一个抓取图片的程序，前端主要学习javascript。今天在知乎上逛，发现的大多数人也有这样的疑惑，其中一些回答我是认同的。<br>结论：内部需求驱动学习，学习要知道所以然。而我自己没有强烈的内部需求，学习就产生惰性。看了阮一峰的博客，知道了些前端的所以然，但没有系统总结。<br>###你要从心里明白为什么<br>作者：于江水<br>链接：<a target="_blank" rel="noopener" href="http://www.zhihu.com/question/39721183/answer/83536633">http://www.zhihu.com/question/39721183/answer/83536633</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<ol>
-<li>我想做一个个人网站，或者给我们团队或者小组做一些介绍页面。怎么做？搜索发现要学习：HTML、CSS。</li>
-<li>发现一个网站设计的好漂亮，交互真赞，动画效果真好。我想在我自己网站上也放上，可是我看不懂它的代码？搜索发现要学习：交互视觉、CSS3 动画等。</li>
-<li>他们网站上都有那种点击弹出浮层的功能，还有一些其他的更复杂的交互效果。怎么实现的？学习 JavaScript。</li>
-<li>有小学同学说我的个人网站错位了，问了下他用的是 IE7 访问的，怎么办？搜索了解一些浏览器兼容性问题（不是很必要）、学习使用 jQuery。</li>
-<li>我想在微信朋友圈分享一下我的网站，结果缩放的好小，而且有错位。怎么解决这个问题？搜索发现要学习 响应式相关。</li>
-<li>分享了之后，发现打开速度好慢啊，要等十几秒才能打开。怎么办？学一下前端性能优化相关。</li>
-<li>网站交互功能和效果越来越多，写的 JS 和 CSS 代码越来越多，感觉写起来好慢，出了 bug 很难定位问题。怎么办？搜索发现要学习：Emmet、Less、SCSS 等辅助工具用法，JS 模块化 require.js、sea.js 以及对应的 AMD、CMD 以及 CommonJS 模块化规范等。</li>
-<li>JS 更复杂了，而且要与其他同学合作开发。发现需要学习一些前端框架来提高开发效率，比如 React、Angular、Vue，此外还需要一些打包构建工具，将 JS 编译之后发布使用。需要学习 Webpack、Grunt、Gulp 等工具用法。</li>
-<li>网页和应用是开发好了，可是是静态的，没法有数据更新，怎么办？学习前后端数据沟通，Ajax 请求、JSON 数据格式、Fetch API。当然由此延伸，最好还要了解 PHP、Java Velocity、Nodejs 这些后端的知识，还要对 HTTP 的一些状态码、请求类型等有所了解。</li>
-<li>应用部署到哪里？搜索了解：虚拟主机、域名注册、VPS、云主机、Paas、Laas、DNS 解析、在中国做网站要备案但是服务器放在国外就不需要等等。</li>
-<li>每次新创建应用，在我的服务器上都要配置一遍 PHP 环境、Nodejs 环境，有的应用对 PHP 版本要求还不同，怎么办？搜索了解虚拟化技术，Docker 帮你极好的解决这个问题。</li>
-<li>每次发布还要自己手动上传代码到服务器，而且要自己在本地打包、运行单元测试，好麻烦啊。搜索发现可以自己搭建一套持续集成系统，用 git push 代码，自动触发构建，运行单元测试，成功后自动 build 然后给你上传到服务器上面。你只需要写代码就可以了。推荐：gogs + drone + docker。</li>
-</ol>
-<p>###然后看了三个月培养前端的案例，觉得也是一种方式。<br>作者：丁小倪<br>链接：<a target="_blank" rel="noopener" href="http://www.zhihu.com/question/19862294/answer/13918296">http://www.zhihu.com/question/19862294/answer/13918296</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<p>去年在前一家公司培养过2个实习生，现在的一个已经当了小组的leader，但另一个放弃了这个职业，去考研去了。当时我是接到上面leader的通知，让我来培养今年进来的2个实习生。2个实习生刚来时我出了一些题目测试了一下他们对前端基本知识的掌握程度，当时我就泪奔了。。可以说他们是一张白纸，啥也不会。。唯一有的好像就是兴趣。。好吧，公司既然把这个任务给我了，再难也要迎难而上，也不应该打击2位实习生的信心。</p>
-<p>Leader给我下了硬性指标，三个月内要让他们能参与到项目中来，我粗略算了下 有点紧，但如果他们有学习的动力还是没什么问题的。首先我为他们制定了一个三个月的学习计划，大致上分为第一个月、第二个月、第三个月，然后每个月再划分到每个星期，每个星期划分到每天。每天学习的东西做日报，每周一次周报并且我会出一些测试题给他们做，每月一次综合测试。三个月之后让他们参与一个项目测试并做三个月的总结。（是不是很像大学期间的写论文报告？但工作了之后有时总结真的很重要，能够正视自己的不足）</p>
-<p>当然，学习所有的基本知识之前，第一天需要培养的是“思想”！要让他们知道什么是前端以及当前前端业界的一个趋势，不然在不清楚自己定位的情况下去学东西永远会在迷茫，只有清楚自己想要的才会更好地去努力。我特别传达给他们的概念就是永远不要把自己当做一个代码机器，不然自己以后真的走上前端之路会得抑郁症，在前端工作中享受前端所带来的乐趣是最高的境界。<br>前端不是页面仔，不是美工，前端直接面向了最终用户，前端是针线活，需要细心和耐心，前端需要不断地学习新知识，前端需要不断研究出现的问题，前端需要关注用户体验，前端需要了解用户心理，前端也需要了解程序员的心理，前端还需要了解设计师天马行空的想法 : )</p>
-<p>第一个月主要让他们对一些专业术语和前端整体的知识体系做了概览（包括html、css、js、dom、bom等），当然这里必须要去了解的是W3C的诞生以及它的发展历程，还有各大浏览器厂商的发展历程以及当今不断变化的市场格局。前半个月对html所有的标签做一个系统的学习，并对常用的标签(div\p\h1-h6\span\img\ul\dl\ol\li)做重点的理解和DEMO书写，这里我特别传达了语义化的概念给他们希望他们合理的使用标签，而不是根据自己的心情随意的使用标签。后半个月对css的所有属性做通览，并对常用的CSS属性做重点理解和实战，这里我没有让他们对所有的CSS属性做很详细的了解（有些CSS属性可能我们自己一辈子都不会用到，以后遇到的时候学会查API即可）。这过程中还传达了hack这个概念给他们，以及对待hack的态度和常用实例。</p>
-<p>第二个月主要是JS的学习（话说一个月学习JS真的是太难太难了，虽然是个脚本语言但要注意的地方特别多），首先对JS基础的一些东西的学习（词法结构、数据类型和值、变量、表达式和运算符、语句等等一些基础知识），在学JS期间我发现他们明显比第一个月学习html和css来的烦躁，但好得他们有学过编程，有些基础。基础学好之后，就是客户端的一些知识的学习，dom\bom等等，如何对dom操作，关于性能这方面的东西暂时没有传达给他们，等他们达到一定知识程度上我希望他们学习如何优化。后半个月就是让他们接触一个JS框架，并学会高效快速的写出页面交互代码。</p>
-<p>第三个月基本就是实战，html+css+js，每周基本都要写好几个页面，然后我会带他们一起去review，并指出所存在的问题，顺便让他们自己记录下，总结，下次再写页面时避免。</p>
-<p>当然这三个月期间，他们还需要学会前端工具的使用(svn\dw\notepad++\vim\zen-coding\ps等等)，工具我没有过多的去教他们，这个纯粹是一个使用熟练度的问题，只要自己多操作即可。</p>
-<p>最后再这三个月的学习过程中我发现其中一个（是个女孩子）每天下班后经常留在公司，把白天遇到的一些问题代码实战，然后发现了她的一个本本，上面记录了遇到的问题，另外一个男孩子也偶尔会留下来，但几乎很少。三个月之后男孩子说自己要考研了，走了，我想他可能真的不适合前端，也许是有自己的理想，女孩子留了下来，并且迅速的融入了项目团队。（这里我对我这个徒弟还是比较自豪的，前端没有性别之分，女孩子也可以很出色）</p>
+          <blockquote>
+<p>上篇文章记录了hexo博客搭建，修改主题，本文主要记录添加cnzz统计和多说评论过程。</p>
+</blockquote>
+<h3 id="添加cnzz统计"><a href="#添加cnzz统计" class="headerlink" title="添加cnzz统计"></a>添加cnzz统计</h3><p>博客建立起来了，总想了解一下有多少人来看。要是看的人多，也能满足一下小小的虚荣心。添加cnzz统计步骤为如下</p>
+<p>1 注册友盟帐号</p>
+<p>2 添加站点并写好站点相关描述</p>
+<p>3 获得统计代码，我采用的是第一个。</p>
+<p>4 修改light主题中的_config.yml,添加<code>cnzz: true</code>到原google_analytics附近。</p>
+<p>5 在/themes/light/layout_partial\目录创建cnzz.ejs，将cnzz给的代码复制进去，并在前后各添加一行，如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.cnzz)&#123; %&gt;//前面要添加的代码  </span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;//中间的代码  </span><br><span class="line">    var cnzz_protocol = ((&quot;https:&quot; == document.location.protocol) ? &quot; https://&quot;: &quot; http://&quot;);  </span><br><span class="line">    document.write(unescape(&quot;%3Cspan id=&#x27;cnzz_stat_icon_1000543074&#x27;%3E%3C/span%3E%3Cscript src=&#x27;&quot; + cnzz_protocol + &quot;s19.cnzz.com/z_stat.php%3Fid%3D1000543074%26show%3Dpic&#x27; type=&#x27;text/javascript&#x27;%3E%3C/script%3E&quot;));  </span><br><span class="line">&lt;/script&gt;  </span><br><span class="line">&lt;% &#125; %&gt;//后面要添加的</span><br></pre></td></tr></table></figure>
+<p>6 在修改_partial目录中的after_footer.ejs,添加一行<code>&lt;%- partial(&#39;cnzz&#39;) %&gt;</code>。<br>经过以上步，重新生成博客并运行，就可以在博客地下看到‘站长统计’字样，登录友盟网站后台，就可看到网站访问数据了。</p>
+<h3 id="添加多说评论"><a href="#添加多说评论" class="headerlink" title="添加多说评论"></a>添加多说评论</h3><p>添加多说评论与站长统计类似，都需要到提供工具网站上注册并获得对应代码。获得代码后修改文件<code>themes/主题名/layout/_partial/comment.ejs</code>,将文件内容替换为获得的代码。其中3个参数修改<br>标题–&gt;<code>&lt;%= item.title %&gt;</code><br>网址–&gt;<code>&lt;%- config.url %&gt;&lt;%- config.root%&gt;&lt;%- item.path %&gt;</code><br>ID –&gt;<code>&lt;%- item.path %&gt;</code><br>重新生成网站，就可以看到评论框了。</p>
+<h3 id="参考连接"><a href="#参考连接" class="headerlink" title="参考连接"></a>参考连接</h3><p><a target="_blank" rel="noopener" href="http://blog.csdn.net/whjkm/article/details/37884563">http://blog.csdn.net/whjkm/article/details/37884563</a><br><a target="_blank" rel="noopener" href="http://ijiaober.github.io/2014/08/06/hexo/hexo-07/">http://ijiaober.github.io/2014/08/06/hexo/hexo-07/</a></p>
 
       
     </div>
@@ -493,7 +534,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2016/05/14/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%BF%9E%E6%8E%A5NAS/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/10/14/ddd/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -511,7 +552,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/05/14/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%BF%9E%E6%8E%A5NAS/" class="post-title-link" itemprop="url">树莓派连接NAS</a>
+          <a href="/2016/10/14/ddd/" class="post-title-link" itemprop="url">Ubuntu 搭建hexo博客和发布文章总结</a>
         </h2>
 
         <div class="post-meta-container">
@@ -522,7 +563,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-05-14 14:13:00" itemprop="dateCreated datePublished" datetime="2016-05-14T14:13:00+08:00">2016-05-14</time>
+      <time title="创建时间：2016-10-14 12:19:07" itemprop="dateCreated datePublished" datetime="2016-10-14T12:19:07+08:00">2016-10-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -542,12 +583,18 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>##Enviroment Seting</p>
-<ol>
-<li>install firefox browser<br><code>$ sudo apt-get install iceweasel </code></li>
-<li>access to sambaserver<br><code>smbclient //Sambaserver/public  #CIL way</code><br><code>mount -t cifs -l //sambaserver/public /samba  #mount to /samba #defalt user root</code><br><code>sudo mount.cifs //sambaserver/public /samba -o uid=pi  # user is pi</code></li>
-</ol>
-<p>related links<br><a target="_blank" rel="noopener" href="http://hengxiuxu.blogspot.com/2014/09/raspberry-pi.html">http://hengxiuxu.blogspot.com/2014/09/raspberry-pi.html</a></p>
+          <p>看了scott的前端视频及相关文章，心血来潮打算搭建一个hexo博客来<em>装一下</em>，一方面可以练手创建静态网页各种技能，另一方面记录日常。原来的farbox考虑继续用还是迁移过来，还在犹豫中。<br>整个博客搭建基本参考金石开<a target="_blank" rel="noopener" href="http://www.cnblogs.com/zhcncn/p/4097881.html">Hexo搭建Github静态博客</a>，由于改用ubuntu系统了，整个过程还算顺利。遇到的问题主要有</p>
+<p>1 markdown编辑器</p>
+<p>本来打算使用sublime text配合markdown插件，编写hexo博客文章的，结果发现sublime对中文支持真的很不好，网上搜索发现<code>retext</code>编辑器用了一会确实很好，本文就是在retext编辑器中编写的。</p>
+<p>2 github page项目的创建</p>
+<p>一开始不明白github page项目和一般项目的区别，仔细浏览说明后才明白，每个github用户可以创建一个特殊的仓库，用于静态网页的展示。仓库名称必须为”github用户名”+”.github.io”,我的gitpage仓库名为”hhzzer.github.io”。以这种规则命名仓库后，github会自动识别项目为web展示页，这样我们就可以将生成的静态页面，托管到github网站上，然后以浏览网页的方式展示出来，而不是浏览仓库的模式。</p>
+<p>3 绑定个人域名</p>
+<p>个人博客有个独立域名，感觉是不是要牛逼一些呢，就开始折腾绑定个人域名。绑定个人域名达到的效果就是要通过blog.hhzzer.com 访问博客，而不是通过hhzzer.github.io访问。做域名跳转主要有2步:<br>第一，在自己的域名服务商网站添加一个C记录，指向要跳转的地址，即:blog.hhzzer.com–&gt;hhzzer.github.io<br>第二，在gitpage仓库根目录添加CNAME文件，文件中写明blog.hhzzer.com,应该是接受该域名的跳转。<br>配置了上面两步后，独立域名能正常跳转了，但是每次新发布文章，都会把CNAME文件删除掉，网上找到方法是将CNAME文件放在hexo博客source目录。</p>
+<p>另外，本着解决hexo博客发布到github的问题，学习完了&lt;闯过这 54 关，点亮你的 Git 技能树&gt;，对git有了更进一步的了解。但是到部署发布时，发现直接使用hexo提供的命令就行。</p>
+<p>发布流程主要命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;postName&quot; #新建文章</span><br><span class="line">hexo new page &quot;pageName&quot; #新建页面</span><br><span class="line">hexo generate #生成静态页面至public目录</span><br><span class="line">hexo server #开启预览访问端口（默认端口4000，&#x27;ctrl + c&#x27;关闭server）</span><br><span class="line">hexo deploy #将.deploy目录部署到GitHub</span><br><span class="line">hexo help  # 查看帮助</span><br><span class="line">hexo version  #查看Hexo的版本</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>参考:<br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/zhcncn/p/4097881.html">http://www.cnblogs.com/zhcncn/p/4097881.html</a><br><a target="_blank" rel="noopener" href="http://www.zhihu.com/question/28814437">http://www.zhihu.com/question/28814437</a></p>
 
       
     </div>
@@ -567,7 +614,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/68/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><span class="page-number current">69</span><a class="page-number" href="/page/70/">70</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/70/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/68/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><span class="page-number current">69</span><a class="page-number" href="/page/70/">70</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/70/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

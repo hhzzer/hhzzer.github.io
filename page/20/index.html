@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/kickstart%E6%96%87%E4%BB%B6%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%BC%96%E5%86%99/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%B8%BA%E4%BB%80%E4%B9%88%E7%89%9B%E4%BA%BA%E7%A6%BB%E5%BC%80%E5%A4%A7%E5%9E%8B%E6%8A%80%E6%9C%AF%E5%85%AC%E5%8F%B8-%E7%BF%BB%E8%AF%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/kickstart%E6%96%87%E4%BB%B6%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%BC%96%E5%86%99/" class="post-title-link" itemprop="url">kickstart文件学习与编写</a>
+          <a href="/2022/07/04/yuque/%E4%B8%BA%E4%BB%80%E4%B9%88%E7%89%9B%E4%BA%BA%E7%A6%BB%E5%BC%80%E5%A4%A7%E5%9E%8B%E6%8A%80%E6%9C%AF%E5%85%AC%E5%8F%B8-%E7%BF%BB%E8%AF%91/" class="post-title-link" itemprop="url">为什么牛人离开大型技术公司-翻译</a>
         </h2>
 
         <div class="post-meta-container">
@@ -196,7 +196,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 15:10:49 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:10:49+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 15:49:59 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:49:59+08:00">2022-07-04</time>
     </span>
 
   
@@ -209,31 +209,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-01<br>高效完成工作，更多时间留给自己成长。给老板工作同时，也给自己工作。自己工作的目的是技能增长，收益增长。</p>
-<h2 id="系统初始化"><a href="#系统初始化" class="headerlink" title="系统初始化"></a>系统初始化</h2><p>由于安装的机器为 cenos6.9 minimal，而 kickstart 文件制作需要“system-config-kiskstar”工具需要在 x windows 下，所以需要安装桌面环境。过程参考<a target="_blank" rel="noopener" href="http://www.cnblogs.com/noobkey/p/3542405.html">link</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum -y groupinstall &quot;Desktop&quot; &quot;Desktop Platform&quot; &quot;X Window System&quot; &quot;Fonts&quot;</span></span><br><span class="line"><span class="comment"># yum -y groupinstall kde-desktop</span></span><br><span class="line">vi /etc/inittab  <span class="comment">#改为 id:5:initdefault:</span></span><br><span class="line">init <span class="number">6</span></span><br><span class="line">yum install system-config-kiskstar</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="kickstart-文件语法"><a href="#kickstart-文件语法" class="headerlink" title="kickstart 文件语法"></a>kickstart 文件语法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注释</span></span><br><span class="line">% %eng 附加选项</span><br><span class="line">%packages 安装包，@ 一组安装包，类似于groupinstall，@^,组包的组，比如最小化安装、服务器、desktop。</span><br><span class="line">%post 软件包安装完成后执行的脚本</span><br><span class="line">%pre 硬盘分区后执行的脚本</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="kickstart-命令"><a href="#kickstart-命令" class="headerlink" title="kickstart 命令"></a>kickstart 命令</h2><p>安装命令</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">url --url=<span class="string">&quot;ftp://install.com/RHEL7/dvd&quot;</span></span><br><span class="line">repo --name=<span class="string">&quot;Custom Packages&quot;</span> --baseurl=<span class="string">&quot;ftp://abc.com/custom&quot;</span></span><br><span class="line">text <span class="comment">#字符界面安装</span></span><br><span class="line">vnc <span class="comment">#图形界面</span></span><br><span class="line">askmethod <span class="comment">#使用dvd安装时是否使用dvd的软件包</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>分区命令</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">clearpart --<span class="built_in">all</span> --drives=sda,sdb --initlabel</span><br><span class="line">part /home --fstype=ext4 --lable=homes --size=<span class="number">4096</span> --maxsize=<span class="number">8192</span> --grow</span><br><span class="line">ingoredisk --drives=sdc <span class="comment">#安装过程中忽略</span></span><br><span class="line">bootloader --location=mbr --boot-driver=sda</span><br><span class="line">part pv<span class="number">.01</span> --size=<span class="number">8192</span></span><br><span class="line">volgroup myvg pv<span class="number">.01</span></span><br><span class="line">logvol / --vgname=myvg --fstype=xfs --size=<span class="number">2048</span> --name=rootvol --grow</span><br><span class="line">zerombr <span class="comment">#没有被初始化为可识别的硬盘</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>网络命令</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">network --device=eth0 --bootproto=dhcp</span><br><span class="line">firewall --enabled --service=ssh,cups</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>配置命令</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">lang en_US.UTF-<span class="number">8</span> <span class="comment">#系统安装语言和安装过程语言</span></span><br><span class="line">keyboard --vckeymap=us --xlayouts=<span class="string">&#x27;us&#x27;</span>,<span class="string">&#x27;us&#x27;</span></span><br><span class="line">timezone --utc --ntpservers=time.example.com Aisa/Shanghai</span><br><span class="line">auth --useshadow --enablemd5 --passalgo=sha512</span><br><span class="line">rootpw --plaintext redhat <span class="comment">#iscypted 加密后的密码</span></span><br><span class="line">selinux --enforcing</span><br><span class="line">services --disabled=network,iptables --enabled=NetworkManager,firewalld</span><br><span class="line">group --name=admins --gid=<span class="number">10001</span></span><br><span class="line">user --name=jdoe --gecos=<span class="string">&quot;johe deo&quot;</span> --groups=admins --password=changeme --plaintext</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>杂项</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">logging --host=loghost.com --level=info</span><br><span class="line">firstboot <span class="comment">#是否从第一启动项启动系统</span></span><br><span class="line">reboot,poweroff,halt <span class="comment">#安装完成后的操作</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="编辑-ks-文件"><a href="#编辑-ks-文件" class="headerlink" title="编辑 ks 文件"></a>编辑 ks 文件</h3><p>安装文件检查工具</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install pykickstart</span><br><span class="line">ksvalidator ks.cfg</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="实验结论"><a href="#实验结论" class="headerlink" title="实验结论"></a>实验结论</h3><p>使用 ultraiso 工具编辑 2 次 iso 文件会导致 iso 文件损坏，无法安装系统，卡在“assuming drive cache ”<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
+          <p>发表于 2017-08-09<br>今天在阮一峰微博上看到赞赏这篇文章，我就尝试翻译一下。<a target="_blank" rel="noopener" href="https://thinkgrowth.org/why-good-people-leave-large-tech-companies-af2b6fea4ee">原文链接</a><br>我的一个学生带领我参观了一个大型上市技术公司，他是这公司的 CFO。这家公司仍热是最热门的技术公司之一。他们使得硬件在嵌入式软件和服务中大规模应用。<br>CFO 邀请我留下来，因为一个技术负责人要来参加一个会议。<br><strong>我真希望我没去做…</strong><br>负责人在那里抗议，因为他所有 70 人的团队需要从 Palo Alto 到东海岸。”现在团队大部分人步行上班，以后或许是乘火车上班。这让他们在路上会有 45 分钟休息时间。团队大部分人将离开我们。“<br>负责人向他的老板抱怨过，技术总裁插着手说这是“设备问题”，设备总裁把这个问题汇报给了 CFO。所以，组织一个会议是最后的手段，技术负责人为让他的团队留在城里向 CFO 做最后的汇报。<br>虽然这家技术公司的大多数人是从事制造业，然而决策小组是由经验丰富的软件工程师组成。”鉴于他们也可以在本地咖啡店的工作”，CFO 的回复让我目瞪口呆。”太糟糕了，但是我们需要空间。他们在这里工作已经够幸运了。至少他们在简历上留下了我们公司的名字”<br>什么？我不确定是我还是技术负责人更震惊。<br>这个负责人走了以后，我必须看起来很惊讶的样子，CFO 解释说：”我们有成千上万名雇员，在湾区，我们的空间需求根本不可能匹配我们的增速。你了解我们 CEO 的，‘喜欢我们或离开’是他一直观点。”（巧合的是，这个 CEO 在 20 年前是我创业公司的实习生。）我问到：”现在公司已经上市并且增长巨大，他的观点改了么？”CFO 回答道：”没有，我们的 CEO 相信我们正处于改变世界的巨大机遇中，只有在这里工作才能赶上，要么享受要么离开。我们依然收到大量想加入我们公司的简历，所以他认为没有必要改。”<br>我不知道该改成什么，想想这个观点可能有用，毕竟让一个初创公司成长为一个有 1 万或更多雇员的公司。”我们在改变世界的巨大机遇中，要么加入公司改变世界，要么滚蛋“这和我当时在当实习 CEO 的信念一样。</p>
+<h3 id="成人监督"><a href="#成人监督" class="headerlink" title="成人监督"></a>成人监督</h3><p>在独角兽快迅速崛起之前，董事会仍然能掌控时，在他们找到合适的产品或市场后，他们”鼓励”创始人雇佣”家长型”人事管理公司。<br>因此多数创始人无法迅速获得人力资源、财务、销售和董事会管理方面的技能，再由创始人管理会让一家公司迅速消失。所以他们聘用职业经理人。这些新 CEO 也要起到及时消除创始人过激脾气的作用。<br><strong>在上个世纪，技术投资人认识到职业化 CEO 们在扩张阶段非常有用，而在寻找产品定位阶段没用</strong> 技术周期变成一个跑步机，存活下的初创公司需要在不断创新的周期中。这种初创文化一直持续多年–谁做得最好呢？当然是那些创始人。<br>创始人习惯于嘈杂与混乱。与之相对，职业经理人试图让嘈杂恢复秩序并且经常杀死初创文化。创业公司认识到 <strong>指导创始 CEO 壮大公司比让职业经理人 CEO 找到新的创新机遇更容易</strong>。他们是对的。我在我访问过的公司中确实如此。-过去 5 年中已经出现过 200 个独角兽公司，大多数仍人是由创始人掌管。<br>因此，初创公司发现并且相信，有一个对创始人友好的董事会，且公司继续由创始 CEO 经营，公司会增长得更快。创始人的现实扭曲力吸引了大量有同样愿景的雇员。这是非常引人注目的，每个人为了少量薪水和一些股票工作极长的时间。他们是幸运的，他们掌握了正确的节奏，经过几年痛苦的时间发现正确的产品或市场，然后上市。那些早期员工因为股票变现而获得了回报。<br><strong>但问题在于员工超过 1000 的某个时刻，优先股的大量支出结束，随后股票在 IPO 后开始上涨。</strong> 但是 CEO 从未注意到其他公司为他支付 95%的时间已经结束。飞到他私人院子里的远程办公室，被那些身价千万美元的早期员工包围。被”要么留要么走“咒骂的却是一些新员工。<br>公司现在吸引那些实习生，只想在他简历上留下”在热门公司工作过的””一段经历。但是由于薪酬水平低于平均水平，他们会待到足够长的时间来完善他们的简历后为了更高的报酬而离开-通常去一家初创公司。<br>由于只有少量高级工程师认为是一个理想的工作场所，公司开始的技术优势已经开始恶化。</p>
+<h3 id="叫醒服务"><a href="#叫醒服务" class="headerlink" title="叫醒服务"></a>叫醒服务</h3><p>创始人的哪些特点不利于运营大型公司谁也不知道，因为没有最佳实践、没有课程，也没有标准模型。创始人团队很少把初创公司变成大公司，一点也不奇怪。<br>再创业者通过敏捷、无情、顽强甚至不合理并成为 CEO 驱动公司增长，有时候可能，但很艰难。<br>这就意味着快速学习一系列新技能-重大自我升华、当通过直接汇报的方式不能掌握整个公司的时候，就需要建立可重复流程实现规模化管理。有时候这只是在电话唤醒危机之后才会发生。作为一家创业公司，创始人和董事会需要认识到，最重要的改变不是关于系统、办公环境或是硬件。<strong>他们要认识到员工才是他们最宝贵的财富</strong><br>伟大公司的创始人们知道如何保持他们的激情，但也知道人性。</p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>我现在可以讲这个故事了，作为负责人离开公司，并在不同的领域创建了自己的创业公司。在接下来的 6 个月里，70 名员工中 55 人要求离开。其中 25 人加入了他的新创业公司，剩下 30 人呢？成立了 6 家创业公司。</p>
+<h3 id="得到的教训"><a href="#得到的教训" class="headerlink" title="得到的教训"></a>得到的教训</h3><ul>
+<li>当你长大后，要当心那些不必要的教训</li>
+<li>认识公司规模变化时的边界</li>
+<li>认识到在小规模是驱动创新的文化在公司变大后不再适用</li>
+</ul>
+<p>译者：这不是仙童 7 叛徒的故事么？<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E7%BF%BB%E8%AF%91/"># 翻译</a></p>
 
       
     </div>
@@ -260,7 +245,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%90%B4%E5%86%9B%E4%B9%A6%E5%8D%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E4%B8%87%E7%BB%B4%E9%92%A2%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -278,7 +263,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E5%90%B4%E5%86%9B%E4%B9%A6%E5%8D%95/" class="post-title-link" itemprop="url">吴军书单</a>
+          <a href="/2022/07/04/yuque/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E4%B8%87%E7%BB%B4%E9%92%A2%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" class="post-title-link" itemprop="url">爬虫爬取万维钢博客文章</a>
         </h2>
 
         <div class="post-meta-container">
@@ -290,7 +275,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 15:03:51 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:03:51+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 15:49:09 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:49:09+08:00">2022-07-04</time>
     </span>
 
   
@@ -303,114 +288,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-07-30<br>吴军在硅谷来信中写了 4 封信讲书单，记录在此检阅自己阅读。</p>
-<h2 id="249-封信-我给中学生的书单"><a href="#249-封信-我给中学生的书单" class="headerlink" title="249 封信 我给中学生的书单"></a>249 封信 我给中学生的书单</h2><h3 id="文学类-18-本"><a href="#文学类-18-本" class="headerlink" title="文学类 18 本"></a>文学类 18 本</h3><ul>
-<li>金庸和琼瑶书各一本，长篇</li>
-<li>《呐喊》已读，感觉不强烈</li>
-<li>《红楼梦》 已读，有一点感觉</li>
-<li>《悲惨世界》</li>
-<li>《贝多芬传》</li>
-<li>《1984》乔治.奥威尔</li>
-<li>《少年维特的烦恼》歌德</li>
-<li>《秦腔》《古炉》贾平凹</li>
-<li>《简爱》</li>
-<li>《红与黑》</li>
-<li>《傲慢与偏见》</li>
-<li>《哈姆雷特》</li>
-<li>《富兰克林自传》英文版 中文版已读</li>
-<li>《文学回忆录》木心</li>
-<li>《古文观止》《唐诗三百首》</li>
-<li>《伟大的盖茨比》英文版 中文版已读</li>
-<li>《围城》 很久以前读了</li>
-</ul>
-<h3 id="历史类-4-本"><a href="#历史类-4-本" class="headerlink" title="历史类 4 本"></a>历史类 4 本</h3><ul>
-<li>《邓小平时代》傅高义</li>
-<li>《论中国》基辛格 已读，<a target="_blank" rel="noopener" href="http://blog.hhzzer.com/2017/07/27/%E3%80%8A%E8%AE%BA%E4%B8%AD%E5%9B%BD%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">笔记</a></li>
-<li>《人类的故事》房龙</li>
-<li>《人类的群星闪耀时》茨威格，译者舒昌善 已读，感觉不强</li>
-</ul>
-<h3 id="哲学类-3-本"><a href="#哲学类-3-本" class="headerlink" title="哲学类 3 本"></a>哲学类 3 本</h3><ul>
-<li>《培根随笔》培根</li>
-<li>《西方哲学史》罗素</li>
-<li>《人生智慧录》叔本华</li>
-</ul>
-<h3 id="思维类"><a href="#思维类" class="headerlink" title="思维类"></a>思维类</h3><ul>
-<li>《万万没想到》万维钢 已读，刚开始震撼，后面分心了，可再读</li>
-</ul>
-<h3 id="科学类-3-本"><a href="#科学类-3-本" class="headerlink" title="科学类 3 本"></a>科学类 3 本</h3><ul>
-<li>《时间简史》</li>
-<li>《从一到无穷大》，已读，读后获益多，有图纸质书阅读方便<a target="_blank" rel="noopener" href="http://blog.hhzzer.com/2017/07/25/%E3%80%8A%E4%BB%8E%E4%B8%80%E5%88%B0%E6%97%A0%E7%A9%B7%E5%A4%A7%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">笔记</a></li>
-<li>《给世界的答案》温伯格</li>
-</ul>
-<h3 id="经济类"><a href="#经济类" class="headerlink" title="经济类"></a>经济类</h3><ul>
-<li>《伟大的博弈：华尔街金融帝国的崛起》戈登 ，已读，<a target="_blank" rel="noopener" href="http://blog.hhzzer.com/2017/07/11/%E4%BC%9F%E5%A4%A7%E7%9A%84%E5%8D%9A%E5%BC%88-%E8%AF%BB%E5%90%8E%E6%84%9F/">笔记</a>待完善 A 类容易读，先读</li>
-</ul>
-<h2 id="283、290-封信-给大学生的书单（上）（中）"><a href="#283、290-封信-给大学生的书单（上）（中）" class="headerlink" title="283、290 封信 给大学生的书单（上）（中）"></a>283、290 封信 给大学生的书单（上）（中）</h2><h3 id="经典"><a href="#经典" class="headerlink" title="经典"></a>经典</h3><ul>
-<li>《庄子》A 在读</li>
-<li>《孟子》A</li>
-<li>《史记》A 略读完列传系列</li>
-<li>《圣经》B</li>
-<li>《论法的精神》A</li>
-<li>《社会契约论》B</li>
-<li>《路的维希.费尔巴哈和德国古典哲学的终结》B，《共产党宣言》</li>
-<li>《查拉斯图如是说》《偶像的黄昏》B</li>
-<li>《宋词 300 首》A</li>
-<li>《元曲 300 首》B</li>
-</ul>
-<h3 id="东方文学"><a href="#东方文学" class="headerlink" title="东方文学"></a>东方文学</h3><ul>
-<li>《水浒传》A</li>
-<li>《牡丹亭》B 在读</li>
-<li>《平凡的世界》A 读完，震撼</li>
-<li>《穆斯林的葬礼》B</li>
-<li>《雅舍菁华》A</li>
-<li>《红玫瑰于白玫瑰》《倾城之念》《半生缘》，读完第一本，<a target="_blank" rel="noopener" href="http://blog.hhzzer.com/2017/07/27/%E3%80%8A%E7%99%BD%E7%8E%AB%E7%91%B0-%E7%BA%A2%E7%8E%AB%E7%91%B0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">笔记 1</a></li>
-<li>《金阁寺》B</li>
-</ul>
-<h3 id="西方文学"><a href="#西方文学" class="headerlink" title="西方文学"></a>西方文学</h3><ul>
-<li>《莎士比亚悲剧四本》A</li>
-<li>《浮士徳》B</li>
-<li>《呼啸山庄》A</li>
-<li>《远大的前程》A 狄更斯</li>
-<li>《名利场》B</li>
-<li>《福尔摩斯探案集》B</li>
-<li>《巴黎圣母院》B</li>
-<li>《九三年》B 雨果</li>
-<li>《约翰.克利斯朵夫》A</li>
-<li>《战争于和平》A</li>
-<li>《日瓦戈医生》A</li>
-<li>《白夜》B 陀斯妥耶夫斯基 思想深刻</li>
-<li>《嘉莉妹妹》 B 德莱塞</li>
-<li>《永别了，武器》《丧钟为谁而鸣》《老人与海》A</li>
-<li>《格林童话》英文版 B</li>
-<li>《达.芬奇密码》B，中英对照读</li>
-</ul>
-<h3 id="传记"><a href="#传记" class="headerlink" title="传记"></a>传记</h3><ul>
-<li>《领袖们》A 尼克松</li>
-<li>《巨人三传》B</li>
-<li>《昨日的世界》B 有此书，开始读</li>
-<li>《西行漫记》A 斯诺</li>
-<li>《梵高传》B</li>
-</ul>
-<h3 id="经济"><a href="#经济" class="headerlink" title="经济"></a>经济</h3><ul>
-<li>《国富论》B</li>
-<li>《漫步华尔街》A</li>
-<li>《通往奴役之路》B</li>
-</ul>
-<h3 id="科普读物"><a href="#科普读物" class="headerlink" title="科普读物"></a>科普读物</h3><ul>
-<li>《自私的基因》A</li>
-<li>《人类基因的历史地图》B</li>
-<li>《数学之美》B</li>
-<li>《生命是什么》A 埃尔温.薛定谔</li>
-</ul>
-<h3 id="思维"><a href="#思维" class="headerlink" title="思维"></a>思维</h3><ul>
-<li>《异类》A</li>
-<li>《人性的弱点》《人性的优点》A</li>
-<li>《宽容》A 房龙</li>
-</ul>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
-<li>《围城》《洗澡》《百年孤独》两本投资的读物《漫步华尔街》《巴菲特法则》（Buffettology）</li>
-</ul>
-<h2 id="043-封信-常识和《巴菲特法则》"><a href="#043-封信-常识和《巴菲特法则》" class="headerlink" title="043 封信 常识和《巴菲特法则》"></a>043 封信 常识和《巴菲特法则》</h2><p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
+          <p>发表于 2017-08-07<br>看到万维钢的博客，很多文章有启发，奈何访问很慢，经常报 500 内部错误，于是爬取文章到本地，便于阅读。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment">#-*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getHTMLText</span>(<span class="params">url</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url,timeout=<span class="number">30</span>)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        r.encoding=r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;error&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getArticle</span>(<span class="params">html</span>):</span><br><span class="line">    soup = BeautifulSoup(html,<span class="string">&quot;html.parser&quot;</span>)</span><br><span class="line">    title=soup.find(<span class="string">&quot;h2&quot;</span>,<span class="string">&quot;post-title&quot;</span>)</span><br><span class="line">    content=soup.find(<span class="string">&quot;div&quot;</span>,<span class="string">&quot;post-content&quot;</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="built_in">print</span>(title.string)</span><br><span class="line">        <span class="comment">#print(type(content))</span></span><br><span class="line">        <span class="keyword">for</span> child <span class="keyword">in</span> content.children:</span><br><span class="line">            <span class="keyword">if</span> child.string <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="built_in">print</span>(child.string)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;error&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="comment">#url = &quot;http://www.geekonomics10000.com/&quot;i</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span> (<span class="number">1</span>,<span class="number">1000</span>):</span><br><span class="line">        url = <span class="string">&quot;http://www.geekonomics10000.com/&quot;</span>+<span class="built_in">str</span>(i)</span><br><span class="line">        html = getHTMLText(url)</span><br><span class="line">        getArticle(html)</span><br><span class="line"></span><br><span class="line">main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>bash 下运行 python3 craw_wwg.py &gt;&gt;wwg.txt 即可保存到本地。<br>参考：<a target="_blank" rel="noopener" href="https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/">https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/python/"># python</a></p>
 
       
     </div>
@@ -437,7 +318,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/ubuntu%E4%B8%8A%E8%AE%BE%E7%BD%AEchrome%E4%BB%A3%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/thinkpadx200%E9%A3%8E%E6%89%87%E4%BF%AE%E6%AD%A3ubuntu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -455,7 +336,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/ubuntu%E4%B8%8A%E8%AE%BE%E7%BD%AEchrome%E4%BB%A3%E7%90%86/" class="post-title-link" itemprop="url">ubuntu上设置chrome代理</a>
+          <a href="/2022/07/04/yuque/thinkpadx200%E9%A3%8E%E6%89%87%E4%BF%AE%E6%AD%A3ubuntu/" class="post-title-link" itemprop="url">thinkpadx200风扇修正ubuntu</a>
         </h2>
 
         <div class="post-meta-container">
@@ -467,7 +348,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 15:03:24 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:03:24+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 15:48:00 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:48:00+08:00">2022-07-04</time>
     </span>
 
   
@@ -480,7 +361,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-07-30<br>使用某灯后，chrome 浏览器无法联网，提示检查代理。使用另一个浏览器能正常联网，就 bing 答案，最终解决<br>搜索“network”，在 network proxy 中选择 none。<br>另外可以设置代理的地方哪个有<br>.bashrc, .profile, /etc/enviroment，/usr/share/applications/google-chrome.desktop<br>参考文章<br><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/513840/google-chrome-proxy-settings">https://askubuntu.com/questions/513840/google-chrome-proxy-settings</a><br><a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_5d0adef001017816.html">http://blog.sina.com.cn/s/blog_5d0adef001017816.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
+          <p>发表于 2017-08-03<br>夏天到了，电脑风扇声音大，让人心烦。修正一下温度，让风扇没必要转得太快。<br>原文链接 <a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_67a5ec8a0100tvk3.html">http://blog.sina.com.cn/s/blog_67a5ec8a0100tvk3.html</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/modprobe.d/thinkpad-acpi.conf</span><br><span class="line"><span class="comment"># add option thinkpad_acpi fan_control=1</span></span><br><span class="line">sudo apt-get install thinkfan sysfsutils</span><br><span class="line">sudo vi /etc/default/thinkfan <span class="comment"># start=yes</span></span><br><span class="line">vi /etc/thinkfan.conf</span><br><span class="line"></span><br><span class="line">sensor /proc/acpi/ibm/thermal (<span class="number">0</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">(<span class="number">0</span>, <span class="number">0</span>, <span class="number">45</span>)</span><br><span class="line">(<span class="number">1</span>, <span class="number">45</span>, <span class="number">48</span>)</span><br><span class="line">(<span class="number">2</span>, <span class="number">48</span>, <span class="number">55</span>)</span><br><span class="line">(<span class="number">3</span>, <span class="number">55</span>, <span class="number">58</span>)</span><br><span class="line">(<span class="number">4</span>, <span class="number">58</span>, <span class="number">60</span>)</span><br><span class="line">(<span class="number">5</span>, <span class="number">60</span>, <span class="number">63</span>)</span><br><span class="line">(<span class="number">6</span>, <span class="number">63</span>, <span class="number">65</span>)</span><br><span class="line">(<span class="number">7</span>, <span class="number">65</span>, <span class="number">32767</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>手动控制风扇运行级别</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">echo level <span class="number">0</span> | sudo tee /proc/acpi/ibm/fan <span class="comment">#(fan off)</span></span><br><span class="line">echo level <span class="number">2</span> | sudo tee /proc/acpi/ibm/fan <span class="comment">#(low speed)</span></span><br><span class="line">echo level <span class="number">4</span> | sudo tee /proc/acpi/ibm/fan <span class="comment">#(medium speed)</span></span><br><span class="line">echo level <span class="number">7</span> | sudo tee /proc/acpi/ibm/fan <span class="comment">#(maximum speed)</span></span><br><span class="line">echo level auto | sudo tee /proc/acpi/ibm/fan <span class="comment">#(automatic - default)</span></span><br><span class="line">echo level disengaged | sudo tee /proc/acpi/ibm/fan <span class="comment">#(disengaged)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>查看 cat /etc/proc/acpi/ibm/fan<br>设置为 2 后，声音小多了。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.thinkwiki.org/wiki/How_to_control_fan_speed">http://www.thinkwiki.org/wiki/How_to_control_fan_speed</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/ubuntu/"># ubuntu</a></p>
 
       
     </div>
@@ -507,7 +395,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E3%80%8A%E7%99%BD%E7%8E%AB%E7%91%B0.%E7%BA%A2%E7%8E%AB%E7%91%B0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E5%86%99%E6%B3%95%E6%91%98%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -525,7 +413,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E3%80%8A%E7%99%BD%E7%8E%AB%E7%91%B0.%E7%BA%A2%E7%8E%AB%E7%91%B0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《白玫瑰.红玫瑰》读书笔记</a>
+          <a href="/2022/07/04/yuque/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E5%86%99%E6%B3%95%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">读书笔记写法摘录</a>
         </h2>
 
         <div class="post-meta-container">
@@ -537,7 +425,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 15:03:00 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:03:00+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 15:47:12 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:47:12+08:00">2022-07-04</time>
     </span>
 
   
@@ -550,7 +438,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-07-27<br>吴军书单的缘故，速读此书。<br>张爱玲的小说读起来是轻松的，读后的思考是持久的。<br>白玫瑰讲一个外国留学生和女人有关的故事。巴黎的 firstblood，英国的坐怀不乱，回国后与同学妻子暧昧，结平凡妻，婚后家庭生活不顺后的放荡，最后悔悟?<br>红玫瑰讲一个年轻离异的小姐，寄居在哥哥家受嫂子闷气。给 7 妹介绍婆家时遇见放浪不羁的留学公子。舞会初识、香港热恋、回上海试忠心、再往香港经历战争见真情，在一起。<br>老婆孩子热炕头，抱着白玫瑰平凡过一生，是一种爱情。基因里的好色与不安分，不停鼓噪男人外遇，寻找不一样的红玫瑰。<br>男人找伴侣要找聪明，有魅力的。女人找伴侣要找对自己好的，而且是行动上。<br>武志红在直播中讲边界问题，物理上的、身体上的、心里上的边界。处理人际关系，即为划界限，在不同的界限范围，做不同的反应。<br>罗辑思维产品试金石：1）是否给用户带来价值 2）用户能否听懂 3）用户读过后能记住什么 4）用户获得后是否有意愿，有能力对朋友讲述。<br>我读了这本书后，对我的价值是认识到男女都躁动不安。我读懂了么？这需要和别人讨论或看书评，拿自己的结论和别人对比。我记住的是什么？哪个少年不多情，哪个少女不怀春。我怎么给别人讲？第二个故事是第一个故事的续集。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
+          <p>发表于 2017-08-03<br>吴军推荐了一堆书，读的时候想着留下点什么记录时，才会更投入去读。读书笔记就是强制记录的手段，别人怎么看待读书笔记和怎么记录值得我参考</p>
+<h2 id="费曼学习法"><a href="#费曼学习法" class="headerlink" title="费曼学习法"></a>费曼学习法</h2><p>学习新知识最好的办法就是用，如果没有机会用，就去教别人。</p>
+<h2 id="王烁记法"><a href="#王烁记法" class="headerlink" title="王烁记法"></a>王烁记法</h2><p>读书笔记记录读的时候受到的启发，触类旁通的感想，以及待探索的线索。一本书的核心关键已经在导言、结论两章写明。如果真要自己抓关键，可通过：抓主题、列大纲、层层分解。</p>
+<h2 id="万维钢强力研读法"><a href="#万维钢强力研读法" class="headerlink" title="万维钢强力研读法"></a><a target="_blank" rel="noopener" href="http://www.geekonomics10000.com/">万维钢</a>强力研读法</h2><h3 id="1-清晰表现每一章的逻辑脉络"><a href="#1-清晰表现每一章的逻辑脉络" class="headerlink" title="1.清晰表现每一章的逻辑脉络"></a>1.清晰表现每一章的逻辑脉络</h3><p>我习惯完全按照原书的章节给读书笔记划分章节，甚至保留各章节的标题。不过这种内容提要并不重要。重要的是一定要看出来作者的逻辑脉络。每一章的逻辑结构如果真写出来也许只有几句话，可是这几句话却常常是分布在好几十页中。</p>
+<h3 id="2-带走书中所有的亮点"><a href="#2-带走书中所有的亮点" class="headerlink" title="2.带走书中所有的亮点"></a>2.带走书中所有的亮点</h3><p>好的读书笔记是不均匀分布的。笔记，是我听说了一个想法之后很激动，必须把这个想法记下来具有已有的行为。所以逻辑脉络之外，如果发现真正好的小故事–我们称之为“亮点”–那么就把这个故事也给写下来，甚至具体到细节。</p>
+<h3 id="3-大量自己的看法和心得"><a href="#3-大量自己的看法和心得" class="headerlink" title="3.大量自己的看法和心得"></a>3.大量自己的看法和心得</h3><p>强力研读是一种主动式的读书。要在笔记中写下自己对此书的评论，好像跟作者对话一样。</p>
+<h3 id="4-发现这本书和以前读过的其他书或文章的联系"><a href="#4-发现这本书和以前读过的其他书或文章的联系" class="headerlink" title="4.发现这本书和以前读过的其他书或文章的联系"></a>4.发现这本书和以前读过的其他书或文章的联系</h3><p>当你度过的数多到一定程度，你就会发现书与数之间是存在练习的。如果你读过足够多，你就会获得一种更难得的经历：感受人类知识的进步。你会发现一个问题在这本书里是这个说法，而过了几年之后有人写了另一本书，引用更有力的证据，把整个结论给改变了。<br>笔记是对一本书最大的敬意。读书笔记是一种非常个性化的写作，是个人知识的延伸。如果做不到强力研读的笔记标准，随便做一个一般水平的读书笔记对自己也有帮助，起码能加深记忆力。</p>
+<h2 id="我对这篇文章的笔记？"><a href="#我对这篇文章的笔记？" class="headerlink" title="我对这篇文章的笔记？"></a>我对这篇文章的笔记？</h2><p>读书笔记两大内容：1）记录书讲了什么，通过什么样的逻辑讲的。2）我对书中观点的看法，赞成、否定、疑问、观点修正？<br>如果再深入记录就是带走亮点，整理自己整个认知体系。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
 
       
     </div>
@@ -577,7 +472,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E3%80%8A%E8%AE%BA%E4%B8%AD%E5%9B%BD%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%AE%9A%E5%88%B6%E5%8C%96centos6%E5%AE%89%E8%A3%85%E5%85%89%E7%9B%98%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%8F%8A%E8%A7%A3%E5%86%B3%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -595,7 +490,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E3%80%8A%E8%AE%BA%E4%B8%AD%E5%9B%BD%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《论中国》读书笔记</a>
+          <a href="/2022/07/04/yuque/%E5%AE%9A%E5%88%B6%E5%8C%96centos6%E5%AE%89%E8%A3%85%E5%85%89%E7%9B%98%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%8F%8A%E8%A7%A3%E5%86%B3%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">定制化centos6安装光盘遇到的坑及解决过程</a>
         </h2>
 
         <div class="post-meta-container">
@@ -607,7 +502,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 15:02:31 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:02:31+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 15:39:41 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:39:41+08:00">2022-07-04</time>
     </span>
 
   
@@ -620,7 +515,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-07-27<br>吴军在给中学生书单中，提到这本书，两天时间看完，对中国近代史有了更进一步了解。<br>亨利.基辛格以参与者的视角，讲述了自 1949 新中国成立到其后 40 年的中美关系史。试图解释中国人对战争与和平、国际秩序等问题的思考，以及这种思考与美国人更为实用的、就事论事的思维方式的关系。不同的视角，有不同的体验。<br>新中国成立后，毛在莫斯科两个月，与苏联达成同盟关系。此关系维持到对越自卫反击战，彻底断裂。中国对外关系一直在美苏之间平衡，以获得自身的最大利益。<br>跟进苏联的大跃进运动、人民公社运动掀起意识形态的斗争。文化大革命、上山下乡，内部整风过头。领袖的去世与权利的交接产生不小动荡。但党都选择了最有利于国家和人名发展的道路。到现在我们享受了发展的成果，党的执政信心由内向外散发。发展会遇见问题，道路是正确的，只要向前不断摸索，定能实现伟大复兴。<br>抗美援朝，是中苏同盟的一块试金石，苏联开始信任，开始援助中国。印度边境纠纷、民间支持北越、金门炮击也是这一时期同盟关系的产物。<br>对越自卫反击是摸苏联老虎屁股，开始反抗苏联，于美国关系升温。<br>40 年的基本稳定，中国内部斗争 20 年，改革开放 20 年，终于国富民强。美国发展了 200 多年，中国的发展之路还早呢。<br>对个人而言，毛的时代相信国人的耐受性，无畏无惧。邓的时代引导国人创造性，发挥创造性致富，幸福生活，就是个人主题。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
+          <p>发表于 2017-08-02<br>隔一段时间就需要安装大量物理机的操作系统，安装过程中设置时区、语言、键盘、分区、选软件包，安装后还需要禁用 seliux、firewall 等。这些费时操作能否通过参数文件指定，然后加快安装速度？于是就开始可定制化安装光盘踩坑之旅。<br>由于安装环境网络隔离，无法使用网络启动安装系统。物理距离远，也无法抱笔记本作为网络启动服务器，所以定制化安装光盘是唯一的出路。</p>
+<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yum -y install anaconda repodata createrepo mkisofs rsync</span><br><span class="line">mkdir -p /mnt/cdrom</span><br><span class="line">mkdir -p /data/os</span><br><span class="line">mount /dev/cdrom /mnt/cdrom</span><br><span class="line">rsync -a /mnt/cdrom /data/os</span><br><span class="line">chmod +w /data/os/isolinux/isolinux.cfg</span><br><span class="line">vi /data/os/isolinux/isolinux.cfg <span class="comment">#在第一启动菜单后面添加 ks=cdrom:/isolinux/ks.cfg</span></span><br><span class="line">mv /root/ks.cfg /data/os/isolinux/</span><br><span class="line">cd /data/os</span><br><span class="line">mkisofs -R -J -T -r -l -d -joliet-long -allow-multidot -allow-leading-dots -no-bak -o /data/CentOS-<span class="number">6.9</span>-x86_64.iso -b isolinux/isolinux.<span class="built_in">bin</span> -c isolinux/boot.cat -no-emul-boot -boot-load-size <span class="number">4</span> -boot-info-table /data/os</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>ks.cfg</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Kickstart file automatically generated by anaconda.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#version=DEVEL</span></span><br><span class="line">install</span><br><span class="line">cdrom</span><br><span class="line">lang en_US.UTF-<span class="number">8</span></span><br><span class="line">keyboard us</span><br><span class="line">network --onboot no --device eth0 --bootproto dhcp --noipv6</span><br><span class="line">rootpw  --iscrypted $<span class="number">6</span>$bXEOu0BQYfXsF4w1$AtnU3lrkcBK2rqrXuagl03xy.S5PPWEMXn9PbtBh2IBfhHfO6zVgncXCDwZD0Q8wIQlzMHH./kdoVT97a4WoX/</span><br><span class="line">firewall --disabled</span><br><span class="line">authconfig --enableshadow --passalgo=sha512</span><br><span class="line">selinux --disabled</span><br><span class="line">timezone --utc Asia/Shanghai</span><br><span class="line">bootloader --location=mbr --driveorder=sda,sdb --append=<span class="string">&quot;crashkernel=auto rhgb quiet&quot;</span></span><br><span class="line"><span class="comment"># The following is the partition information you requested</span></span><br><span class="line"><span class="comment"># Note that any partitions you deleted are not expressed</span></span><br><span class="line"><span class="comment"># here so unless you clear all partitions first, this is</span></span><br><span class="line"><span class="comment"># not guaranteed to work</span></span><br><span class="line">zerombr</span><br><span class="line">clearpart --<span class="built_in">all</span> --drives=sda --initlabel</span><br><span class="line">part /boot --fstype=ext4 --size=<span class="number">500</span></span><br><span class="line">part pv<span class="number">.008002</span> --grow --size=<span class="number">1</span></span><br><span class="line">volgroup VolGroup --pesize=<span class="number">4096</span> pv<span class="number">.008002</span></span><br><span class="line">logvol / --fstype=ext4 --name=lv_root --vgname=VolGroup --grow --size=<span class="number">1024</span> --maxsize=<span class="number">51200</span></span><br><span class="line">logvol swap --name=lv_swap --vgname=VolGroup --grow --size=<span class="number">1024</span> --maxsize=<span class="number">1024</span></span><br><span class="line">reboot</span><br><span class="line"></span><br><span class="line"><span class="comment">#repo --name=&quot;CentOS&quot;  --baseurl=cdrom:sr0 --cost=100</span></span><br><span class="line"></span><br><span class="line">%packages --nobase</span><br><span class="line"><span class="meta">@core</span></span><br><span class="line">%end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-ultraiso-修改了-iso-镜像后，就无法安装系统"><a href="#使用-ultraiso-修改了-iso-镜像后，就无法安装系统" class="headerlink" title="使用 ultraiso 修改了 iso 镜像后，就无法安装系统"></a>使用 ultraiso 修改了 iso 镜像后，就无法安装系统</h2><p>测试使用了“centos6.9minimal”和“centos-7-x86_64-Minimal-1611”两个版本的 iso，使用 ultraiso 编辑 iso 文件，添加任意文件到 iso 并保存，采用编辑后的文件都无法安装系统，都报错”Unable to read group information from repositories” 。之前一直以为是编写的 ks.cfg 文件参数错误，直到看到<a target="_blank" rel="noopener" href="https://www.centos.org/forums/viewtopic.php?t=936">这篇文章</a>才发现，是 iso 文件错误。解决办法是重新生成 repo，重新生成 iso。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rm -f repodata/*.gz repodata/*.*.bz2 repodata/*.repomd.xml</span><br><span class="line">declare -x discinfo=`head -<span class="number">1</span> .discinfo`</span><br><span class="line">createrepo -u media://$discinfo -g repodata/2a7e0c1da38a40e2961c0cec6acca8b8446d974b1fc055216ebde88bb4a19eb9-c6-x86_64-comps.xml .</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>之前一直使用 ultraiso 编辑镜像后保存安装系统一直报错，有些怀疑是编辑镜像的原因，排查到 yumrepo 报错时，终于顿悟。<br>目前只做了 centos6.9minimal 的安装 iso，根据情况制作 centos7.2 的。ubuntu 的定制化再找时间测试。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="http://fengzhige.blog.51cto.com/3691377/1067111">http://fengzhige.blog.51cto.com/3691377/1067111</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/jython/p/4301924.html">http://www.cnblogs.com/jython/p/4301924.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
 
       
     </div>
@@ -640,7 +545,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

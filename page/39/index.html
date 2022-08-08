@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/30/yuque/%E6%8B%86%E6%95%B0%E5%AD%97/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/08/yuque/%E5%85%89%E6%98%8E%E5%85%B1%E5%92%8C%E5%9B%BD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/30/yuque/%E6%8B%86%E6%95%B0%E5%AD%97/" class="post-title-link" itemprop="url">拆数字</a>
+          <a href="/2021/02/08/yuque/%E5%85%89%E6%98%8E%E5%85%B1%E5%92%8C%E5%9B%BD/" class="post-title-link" itemprop="url">光明共和国</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,7 +195,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-12-30 08:55:05" itemprop="dateCreated datePublished" datetime="2020-12-30T08:55:05+08:00">2020-12-30</time>
+      <time title="创建时间：2021-02-08 10:15:50" itemprop="dateCreated datePublished" datetime="2021-02-08T10:15:50+08:00">2021-02-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -215,14 +215,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在数字中加入 + - _ / ,至少加入一个字符，使得运算结果为原字符的逆序值。值不能用 0 补位。<br>例 在 100-999 中<br>351 = 3 _ 51 = 153<br>。。<br>。。</p>
-<h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p>每加入一个运算符，数字会减少一个数量级。要得到与原数字一样长度的结果，只能用* +。<br>用加法不能得到原字符逆序值，因为 3 位数加 1 位数，进位 1 。1 加任何一个 1 位数 不能进位（进位后为 0 不满足条件。）</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>, <span class="number">9999</span>):</span><br><span class="line">    num_list = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(i)))</span><br><span class="line">    score = num_list[<span class="number">3</span>]*<span class="number">1000</span> + num_list[<span class="number">2</span>] *<span class="number">100</span> +num_list[<span class="number">1</span>]*<span class="number">10</span> +num_list[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> num_list[<span class="number">0</span>]* (num_list[<span class="number">1</span>]*<span class="number">100</span> + num_list[<span class="number">2</span>]*<span class="number">10</span> + num_list[<span class="number">3</span>]) == score:</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">    <span class="keyword">if</span> (num_list[<span class="number">0</span>]*<span class="number">10</span> + num_list[<span class="number">1</span>]) * (num_list[<span class="number">2</span>]*<span class="number">10</span> + num_list[<span class="number">3</span>])== score:</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">    <span class="keyword">if</span> (num_list[<span class="number">0</span>]*<span class="number">100</span> + num_list[<span class="number">1</span>]*<span class="number">10</span> + num_list[<span class="number">2</span>]) * ( num_list[<span class="number">3</span>])== score:</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">    <span class="keyword">if</span> num_list[<span class="number">0</span>] * num_list[<span class="number">1</span>] * (num_list[<span class="number">2</span>]*<span class="number">10</span> + num_list[<span class="number">3</span>]) == score:</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">    <span class="keyword">if</span> num_list[<span class="number">0</span>] * (num_list[<span class="number">1</span>]*<span class="number">10</span>+num_list[<span class="number">2</span>]) * num_list[<span class="number">3</span>] == score:</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">    <span class="keyword">if</span> (num_list[<span class="number">0</span>]*<span class="number">10</span> + num_list[<span class="number">1</span>]) * num_list[<span class="number">2</span>] * num_list[<span class="number">3</span>] == score:</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">    <span class="keyword">if</span> num_list[<span class="number">0</span>] * num_list[<span class="number">1</span>] * num_list[<span class="number">2</span>] * num_list[<span class="number">3</span>] == score:</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>5931 = 5 * 9 *31 = 1395</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>,<span class="number">9999</span>):</span><br><span class="line">    score = <span class="built_in">int</span>(<span class="built_in">str</span>(i)[::-<span class="number">1</span>])</span><br><span class="line">    num_list = <span class="built_in">str</span>(i)</span><br><span class="line">    cmp = [<span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;&#x27;</span>]</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> cmp:</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> cmp:</span><br><span class="line">            <span class="keyword">for</span> l <span class="keyword">in</span> cmp:</span><br><span class="line">                cacl_str = num_list[<span class="number">0</span>] + j +num_list[<span class="number">1</span>] + k +num_list[<span class="number">2</span>] + l + num_list[<span class="number">3</span>]</span><br><span class="line">                <span class="comment"># print(cacl_str)</span></span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    result = <span class="built_in">eval</span>(cacl_str)</span><br><span class="line">                <span class="keyword">except</span>:</span><br><span class="line">                    <span class="keyword">pass</span></span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(cacl_str) &gt; <span class="number">4</span> <span class="keyword">and</span> result == score:</span><br><span class="line">                    <span class="built_in">print</span>(cacl_str)</span><br></pre></td></tr></table></figure>
-
-<p>5<em>9</em>31</p>
+          <p>和菜头两篇文章推荐，遂到微信读书中读完。</p>
+<p>中美洲热带雨林的小镇，生活着 20 多个流浪儿童。他们或成群或结对，说着特有的语言，与周围人区分明显。后来他们全死了。主人公为小镇的治安官，回忆整个事件。<br>流浪儿童在超市与市民发生冲突，市民一死两伤。治安官召集警察搜寻流浪儿童，拉网式搜索小镇旁边的大森林，没发现。小镇的儿童趴在地上，似乎在听大森林传来的声音。后续搜捕，抓到一个市民儿童转成的流浪儿童，多方逼问，指出流浪儿童藏身地：下水道。市政拿出下水道管网图，警察研究搜查路线。双方在下水道中追逐，流浪儿童意外打开了进水口，所有儿童都在水中窒息而死。警察从下水道中捞出所有儿童，排在路边。下水道搜索过程中发现了流浪儿童睡觉的地方，为下水道修建时仓库。多边形的仓库墙壁上有很多长宽一米深两米的洞，流浪小孩就在这里睡觉。洞里有他们所有的财产，一些食物，一些玻璃。玻璃把从下水道井盖透下的光，反射到仓库顶，像极了星空。</p>
 
       
     </div>
@@ -249,7 +243,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/29/yuque/%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/08/yuque/%E6%96%87%E5%AD%A6%E7%90%86%E8%AE%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -267,7 +261,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/29/yuque/%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">回文字符串</a>
+          <a href="/2021/02/08/yuque/%E6%96%87%E5%AD%A6%E7%90%86%E8%AE%BA/" class="post-title-link" itemprop="url">文学理论</a>
         </h2>
 
         <div class="post-meta-container">
@@ -278,7 +272,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-12-29 08:29:25" itemprop="dateCreated datePublished" datetime="2020-12-29T08:29:25+08:00">2020-12-29</time>
+      <time title="创建时间：2021-02-08 08:44:53" itemprop="dateCreated datePublished" datetime="2021-02-08T08:44:53+08:00">2021-02-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -298,22 +292,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>请找出大于 10 的最小的一个十进制数，该数的二进制、八进制、十进制表示都是回文字符。<br>例：<br>十进制：9<br>八进制：11<br>二进制：1001<br>9&lt;10 所以 9 不符合要求。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">11</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">str</span>(x) == <span class="built_in">str</span>(x)[::-<span class="number">1</span>] \</span><br><span class="line">    <span class="keyword">and</span> <span class="built_in">str</span>(<span class="built_in">oct</span>(x))[<span class="number">2</span>:] == <span class="built_in">str</span>(<span class="built_in">oct</span>(x))[<span class="number">2</span>:][::-<span class="number">1</span>] \</span><br><span class="line">    <span class="keyword">and</span> <span class="built_in">str</span>(<span class="built_in">bin</span>(x))[<span class="number">2</span>:] == <span class="built_in">str</span>(<span class="built_in">bin</span>(x))[<span class="number">2</span>:][::-<span class="number">1</span>]:</span><br><span class="line">        <span class="built_in">print</span>(x)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    x = x +<span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>输出为 585</p>
-<p>使用 format</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">11</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">str</span>(x) == <span class="built_in">str</span>(x)[::-<span class="number">1</span>] \</span><br><span class="line">    <span class="keyword">and</span> <span class="built_in">format</span>(x, <span class="string">&#x27;b&#x27;</span>) == <span class="built_in">format</span>(x, <span class="string">&#x27;b&#x27;</span>)[::-<span class="number">1</span>] \</span><br><span class="line">    <span class="keyword">and</span> <span class="built_in">format</span>(x, <span class="string">&#x27;o&#x27;</span>) == <span class="built_in">format</span>(x, <span class="string">&#x27;o&#x27;</span>)[::-<span class="number">1</span>]:</span><br><span class="line">        <span class="built_in">print</span>(x)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    x = x +<span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>相关知识<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/taceywong/p/8045127.html#:~:text=Python%E5%AE%9E%E7%8E%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95%201%20%E7%AC%AC%E4%B8%80%E7%A7%8D%EF%BC%9A%E4%BD%BF%E7%94%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%87%E7%89%87%202%20%E7%AC%AC%E4%BA%8C%E7%A7%8D%EF%BC%9A%E4%BD%BF%E7%94%A8%E5%88%97%E8%A1%A8%E7%9A%84reverse%E6%96%B9%E6%B3%95%203,%E7%AC%AC%E4%B8%89%E7%A7%8D%EF%BC%9A%E4%BD%BF%E7%94%A8reduce%204%20%E7%AC%AC%E5%9B%9B%E7%A7%8D%EF%BC%9A%E4%BD%BF%E7%94%A8%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0%205%20%E7%AC%AC%E4%BA%94%E7%A7%8D%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%88%206%20%E7%AC%AC%E5%85%AD%E7%A7%8D%EF%BC%9Afor%E5%BE%AA%E7%8E%AF">python 字符串反转</a></p>
-<ul>
-<li>字符串切片</li>
-<li>list reverse 方法</li>
-<li>for 循环或列表推导</li>
-<li>递归</li>
-</ul>
-<p>python 内置函数<br><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.7/library/functions.html">https://docs.python.org/zh-cn/3.7/library/functions.html</a></p>
-<p>format(num, ‘b’)<br>format(num, ‘o’)<br>format(num, ‘x’)<br>返回不带前缀的进制转换</p>
+          <p>通过公众号介绍，B 站上的《文学理论》 番号（**BV1LE411e7NE **）据说很有快感，就去看了 4 集。讲课老师学识渊博，举例生动，确实是门好课。</p>
+<p>1、2 集为导论，描绘了整个文学理论课程的全景。<br>3、4 集讨论文学的本质。整个文学理论从作品、作者、读者、世界 4 个维度去展开讨论。<br>什么是文学，举例考察红楼梦、史记、三国演义、三国志。<br>文学的本质是什么？<br>文学是以什么形式存在的，红楼梦烧完，一样存在，文学是以精神的形式存在。<br>文学有没有本质？反本质主义。文学有本质，不能一句话概括其本质。<br>之所以认为红楼梦是文学，是读者读出来的文学性。读出文学性的原因是审美<br>美学，是对审美过程的研究。<br>文学不求真、不求善，只求美。写作文，要求的不是故事的真实，而是故事要有真实感，能和显示映射。</p>
+<p>语言和符号系统<br>文学语言和日常语言目的不同。日常语言是为了传达信息，所以表达要直白，清晰。文学语言要传达感受，要增加理解的难度，通过揣摩，获得感受。我家门前有两棵树，一棵是枣树，另一颗也是枣树。让人感受到鲁迅冷峻阴森的气息。我的家乡风很多，一年刮两次，一次刮半年。作者搞笑来的。</p>
 
       
     </div>
@@ -340,7 +321,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/23/yuque/%E4%B9%A6%E5%BA%97%E9%99%84%E8%BF%91%E7%9A%84%E5%AE%B6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/13/yuque/linux%20%E6%95%85%E9%9A%9C%E7%A3%81%E7%9B%98%E6%A0%B8%E5%AE%9E%E5%92%8C%E5%AE%9A%E4%BD%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -358,7 +339,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/11/23/yuque/%E4%B9%A6%E5%BA%97%E9%99%84%E8%BF%91%E7%9A%84%E5%AE%B6/" class="post-title-link" itemprop="url">书店附近的家</a>
+          <a href="/2021/01/13/yuque/linux%20%E6%95%85%E9%9A%9C%E7%A3%81%E7%9B%98%E6%A0%B8%E5%AE%9E%E5%92%8C%E5%AE%9A%E4%BD%8D/" class="post-title-link" itemprop="url">linux 故障磁盘核实和定位</a>
         </h2>
 
         <div class="post-meta-container">
@@ -369,14 +350,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-11-23 08:47:10" itemprop="dateCreated datePublished" datetime="2020-11-23T08:47:10+08:00">2020-11-23</time>
+      <time title="创建时间：2021-01-13 09:45:12" itemprop="dateCreated datePublished" datetime="2021-01-13T09:45:12+08:00">2021-01-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
+      <time title="修改时间：2022-06-29 11:46:49" itemprop="dateModified" datetime="2022-06-29T11:46:49+08:00">2022-06-29</time>
     </span>
 
   
@@ -389,12 +370,30 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>希望家附近有书店。</p>
-<p>星期天，妻子带小孩去海洋公园玩，我没进去，在附近闲逛。百度地图发现附近有 2 家书店，西西弗和古腾堡。先往较近的西西弗书店走去。到达定位的点，很大的店名，却找不到入口，周围被装修挡板包围，看来是还没营业。绕着挡板往古腾堡书店走去。挡板上写满名著名言，看到一些熟悉的句子，开始慢慢品读。</p>
-<blockquote>
-<p>The question mark is the key to any science – 巴普洛夫<br>No man is an island，entire of it’s self – Jhon Donn<br>史蒂夫.乔布斯、爱因斯坦、列夫托尔斯泰、居里夫人、李白、司马迁等。</p>
-</blockquote>
-<p>约 10 分钟路程，在商场的 4 楼找到古腾堡书店。书是背靠书架，正面向读者陈列的，一眼就能看到书的封面。书架分 6、7 类包括：top300 经典、低估好书、畅销、you may like，和图书馆陈列方式完全不同。top300 经典里面看到读过的《平凡的世界》、最近在读的《风格感觉》，想读的《呼吸》既满足又欣喜。拿了一本川端康成的《古都》，到靠窗的台阶上阅读起来。<br>千重子在家看老槐树上的两株紫花地丁，千重子和真一去赏樱，千重子父亲去尼姑庵闭门创作和服图样，千重子父亲去找朋友织腰带图案、千重子一家和织布父子一起去公园走林荫道。<br>一小时左右，妻子和孩子游玩结束，我放下书离开书店与她们汇合，坐车回家。<br>要是家附近有这么一个书店就好了。下班回家，一人带孩子一人看书，孩子稍大后可一起。不看书的时候就交流看到了什么，自己的观点是什么，多和谐。</p>
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>业务发现 dmesg 中有大量/dev/sdu 的日志信息，怀疑 sdu 盘坏。本文记录硬盘状态查询和定位过程。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>通过 dmesg 查看告警信息</li>
+<li>通过/sys/block/sd* 查看设备名和硬盘槽位对应信息</li>
+<li>通过 raid 卡驱动查看硬盘健康状态</li>
+<li>通过 raid 卡驱动开启硬盘定位灯，为维修更换做准备</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep sdu</span><br><span class="line">ll /sys/block/sd*</span><br><span class="line">/opt/MegaRAID/storcli/storcli64 /c0 show all</span><br><span class="line">/opt/MegaRAID/storcli/storcli64 /c0/eall/s15 show all</span><br><span class="line">/opt/MegaRAID/storcli/storcli64 /c0/eall/s15 start locate</span><br></pre></td></tr></table></figure>
+
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost monitor]# dmesg | grep sdu | tail</span><br><span class="line">[90695.836127] sd 0:0:23:0: [sdu] tag#20 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE</span><br><span class="line">[90695.836139] sd 0:0:23:0: [sdu] tag#20 Sense Key : Medium Error [current] [descriptor]</span><br><span class="line">[90695.836144] sd 0:0:23:0: [sdu] tag#20 Add. Sense: Unrecovered read error</span><br><span class="line">[90695.836150] sd 0:0:23:0: [sdu] tag#20 CDB: Read(16) 88 00 00 00 00 02 07 07 1f 60 00 00 01 00 00 00</span><br><span class="line">[90695.836154] blk_update_request: critical medium error, dev sdu, sector 8707842088</span><br><span class="line">[90715.450506] sd 0:0:23:0: [sdu] tag#3 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE</span><br><span class="line">[90715.450518] sd 0:0:23:0: [sdu] tag#3 Sense Key : Medium Error [current] [descriptor]</span><br><span class="line">[90715.450523] sd 0:0:23:0: [sdu] tag#3 Add. Sense: Unrecovered read error</span><br><span class="line">[90715.450528] sd 0:0:23:0: [sdu] tag#3 CDB: Read(16) 88 00 00 00 00 02 03 ff c6 90 00 00 01 00 00 00</span><br><span class="line">[90715.450532] blk_update_request: critical medium error, dev sdu, sector 8657028944</span><br></pre></td></tr></table></figure>
+
+<p>验证 dmesg 信息，确认有 medium error 告警。设备在总线上的识别号：0:0:23:0</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost monitor]# ll /sys/block/sdu</span><br><span class="line">lrwxrwxrwx 1 root root 0 Jan 11 18:45 /sys/block/sdu -&gt; ../devices/pci0000:00/0000:00:01.0/0000:01:00.0/host0/target0:0:23/0:0:23:0/block/sdu</span><br></pre></td></tr></table></figure>
+
+<p>通过查看 /sys/block/中信息也可以确认。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/opt/MegaRAID/storcli/storcli64 /c0 show</span><br><span class="line"></span><br><span class="line">PD LIST :</span><br><span class="line">=======</span><br><span class="line"></span><br><span class="line">-------------------------------------------------------------------------------</span><br><span class="line">EID:Slt DID State DG       Size Intf Med SED PI SeSz Model             Sp Type</span><br><span class="line">-------------------------------------------------------------------------------</span><br><span class="line">...</span><br><span class="line">0:11     17 JBOD  -    5.456 TB SATA HDD N   N  512B HUS726060ALE610   U  -</span><br><span class="line">0:12     19 JBOD  -    5.456 TB SATA HDD N   N  512B HUS726060ALE610   U  -</span><br><span class="line">0:13     11 JBOD  -    5.456 TB SATA HDD N   N  512B HUS726060ALE610   U  -</span><br><span class="line">0:14     24 JBOD  -    5.456 TB SATA HDD N   N  512B HUS726060ALE610   U  -</span><br><span class="line">0:15     23 JBOD  -    5.456 TB SATA HDD N   N  512B HUS726060ALE610   U  -</span><br><span class="line">0:16     28 JBOD  -    5.456 TB SATA HDD N   N  512B HUS726060ALE610   U  -</span><br><span class="line">0:17      5 JBOD  -    5.456 TB SATA HDD N   N  512B HUS726060ALE610   U  -</span><br><span class="line">0:18     21 JBOD  -    5.456 TB SATA HDD N   N  512B HUS726060ALE610   U  -</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://huilu-blog.colinspace.com//FssyVWm9khouQeP_uiZweACJhZg3.png"><br>DID 为设备 ID，对应 raid 卡槽位为 0：15</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost monitor]# /opt/MegaRAID/storcli/storcli64 /c0/eall/s15 show all</span><br><span class="line">...</span><br><span class="line">Drive /c0/e0/s15 State :</span><br><span class="line">======================</span><br><span class="line">Shield Counter = 0</span><br><span class="line">Media Error Count = 329</span><br><span class="line">Other Error Count = 0</span><br><span class="line">Drive Temperature =  30C (86.00 F)</span><br><span class="line">Predictive Failure Count = 0</span><br><span class="line">S.M.A.R.T alert flagged by drive = No</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>Media Error Count = 329 即为报错统计，一般过 10 就可以更换。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost monitor]# /opt/MegaRAID/storcli/storcli64 /c0/eall/s15 start locate</span><br><span class="line">Controller = 0</span><br><span class="line">Status = Failure</span><br><span class="line">Description = Start Drive Locate Failed.</span><br><span class="line"></span><br><span class="line">Detailed Status :</span><br><span class="line">===============</span><br><span class="line"></span><br><span class="line">-------------------------------------------</span><br><span class="line">Drive        Status  ErrCd ErrMsg</span><br><span class="line">-------------------------------------------</span><br><span class="line">/c0/e252/s15 Failure   255 Drive not found</span><br><span class="line">/c0/e0/s15   Success     0 -</span><br><span class="line">-------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<p>开启 15 槽位定位灯，便于现场更换。<br>BMC 界面确定灯已开启。<br><img src="http://huilu-blog.colinspace.com//FpG95KnRs6cBzqnIGJvLuI2WWJKe.png"></p>
 
       
     </div>
@@ -421,7 +420,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/19/yuque/pandas%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/yuque/%E8%AF%B7%E5%9B%9E%E7%AD%94%EF%BC%8C1988/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -439,7 +438,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/11/19/yuque/pandas%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">pandas常用命令记录</a>
+          <a href="/2021/01/06/yuque/%E8%AF%B7%E5%9B%9E%E7%AD%94%EF%BC%8C1988/" class="post-title-link" itemprop="url">请回答，1988</a>
         </h2>
 
         <div class="post-meta-container">
@@ -450,7 +449,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-11-19 15:36:49" itemprop="dateCreated datePublished" datetime="2020-11-19T15:36:49+08:00">2020-11-19</time>
+      <time title="创建时间：2021-01-06 08:31:27" itemprop="dateCreated datePublished" datetime="2021-01-06T08:31:27+08:00">2021-01-06</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -470,16 +469,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>两种数据类型 Series, DataFrame.系列是一维数组，DataFrame 是二维数组。<br>可以从 excel、dict、sql 查询创建<br>df = pd.DataFrame(dict)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从excel创建DataFrame</span></span><br><span class="line">xlsx = pd.ExcelFile(<span class="string">&#x27;/tmp/vm_in.xlsx&#x27;</span>)</span><br><span class="line"><span class="built_in">df</span> =pd.read_excel(xlsx, <span class="string">&#x27;vm_in&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [5]: dates = pd.date_range(<span class="string">&#x27;20130101&#x27;</span>, periods=6)</span><br><span class="line"></span><br><span class="line">In [6]: dates</span><br><span class="line">Out[6]:</span><br><span class="line">DatetimeIndex([<span class="string">&#x27;2013-01-01&#x27;</span>, <span class="string">&#x27;2013-01-02&#x27;</span>, <span class="string">&#x27;2013-01-03&#x27;</span>, <span class="string">&#x27;2013-01-04&#x27;</span>,</span><br><span class="line">               <span class="string">&#x27;2013-01-05&#x27;</span>, <span class="string">&#x27;2013-01-06&#x27;</span>],</span><br><span class="line">              dtype=<span class="string">&#x27;datetime64[ns]&#x27;</span>, freq=<span class="string">&#x27;D&#x27;</span>)</span><br><span class="line"></span><br><span class="line">In [7]: <span class="built_in">df</span> = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list(<span class="string">&#x27;ABCD&#x27;</span>))</span><br><span class="line"></span><br><span class="line">In [8]: <span class="built_in">df</span></span><br><span class="line">Out[8]:</span><br><span class="line">                   A         B         C         D</span><br><span class="line">2013-01-01  0.469112 -0.282863 -1.509059 -1.135632</span><br><span class="line">2013-01-02  1.212112 -0.173215  0.119209 -1.044236</span><br><span class="line">2013-01-03 -0.861849 -2.104569 -0.494929  1.071804</span><br><span class="line">2013-01-04  0.721555 -0.706771 -1.039575  0.271860</span><br><span class="line">2013-01-05 -0.424972  0.567020  0.276232 -1.087401</span><br><span class="line">2013-01-06 -0.673690  0.113648 -1.478427  0.524988</span><br></pre></td></tr></table></figure>
-
-<h2 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h2><p>选择一列 df[‘column1’]<br>选择多列 df.loc[:,[‘column1’, ‘column2’]]</p>
-<h2 id="变更"><a href="#变更" class="headerlink" title="变更"></a>变更</h2><p>改变一个 Series 字符串数字改为数字, pd.to_numeric(df[‘column1’])<br>以一行的某一列做为函数参数，将结果放在新列</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import pandas as pd</span><br><span class="line"></span><br><span class="line"><span class="built_in">df</span> = pd.DataFrame(np.random.rand(6,4), index = pd.date_range(<span class="string">&#x27;20201101&#x27;</span>, periods=6), columns=list(<span class="string">&#x27;ABCD&#x27;</span>))</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">df</span></span><br><span class="line">                   A         B         C         D</span><br><span class="line">2020-11-01  0.172708  0.354707  0.092118  0.626022</span><br><span class="line">2020-11-02  0.556920  0.769790  0.600710  0.950671</span><br><span class="line">2020-11-03  0.029216  0.010799  0.802327  0.374498</span><br><span class="line">2020-11-04  0.878683  0.443748  0.598541  0.016172</span><br><span class="line">2020-11-05  0.099418  0.869219  0.478047  0.738399</span><br><span class="line">2020-11-06  0.038316  0.332397  0.851113  0.926423</span><br><span class="line"></span><br><span class="line">def add1(num):</span><br><span class="line">		retrun num+1</span><br><span class="line"><span class="built_in">df</span>[<span class="string">&#x27;D+1&#x27;</span>] =df.apply(lambda x:add1(x[<span class="string">&#x27;D&#x27;</span>]),axis=1)</span><br><span class="line"><span class="comment"># 函数返回多个值</span></span><br><span class="line">def add1(num1,num2):</span><br><span class="line">		total = num1 + num2</span><br><span class="line">    avg = total/2</span><br><span class="line">		retrun total, avg</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html#min">https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html#min</a></p>
+          <p>追了 2 周的剧，昨晚看完。开头到结尾，是个循环。<br>为什么被吸引，一直想看下去？因为剧中人有自己的影子，有自己向往的生活的样子。小时后，有小伙伴一起玩、学习。这些小伙伴一直伴随很长一段时间。长大了，就像剧中父母一辈，有温暖的邻里关系，有喝酒的朋友，听话或不听话的值得父母骄傲儿女。老了，看着儿女离开，开始新的生活。又开始下一轮循环，这就是人生。<br>很多感人的瞬间，父亲开始学着做父亲，邻里真切的关照，朋友间共同面对困难。</p>
 
       
     </div>
@@ -506,7 +496,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/16/yuque/%E9%98%85%E8%AF%BB%E4%B8%8E%E5%86%99%E4%BD%9C50%E8%AE%B2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/05/yuque/%E5%88%87%E6%9C%A8%E6%A3%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -524,7 +514,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/11/16/yuque/%E9%98%85%E8%AF%BB%E4%B8%8E%E5%86%99%E4%BD%9C50%E8%AE%B2/" class="post-title-link" itemprop="url">阅读与写作50讲</a>
+          <a href="/2021/01/05/yuque/%E5%88%87%E6%9C%A8%E6%A3%92/" class="post-title-link" itemprop="url">切木棒</a>
         </h2>
 
         <div class="post-meta-container">
@@ -535,7 +525,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-11-16 08:54:50" itemprop="dateCreated datePublished" datetime="2020-11-16T08:54:50+08:00">2020-11-16</time>
+      <time title="创建时间：2021-01-05 11:22:12" itemprop="dateCreated datePublished" datetime="2021-01-05T11:22:12+08:00">2021-01-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -555,7 +545,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>{“format”:”lakemind”,”type”:”Mind”,”version”:”1.0”,”diagramData”:{“head”:{“version”:”2.0.0”},”body”:[{“id”:”init”,”type”:”mindmap”,”html”:”阅读写作 50 讲”,”children”:[{“html”:”为什么？理解他人，表达自己是一张王牌”,”layout”:{“quadrant”:1},”treeEdge”:{“stroke”:”#A287E1”},”id”:”4936efdf-3aac-46d7-bb29-40e54b980232”,”children”:[{“html”:”什么是合格的阅读理解”,”id”:”85d50c6f-a73b-4011-a26e-f0867f2914aa”,”children”:[],”zIndex”:2},{“html”:”如何读懂作者的心”,”id”:”7889d7e4-4def-451c-bc50-add0a97948ac”,”children”:[],”zIndex”:3},{“html”:”如何让你的说话更吸引人”,”id”:”c352541e-6791-4174-b9a2-66ca6c406c92”,”children”:[{“html”:”一次只说一件事”,”id”:”09b72768-90a9-471d-9b4c-32918cd3fe4a”,”children”:[],”zIndex”:6}],”zIndex”:4},{“html”:”写和说有什么不同”,”id”:”d86020db-5741-4007-b173-5ae705f2cda3”,”children”:[],”zIndex”:5}],”zIndex”:0},{“html”:”阅读方法论”,”layout”:{“quadrant”:1},”treeEdge”:{“stroke”:”#E48484”},”id”:”b44c6f9c-4e5b-4cea-8c12-e6af629c00c4”,”children”:[{“html”:”品味：如何构建知识体系”,”id”:”9907ff0c-5077-41dc-ab5a-592150a63ce5”,”children”:[],”zIndex”:10},{“html”:”速度：如何读得快”,”id”:”8439b14e-bafc-480b-b574-47df6f242099”,”children”:[],”zIndex”:11},{“html”:”层次：兼顾深度与广度”,”id”:”5dc6c62c-868f-40f4-b492-9c358e4811b1”,”children”:[],”zIndex”:12},{“html”:”欣赏：获得爽感”,”id”:”5639fc12-c2a4-42d2-b9d3-3991e7fcda0d”,”children”:[],”zIndex”:13}],”zIndex”:1},{“html”:”写作方法论”,”layout”:{“quadrant”:1},”treeEdge”:{“stroke”:”#69B1E4”},”id”:”69736787-2f24-4b00-b097-dcc7132130da”,”children”:[{“html”:”天天想写：观察笔记”,”id”:”4fe465ed-18d1-4775-90e2-6538159758d3”,”children”:[],”zIndex”:14},{“html”:”比喻”,”id”:”c8b860df-9586-4692-9179-977ef23fd6c4”,”children”:[],”zIndex”:15},{“html”:”写景”,”id”:”73fd3c72-910d-4788-a079-6e4be3fd315f”,”children”:[],”zIndex”:16},{“html”:”写情”,”id”:”e9942ec4-b12d-4524-8cc2-2f621da115d2”,”children”:[],”zIndex”:17},{“html”:”叙事”,”id”:”c585cbc3-646e-4d35-a561-6109d813d5c7”,”children”:[],”zIndex”:18},{“html”:”综合技巧”,”id”:”31bca25c-d6de-42d5-9c55-a7d563f7e7d4”,”children”:[],”zIndex”:19},{“html”:”案例：我是如何写出畅销书”,”id”:”859a7513-6bb3-4564-931b-ee992c276a7c”,”children”:[],”zIndex”:20}],”zIndex”:7},{“html”:”实用文体写作”,”layout”:{“quadrant”:1},”treeEdge”:{“stroke”:”#DE81C6”},”id”:”f97de8ff-8397-48ca-824d-6845225b0942”,”children”:[{“html”:”用日记提升写作能力”,”id”:”b2ca8b53-4307-419b-9b5d-f10297419ff1”,”children”:[{“html”:”写什么？工作日记、读书心得和特殊经历值得写”,”id”:”7b20a763-5148-4ce3-b84c-4b14360d617e”,”children”:[],”zIndex”:28},{“html”:”工作日记的作用是总结得失，既是为了让自己同样的错误不犯两遍，更是为了不断积累成功经验”,”id”:”3367bee9-b9c7-48b1-a550-ff3c1b752daa”,”children”:[],”zIndex”:29,”height”:null},{“html”:”读书心得：读了书，把自己的收获和想法写下来，过了一遍脑子，才能更好的变成自己的东西”,”id”:”97c570f0-d067-4436-8735-d44f58d9de45”,”children”:[],”zIndex”:30,”height”:null},{“html”:”对特殊经历的感受，特别是失败的经历，记下来是为了防止好了伤疤完了疼。记下恐惧，便于直面”,”id”:”f84de9ce-584f-45ee-b155-7cb48b192cb3”,”children”:[],”zIndex”:31,”height”:null},{“html”:”怎么写？过滤值得写的事情，每次只写一件事”,”id”:”557d8b17-9ae0-4023-b899-f14a18dc1537”,”children”:[],”zIndex”:32,”height”:null},{“html”:”带着目的写，为日记寻找意义，比如公众号材料”,”id”:”a2be2d3e-fb0b-4274-a0f8-718b9bb99ff1”,”children”:[],”zIndex”:33,”height”:null},{“html”:”真实的写”,”id”:”6c21cbea-ddda-490b-8f70-8565bfe22ede”,”children”:[],”zIndex”:34,”height”:null}],”zIndex”:27},{“html”:”工作邮件怎么写”,”id”:”f8eade35-a919-4e72-973d-db2182b872f8”,”children”:[],”zIndex”:21},{“html”:”简历怎么写”,”id”:”521a00a1-a0a5-43ae-9a19-835d6dc21f89”,”children”:[],”zIndex”:22},{“html”:”评论怎么写”,”id”:”90725c0c-b083-4c8d-b21e-35b17f0ae06b”,”children”:[],”zIndex”:23},{“html”:”论文怎么写”,”id”:”363f3bf0-18b1-423b-8cf8-6391e6fee40b”,”children”:[],”zIndex”:24},{“html”:”报告怎么写”,”id”:”d29a7d3d-8abc-4a77-815f-3d81ffd35a5b”,”children”:[],”zIndex”:25},{“html”:”美国的大语文教育”,”id”:”c5b5fd01-258a-488a-ac50-a840e29e2bdd”,”children”:[],”zIndex”:26}],”zIndex”:8},{“html”:”经典领读”,”layout”:{“quadrant”:1},”treeEdge”:{“stroke”:”#77C386”},”id”:”a4143389-ff28-4a96-84a2-a2d35102873a”,”children”:[],”zIndex”:9}],”zIndex”:35,”x”:-47,”y”:-1}]},”viewportSetting”:{“zoom”:1,”tlCanvasPoint”:[-67,-118.5,1],”width”:1020,”height”:569},”text”:”阅读写作 50 讲为什么？理解他人，表达自己是一张王牌什么是合格的阅读理解如何读懂作者的心如何让你的说话更吸引人一次只说一件事写和说有什么不同阅读方法论品味：如何构建知识体系速度：如何读得快层次：兼顾深度与广度欣赏：获得爽感写作方法论天天想写：观察笔记比喻写景写情叙事综合技巧案例：我是如何写出畅销书实用文体写作用日记提升写作能力写什么？工作日记、读书心得和特殊经历值得写工作日记的作用是总结得失，既是为了让自己同样的错误不犯两遍，更是为了不断积累成功经验读书心得：读了书，把自己的收获和想法写下来，过了一遍脑子，才能更好的变成自己的东西对特殊经历的感受，特别是失败的经历，记下来是为了防止好了伤疤完了疼。记下恐惧，便于直面怎么写？过滤值得写的事情，每次只写一件事带着目的写，为日记寻找意义，比如公众号材料真实的写工作邮件怎么写简历怎么写评论怎么写论文怎么写报告怎么写美国的大语文教育经典领读”}</p>
+          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>长度为 n 厘米的木棒，有 m 个人切。每一节木棒只能一个人切。最少切几轮，可以把木棒切成 n 根 1 厘米长的？</p>
+<p>举例：8 厘米，3 个人切，至少 4 轮。 第一轮，1 个人切成两半。第二轮 2 个人切，切成 4 个 2 厘米。第三轮，3 个人切，切成 6 个 1 厘米，剩余 1 个 2 厘米。第四轮 1 个人切剩下的 2 厘米。</p>
+<p>求：<br>1 3 个人切 20 厘米的木棒，最少切几轮。<br>2 5 个人切 100 厘米的木棒，最少切几轮。</p>
+<h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><p>要么递归，要么问题逆向转换，转换为粘木棒。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># m个人粘n节木棒，</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cut</span>(<span class="params">m, n</span>):</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    current = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> n &gt; current:</span><br><span class="line">        <span class="keyword">if</span> current &lt; m:</span><br><span class="line">            current = current + current</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            current = current + m</span><br><span class="line">        count = count +<span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(count)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cut(<span class="number">3</span>,<span class="number">20</span>)</span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cut(<span class="number">5</span>,<span class="number">100</span>)</span><br><span class="line"><span class="number">22</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -575,7 +569,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/38/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><span class="page-number current">39</span><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/40/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/38/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><span class="page-number current">39</span><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/40/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

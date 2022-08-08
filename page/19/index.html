@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E4%B8%87%E7%BB%B4%E9%92%A2%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%B0%8F%E5%AF%8C%E9%9D%A0%E8%BF%90%EF%BC%8C%E5%A4%A7%E5%AF%8C%E9%9D%A0%E5%91%BD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E4%B8%87%E7%BB%B4%E9%92%A2%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" class="post-title-link" itemprop="url">爬虫爬取万维钢博客文章</a>
+          <a href="/2022/07/04/yuque/%E5%B0%8F%E5%AF%8C%E9%9D%A0%E8%BF%90%EF%BC%8C%E5%A4%A7%E5%AF%8C%E9%9D%A0%E5%91%BD/" class="post-title-link" itemprop="url">小富靠运，大富靠命</a>
         </h2>
 
         <div class="post-meta-container">
@@ -196,7 +196,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 15:49:09 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:49:09+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 15:56:44 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:56:44+08:00">2022-07-04</time>
     </span>
 
   
@@ -209,10 +209,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-07<br>看到万维钢的博客，很多文章有启发，奈何访问很慢，经常报 500 内部错误，于是爬取文章到本地，便于阅读。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment">#-*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getHTMLText</span>(<span class="params">url</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url,timeout=<span class="number">30</span>)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        r.encoding=r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;error&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getArticle</span>(<span class="params">html</span>):</span><br><span class="line">    soup = BeautifulSoup(html,<span class="string">&quot;html.parser&quot;</span>)</span><br><span class="line">    title=soup.find(<span class="string">&quot;h2&quot;</span>,<span class="string">&quot;post-title&quot;</span>)</span><br><span class="line">    content=soup.find(<span class="string">&quot;div&quot;</span>,<span class="string">&quot;post-content&quot;</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="built_in">print</span>(title.string)</span><br><span class="line">        <span class="comment">#print(type(content))</span></span><br><span class="line">        <span class="keyword">for</span> child <span class="keyword">in</span> content.children:</span><br><span class="line">            <span class="keyword">if</span> child.string <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="built_in">print</span>(child.string)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;error&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="comment">#url = &quot;http://www.geekonomics10000.com/&quot;i</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span> (<span class="number">1</span>,<span class="number">1000</span>):</span><br><span class="line">        url = <span class="string">&quot;http://www.geekonomics10000.com/&quot;</span>+<span class="built_in">str</span>(i)</span><br><span class="line">        html = getHTMLText(url)</span><br><span class="line">        getArticle(html)</span><br><span class="line"></span><br><span class="line">main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>bash 下运行 python3 craw_wwg.py &gt;&gt;wwg.txt 即可保存到本地。<br>参考：<a target="_blank" rel="noopener" href="https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/">https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/python/"># python</a></p>
+          <p>发表于 2017-08-22<br>吴军老师这两天的来信，认真听了，能得到很多。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>小富靠运，大富靠命</p>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><ul>
+<li>为什么小富靠运气？</li>
+</ul>
+<p>同门清华师姐高考运气好，本来上北京科技大学后来上了清华大学，运气好。后来的发展泯然众人，是命中注定。<br>美国通过中彩票获得大量才富的人的和在中国股市早期获得财富的探险家，后来都基本上败光，这也是运气好，命不好，无法大富。</p>
+<ul>
+<li>命的定义及获取财富的方法</li>
+</ul>
+<p>每个人对命的定义不同，吴军老师的定义我比较赞同：命运是环境因素和个人看问题、做事方法绘制的两条线。获取财富的方法是信命、认命。<br>相信改变自己看问题、做事方式能改变命。如果由于长期行为累积出的习惯无法改变，就认命，不妄想。</p>
+<ul>
+<li>为什么大富靠运</li>
+</ul>
+<p>Z 君看似经历一系列好运气，高盛、谷歌、亚马逊上市，但这都是由于他看问题、做事情方法给他带来的，命好是原因。出生只是运气，开始的好运气能让命好的概率大一点，但命运就像马拉松，塑造命运的过程才是跑完获胜的关键。<br>反证：李广难封，是由于命中注定。他又好运气可以上阵杀敌立军工，但都是已做士兵的心态行动。其实是不够资格封侯。</p>
+<h3 id="实践方法"><a href="#实践方法" class="headerlink" title="实践方法"></a>实践方法</h3><p>练习对“扇耳光”的反应，有可能可以改变命运。三种反应：1）扇回去，2）认怂，3）分析该不该被扇，该就改，不该就给对方教训。<br>日常的谈吐可以看出一个人的命运，就是看他怎么反应，举例袁腾飞判断他学生妈下岗。<br>三同学 A，B，C 聚会，分出三类人。A 官员，被扇后思考，加入强势阶级，有权扇人。B 教授抱怨认怂，不认命也不反抗，必然结果。C 学者，思考后强大自己，让人无法扇到。</p>
+<h3 id="我的思考"><a href="#我的思考" class="headerlink" title="我的思考"></a>我的思考</h3><p>以合作者姿态做事，与信命者共事，自私的自己把握命运。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E7%A1%85%E8%B0%B7%E6%9D%A5%E4%BF%A1/"># 硅谷来信</a></p>
 
       
     </div>
@@ -239,7 +251,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/thinkpadx200%E9%A3%8E%E6%89%87%E4%BF%AE%E6%AD%A3ubuntu/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%81%9A%E6%88%90%E4%BA%8B%E7%9A%84%E6%96%B9%E6%B3%95-816%E5%BE%97%E5%88%B0%E4%BE%8B%E4%BC%9A%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -257,7 +269,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/thinkpadx200%E9%A3%8E%E6%89%87%E4%BF%AE%E6%AD%A3ubuntu/" class="post-title-link" itemprop="url">thinkpadx200风扇修正ubuntu</a>
+          <a href="/2022/07/04/yuque/%E5%81%9A%E6%88%90%E4%BA%8B%E7%9A%84%E6%96%B9%E6%B3%95-816%E5%BE%97%E5%88%B0%E4%BE%8B%E4%BC%9A%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">做成事的方法-816得到例会记录</a>
         </h2>
 
         <div class="post-meta-container">
@@ -269,7 +281,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 15:48:00 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:48:00+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 15:56:15 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:56:15+08:00">2022-07-04</time>
     </span>
 
   
@@ -282,14 +294,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-03<br>夏天到了，电脑风扇声音大，让人心烦。修正一下温度，让风扇没必要转得太快。<br>原文链接 <a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_67a5ec8a0100tvk3.html">http://blog.sina.com.cn/s/blog_67a5ec8a0100tvk3.html</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/modprobe.d/thinkpad-acpi.conf</span><br><span class="line"><span class="comment"># add option thinkpad_acpi fan_control=1</span></span><br><span class="line">sudo apt-get install thinkfan sysfsutils</span><br><span class="line">sudo vi /etc/default/thinkfan <span class="comment"># start=yes</span></span><br><span class="line">vi /etc/thinkfan.conf</span><br><span class="line"></span><br><span class="line">sensor /proc/acpi/ibm/thermal (<span class="number">0</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">(<span class="number">0</span>, <span class="number">0</span>, <span class="number">45</span>)</span><br><span class="line">(<span class="number">1</span>, <span class="number">45</span>, <span class="number">48</span>)</span><br><span class="line">(<span class="number">2</span>, <span class="number">48</span>, <span class="number">55</span>)</span><br><span class="line">(<span class="number">3</span>, <span class="number">55</span>, <span class="number">58</span>)</span><br><span class="line">(<span class="number">4</span>, <span class="number">58</span>, <span class="number">60</span>)</span><br><span class="line">(<span class="number">5</span>, <span class="number">60</span>, <span class="number">63</span>)</span><br><span class="line">(<span class="number">6</span>, <span class="number">63</span>, <span class="number">65</span>)</span><br><span class="line">(<span class="number">7</span>, <span class="number">65</span>, <span class="number">32767</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>手动控制风扇运行级别</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">echo level <span class="number">0</span> | sudo tee /proc/acpi/ibm/fan <span class="comment">#(fan off)</span></span><br><span class="line">echo level <span class="number">2</span> | sudo tee /proc/acpi/ibm/fan <span class="comment">#(low speed)</span></span><br><span class="line">echo level <span class="number">4</span> | sudo tee /proc/acpi/ibm/fan <span class="comment">#(medium speed)</span></span><br><span class="line">echo level <span class="number">7</span> | sudo tee /proc/acpi/ibm/fan <span class="comment">#(maximum speed)</span></span><br><span class="line">echo level auto | sudo tee /proc/acpi/ibm/fan <span class="comment">#(automatic - default)</span></span><br><span class="line">echo level disengaged | sudo tee /proc/acpi/ibm/fan <span class="comment">#(disengaged)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>查看 cat /etc/proc/acpi/ibm/fan<br>设置为 2 后，声音小多了。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.thinkwiki.org/wiki/How_to_control_fan_speed">http://www.thinkwiki.org/wiki/How_to_control_fan_speed</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/ubuntu/"># ubuntu</a></p>
+          <p>目标感、对象感、节奏感、全局感、自我驱动力、横向组织力<br>目标的保持<br>对象感：做事为谁做，到什么程度是满意，我要做到什么程度<br>节奏感：做事前缓后急，前虚后实<br>全局感：公司价值的理解<br>自我驱动力：自我价值的理解<br>横向组织力：没有权力协调资源，多沟通，达共识。给上级选择，给同级建议，给下级资源。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E7%BD%97%E8%BE%91%E6%80%9D%E7%BB%B4/"># 罗辑思维</a></p>
 
       
     </div>
@@ -316,7 +321,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E5%86%99%E6%B3%95%E6%91%98%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%BA%92%E8%81%94%E7%BD%91%E6%96%87%E6%98%8E%E6%80%8E%E4%B9%88%E6%94%B9%E5%8F%98%E5%9F%8E%E5%B8%82-%E7%B2%BE%E5%93%81%E8%AF%BE%E8%AF%BB%E5%90%8E%E6%84%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -334,7 +339,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E5%86%99%E6%B3%95%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">读书笔记写法摘录</a>
+          <a href="/2022/07/04/yuque/%E4%BA%92%E8%81%94%E7%BD%91%E6%96%87%E6%98%8E%E6%80%8E%E4%B9%88%E6%94%B9%E5%8F%98%E5%9F%8E%E5%B8%82-%E7%B2%BE%E5%93%81%E8%AF%BE%E8%AF%BB%E5%90%8E%E6%84%9F/" class="post-title-link" itemprop="url">互联网文明怎么改变城市-精品课读后感</a>
         </h2>
 
         <div class="post-meta-container">
@@ -346,7 +351,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 15:47:12 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:47:12+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 15:54:41 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:54:41+08:00">2022-07-04</time>
     </span>
 
   
@@ -359,174 +364,178 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-03<br>吴军推荐了一堆书，读的时候想着留下点什么记录时，才会更投入去读。读书笔记就是强制记录的手段，别人怎么看待读书笔记和怎么记录值得我参考</p>
-<h2 id="费曼学习法"><a href="#费曼学习法" class="headerlink" title="费曼学习法"></a>费曼学习法</h2><p>学习新知识最好的办法就是用，如果没有机会用，就去教别人。</p>
-<h2 id="王烁记法"><a href="#王烁记法" class="headerlink" title="王烁记法"></a>王烁记法</h2><p>读书笔记记录读的时候受到的启发，触类旁通的感想，以及待探索的线索。一本书的核心关键已经在导言、结论两章写明。如果真要自己抓关键，可通过：抓主题、列大纲、层层分解。</p>
-<h2 id="万维钢强力研读法"><a href="#万维钢强力研读法" class="headerlink" title="万维钢强力研读法"></a><a target="_blank" rel="noopener" href="http://www.geekonomics10000.com/">万维钢</a>强力研读法</h2><h3 id="1-清晰表现每一章的逻辑脉络"><a href="#1-清晰表现每一章的逻辑脉络" class="headerlink" title="1.清晰表现每一章的逻辑脉络"></a>1.清晰表现每一章的逻辑脉络</h3><p>我习惯完全按照原书的章节给读书笔记划分章节，甚至保留各章节的标题。不过这种内容提要并不重要。重要的是一定要看出来作者的逻辑脉络。每一章的逻辑结构如果真写出来也许只有几句话，可是这几句话却常常是分布在好几十页中。</p>
-<h3 id="2-带走书中所有的亮点"><a href="#2-带走书中所有的亮点" class="headerlink" title="2.带走书中所有的亮点"></a>2.带走书中所有的亮点</h3><p>好的读书笔记是不均匀分布的。笔记，是我听说了一个想法之后很激动，必须把这个想法记下来具有已有的行为。所以逻辑脉络之外，如果发现真正好的小故事–我们称之为“亮点”–那么就把这个故事也给写下来，甚至具体到细节。</p>
-<h3 id="3-大量自己的看法和心得"><a href="#3-大量自己的看法和心得" class="headerlink" title="3.大量自己的看法和心得"></a>3.大量自己的看法和心得</h3><p>强力研读是一种主动式的读书。要在笔记中写下自己对此书的评论，好像跟作者对话一样。</p>
-<h3 id="4-发现这本书和以前读过的其他书或文章的联系"><a href="#4-发现这本书和以前读过的其他书或文章的联系" class="headerlink" title="4.发现这本书和以前读过的其他书或文章的联系"></a>4.发现这本书和以前读过的其他书或文章的联系</h3><p>当你度过的数多到一定程度，你就会发现书与数之间是存在练习的。如果你读过足够多，你就会获得一种更难得的经历：感受人类知识的进步。你会发现一个问题在这本书里是这个说法，而过了几年之后有人写了另一本书，引用更有力的证据，把整个结论给改变了。<br>笔记是对一本书最大的敬意。读书笔记是一种非常个性化的写作，是个人知识的延伸。如果做不到强力研读的笔记标准，随便做一个一般水平的读书笔记对自己也有帮助，起码能加深记忆力。</p>
-<h2 id="我对这篇文章的笔记？"><a href="#我对这篇文章的笔记？" class="headerlink" title="我对这篇文章的笔记？"></a>我对这篇文章的笔记？</h2><p>读书笔记两大内容：1）记录书讲了什么，通过什么样的逻辑讲的。2）我对书中观点的看法，赞成、否定、疑问、观点修正？<br>如果再深入记录就是带走亮点，整理自己整个认知体系。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%AE%9A%E5%88%B6%E5%8C%96centos6%E5%AE%89%E8%A3%85%E5%85%89%E7%9B%98%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%8F%8A%E8%A7%A3%E5%86%B3%E8%BF%87%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E5%AE%9A%E5%88%B6%E5%8C%96centos6%E5%AE%89%E8%A3%85%E5%85%89%E7%9B%98%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%8F%8A%E8%A7%A3%E5%86%B3%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">定制化centos6安装光盘遇到的坑及解决过程</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-07-04 15:39:41 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:39:41+08:00">2022-07-04</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-02<br>隔一段时间就需要安装大量物理机的操作系统，安装过程中设置时区、语言、键盘、分区、选软件包，安装后还需要禁用 seliux、firewall 等。这些费时操作能否通过参数文件指定，然后加快安装速度？于是就开始可定制化安装光盘踩坑之旅。<br>由于安装环境网络隔离，无法使用网络启动安装系统。物理距离远，也无法抱笔记本作为网络启动服务器，所以定制化安装光盘是唯一的出路。</p>
-<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yum -y install anaconda repodata createrepo mkisofs rsync</span><br><span class="line">mkdir -p /mnt/cdrom</span><br><span class="line">mkdir -p /data/os</span><br><span class="line">mount /dev/cdrom /mnt/cdrom</span><br><span class="line">rsync -a /mnt/cdrom /data/os</span><br><span class="line">chmod +w /data/os/isolinux/isolinux.cfg</span><br><span class="line">vi /data/os/isolinux/isolinux.cfg <span class="comment">#在第一启动菜单后面添加 ks=cdrom:/isolinux/ks.cfg</span></span><br><span class="line">mv /root/ks.cfg /data/os/isolinux/</span><br><span class="line">cd /data/os</span><br><span class="line">mkisofs -R -J -T -r -l -d -joliet-long -allow-multidot -allow-leading-dots -no-bak -o /data/CentOS-<span class="number">6.9</span>-x86_64.iso -b isolinux/isolinux.<span class="built_in">bin</span> -c isolinux/boot.cat -no-emul-boot -boot-load-size <span class="number">4</span> -boot-info-table /data/os</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>ks.cfg</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Kickstart file automatically generated by anaconda.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#version=DEVEL</span></span><br><span class="line">install</span><br><span class="line">cdrom</span><br><span class="line">lang en_US.UTF-<span class="number">8</span></span><br><span class="line">keyboard us</span><br><span class="line">network --onboot no --device eth0 --bootproto dhcp --noipv6</span><br><span class="line">rootpw  --iscrypted $<span class="number">6</span>$bXEOu0BQYfXsF4w1$AtnU3lrkcBK2rqrXuagl03xy.S5PPWEMXn9PbtBh2IBfhHfO6zVgncXCDwZD0Q8wIQlzMHH./kdoVT97a4WoX/</span><br><span class="line">firewall --disabled</span><br><span class="line">authconfig --enableshadow --passalgo=sha512</span><br><span class="line">selinux --disabled</span><br><span class="line">timezone --utc Asia/Shanghai</span><br><span class="line">bootloader --location=mbr --driveorder=sda,sdb --append=<span class="string">&quot;crashkernel=auto rhgb quiet&quot;</span></span><br><span class="line"><span class="comment"># The following is the partition information you requested</span></span><br><span class="line"><span class="comment"># Note that any partitions you deleted are not expressed</span></span><br><span class="line"><span class="comment"># here so unless you clear all partitions first, this is</span></span><br><span class="line"><span class="comment"># not guaranteed to work</span></span><br><span class="line">zerombr</span><br><span class="line">clearpart --<span class="built_in">all</span> --drives=sda --initlabel</span><br><span class="line">part /boot --fstype=ext4 --size=<span class="number">500</span></span><br><span class="line">part pv<span class="number">.008002</span> --grow --size=<span class="number">1</span></span><br><span class="line">volgroup VolGroup --pesize=<span class="number">4096</span> pv<span class="number">.008002</span></span><br><span class="line">logvol / --fstype=ext4 --name=lv_root --vgname=VolGroup --grow --size=<span class="number">1024</span> --maxsize=<span class="number">51200</span></span><br><span class="line">logvol swap --name=lv_swap --vgname=VolGroup --grow --size=<span class="number">1024</span> --maxsize=<span class="number">1024</span></span><br><span class="line">reboot</span><br><span class="line"></span><br><span class="line"><span class="comment">#repo --name=&quot;CentOS&quot;  --baseurl=cdrom:sr0 --cost=100</span></span><br><span class="line"></span><br><span class="line">%packages --nobase</span><br><span class="line"><span class="meta">@core</span></span><br><span class="line">%end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="使用-ultraiso-修改了-iso-镜像后，就无法安装系统"><a href="#使用-ultraiso-修改了-iso-镜像后，就无法安装系统" class="headerlink" title="使用 ultraiso 修改了 iso 镜像后，就无法安装系统"></a>使用 ultraiso 修改了 iso 镜像后，就无法安装系统</h2><p>测试使用了“centos6.9minimal”和“centos-7-x86_64-Minimal-1611”两个版本的 iso，使用 ultraiso 编辑 iso 文件，添加任意文件到 iso 并保存，采用编辑后的文件都无法安装系统，都报错”Unable to read group information from repositories” 。之前一直以为是编写的 ks.cfg 文件参数错误，直到看到<a target="_blank" rel="noopener" href="https://www.centos.org/forums/viewtopic.php?t=936">这篇文章</a>才发现，是 iso 文件错误。解决办法是重新生成 repo，重新生成 iso。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rm -f repodata/*.gz repodata/*.*.bz2 repodata/*.repomd.xml</span><br><span class="line">declare -x discinfo=`head -<span class="number">1</span> .discinfo`</span><br><span class="line">createrepo -u media://$discinfo -g repodata/2a7e0c1da38a40e2961c0cec6acca8b8446d974b1fc055216ebde88bb4a19eb9-c6-x86_64-comps.xml .</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>之前一直使用 ultraiso 编辑镜像后保存安装系统一直报错，有些怀疑是编辑镜像的原因，排查到 yumrepo 报错时，终于顿悟。<br>目前只做了 centos6.9minimal 的安装 iso，根据情况制作 centos7.2 的。ubuntu 的定制化再找时间测试。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="http://fengzhige.blog.51cto.com/3691377/1067111">http://fengzhige.blog.51cto.com/3691377/1067111</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/jython/p/4301924.html">http://www.cnblogs.com/jython/p/4301924.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E7%94%A8centos7%E7%B3%BB%E7%BB%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E7%94%A8centos7%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">配置工作用centos7系统</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-07-04 15:13:35 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:13:35+08:00">2022-07-04</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-02<br>工作网络和自带设备网络隔离，需要使用堡垒机。堡垒机为 windows 系统，很多工具在 linux 下使用方面，故需要早 windows 机器上创建安装一个 linux 工作环境。</p>
-<h3 id="操作环境配置"><a href="#操作环境配置" class="headerlink" title="操作环境配置"></a>操作环境配置</h3><ol>
-<li>调整虚拟机版本为 9,并修改配置<br>堡垒机为 vmware 虚拟化的虚拟机，版本为 8.要在虚拟机中嵌套虚拟机，需要把虚拟机版本升级为 9 及以上，并在 web 管理界面开启虚拟化支持。<a target="_blank" rel="noopener" href="https://communities.vmware.com/docs/DOC-8970">参考链接</a></li>
-<li>安装 vmware workstation<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/share/link?shareid=2749627625&uk=1767948507#list/path=%2FSoftware%20Big%2FVMware%20Workstation%20%26%20KeyGen&parentPath=%2FSoftware%20Big">下载链接</a></li>
-<li>配置虚拟机资源 1C1G10GB,网络选用 VMnet8,配置端口映射：内部 22-外部 2222。</li>
-<li>安装 centos7 系统。时区 Aisa/Shanghai basic .安装后无法启动图形界面</li>
-<li>设置 yum 代理 vi /etc/yum.cfg “proxy=<a href="http://192.168.x.x:port&quot;">http://192.168.x.x:port&quot;</a></li>
-<li>安装软件 yum tree ansible r</li>
-<li></li>
+          <p>发表于 2017-08-16<br>昨天花 9.9 买了得到的一个精品课，今天回顾一下主要内容和感受。</p>
+<h2 id="课程概述"><a href="#课程概述" class="headerlink" title="课程概述"></a>课程概述</h2><p>课程 10 小节，每一节回答一个问题。</p>
+<ol>
+<li>城市为什么会繁荣？<br>因为城市造就了高密度的人际空间，使人与人之间协作效率提高，创造价值。所以城市会打败乡村。</li>
+<li>城市为什么会衰败？<br>城市的价值分为信息价值和资源价值，信息价值逐渐被互联网取代，只保留资源价值的城市会衰败。互联网蓬勃发展的城市由于公司给城市注入了互联网从其他城市吸取的信息价值，所以还会发展。买房就是买城市的股票，现在是时候买科技公司股票了。<br>城市资源价值会不会被移动车辆取代？驭势的客厅型车辆</li>
+<li>互联网进化快于城市，所以趋势不会变化<br>深圳是城市迭代速度的极致，30 年成就今天。互联网由 pc-移动端-物联网迭代数度指数增长，城市进化肯定比不过互联网。</li>
+<li>为什么我们会选择留在环境不好的城市<br>城市建筑的非实用性功能会刺激产生多巴胺，让人愉悦。但互联网更能刺激你，使你对城市的低强度刺激免疫。</li>
+<li>标准的城市规划《雅典宪章》为什么失效<br>雅典宪章是指城市按照功能分区规划，工作区、生活区、休闲区、交通区。在伦敦改造时成功，在巴西利亚、西安建设时失败。原因在于城市是生长出来的不是计划出来的，和市场经济活力强于计划经济一个道理。</li>
+<li>互联网会引导城市生长得很好<br>互联网取代城市的信息价值，信息检索也由具体地理位置变成搜索关键字。互联网发现城市现有资源的价值</li>
+<li>为什么快递、外卖、便利店杀死城市？<br>快递、外卖、便利店让城市资源由集中转为分散。原因一时互联网检索改变城市位置信息发布，二是快递、外卖、便利店让资源围绕着人配置</li>
+<li>城市自动生长，人可以起发挥作用<br>人通过借助互联网发现城市价值，实现自己价值。airbnb</li>
+<li>公共空间微型化<br>人需要交流，公共空间满足交流需求。</li>
+<li>未来城市是怎么样的？<br>建筑是居住的机器。随身城市、大脑城市，是终点。</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/linux/"># linux</a></p>
+<h2 id="我的想法"><a href="#我的想法" class="headerlink" title="我的想法"></a>我的想法</h2><p>买房就买北深杭，买股就买 JAT，企业周围，大有作为</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E3%80%8A%E9%98%BF%E9%87%8C%E9%93%81%E5%86%9B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/04/yuque/%E3%80%8A%E9%98%BF%E9%87%8C%E9%93%81%E5%86%9B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《阿里铁军》读书笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 15:53:29 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:53:29+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>发表于 2017-08-15<br>看到这本书，今天拿来花 4 小时看完<br>全书讲述了阿里巴巴销售团队“中供铁军”的发展经历。2000 年野蛮生长，定目标-执行-淘汰、师徒制、非典凝聚军心、鸡血 pk 文化、高压线成型于精简、狂风行动新续分离、黑名单和信任危机、政委机制。<br>看完之后发现阿里巴巴发展到现在，销售团队贡献很大。“客户第一、员工第二、股东第三”的价值观深入团队，队员之间相互激发自驱力。rewiew 总结经验教训，直面挑战。<br>高压线笑话“已婚男与未婚女销售深夜回住所，女：我们关系能否进一步发展？男：为了我们的股票，还是不要了吧”<br>销售与技术要求不一样，销售要求自我领导、自我驱动，欲望强大到战胜内心恐惧和外部困难。技术在于创造性，多样化背景知识碰撞。<br>销售方式随时代在改变，陌生拜访的开荒式销售正在转换为个人影响范围营销模式。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/python%E5%88%9B%E5%BB%BAzabbix%E4%B8%BB%E6%9C%BA%E5%AF%BC%E5%85%A5xml%E4%BF%A1%E6%81%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/04/yuque/python%E5%88%9B%E5%BB%BAzabbix%E4%B8%BB%E6%9C%BA%E5%AF%BC%E5%85%A5xml%E4%BF%A1%E6%81%AF/" class="post-title-link" itemprop="url">python创建zabbix主机导入xml信息</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 15:52:11 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:52:11+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>发表于 2017-08-14<br>使用 python xml.etree.ElementTree 模块创建可导入 zabbix 的主机列表文档，加快监控添加效率。</p>
+<h2 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h2><p>工作中需要批量添加大量主机到 zabbix 监控。虽然 zabbix 自动发现功能自动添加，但是添加的无描述信息，监控组无法通过告警信息快速联系责任人，所以监控主机需要手工添加。zabbix 系统中添加监控信息的途径有：1）自动发现添加 2）web 界面手动一台一台添加 3）编辑 xml 文件，批量导入 4）使用 api 导入。本文完成第三种模式的添加。</p>
+<h2 id="IOP（input、process、output）分析"><a href="#IOP（input、process、output）分析" class="headerlink" title="IOP（input、process、output）分析"></a>IOP（input、process、output）分析</h2><p>创建 xml 文件有两种方法：一是引用一个 xml 模板，解析其中的结构，然后复用解析的元素;二是从零生成一个满足导入需求的 xml 文件。第一种操作快，但涉及的流程复杂，第二种为笨办法，但流程清晰，故采用从零创建。</p>
+<ul>
+<li>input<br>input 为一个 ip 列表，可以是一个范围</li>
+<li>process<br>分析了 zabbix 导出的 xml 结构，发现主机信息在 xml 文件中部子节点中。故先创建主 xml 结构，然后通过循环创建子节点。子节点创建定义一个函数方便调用。</li>
+<li>output<br>输出为一个 xml 文件</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> xml.etree.ElementTree <span class="keyword">as</span> xml</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">createXML</span>(<span class="params">filename</span>):</span><br><span class="line">    root = xml.Element(<span class="string">&quot;zabbix_export&quot;</span>)</span><br><span class="line">    z_version=xml.SubElement(root,<span class="string">&quot;version&quot;</span>)</span><br><span class="line">    z_version.text=<span class="string">&quot;3.0&quot;</span></span><br><span class="line">    z_date = xml.SubElement(root,<span class="string">&quot;date&quot;</span>)</span><br><span class="line">    z_date.text=<span class="string">&quot;2017-08-11T08:50:11Z&quot;</span></span><br><span class="line">    z_groups = xml.SubElement(root,<span class="string">&quot;groups&quot;</span>)</span><br><span class="line">    g_group = xml.SubElement(z_groups,<span class="string">&quot;group&quot;</span>)</span><br><span class="line">    g_name = xml.SubElement(g_group,<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    g_name.text = <span class="string">&quot;Linux servers&quot;</span></span><br><span class="line">    z_hosts = xml.SubElement(root,<span class="string">&quot;hosts&quot;</span>)</span><br><span class="line">    <span class="comment">#hosts_host = xml.SubElement(z_hosts,&quot;host&quot;)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ip <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">3</span>):</span><br><span class="line">        host=createHost(<span class="built_in">str</span>(ip))</span><br><span class="line">        z_hosts.append(host)</span><br><span class="line">    tree = xml.ElementTree(root)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(filename,<span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> fh:</span><br><span class="line">        tree.write(fh)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">createHost</span>(<span class="params">ip</span>):</span><br><span class="line">    ip_addr = <span class="string">&quot;192.168.200.&quot;</span> + ip</span><br><span class="line">    host_top=xml.Element(<span class="string">&quot;host&quot;</span>)</span><br><span class="line">    host_ip=xml.SubElement(host_top,<span class="string">&quot;host&quot;</span>)</span><br><span class="line">    host_ip.text=ip_addr</span><br><span class="line">    host_name = xml.SubElement(host_top,<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    host_name.text=<span class="string">u&quot;abcd中文&quot;</span>+<span class="string">&quot;(&quot;</span>+ip_addr+<span class="string">u&quot;)中文-name&quot;</span></span><br><span class="line">    h_description=xml.SubElement(host_top,<span class="string">&quot;description&quot;</span>)</span><br><span class="line">    h_proxy = xml.SubElement(host_top,<span class="string">&quot;proxy&quot;</span>)</span><br><span class="line">    h_status = xml.SubElement(host_top,<span class="string">&quot;status&quot;</span>)</span><br><span class="line">    h_status.text=<span class="string">&quot;0&quot;</span></span><br><span class="line">    h_ipmi_authtype=xml.SubElement(host_top,<span class="string">&quot;ipmi_authtype&quot;</span>)</span><br><span class="line">    h_ipmi_authtype.text=<span class="string">&quot;-1&quot;</span></span><br><span class="line">    h_ipmi_privileg=xml.SubElement(host_top,<span class="string">&quot;ipmi_privilege&quot;</span>)</span><br><span class="line">    h_ipmi_privileg.text=<span class="string">&quot;2&quot;</span></span><br><span class="line">    h_ipmi_username=xml.SubElement(host_top,<span class="string">&quot;ipmi_username&quot;</span>)</span><br><span class="line">    h_ipmi_password=xml.SubElement(host_top,<span class="string">&quot;ipmi_password&quot;</span>)</span><br><span class="line">    h_tls_connect=xml.SubElement(host_top,<span class="string">&quot;tls_connect&quot;</span>)</span><br><span class="line">    h_tls_connect.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    h_tls_accept=xml.SubElement(host_top,<span class="string">&quot;tls_accept&quot;</span>)</span><br><span class="line">    h_tls_accept.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    h_tls_issuer=xml.SubElement(host_top,<span class="string">&quot;tls_issuer&quot;</span>)</span><br><span class="line">    h_tls_subject=xml.SubElement(host_top,<span class="string">&quot;tls_subject&quot;</span>)</span><br><span class="line">    h_tls_psk_identity=xml.SubElement(host_top,<span class="string">&quot;tls_psk_identity&quot;</span>)</span><br><span class="line">    h_tls_psk=xml.SubElement(host_top,<span class="string">&quot;tls_psk&quot;</span>)</span><br><span class="line">    h_templates=xml.SubElement(host_top,<span class="string">&quot;templates&quot;</span>)</span><br><span class="line">    t_template=xml.SubElement(h_templates,<span class="string">&quot;template&quot;</span>)</span><br><span class="line">    t_name=xml.SubElement(t_template,<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    t_name.text=<span class="string">&quot;Linux-Templates&quot;</span></span><br><span class="line">    h_groups = xml.SubElement(host_top,<span class="string">&quot;groups&quot;</span>)</span><br><span class="line">    g_group = xml.SubElement(h_groups,<span class="string">&quot;group&quot;</span>)</span><br><span class="line">    g_name=xml.SubElement(g_group,<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    g_name.text=<span class="string">&quot;Linux servers&quot;</span></span><br><span class="line">    h_interfaces=xml.SubElement(host_top,<span class="string">&quot;interfaces&quot;</span>)</span><br><span class="line">    i_interface=xml.SubElement(h_interfaces,<span class="string">&quot;interface&quot;</span>)</span><br><span class="line">    i_default=xml.SubElement(i_interface,<span class="string">&quot;default&quot;</span>)</span><br><span class="line">    i_default.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    i_type=xml.SubElement(i_interface,<span class="string">&quot;type&quot;</span>)</span><br><span class="line">    i_type.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    i_useip=xml.SubElement(i_interface,<span class="string">&quot;useip&quot;</span>)</span><br><span class="line">    i_useip.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    i_ip=xml.SubElement(i_interface,<span class="string">&quot;ip&quot;</span>)</span><br><span class="line">    i_ip.text=ip_addr</span><br><span class="line">    i_dns=xml.SubElement(i_interface,<span class="string">&quot;dns&quot;</span>)</span><br><span class="line">    i_port=xml.SubElement(i_interface,<span class="string">&quot;port&quot;</span>)</span><br><span class="line">    i_port.text=<span class="string">&quot;10050&quot;</span></span><br><span class="line">    i_bulk=xml.SubElement(i_interface,<span class="string">&quot;bulk&quot;</span>)</span><br><span class="line">    i_bulk.text=<span class="string">&quot;1&quot;</span></span><br><span class="line">    i_interface_ref=xml.SubElement(i_interface,<span class="string">&quot;interface_ref&quot;</span>)</span><br><span class="line">    i_interface_ref.text=<span class="string">&quot;if1&quot;</span></span><br><span class="line">    h_applications=xml.SubElement(host_top,<span class="string">&quot;applications&quot;</span>)</span><br><span class="line">    h_items=xml.SubElement(host_top,<span class="string">&quot;items&quot;</span>)</span><br><span class="line">    h_discovery_rules=xml.SubElement(host_top,<span class="string">&quot;discovery_rules&quot;</span>)</span><br><span class="line">    h_macros=xml.SubElement(host_top,<span class="string">&quot;macros&quot;</span>)</span><br><span class="line">    h_inventory=xml.SubElement(host_top,<span class="string">&quot;inventory&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> host_top</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    createXML(<span class="string">&quot;appt.xml&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ol>
+<li>导入的 xml 模块需要使用 python2.7 环境，python3.5 环境报错</li>
+<li>“Invalid tag “/zabbix_export/version”: ”发现 version 版本写的“3”，而模板是“3.0”,改为 3.0 后问题解决</li>
+<li>中文编码问题，生成 xml 文件中有中文字符会报错。程序运行为 ubuntu，python 文件编码为 utf-8,python 内部编码为 unicode。应该把中文字符转换为 unicode 后能解决。解决办法：python 文件采用 utf-8,在文件头添加“#-<em>- coding: UTF-8 -</em>-”解决“None-ASSIC”问题，中文字符采用”u’中文’”模式，解决“UnicodeDecodeError”</li>
+<li>port 标签忘赋值，添加后导入不报错。</li>
+</ol>
+<h2 id="后续改进"><a href="#后续改进" class="headerlink" title="后续改进"></a>后续改进</h2><p>ansible 上有添加 zabbix 监控主机的模块，应该使用 api 实现的。后期要么使用 ansible 的 zabbix 模板，要么自己封装 api。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.blog.pythonlibrary.org/2013/04/30/python-101-intro-to-xml-parsing-with-elementtree/">http://www.blog.pythonlibrary.org/2013/04/30/python-101-intro-to-xml-parsing-with-elementtree/</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/zabbix/"># zabbix</a></p>
 
       
     </div>
@@ -546,7 +555,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

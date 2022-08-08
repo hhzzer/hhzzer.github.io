@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/CMDBuild%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%BB%80%E4%B9%88%E6%98%AFkubernetes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/CMDBuild%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">CMDBuild搭建与使用</a>
+          <a href="/2022/07/04/yuque/%E4%BB%80%E4%B9%88%E6%98%AFkubernetes/" class="post-title-link" itemprop="url">什么是kubernetes</a>
         </h2>
 
         <div class="post-meta-container">
@@ -196,7 +196,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:22:08 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:22:08+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:25:13 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:25:13+08:00">2022-07-04</time>
     </span>
 
   
@@ -209,16 +209,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-12-02<br>做运维一直想有一个靠谱简单的 cmdb，知乎上说 cmdbuild 好用，今天搭建测试一下。</p>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>不好用，复杂，学习功能需要花费大量时间。<br>java 开发，不熟悉，不喜欢。<br>下一步还是使用蓝鲸配置平台或者 adminset</p>
-<h2 id="搭建过程"><a href="#搭建过程" class="headerlink" title="搭建过程"></a>搭建过程</h2><h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>操作系统 centos7.2，数据库 postgresql-server9.2,jdk 1.8,tomcat8</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装jdk</span></span><br><span class="line">yum install java-<span class="number">1.8</span><span class="number">.0</span>-openjdk.x86_64</span><br><span class="line">java -version</span><br><span class="line"><span class="comment">#安装tomcat</span></span><br><span class="line">wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-<span class="number">8</span>/v8<span class="number">.5</span><span class="number">.24</span>/<span class="built_in">bin</span>/apache-tomcat-<span class="number">8.5</span><span class="number">.24</span>.tar.gz</span><br><span class="line">tar -xzvf apache-tomcat.tar.gz /usr/local/</span><br><span class="line"><span class="comment">#安装postgresql</span></span><br><span class="line">yum install https://download.postgresql.org/pub/repos/yum/<span class="number">9.3</span>/redhat/rhel-<span class="number">7</span>-x86_64/pgdg-centos93-<span class="number">9.3</span>-<span class="number">3.</span>noarch.rpm</span><br><span class="line">yum makecache</span><br><span class="line">yum install postgresql93-server postgresql93-contrib</span><br><span class="line">systemctl  status postgresql-<span class="number">9.3</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="下载-cmdbuild-并部署到-tomcat"><a href="#下载-cmdbuild-并部署到-tomcat" class="headerlink" title="下载 cmdbuild 并部署到 tomcat"></a>下载 cmdbuild 并部署到 tomcat</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">wget https://ncu.dl.sourceforge.net/project/cmdbuild/<span class="number">2.5</span><span class="number">.0</span>/cmdbuild-<span class="number">2.5</span><span class="number">.0</span>.<span class="built_in">zip</span></span><br><span class="line">unzip cmdbuild-<span class="number">2.5</span><span class="number">.0</span>.<span class="built_in">zip</span></span><br><span class="line">mv cmdbuild-<span class="number">2.5</span><span class="number">.0</span>.war /usr/local/apache-tomcat/webapps/cmdbuild.war</span><br><span class="line">cd extra</span><br><span class="line">unzip shark.<span class="built_in">zip</span></span><br><span class="line">mv shark-<span class="number">2.</span>. /usr/local/apache-tomcat/webapps/shark</span><br><span class="line">cp /tmp/cmdbuild-<span class="number">2.5</span><span class="number">.0</span>/extras/tomcat-libs/<span class="number">6.0</span>/postgresql9<span class="number">.4</span>.jar /usr/loca/apache-tomcat/lib/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>设置 plsql postgres 密码后启动 tomcat，访问<a target="_blank" rel="noopener" href="http://ip:8080/cmdbuild/">http://ip:8080/cmdbuild/</a> 即可通过 web 界面配置</p>
-<h2 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h2><p>1 tomcat 启动不在 tcp 8080 端口监听，只有 tcp6 的 8080 端口<br>解决办法：禁用系统 IPv6，参考<a target="_blank" rel="noopener" href="http://blog.csdn.net/suplxj/article/details/7773423">link</a><br>2 postgres 数据库连接失败<br>无法通过命令 plsq -U postgres -h 127.0.0.1 -p 5432 -d database 登录数据库<br>通过修改 postgres 的配置文件解决 vi pg_hba.conf ident 替换为 trust <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2942485/psql-fatal-ident-authentication-failed-for-user-postgres">link</a><br>3 web 界面初始化时保存最后一步保存配置失败<br>通过查看 tomcat 的 log，发现是无法创建数据库，原因为之前创建过相同名字的数据库，修改一下数据库名称为不一样即可。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/7e95fd0bc91a">http://www.jianshu.com/p/7e95fd0bc91a</a><br><a target="_blank" rel="noopener" href="http://www.cmdbuild.org/file/manuali/technical-manual-in-english">http://www.cmdbuild.org/file/manuali/technical-manual-in-english</a><br><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2013/12/getting_started_with_postgresql.html">http://www.ruanyifeng.com/blog/2013/12/getting_started_with_postgresql.html</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/hbhuanjing/article/details/52292436">http://blog.csdn.net/hbhuanjing/article/details/52292436</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/cmdb/"># cmdb</a></p>
+          <p>发表于 2017-12-07<br>kubernetes 官方文档学习记录</p>
+<h2 id="Summary-of-container-benefits"><a href="#Summary-of-container-benefits" class="headerlink" title="Summary of container benefits:"></a>Summary of container benefits:</h2><p>Agile application creation and deployment: Increased ease and efficiency of container image creation compared to VM image use.<br>灵活的容器创建和部署：和应用 VM 镜像相比，容器镜像创建能减缓资源需求增长和提高资源利用率。<br>Continuous development, integration, and deployment: Provides for reliable and frequent container image build and deployment with quick and easy rollbacks (due to image immutability).<br>持续开发、集成和部署：基于镜像持久化提供一个快速可靠的镜像创建和快速简单的滚动部署。<br>Dev and Ops separation of concerns: Create application container images at build/release time rather than deployment time, thereby decoupling applications from infrastructure.<br>开发和运维关注分离：在编译和发布阶段创建容器镜像而不是部署阶段，解耦应用程序和基础设施。<br>Environmental consistency across development, testing, and production: Runs the same on a laptop as it does in the cloud.<br>开发、测试、生产环境一致性保证：在笔记本电脑和在云端，应用程序行为一致。<br>Cloud and OS distribution portability: Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine, and anywhere else.<br>云和操作系统版本灵活：可以运行在 Ubuntu、RHEL、CoreOS 等任何地方。<br>Application-centric management: Raises the level of abstraction from running an OS on virtual hardware to run an application on an OS using logical resources.<br>应用为中心的管理：提升抽象级别，从运行操作系统在虚拟机提升到运行应用程序使用逻辑资源运行在操作系统上。<br>Loosely coupled, distributed, elastic, liberated micro-services: Applications are broken into smaller, independent pieces and can be deployed and managed dynamically – not a fat monolithic stack running on one big single-purpose machine.<br>松散耦合、分布式、弹性、微服务实现：应用程序分解为小的、独立模块，动态部署和管理。不是庞大的应用栈运行在一个巨大的单一专用途机器。<br>Resource isolation: Predictable application performance.<br>资源独立：应用性能可预测。<br>Resource utilization: High efficiency and density.<br>资源利用率：高效率和密集。</p>
+<h2 id="Kubernetes-Components-组件"><a href="#Kubernetes-Components-组件" class="headerlink" title="Kubernetes Components 组件"></a>Kubernetes Components 组件</h2><h3 id="Master-Component"><a href="#Master-Component" class="headerlink" title="Master Component"></a>Master Component</h3><p>kube-apiserver<br>etcd<br>…</p>
+<h3 id="Node-Component"><a href="#Node-Component" class="headerlink" title="Node Component"></a>Node Component</h3><p>kubelet<br>…</p>
+<h2 id="Kubernetes-Objects"><a href="#Kubernetes-Objects" class="headerlink" title="Kubernetes Objects"></a>Kubernetes Objects</h2><p>node<br>pod<br>service<br>deployment<br>未完待续</p>
 
       
     </div>
@@ -245,7 +240,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/ansible%E6%89%B9%E9%87%8F%E6%B7%BB%E5%8A%A0hosts%E5%88%B0zabbix-server/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E6%80%A7%E6%A0%BC%E4%B8%8E%E5%91%BD%E8%BF%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -263,7 +258,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/ansible%E6%89%B9%E9%87%8F%E6%B7%BB%E5%8A%A0hosts%E5%88%B0zabbix-server/" class="post-title-link" itemprop="url">ansible批量添加hosts到zabbix-server</a>
+          <a href="/2022/07/04/yuque/%E6%80%A7%E6%A0%BC%E4%B8%8E%E5%91%BD%E8%BF%90/" class="post-title-link" itemprop="url">性格与命运</a>
         </h2>
 
         <div class="post-meta-container">
@@ -275,7 +270,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:20:50 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:20:50+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:24:40 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:24:40+08:00">2022-07-04</time>
     </span>
 
   
@@ -288,19 +283,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-12-01<br>运维自动化，ansible 就是军火库。<br>通过 ansible 批量执行命令可以在被监控主机批量安装和配置 zabbix-agent，但是添加主机到 zabbix-server 还是要手动执行。曾经写了一个 python 脚本批量生成 hosts 的 xml 然后再导入<a target="_blank" rel="noopener" href="http://blog.hhzzer.com/posts/c829b69a/">link</a>，实现了批量添加。今天研究了 ansible 监控模块 zabbix_host 实现了通过 zabbix API 批量添加。</p>
-<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install ansible</span><br><span class="line">yum install python-pip</span><br><span class="line">pip install zabbix-api --proxy <span class="number">172.</span>x.x.x:<span class="number">3182</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>playbook add-hosts.yaml</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: test</span><br><span class="line">  tasks:</span><br><span class="line">    - name: wget repo file</span><br><span class="line">      get_url:</span><br><span class="line">        url: http://<span class="number">172.</span>x.x.x/CentOS-Base.repo</span><br><span class="line">        dest: /etc/yum.repos.d/</span><br><span class="line">    - name: install zabbix-agent</span><br><span class="line">      yum:</span><br><span class="line">        name: http://<span class="number">172.</span>x.x.x/zabbix/zabbix-agent.rpm</span><br><span class="line">        state: present</span><br><span class="line">        update_cache: yes</span><br><span class="line">    - name: config zabbix-agent</span><br><span class="line">      lineinfile:</span><br><span class="line"></span><br><span class="line">    - name: start <span class="keyword">and</span> enable zabbix-agent</span><br><span class="line">      service :</span><br><span class="line">        name: zabbix-agent</span><br><span class="line">        state: started</span><br><span class="line">        enabled: yes</span><br><span class="line">    - name: create a new host</span><br><span class="line">    local_action:</span><br><span class="line">      module: zabbix_host</span><br><span class="line">      server_url: http://<span class="number">172.23</span><span class="number">.20</span><span class="number">.250</span>/zabbix</span><br><span class="line">      login_user: Admin</span><br><span class="line">      login_password: zabbix</span><br><span class="line">      force: yes</span><br><span class="line">      host_name: <span class="string">&quot;&#123;&#123; ansible_default_ipv4.address &#125;&#125;&quot;</span></span><br><span class="line">      visible_name: <span class="string">&quot;&#123;&#123; ansible_default_ipv4.address &#125;&#125;-责任人&quot;</span></span><br><span class="line">      host_groups:</span><br><span class="line">        - Linux servers</span><br><span class="line">      link_templates:</span><br><span class="line">        - Linux-Templates</span><br><span class="line">      status: enabled</span><br><span class="line">      state: present</span><br><span class="line">      inventory_mode: automatic</span><br><span class="line">      interfaces:</span><br><span class="line">        - <span class="built_in">type</span>: <span class="number">1</span></span><br><span class="line">          main: <span class="number">1</span></span><br><span class="line">          useip: <span class="number">1</span></span><br><span class="line">          ip: <span class="string">&quot;&#123;&#123; ansible_default_ipv4.address &#125;&#125;&quot;</span></span><br><span class="line">          dns: <span class="string">&quot;&quot;</span></span><br><span class="line">          port: <span class="number">10050</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>hosts</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[test]</span><br><span class="line"><span class="number">172.23</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">[test:<span class="built_in">vars</span>]</span><br><span class="line">ansible_ssh_user=xxx</span><br><span class="line">ansible_ssh_pass=aaa</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>执行</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i hosts add-hosts.yaml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://blog.csdn.net/felix_yujing/article/details/78166295">http://blog.csdn.net/felix_yujing/article/details/78166295</a><br><a target="_blank" rel="noopener" href="https://github.com/igogorevi4/ansible/blob/master/roles/zabbix-agent/tasks/add_to_zabbix.yml">https://github.com/igogorevi4/ansible/blob/master/roles/zabbix-agent/tasks/add_to_zabbix.yml</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/ansible/"># ansible</a></p>
+          <p>发表于 2017-12-07<br>船锚模型、MBTI 性格分类、DISC 行为偏向、命运由什么决定、个人能力的商业化，这周讲得干货满满。</p>
+<h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><h3 id="从相互关系中定位性格。"><a href="#从相互关系中定位性格。" class="headerlink" title="从相互关系中定位性格。"></a>从相互关系中定位性格。</h3><p>气质是船锚所在位置，行为是船的运动，性格是船锚与船之间的锁链。基因决定在哪里抛下船锚。船的运动受锚点位置、链条长度、水流方向影响。水流为外部环境。为了寻找更高价值的水域，可能需要到距离锚点较远的地方，链条绷紧，产生内耗。性格可以通过各种行为尝试而改变，链条长度也可以伸缩。<br>识别性格类型，可以用针对性的方式练习。定向治疗比广普抗生素疗效好。</p>
+<h3 id="MBTI-性格是什么"><a href="#MBTI-性格是什么" class="headerlink" title="MBTI 性格是什么"></a>MBTI 性格是什么</h3><p>从四个维度，每个维度 2 个选项，做一个排列组合就是性格分类。外倾 E-内倾 I、判断 J-知觉 P、感觉 S-直觉 N、思维 T-情感 F。<br>外倾内倾从获取能量和释放能量两个维度判断，不能直接定性判断，判断带有概率性。<br>太阳能充电为外向，直接从外界获取能量。这类人需要不断与人沟通、讨论，吸收更好。<br>室内插座充电为内向，从电网获取能量。这类人需要接入人类知识网络，独自消化吸收。<br>能量释放过程类似。</p>
+<h3 id="DISC-行为偏向与沟通调频"><a href="#DISC-行为偏向与沟通调频" class="headerlink" title="DISC 行为偏向与沟通调频"></a>DISC 行为偏向与沟通调频</h3><p>支配型、影响型、谨慎型、稳健性。管理者分类：快、慢、关注人、关注事。<br>面对不同类型的人，沟通需要先调节频率。沟通本就是获取不同知识的过程，不同知识往往来自不同频段。沟通能力强其实是调频能力强，能识别对方发送和接收频率，并转换自己接收和发送频率。</p>
+<h2 id="为什么要了解关于性格相关内容？"><a href="#为什么要了解关于性格相关内容？" class="headerlink" title="为什么要了解关于性格相关内容？"></a>为什么要了解关于性格相关内容？</h2><p>总是有人说性格决定命运，但是真的吗？如果是真的，性格是怎样决定命运的；如果不是，那又是什么决定命运呢？<br>命运是生命终点时对这段生命的总结，生命的每一步都在决定命运。因此是选择决定命运。什么在决定选择呢？是我们的目标。<br>人按照对自己的觉察和了解程度，分成三类：环境决定、性格决定、使命决定。<br>第一类环境决定，他们完全活在自己的下意识、潜意识、基因和环境的设定里，没有自我意识,Nobody。占比 80%<br>第二类个性，他们开始有我的意识，理解自己是独特的，是雨中不同的，是 ME。<br>第三类使命决定，他们意识到个体是会消亡的，需要有更久远更有意义的东西流传和影响世界，那就是改变身边人的生活，这种超越个体的目标，成为使命。<br>如果你要创业，你可能需要瞄准第一群人的大众市场；拉拢第二群人，他们是个个领域的意见领袖；你要整合第三群人，与他们形成伙伴关系。</p>
+<h2 id="如何商业化能力、技能？"><a href="#如何商业化能力、技能？" class="headerlink" title="如何商业化能力、技能？"></a>如何商业化能力、技能？</h2><p>4 个方面依次思考：满足客户价值、有商业模式、有竞争力和相对优势。<br>从价值出发，对客户有价值才能做得出价值来，这叫客户价值。<strong>客户价值需要到场景中寻找</strong><br>做出的价值能变现，这就是商业模式。<br>只有优势资源才能把模式落地，这叫核心优势。<br>只有看到真金白银才有人和你竞争，这就需要思考核心竞争力。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/"># 超级个体</a></p>
 
       
     </div>
@@ -327,7 +315,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E8%AF%86%E5%88%AB%E8%A1%A8%E8%B1%A1%E4%B8%8E%E5%AE%9E%E8%B4%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E7%94%9F%E6%B6%AF%E9%80%89%E6%8B%A9%E5%92%A8%E8%AF%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -345,7 +333,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E8%AF%86%E5%88%AB%E8%A1%A8%E8%B1%A1%E4%B8%8E%E5%AE%9E%E8%B4%A8/" class="post-title-link" itemprop="url">识别表象与实质</a>
+          <a href="/2022/07/04/yuque/%E7%94%9F%E6%B6%AF%E9%80%89%E6%8B%A9%E5%92%A8%E8%AF%A2/" class="post-title-link" itemprop="url">生涯选择咨询</a>
         </h2>
 
         <div class="post-meta-container">
@@ -357,7 +345,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:20:26 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:20:26+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:24:19 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:24:19+08:00">2022-07-04</time>
     </span>
 
   
@@ -370,21 +358,123 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-12-01<br>左耳朵耗子最新一篇文章回答了他亚马逊朋友的疑惑，也给我不少启发。</p>
-<h2 id="我不知道对什么感兴趣"><a href="#我不知道对什么感兴趣" class="headerlink" title="我不知道对什么感兴趣"></a>我不知道对什么感兴趣</h2><p>兴趣是敲门砖，持续的正反馈才是兴趣保持的关键。</p>
-<h2 id="没有合适的工作，学习不进新的技术"><a href="#没有合适的工作，学习不进新的技术" class="headerlink" title="没有合适的工作，学习不进新的技术"></a>没有合适的工作，学习不进新的技术</h2><p>有技术应用场景、与他人讨论、获得高手的帮助能更快更有效率的学习和成长。</p>
-<h2 id="什么技术才有价值"><a href="#什么技术才有价值" class="headerlink" title="什么技术才有价值"></a>什么技术才有价值</h2><p>有价值的技术和技术含量不是必然关系，应该有如下特点</p>
-<ul>
-<li>能否低成本高效率的解决实际问题；</li>
-<li>是不是众多产品的基础技术</li>
-<li>是不是可以支持规模化的技术</li>
+          <p>发表于 2017-12-05<br>超级个体 33 周开启了案例分析模式，可以从具体案例中获得有价值的参考。</p>
+<h2 id="为什么疑惑变多了"><a href="#为什么疑惑变多了" class="headerlink" title="为什么疑惑变多了"></a>为什么疑惑变多了</h2><p>因为职业选择方式变化，老答案失效，用老答案解决新问题就会产生疑惑。<br>就业方式三转变：坐火车、开汽车、游乐场。</p>
+<h2 id="职业与爱好"><a href="#职业与爱好" class="headerlink" title="职业与爱好"></a>职业与爱好</h2><p>职业：目的交换，竞争水平高，收益大。<br>爱好：目的自娱，竞争水平低、收益少。</p>
+<h2 id="职业价值"><a href="#职业价值" class="headerlink" title="职业价值"></a>职业价值</h2><p>你的工资并不是由能力决定——而是由“职能价值”和“供求关系”共同决定的。<br>你在公司价值链条中创造的职能价值，决定了你的工资上限，你的不可替代性，决定了你的工资和上限之间的关系。<br>站好队、卡好位。</p>
+<h2 id="沉船理论"><a href="#沉船理论" class="headerlink" title="沉船理论"></a>沉船理论</h2><p>自己船漏水，洞有多大？<br>对面那条船是否健康，有前途？<br>自己是否有体力游过去，过去后能否有资源到复用？</p>
+<h2 id="对冲"><a href="#对冲" class="headerlink" title="对冲"></a>对冲</h2><p>如果你能从 A 到 B，还能够随时从 B 回到 A，那么这个投资是更好、更高概率获得高回报的投资。<br>大城市奋斗，小城市安家。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/"># 超级个体</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/UNIX%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/04/yuque/UNIX%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2/" class="post-title-link" itemprop="url">UNIX环境高级编程和机器学习大纲</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-04 17:23:57 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:23:57+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>发表于 2017-12-05<br>左耳朵耗子推荐了一些了解基础概念的书，昨天扫描阅读了 2 本，记录大纲待需要时深入了解。</p>
+<h2 id="UNIX-环境高级编程"><a href="#UNIX-环境高级编程" class="headerlink" title="UNIX 环境高级编程"></a>UNIX 环境高级编程</h2><ul>
+<li>UNIX System Overview</li>
+<li>UNIX 标准化</li>
+<li>File I/O</li>
+<li>Files and Directory</li>
+<li>标准 I/O 库</li>
+<li>系统数据文件和信息</li>
+<li>进程环境</li>
+<li>进程控制</li>
+<li>进程关系</li>
+<li>信号量</li>
+<li>线程</li>
+<li>守护进程</li>
+<li>高级 io 库</li>
+<li>线程通信</li>
+<li>网络 IPC</li>
+<li>高级 IPC</li>
+<li>终端 I/O</li>
+<li>伪终端</li>
+<li>数据库函数库</li>
+<li>和打印机通信</li>
 </ul>
-<h2 id="技术未来发展趋势是什么？"><a href="#技术未来发展趋势是什么？" class="headerlink" title="技术未来发展趋势是什么？"></a>技术未来发展趋势是什么？</h2><p>技术的未来被有钱有权的国家和公司控制，金钱投入哪个领域，哪个领域就是未来的技术。</p>
-<h2 id="个人发展启示"><a href="#个人发展启示" class="headerlink" title="个人发展启示"></a>个人发展启示</h2><ul>
-<li>目前工作层面<br>精通 ansible 这个配置武器库，让工作更高效。<br>优化 zabbix 性能和使用流程<br>构建满足当前需求的 cmdb，实现数据驱动流程。</li>
-<li>职业发展<br>因为运维自动化，关键技术在 pass 层，所以必须掌握和学习 docker、k8s、go 语言。<br>下一步行动为看书。<br>因为懒和技术未来，学习机器学习。<br>下一步行动为学习吴恩达的公开课。</li>
+<h2 id="机器学习-周志华"><a href="#机器学习-周志华" class="headerlink" title="机器学习-周志华"></a>机器学习-周志华</h2><ul>
+<li>绪论</li>
+<li>模型评估与选择</li>
+<li>线性模型</li>
+<li>决策树</li>
+<li>神经网络</li>
+<li>支持向量机</li>
+<li>贝叶斯分类</li>
+<li>集成学习</li>
+<li>聚类</li>
+<li>降维与度量学习</li>
+<li>特征选择与稀疏学习</li>
+<li>计算学习理论</li>
+<li>半监督学习</li>
+<li>概率图模型</li>
+<li>规则学习</li>
+<li>强化学习</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4/"># 极客时间</a></p>
+<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
 
       
     </div>
@@ -411,7 +501,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E4%BA%BA%E9%99%85%E7%BD%91%E7%BB%9C-%E4%B8%AA%E4%BA%BA%E5%93%81%E7%89%8C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E6%83%85%E5%95%86%E4%B8%8E%E6%83%85%E7%BB%AA%E7%AE%A1%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -429,7 +519,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E4%BA%BA%E9%99%85%E7%BD%91%E7%BB%9C-%E4%B8%AA%E4%BA%BA%E5%93%81%E7%89%8C/" class="post-title-link" itemprop="url">人际网络-个人品牌</a>
+          <a href="/2022/07/04/yuque/%E6%83%85%E5%95%86%E4%B8%8E%E6%83%85%E7%BB%AA%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">情商与情绪管理</a>
         </h2>
 
         <div class="post-meta-container">
@@ -441,7 +531,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 17:20:01 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:20:01+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 17:23:29 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:23:29+08:00">2022-07-04</time>
     </span>
 
   
@@ -454,86 +544,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-11-29<br>30,31 周总结</p>
-<h2 id="人际关系"><a href="#人际关系" class="headerlink" title="人际关系"></a>人际关系</h2><h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>人际关系的本质是互惠，所有交往的活动都是基于互惠原则。</p>
-<h3 id="为什么"><a href="#为什么" class="headerlink" title="为什么"></a>为什么</h3><p>你的价值由你的朋友决定，人脉的目的是与高手过招，与伟人同行。<br>与他人一起学习成长更快。独学而无友，则固陋而寡闻。</p>
-<h3 id="如何做"><a href="#如何做" class="headerlink" title="如何做"></a>如何做</h3><p>要有持续的好关系，首先个人得有差异化的价值，才能惠及他人。<br>个人差异化价值可以考虑行业资深、资源链接、决策外脑、情绪友人四方面发展。<br>人脉要提前建立。之前认识后帮忙叫互惠，认识后马上帮忙叫互换，互换成本高于互惠。<br>与高手过招，与伟人同行。<br>做高成长、高价值、健康教育相关事情，使自己能力和牛人差异化，有机会能力互补。<br>聪明的让牛人帮小忙，之后回馈建立联系。<br>网络社会联网学习。跟随牛人，整合领域外人，联机伙伴。同一个问题通过与他人交流获得不同角度的认识。</p>
-<h2 id="个人品牌"><a href="#个人品牌" class="headerlink" title="个人品牌"></a>个人品牌</h2><h3 id="为什么需要个人品牌"><a href="#为什么需要个人品牌" class="headerlink" title="为什么需要个人品牌"></a>为什么需要个人品牌</h3><p>个人品牌能提高你的议价<br>个人品牌能降低你的交易成本<br>个人品牌能让你更自由：为职位、为钱、有能力做自己事情。</p>
-<h3 id="品牌的本质是什么"><a href="#品牌的本质是什么" class="headerlink" title="品牌的本质是什么"></a>品牌的本质是什么</h3><p>个人品牌包括品质和名牌。品质是指持续的输出高质量能满足他人需求的东西。名牌是有辨识度的影响了很多人。<br>品牌=价值 × 人数 × 频次。</p>
-<h3 id="如何创建和传播个人品牌"><a href="#如何创建和传播个人品牌" class="headerlink" title="如何创建和传播个人品牌"></a>如何创建和传播个人品牌</h3><p>品牌创建关键要有远景识别度，很远的人能快速分辨出来。<br>创建个人品牌三要素：做对他人和自己有价值的事，品牌要简洁，要有同行认同。<br>品牌传播<br>高频传播，每一个行动都在传递的你个人品牌。<br>体验即品牌，做出好的产品，好产品就是你的品牌。<br>自我介绍框架化，不断强化别人的认知。<br>品牌最终传递的是个人价值观，为什么到这个世界行走 80 年？<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/"># 超级个体</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E8%AE%B2%E6%95%85%E4%BA%8B%E5%92%8C%E8%A7%86%E8%A7%89%E5%8C%96%E6%80%9D%E7%BB%B4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E8%AE%B2%E6%95%85%E4%BA%8B%E5%92%8C%E8%A7%86%E8%A7%89%E5%8C%96%E6%80%9D%E7%BB%B4/" class="post-title-link" itemprop="url">讲故事和视觉化思维</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-07-04 17:12:45 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T17:12:45+08:00">2022-07-04</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-11-28<br>28-29 两周的内容简要总结</p>
-<h2 id="如何讲好一个故事"><a href="#如何讲好一个故事" class="headerlink" title="如何讲好一个故事"></a>如何讲好一个故事</h2><p>故事是结构精巧的设计，通过情节、情绪、细节、主题 4 大元素组成。生活就是一系列故事的组成，我们对生活的感受最直接。把事情以故事的方式呈现，他人能以对生活的体验理解故事，观点传播会更久远。<br>七步可完成一个故事：目标、障碍、努力、挫败、意外、转弯、胜利。<br>两难选择和悬念推动故事情节发展。把人放入人与人、人与自然、人与自我的矛盾中创造两难。<br>实践故事方法：自我介绍故事化。1 分钟名字联想故事，5 分钟故事突出能力主题，15 分钟显示价值观。</p>
-<h2 id="如何提高自我知识吸收率？传播观点对方吸收率？"><a href="#如何提高自我知识吸收率？传播观点对方吸收率？" class="headerlink" title="如何提高自我知识吸收率？传播观点对方吸收率？"></a>如何提高自我知识吸收率？传播观点对方吸收率？</h2><p>视觉化，让自己和他人更容易理解，因为通过眼睛认知 70%的内容。眼睛更容易处理图形。<br>记录通过固定结构实现视觉化。商业会谈：事实、解释、行动。读书笔记：观点、案例、行动。个人成长：事情、做法、收获。<br>做复杂事情需要大内存，头脑认知内存 3 个单元，需要增加 swap 交换空间。额外的纸或黑板就是大脑的 swap。通过零秒思维，转内存信息到 swap。通过 2 分钟写完 4-6 个观点，写完后再重复执行，持续 15 分钟。<br>视觉化表达通过 4w2h 展示。</p>
-<h3 id="如何行动"><a href="#如何行动" class="headerlink" title="如何行动"></a>如何行动</h3><p>视觉化思维让人有了框架后再接收知识，更容易分类整理记忆和输出。<br>家用黑板有用，手写能让人更专注，ppt 修改不易缺乏创造让人走神。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/"># 超级个体</a></p>
+          <p>发表于 2017-12-05<br>管理自己和他人情绪的能力，就叫情商。<br>超级个体第 34 周讲了情商，没有从术的角度讲，而是从道，从自我的角度认识和管理情商，比较认同。</p>
+<h2 id="什么是情商"><a href="#什么是情商" class="headerlink" title="什么是情商"></a>什么是情商</h2><p>情商是管理自己和他人情绪的能力。要达到管理，需要识别，要管理他人情绪，先要管理自己情绪。情商高，对自我的表现就是内通外顺。<br>识别情绪，从了解情绪背后含义开始。情绪的背后含义图如下</p>
+<h2 id="如何管理"><a href="#如何管理" class="headerlink" title="如何管理"></a>如何管理</h2><p>4 不要：不要对抗攻击、不要压抑隐藏、不要直接发泄。攻击会激怒情绪，导致难以控制。压抑会转换到内部，积怨成疾。发泄如同使用抗生素，短期有效，长期有害。<br>最好的处理紧急情绪的方法是先慢下来。<br>3 要：倒着跳着数数，让情绪慢下来。自由书写和自我关照，站在你、我、他的视角观察、分析自己。情绪零食，面对负面情绪可以使用照片、朋友等工具。</p>
+<h2 id="为什么"><a href="#为什么" class="headerlink" title="为什么"></a>为什么</h2><p>情绪是自我信念对外界逆境的一种解释。<br>不断审视解释的结果和外界事实之间的差异，修正信念，可以达到内通外顺。<br>非合理信念的特征：绝对化、扩大化、灾难化。<br>A（逆境、Adversity）B（信念、belif）C（结果、Consequence）模型分析拆解情绪炸弹。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%B6%85%E7%BA%A7%E4%B8%AA%E4%BD%93/"># 超级个体</a></p>
 
       
     </div>
@@ -553,7 +567,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

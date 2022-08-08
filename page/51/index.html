@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/04/yuque/Centos7.5%E5%AE%89%E8%A3%85iNode%20Client/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/02/25/yuque/%E7%81%AB%E6%98%9F%E6%95%91%E6%8F%B4-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/01/04/yuque/Centos7.5%E5%AE%89%E8%A3%85iNode%20Client/" class="post-title-link" itemprop="url">Centos7.5安装iNode Client</a>
+          <a href="/2019/02/25/yuque/%E7%81%AB%E6%98%9F%E6%95%91%E6%8F%B4-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">火星救援-读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,107 +195,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-01-04 21:45:54" itemprop="dateCreated datePublished" datetime="2019-01-04T21:45:54+08:00">2019-01-04</time>
+      <time title="创建时间：2019-02-25 08:18:48" itemprop="dateCreated datePublished" datetime="2019-02-25T08:18:48+08:00">2019-02-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>连接网络需要 iNode Client，记录 Centos7.5 x64 安装 iNode Client 过程</p>
-<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>1 下载 iNodeManager,<a target="_blank" rel="noopener" href="http://info.swufe.edu.cn/web/custom/files/iNodeManager64.tar.gz">link</a><br>2 安装 iNodeManager</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf iNodeManager64_H3C.tar.gz</span><br><span class="line">cd iNodeManager</span><br><span class="line">./install64.sh</span><br></pre></td></tr></table></figure>
-
-<p>3 运行 iNodeManager,生成 iNodeClient。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd iNodeManager</span><br><span class="line">./iNodeManager</span><br></pre></td></tr></table></figure>
-
-<p>在图形界面中勾选 SSL VPN，生成支持 SSL VPN 协议的 iNodeClient。如果知道 ssl vpn 网关地址，可以在高级定制中输入 ssl vpn 地址。<br>4 将生成的安装文件拷贝到制定目录，安装</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir /home/iNode</span><br><span class="line">mv iNodeManager/iNodeSetup/iNodeClient_Linux64_7.3\\(E0509\).tar.gz /home/iNode/</span><br><span class="line">cd /home/iNode/</span><br><span class="line">tar -xzvf iNodeClient_*</span><br><span class="line">cd iNodeClient</span><br><span class="line">./install_64.sh</span><br></pre></td></tr></table></figure>
-
-<p>5 运行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./home/iNode/iNodeClient/iNodeClient.sh</span><br></pre></td></tr></table></figure>
-
-<h2 id="报错处理"><a href="#报错处理" class="headerlink" title="报错处理"></a>报错处理</h2><p>1 运行时找不到 libpng12.so.0，通过安装 libpng12-1.2.50-10.el7.x86_64 解决。第一次安装成了 libpng12-1.2.50-10.el7.i686,导致“wrong ELF class：ELFCLASS32”报错</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum provides libpng12</span><br><span class="line">yum install libpng12-1.2.50-10.el7.x86_64</span><br></pre></td></tr></table></figure>
-
-<p>2 启动 client，连接时报错“pango-Critical”<br>通过重启电脑解决</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.h3c.com/cn/Service/Document_Software/Document_Center/IP_Management/H3C_iNode/H3C_iNode/Installation/Installation_Manual/H3C_iNode_IG(Linux)-7.3-5PW102/">http://www.h3c.com/cn/Service/Document_Software/Document_Center/IP_Management/H3C_iNode/H3C_iNode/Installation/Installation_Manual/H3C_iNode_IG(Linux)-7.3-5PW102/</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/12/29/yuque/2018%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/12/29/yuque/2018%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">2018年终总结</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-12-29 09:10:26" itemprop="dateCreated datePublished" datetime="2018-12-29T09:10:26+08:00">2018-12-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:47" itemprop="dateModified" datetime="2022-06-29T11:46:47+08:00">2022-06-29</time>
+      <time title="修改时间：2022-06-29 11:46:56" itemprop="dateModified" datetime="2022-06-29T11:46:56+08:00">2022-06-29</time>
     </span>
 
   
@@ -309,32 +216,36 @@
     
     <div class="post-body" itemprop="articleBody">
           <blockquote>
-<p>2018 年最后一个工作日，总结过去，展望未来。</p>
+<p>根据孤独大脑公众号的推文 OKR 工作法达成目标的推荐，阅读了这本科幻小说。</p>
+<p>与其说是读书笔记，不如说是公众号文章学习记录。</p>
 </blockquote>
-<h2 id="总结-2018"><a href="#总结-2018" class="headerlink" title="总结 2018"></a>总结 2018</h2><p><a target="_blank" rel="noopener" href="http://blog.hhzzer.com/posts/beb796c3/">2017 年末总结</a>时的 2018 年计划<br><img src="http://huilu-blog.colinspace.com//FgigCS1eevgd6TNDLUOXUYKx8xSb.png"><br>财务目标：在 6 月份换工作，对比上半年和下半年，增幅 67.9%。基本达标。<br>健康目标：没有坚持，没有数据记录，可能断断续续晨跑了 20 天，每天 30 分钟。不达标<br>家庭目标：达标，只是 2019 年才正式宣告。<br>个人目标：电子琴购入，但没有练习。老是以缺琴架、乐谱、妹子不想玩为接口。不达标。<br>其他大事记：换房，通勤时间每天减少 2 小时，身心较为愉悦，但是没有充分利用这花钱买的 2 小时。<br>学习、阅读、写作：订阅了技术专栏 2 个，泛泛收听没有有效吸收。阅读了不少书，写了 13 篇读书笔记，剩下可能有一半的没写读书笔记。内网写了好多过程文档，博客文章全年写了 57 篇。<br>python django 入了门，使用 django，集成一个 markdown 编辑器，做了一个简单 wiki。<br>linux 系统操作熟练了，编译程序、根据日志、google 排查故障 ok，深入原理还没有。</p>
-<h2 id="展望-2019"><a href="#展望-2019" class="headerlink" title="展望 2019"></a>展望 2019</h2><p>2018 年时间还是溜得悄无声息，需要重读《奇特的一生》，在这段时间旅行上刻画更多的痕迹。<br>工作的一切，都是为了生活。要想过得有点趣，生活总得带点绿。健康的身体、有益的爱好是必要的。<br>财务目标：double，通过投资自己，投资资金等方式。<br>健康目标：跑步，每周一、三、五，除非下大雨影响跑步，都要去，不能因为天气太热、太冷等因素放弃。156 天，带上手环年底看运动总结。<br>趣味目标：</p>
+<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><p>在一次火星登陆考察项目中，团队遇见突发风暴，一个队员被通信天线戳中后吹走，其他成员搜寻后未果。为避免全军覆没，剩下队员乘坐返回舱返回飞船。马特·达蒙被独自留在火星上。按照计划，下一艘飞船抵达的时间是 4 年之后。<br>马特很快制定目标：存活 4 年，并在 4 年后飞船抵达火星时返回地球。然后开始评估目前资源状态，立刻行动。食物、水、氧气、电能评估后发现食物不足，只能支持到 S150 天。发现存活土豆后，开始土豆种植计划，增加食物量。种土豆遇到缺水，制造水。长途探索，为 4 年后到达登录器着陆点做准备。之后还经历了栖息仓爆炸、通信故障、漫游车翻车等，但都一一克服。</p>
+<blockquote>
+<p>“有时候，所有的情况都会对你不利。所有的坏事一起发生，你就可能会想，就是这样了，这就是我的终点了。</p>
+<p>面对这种情况，你要么接受，要么想办法解决，这就是一切的真谛。</p>
+<p><strong>解决问题，你想各种办法，解决一个问题，然后接着解决下一个问题，循环往复，等你解决了足够多的问题，你就可以回家了</strong>。”</p>
+</blockquote>
+<h2 id="OKR-法"><a href="#OKR-法" class="headerlink" title="OKR 法"></a>OKR 法</h2><p>建立一种紧迫感，并启动关键决策和行动计划，以应对威胁生命的竞争挑战。</p>
+<p>什么是 OKR？</p>
 <ul>
-<li><p>电子琴增强练习</p>
-</li>
-<li><p>英语流利说半年特训</p>
-</li>
-<li><p>阅读好玩的书</p>
-</li>
-<li><p>与妹子记录娃相关</p>
-</li>
+<li>O 是 Objectives，KR 是 Key Results,OKR 就是 Objectives and Key Results，即目标与关键结果法。</li>
+<li>OKR 是一种战略目标任务体系，是一套明确目标并跟踪其完成情况的管理工具和方法，由英特尔公司发明。</li>
+<li>OKR 由一个需要极致聚焦的明确目标和量化改目标的数个关键结果这两大部分组成。</li>
 </ul>
-<p>能力提升目标：</p>
-<ul>
-<li><p>redhat 中级证书</p>
-</li>
-<li><p>python 数据分析及自动化运维能力提升</p>
-</li>
-<li><p>写作能力提升，思考金字塔原理、讲故事、写作技法、排版相关。</p>
-</li>
-<li><p>演说能力提升。。。</p>
-</li>
-</ul>
-<p>计划没有变化快，唯一不变的就是变化本身，但是我们还是要制定计划。短期目标称为计划，长期目标叫战略。像我的偶像费曼、王小波、富兰克林等致敬，他们是我的灯塔，时常眺望才不至于迷失方向。</p>
+<p>OKR 是确保将整个组织的力量都聚焦于”完成对所有人都同样重要的事项”的一套管理方法。</p>
+<h2 id="黄金圈法则"><a href="#黄金圈法则" class="headerlink" title="黄金圈法则"></a>黄金圈法则</h2><p>厉害的团队将雄心、热情和目标结合到一起。他们很清楚为何要做，且理由令人信服。<br>如何正确的设定目标呢？首先你必须回答一个问题：”为什么？”<br><img src="http://huilu-blog.colinspace.com//Fl5_rQEvyw8KA4H5VeY9UWAMl3a8.png"><br>卓越的思考方式是由内到外：<br>WHY–&gt;HOW–&gt;WHAT<br>大众的思维模式是由外即里：<br>WHAT–&gt;HOW–&gt;WHY<br>在黄金圈思维原则里：<br><strong>为什么</strong>：是动力的核心。你的使命、信念是什么？你和你的产品关我什么事？<br><strong>如何做</strong>：做事的方法。你和你的产品凭什么牛逼？<br><strong>做什么</strong>：事情的结果。产品与众不同之处。</p>
+<h2 id="发现你的为什么"><a href="#发现你的为什么" class="headerlink" title="发现你的为什么"></a>发现你的为什么</h2><p>如果你不知道目的地在哪里，你可能永远无法到达。<br>谷歌的 OKR 机制，包括：</p>
+<ol>
+<li>使命：我们存在的意义事什么？</li>
+<li>愿景：用文字勾勒出未来的蓝图。</li>
+<li>战略：重点和优先处理的事项。</li>
+<li>目标：量化近期聚焦达成的事项。</li>
+<li>关键结果：如何得知我们朝目标推进了多少步</li>
+<li>任务：把关键结果分解为一个个具体的行动和量化的任务。</li>
+</ol>
+<p><img src="http://huilu-blog.colinspace.com//FgRhtbRiUgnJpN-1xey5kVfdDTxu.png"><br>让每人都有自己的目标，每个人都有年度考核。这些考核一定要是 SMART 的：<br>S：Specific，特定;<br>M: Measurable,可衡量的；<br>A：Achievable，可到达的；<br>R：Relavant，是相关的目标；<br>T：Time-bounded，是基于时间的。<br>这一理念的源头，是德鲁克在其名著《管理的实践》一书种所定义原则：<br><strong>目标管理和自我控制</strong></p>
+<h2 id="为什么-OKR-有用"><a href="#为什么-OKR-有用" class="headerlink" title="为什么 OKR 有用"></a>为什么 OKR 有用</h2><p><img src="http://huilu-blog.colinspace.com//FtKvF9VUBXt-etJ73M6VgV0yfFU2.png"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MjM5ODAyMjg3Ng==%E2%88%A3=2650752736&idx=1&sn=2d29de1de2b616b9379c436f1b9d6563&chksm=bedafd5389ad7445534302df43c88308c4cc44f264bc01091afab8dbf120809495cbe4aefe13&mpshare=1&scene=1&srcid=&pass_ticket=KelMgEjkkkX67ozD2XWobflXKjfIR8vSfDZd1equyHI=#rd">https://mp.weixin.qq.com/s?__biz=MjM5ODAyMjg3Ng==∣=2650752736&amp;idx=1&amp;sn=2d29de1de2b616b9379c436f1b9d6563&amp;chksm=bedafd5389ad7445534302df43c88308c4cc44f264bc01091afab8dbf120809495cbe4aefe13&amp;mpshare=1&amp;scene=1&amp;srcid=&amp;pass_ticket=KelMgEjkkkX67ozD2XWobflXKjfIR8vSfDZd1equyHI%3D#rd</a></p>
 
       
     </div>
@@ -361,7 +272,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/12/25/yuque/%E3%80%8A%E7%A9%BF%E8%B6%8A%E7%99%BE%E5%B9%B4%E4%B8%AD%E4%B8%9C%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/02/13/yuque/%E3%80%8A%E8%A5%BF%E8%A1%8C%E6%BC%AB%E8%AE%B0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -379,7 +290,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/12/25/yuque/%E3%80%8A%E7%A9%BF%E8%B6%8A%E7%99%BE%E5%B9%B4%E4%B8%AD%E4%B8%9C%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《穿越百年中东》读书笔记</a>
+          <a href="/2019/02/13/yuque/%E3%80%8A%E8%A5%BF%E8%A1%8C%E6%BC%AB%E8%AE%B0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《西行漫记》读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -390,108 +301,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-12-25 13:43:04" itemprop="dateCreated datePublished" datetime="2018-12-25T13:43:04+08:00">2018-12-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:47:03" itemprop="dateModified" datetime="2022-06-29T11:47:03+08:00">2022-06-29</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>最近对历史兴趣越来越大，看《美国种族简史》同时看了此书。郭建龙的书都写得很好。</p>
-</blockquote>
-<h2 id="梗概"><a href="#梗概" class="headerlink" title="梗概"></a>梗概</h2><p>作者到黎巴嫩旅行，在中东的信息中心，通过室友交流和实地感受理解中东的国家、宗教。<br>一切破碎都源于第一次世界大战奥斯曼帝国战败被瓜分。分别行成土耳其、埃及、伊拉克、叙利亚、科威特、沙特阿拉伯、伊朗、以色列、巴勒斯坦。<br>民族：波斯人、闪米特人、阿拉伯人、库尔德人、突厥、波斯人。<br>宗教：拜火教、犹太教、伊斯兰教、基督教、天主教、东正教。</p>
-<ul>
-<li>土耳其</li>
-</ul>
-<p>土耳其是奥斯曼帝国解体后残留。突厥人，信奉伊斯兰教，什叶派。经过强势且睿智的军队统一后，建立了稳定的民族共和国。</p>
-<ul>
-<li>沙特</li>
-</ul>
-<p>国王的国家，由沙特家族控制的君主立宪国家，伊斯兰教，逊尼派。</p>
-<ul>
-<li>以色列</li>
-</ul>
-<p>犹太复国主义创建的国家，赶走原巴勒斯坦人。</p>
-<ul>
-<li>埃及</li>
-</ul>
-<p>阿拉伯人，军政府统治 25 年后闹革命，穆斯林兄弟会民主政权上台后一年又被军队赶下来，迎来新的军政府。</p>
-<ul>
-<li>叙利亚</li>
-</ul>
-<p>战火中左右夹击。西边以色列和巴勒斯坦打得热火朝天，东边伊拉克内战。</p>
-<h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><p>破碎源于人为的界限划分，不考虑民族、宗教。国家形式社会主义、君主立宪、军政府都有。</p>
-<h2 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h2><p><img src="http://huilu-blog.colinspace.com//FrxQy612zB0rrfMWoKQ9apfZSW39.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/12/03/yuque/%E3%80%8A%E4%BC%98%E8%A1%A3%E5%BA%93%E4%B8%8E%E6%9F%B3%E4%BA%95%E6%AD%A3%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/12/03/yuque/%E3%80%8A%E4%BC%98%E8%A1%A3%E5%BA%93%E4%B8%8E%E6%9F%B3%E4%BA%95%E6%AD%A3%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《优衣库与柳井正》读书笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-12-03 10:09:24" itemprop="dateCreated datePublished" datetime="2018-12-03T10:09:24+08:00">2018-12-03</time>
+      <time title="创建时间：2019-02-13 12:31:36" itemprop="dateCreated datePublished" datetime="2019-02-13T12:31:36+08:00">2019-02-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -512,10 +322,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <blockquote>
-<p>观察生活，从深入了解每个谈资名词背后开始。优衣库成了热门词，其背后时一个怎样的故事？</p>
+<p>以史为鉴，可以知荣辱。<br>生活在幸福的时代，就像看看到底是怎么造就的。党领导成立了新中国，党又是怎样萌芽、发展、壮大，长成现在的模样的呢？借用美国纪录片“The Man Who Made American”句式，通过西行漫记让我了解到了“The Man Who Made Party”<br>斯诺是个探险记者，在红军长征后突破军事封锁，深入红区试图回答心中的疑问：红军及党是什么样子，经历了什么，什么原因发展起来，别人怎么看红军？</p>
 </blockquote>
-<h2 id="梗概"><a href="#梗概" class="headerlink" title="梗概"></a>梗概</h2><p>山口市的红顶商人柳井等是柳井正的父亲。柳家一直在山口市做服装生意，柳井等从兄弟那里学习，开始西服销售生意。柳家一个兄弟从政，很有势力。柳井等和三口组成立公司开始涉足建筑业，获利丰厚，服装生意任由儿子柳井正打点。<br>柳井正早稻田大学毕业，百货公司实习 9 个月，迷茫，找不到生活的意义，开始环球旅行。<br>一直看书，看到 GAP、Zara 销售模式，组建自己的迅销公司。无年龄、无性别、大批量、少品类、爆款为核心。高科技、无品牌、低价物美为市场营销点。<br>店铺管理授权负责，开店位置重要，和其他快时尚品牌同一区域。<br>不断开店、扩张市场，成为日本首富。</p>
-<h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><p>公司老大就是全栈，从融资、生产、采购、库存、销售、回款，所有流程都要通关。<br>日本人特别看重勤奋，是上层阶层给普通民众制造的幻觉。看穿真相的人接受不了现实，大多成了御宅族。<br>红顶商人到首富，阶层已经固化。<br>小米、必要这些国内快时尚品牌服饰，竞争力很强。如果价格与优衣库看齐。手机成本和质量都能控制，更何况服装呢？</p>
+<p>毛泽东是伟大的宣传家，红军话剧社通过用当地方言，演出当地百姓能看懂的节目，在节目中宣传日本的坏、共产党的好，激起人们的爱国热情和对共产党的支持。共产党能动员群众，道义上占领制高点，资源就这样汇集过来。</p>
+<p>领导人意志坚定、知识渊博避免了很多错误。陈独秀意志就不够坚定。</p>
+<p>枪杆子里面出政权，看清了形式。土地革命，看清了农民的核心利益。运动战与国民党周旋，看清了敌我力量差距。从北往南打，看清了海拔差异。</p>
+<p>利用少年先锋队，发展党的预备力量，团结一切可以团结人，共同抗日，这样就胜利了。</p>
+<p>深入调查、广泛宣传、实践出经验。</p>
+<p>实事求是</p>
 
       
     </div>
@@ -542,7 +356,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/12/03/yuque/%E3%80%8A%E9%9E%8B%E7%8B%97%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/02/13/yuque/%E3%80%8A%E4%BD%9B%E7%A5%96%E9%83%BD%E8%AF%B4%E4%BA%86%E4%BA%9B%E4%BB%80%E4%B9%88%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -560,7 +374,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/12/03/yuque/%E3%80%8A%E9%9E%8B%E7%8B%97%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《鞋狗》读书笔记</a>
+          <a href="/2019/02/13/yuque/%E3%80%8A%E4%BD%9B%E7%A5%96%E9%83%BD%E8%AF%B4%E4%BA%86%E4%BA%9B%E4%BB%80%E4%B9%88%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《佛祖都说了些什么》读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -571,7 +385,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-12-03 08:58:12" itemprop="dateCreated datePublished" datetime="2018-12-03T08:58:12+08:00">2018-12-03</time>
+      <time title="创建时间：2019-02-13 11:43:52" itemprop="dateCreated datePublished" datetime="2019-02-13T11:43:52+08:00">2019-02-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -592,10 +406,169 @@
     
     <div class="post-body" itemprop="articleBody">
           <blockquote>
-<p>看专业书《计算机程序的构造和解释》无力时，切换频道，两天翻完此书。</p>
+<p>之前看了林欣浩的《哲学家都说了些什么》，春节期间看完这本关于佛学的，可以解惑，可以娱乐。</p>
 </blockquote>
-<h2 id="梗概"><a href="#梗概" class="headerlink" title="梗概"></a>梗概</h2><p>创始人奈特生于美国俄勒冈州的一个中产家庭，父亲做报刊生意，高级管理。本地上高中，大学，然后斯坦福大学获得 MBA 硕士，服兵役 1 年。严守规则的生活到 28 岁，感觉生活目标的迷茫，和父亲商量去环游世界，父亲同意。找到好友同行，第一站夏威夷，到夏威夷喜欢环境和生活，决定停留下来，卖百科全书、基金。一个月后又迷茫，决定继续旅行，好友由于认识妹子，不继续。买航空年票，独自一人上路。<br>到日本，联系当地父亲友人，认识《进出口》杂志人学习和日本人做生意。访问鬼冢虎工厂，通过谈判获得美国西海岸田径鞋代理销售权，50 美金订购 20 双鞋样品。继续菲律平、香港、越南、印度、希腊、罗马、法国、德国、英国旅行。<br>流浪汉姿态回家，催鬼冢虎发货，到货后寄鞋子给大学教练费尔曼。费尔曼为州长之子，田径教练、运动鞋改造狂热者。奈特与费尔曼面谈鬼冢虎后，决定入股一起干，每出 500 美金，奈特占股 51%，费尔曼 49%。奈特开车买鞋，地下车库妹妹记账，斯坦福跑友约翰逊在加州买鞋。银行借款进货，卖货后还钱，现金流为负。考取会计资格证，大学教书获取收入，补贴买鞋。大学遇到学生萨拉，一见钟情，结婚。<br>与摔跤选手代理商争夺代理权，续签 2 个 3 年合同。<br>鬼冢虎北见到北美重新考察代理上，打算取代蓝带公司，奈特在日本商贸公司支持下去日本找生产厂，准备独立生产销售鞋。<br>与鬼冢虎打官司，彻底了断。独立生产 nike 鞋。费尔曼研制成功华夫鞋底，nike 大卖。<br>营销手段为签约明星运动员、运动队代言。研发手段为新材料，air 鞋底。<br>与美国海关打官司，900w 美元和解。<br>大儿子叛逆、深潜溺水亡。</p>
-<h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><p>比《优衣库-柳井正传》有感情，好看，虽然两者都在毕业后环游世界。毛大庆翻译带感情，前面几章尤甚。<br>别让你的才能掩埋在这片平庸的土地上<br>不要停止奔跑，不要停止创业<br>追寻内心的冲动<br>打破陈规者，人恒敬之。<br>更好的自己，更好的世界<br>创业要盯着价值，而不是钱。盯着钱，谁都会。</p>
+<p>全书通过讲故事和推论的方式，讲解了中国佛教的发展过程。从佛教在南北朝传入中国，到唐朝兴佛，再到宋明佛教本土化发展。也讲了佛教和儒家、道家的相互影响、吸收。全书看完很有道理，留下些常识、故事和笑话。</p>
+<h3 id="常识"><a href="#常识" class="headerlink" title="常识"></a>常识</h3><p>佛学两大基本原理：万法缘起（逻辑推理），因果报应（神学特性）<br>佛教不禁肉，禁荤。荤是指气味很重的蔬菜，如大蒜、香菜洋葱之类。<br>阿弥陀佛，是掌管西方极乐世界净土的佛的名字。念阿弥陀佛就修行净土宗。<br>流传到现在的佛教大多为禅宗、净土宗和密宗。禅宗不重佛经，放下屠刀，立地成佛。净土宗指你念哪个佛的法号，就能到哪个佛的创造的净土中生活，就不用六道轮回了。密宗发展最晚，重视咒语及仪式，咒语力量强大，常见的咒语有六字大明咒“唵嘛呢叭吽”、大悲咒、往生咒。<br>六道是指地狱道、饿鬼道、畜生道、阿修罗道、人道、天道。<br>按照过去、现在、未来划分，如来佛（释迦牟尼佛）、弥勒佛、药师佛。当前处于如来已经涅槃，弥勒佛还没降临的时代。<br>佛&gt;菩萨&gt;罗汉&gt;天龙八部，权力源于师承。<br>舟山群岛普陀山是观世音菩萨道场（总部），五台山-文殊菩萨、峨眉山-普贤菩萨、九华山-地藏菩萨（名言：地狱未空，誓不成佛）<br>般若波罗蜜（bo re bo luo mi）<br>南无阿弥陀佛，南无，音译，意思是致敬</p>
+<h3 id="故事"><a href="#故事" class="headerlink" title="故事"></a>故事</h3><p>道安和鸠摩罗什传教第一阶段。<br>玄奘偷渡印度讲法学法，皇帝允许他回国后才返回长安。被视为探险家，要求去打仗。取回的经书翻译研读后发展成慈恩宗，因学习太复杂，传 200 年后消失。<br>禅宗慧远和尚顿悟成佛、善不受报，佛在内心，行成了禅宗。曾经存在狂禅，以特立独行、喝来喝去为佛法高。后由于与儒家道德冲突，渐渐消失。目前保留下来的是符合儒家道德的禅宗。</p>
+<h3 id="笑话"><a href="#笑话" class="headerlink" title="笑话"></a>笑话</h3><p>某大学法律课堂上，老师问：“请你说明‘法’和‘律’的区别。”<br>某女生回答：“区别大了，如果我告诉我妈我男朋友的职业是律师，她会很高兴。如果我说男朋友的职业是法师，她一定会把我打死。”</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/02/01/yuque/%E4%B8%80%E9%9D%A2%E5%A4%9A%E5%BD%A9%E7%9A%84%E9%95%9C%E5%AD%90%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/02/01/yuque/%E4%B8%80%E9%9D%A2%E5%A4%9A%E5%BD%A9%E7%9A%84%E9%95%9C%E5%AD%90%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">一面多彩的镜子 读书笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-02-01 17:24:08" itemprop="dateCreated datePublished" datetime="2019-02-01T17:24:08+08:00">2019-02-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>tags; [读书笔记]</p>
+<hr>
+<p>一面多彩的镜子-论生命在宇宙中的位置<br>a many-colored glass -reflections on the place of life in the universe</p>
+<p>全书是一本演讲稿合集，围绕宇宙中的生命展开。由于是演讲稿，能很清楚的说清楚一些复杂的科学问题。<br>全书三大主题。第一个主题是政治性的，试图理解生物技术对人类和道德会产生怎样的影响。第二个主题是科学性的，力图在智识上理解生命在宇宙中所处的地位。第三个主题是个人化的，试图理解生物学在哲学和宗教方面的影响。</p>
+<p>文章严谨，通俗易懂，可以作为写作结构学习的参考。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/02/01/yuque/%E3%80%8A%E5%B0%8F%E7%8B%97%E9%92%B1%E9%92%B11%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/02/01/yuque/%E3%80%8A%E5%B0%8F%E7%8B%97%E9%92%B1%E9%92%B11%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《小狗钱钱1》读书笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-02-01 10:52:52" itemprop="dateCreated datePublished" datetime="2019-02-01T10:52:52+08:00">2019-02-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>大概用了 2 个月的时间，和 mz 一起<strong>读完</strong>这本书。<br>一个 9 岁的小女孩吉娅在家门口救助了一只受伤的拉布拉多犬，取名钱钱。吉娅和钱钱成了很好的朋友，有一天钱钱突然说话了，定下规则和吉娅聊“钱”相关的事情。吉娅想挣更多的钱，钱钱帮她出主意。<br>第一步：列出梦想 10 个，并选择其中最重要的三个。<br>第二步：制作梦想相册，梦想储虚罐和写成功日志。将梦想以图像的形式记录在相册中，随时都可以翻阅，记住梦想。每天记录成功日志能让人更自信，自信的人才能挣多的钱。<br>第三步：发现自己的爱好，做自己喜欢做的事顺便挣钱，是一件幸福的事。<br>第四步：规划收入，10%零用，40%用于实现梦想，50%用于投资养会下金蛋的鹅。</p>
+<p>一些忠告<br>不要急于还长期贷款，因为容易产生短期贷款，短期贷款利息更高。<br>比较保险的养鹅方式是投资基金。<br>一个人能挣多少钱源于他有多自信。<br>演讲最后一定要给听众一个可以马上行动的建议，这样对于听众来说听演讲才是值得的。（小狗钱钱 2）</p>
 
       
     </div>
@@ -615,7 +588,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/50/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><span class="page-number current">51</span><a class="page-number" href="/page/52/">52</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/52/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/50/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><span class="page-number current">51</span><a class="page-number" href="/page/52/">52</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/52/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

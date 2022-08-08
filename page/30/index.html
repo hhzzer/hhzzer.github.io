@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/27/yuque/hexo%E5%90%8C%E6%AD%A5%E8%AF%AD%E9%9B%80%E7%9F%A5%E8%AF%86%E5%BA%93%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/yuque/%E8%BF%9B%E5%8C%96-%E8%B5%B5%E6%88%90-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/27/yuque/hexo%E5%90%8C%E6%AD%A5%E8%AF%AD%E9%9B%80%E7%9F%A5%E8%AF%86%E5%BA%93%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">hexo同步语雀知识库异常处理</a>
+          <a href="/2022/06/29/yuque/%E8%BF%9B%E5%8C%96-%E8%B5%B5%E6%88%90-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">进化-赵成-读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -195,14 +195,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-06-27 10:39:00" itemprop="dateCreated datePublished" datetime="2022-06-27T10:39:00+08:00">2022-06-27</time>
+      <time title="创建时间：2022-06-29 12:31:31" itemprop="dateCreated datePublished" datetime="2022-06-29T12:31:31+08:00">2022-06-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:45" itemprop="dateModified" datetime="2022-06-29T11:46:45+08:00">2022-06-29</time>
+      <time title="修改时间：2022-07-01 17:15:33" itemprop="dateModified" datetime="2022-07-01T17:15:33+08:00">2022-07-01</time>
     </span>
 
   
@@ -215,10 +215,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>写博客流程为 1）语雀公开知识库中写文章，2）本地 hexo 执行 yuque-hexo 下载语雀文章到本地，上次图片到七牛云，修改 md 文章中的图片链接，3）hexo g 生成 html 页面，4 hexo d 推送页面到 github page 仓库。<br>以前语雀没有设置防外链，可以不用执行第 2 步，后来设置了防外链，就需要转图片。本文记录 yuque-hexo 工具使用异常的排查结论和过程。</p>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>windows10 上 yuque-hexo 读取环境变量存在问题，需要将 token 写入 js 文件中。<br>yuque-hexo 安装路径中的 config.js 文件，util\imageBeds\qiniu.js，注释掉 token,写上自己的。<br><img src="http://huilu-blog.colinspace.com//FliZvU9pybdLLD1wGT38fQO-EZH_.png"><br><img src="http://huilu-blog.colinspace.com//FvStTX6vSwNnVEdPLgDgp6TdhsSC.png"></p>
-<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>git clone 下载项目代码，在 node 中逐个调用函数测试。清除下载后，需要删除 hexo-yuque/source 目录才会重新生成 md 文件。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 导入配置</span></span><br><span class="line">const initConfig = require(<span class="string">&#x27;./config&#x27;</span>)</span><br><span class="line"><span class="comment">## 下载</span></span><br><span class="line">const Downloader = require(<span class="string">&#x27;./lib/Downloader&#x27;</span>);</span><br><span class="line">const downloader = new Downloader(initConfig);</span><br><span class="line">downloader.autoUpdate();</span><br><span class="line"><span class="comment">## 清除下载的内容</span></span><br><span class="line">const cleaner = require(<span class="string">&#x27;./lib/cleaner&#x27;</span>);</span><br><span class="line">cleaner.cleanPosts();</span><br><span class="line">cleaner.clearCache();</span><br><span class="line">cleaner.clearLastGenerate();</span><br></pre></td></tr></table></figure>
+          <p>发表于 2018-07-10<br>软件架构的目的，是将构建和维护所需的人力资源降到最低。<br>1 天翻完这本书，主题就这一句话。整本书跳出运维看运维，从架构角度分析运维工作并提出一些实践方式。分为 4 大部分：</p>
+<h2 id="应用运维体系建设"><a href="#应用运维体系建设" class="headerlink" title="应用运维体系建设"></a>应用运维体系建设</h2><h3 id="运维的本质"><a href="#运维的本质" class="headerlink" title="运维的本质"></a>运维的本质</h3><p>在不同公司不同架构下，运维的有着不同定义。在 google 或 nNetfix，SRE 定义为：用软件工程的方法重新设计和定义运维工作。运维的核心对象为应用，要建设应用模型和关系模型。</p>
+<h3 id="运维体系建设"><a href="#运维体系建设" class="headerlink" title="运维体系建设"></a>运维体系建设</h3><p>基础设施标准化、应用层面标准化、基础架构标准化、从生命周期看体系建设。</p>
+<h3 id="配置管理数据库"><a href="#配置管理数据库" class="headerlink" title="配置管理数据库"></a>配置管理数据库</h3><p>配置管理数据库记录运维对象、运维流程及运维过程，是运维过程数据沉淀的地方。cmdb 是面向资源的，是运维的基石。应用配置管理是面向应用的管理，是运维的核心。</p>
+<h3 id="运维组织架构"><a href="#运维组织架构" class="headerlink" title="运维组织架构"></a>运维组织架构</h3><p>开卷方面的内容，自服务化。</p>
+<h2 id="效率和稳定性最佳实践"><a href="#效率和稳定性最佳实践" class="headerlink" title="效率和稳定性最佳实践"></a>效率和稳定性最佳实践</h2><p>为了达到效率，需要持续交付。持续交付需要配置管理、对环境配置管理、多环境建设。<br>稳定性实践：容量规划、限流降级、开关和预案、全链路跟踪。<br>故障管理：故障定级定则、故障应急、故障复盘。</p>
+<h2 id="云计算思考和实践"><a href="#云计算思考和实践" class="headerlink" title="云计算思考和实践"></a>云计算思考和实践</h2><p>Spring Cloud<br>CNCF<br>CDN</p>
+<h2 id="个人成长和趋势分析"><a href="#个人成长和趋势分析" class="headerlink" title="个人成长和趋势分析"></a>个人成长和趋势分析</h2><p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
 
       
     </div>
@@ -245,7 +249,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/24/yuque/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/yuque/%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84%E5%88%86%E4%BA%AB%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -263,7 +267,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/24/yuque/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">为什么要独立博客</a>
+          <a href="/2022/06/29/yuque/%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84%E5%88%86%E4%BA%AB%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">网络架构分享总结</a>
         </h2>
 
         <div class="post-meta-container">
@@ -274,14 +278,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-06-24 14:04:02" itemprop="dateCreated datePublished" datetime="2022-06-24T14:04:02+08:00">2022-06-24</time>
+      <time title="创建时间：2022-06-29 12:30:18" itemprop="dateCreated datePublished" datetime="2022-06-29T12:30:18+08:00">2022-06-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
+      <time title="修改时间：2022-07-01 17:15:33" itemprop="dateModified" datetime="2022-07-01T17:15:33+08:00">2022-07-01</time>
     </span>
 
   
@@ -294,8 +298,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h2><p>归档可以查看总共多少文章，每年大概多少。<br>友情链接可以放好友博客。<br>完全自己可控。</p>
-<h2 id="不好"><a href="#不好" class="headerlink" title="不好"></a>不好</h2><p>需要域名费用，10 年 600 多。huilu.run /huilu.life<br>发布需要额外步骤，语雀编写-hexo 同步-hexo 发布。<br>使用 github page 托管访问慢。<br>七牛图床配置<br>多终端切换写不方便</p>
+          <p>发表于 2018-07-11<br>网络整体架构为外层防火墙接互联网，外墙上划分 3 个区域，生产、测试、OA。外墙南向接核心交换机，核心交换机旁挂内墙。内墙上起网段网关。核心交换机南向接汇聚交换机，汇聚交换机接接入交换机或刀箱交换机。接入交换机连接物理服务器。</p>
+<h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><p>EoR：（End of Row）接入交换机集中安装在一列机柜端部的机柜内，通过水平缆线以永久链路方式连接设备柜内的主机/服务器/小型机设备。EoR 对设备机柜需要敷设大量的水平缆线连接到交换机。<br>ToR：（Top of Rack）接入方式就是在服务器机柜的最上面安装接入交换机。<br>IRF 是 Intelligent Resilient Framework 的简称，即智能弹性架构，是 H3C 公司专有的设备虚拟化技术，将实际物理设备虚拟化为逻辑设备供用户使用。目前的 IRF2.0 是一种将多个设备虚拟为单一设备使用的通用虚拟化技术，此技术已经应用于高、中、低端多个系列的交换机设备，通过 IRF2.0 技术形成的虚拟设备具有更高的扩展性、可靠性及性能。<br>leaf-spine:叶脊拓扑网络，通过增加一层 平行于主干纵向网络结构的横向网络。</p>
+<p>Overlay，顾名思义，上层的，或者说，业务层面的、用户层面的，overlay traffic 是指用户业务流量。<br>underlay，顾名思义，下层的，或者说，基础架构层，专门用于承载用户流量的传统的 IP 网络，只要可以提供 IP 包的转发即可。<br>underlay 是底层网络，负责互联互通。overlay 基于隧道技术实现，overlay 流量需要跑在 underlay 上。<br>SDN</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>交换网络设备有两个功能，1 是流量转发，2 是控制流量流向。SDN 即软件定义网络，目的是将所有网络交换设备的控制功能统一，设备只负责转发流量。需要将所有设备配置 ip，像服务器一样管理设备，通过软件能力，组成一个分布式的交换网络。实现控制统一，便于网络自动化运维。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Anker/p/8998904.html">https://www.cnblogs.com/Anker/p/8998904.html</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/yuyulu2008/article/details/54972955">https://blog.csdn.net/yuyulu2008/article/details/54972955</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/soul-stone/p/8626918.html">http://www.cnblogs.com/soul-stone/p/8626918.html</a></p>
 
       
     </div>
@@ -322,7 +329,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/24/yuque/hexo%E5%8D%9A%E5%AE%A2%E5%86%8D%E5%87%BA%E5%8F%91/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/yuque/microservices-explore/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -340,7 +347,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/24/yuque/hexo%E5%8D%9A%E5%AE%A2%E5%86%8D%E5%87%BA%E5%8F%91/" class="post-title-link" itemprop="url">hexo博客再出发</a>
+          <a href="/2022/06/29/yuque/microservices-explore/" class="post-title-link" itemprop="url">microservices-explore</a>
         </h2>
 
         <div class="post-meta-container">
@@ -351,14 +358,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-06-24 11:29:34" itemprop="dateCreated datePublished" datetime="2022-06-24T11:29:34+08:00">2022-06-24</time>
+      <time title="创建时间：2022-06-29 12:28:20" itemprop="dateCreated datePublished" datetime="2022-06-29T12:28:20+08:00">2022-06-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:42" itemprop="dateModified" datetime="2022-06-29T11:46:42+08:00">2022-06-29</time>
+      <time title="修改时间：2022-07-01 17:15:33" itemprop="dateModified" datetime="2022-07-01T17:15:33+08:00">2022-07-01</time>
     </span>
 
   
@@ -371,29 +378,109 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>间隔 1 年没有更新博客，域名也没续费，新增的文章都在语雀上，没有同步到博客，日常查看还是不方便。这篇文章记录 hexo 博客配置、迁移、同步语雀文档的操作。</p>
-<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><ol>
-<li>安装 nodejs</li>
+          <p>发表于 2018-07-20<br>Today ,reading geektime articles about microservices,note some basics.</p>
+<h2 id="Characteristics-of-Microservices"><a href="#Characteristics-of-Microservices" class="headerlink" title="Characteristics of Microservices"></a>Characteristics of Microservices</h2><ol>
+<li>Componentization via services</li>
+<li>Organized around bussiness capabilities</li>
+<li>Products not Projects</li>
+<li>Smart endpoints and dumb pipes</li>
+<li>Decentralized Governance</li>
+<li>Decentralized Data Management</li>
+<li>Infrastructure Automation</li>
+<li>Design for failure</li>
+<li>Evolutionary Design</li>
 </ol>
-<p>下载二进制包 <a target="_blank" rel="noopener" href="https://npmmirror.com/mirrors/node/v18.4.0/node-v18.4.0-win-x64.zip">https://npmmirror.com/mirrors/node/v18.4.0/node-v18.4.0-win-x64.zip</a>，解压到软件目录，并在环境变量中添加软件 path。<br><img src="http://huilu-blog.colinspace.com//FtTUlgrgzfuDlOY05izJcypo9oa0.png"></p>
-<ol start="2">
-<li>安装 hexo 及 next 主题</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装hexo</span></span><br><span class="line">npm install hexo-cli -g</span><br><span class="line"><span class="comment"># 创建博客存放目录blog</span></span><br><span class="line">mkdir blog</span><br><span class="line">cd blog</span><br><span class="line">hexo init blog2022</span><br><span class="line">cd blog2022</span><br><span class="line">npm install hexo-theme-<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/06/29/yuque/microservices-explore/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
 
-<p>在 hexo 配置文件中把主题由 landscape 修改为 next ，配置文件路径 blog/blog2022/_config.yml<br><img src="http://huilu-blog.colinspace.com//Fun3wqV7rfxFqZ_iZdX2LDVQXsnh.png"></p>
-<ol start="3">
-<li>同步语雀文档</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm i -g yuque-hexo</span><br><span class="line"><span class="comment"># 配置</span></span><br><span class="line"><span class="comment"># 同步</span></span><br><span class="line"><span class="built_in">set</span> YUQUE_TOKEN=xxx &amp;&amp; yuque-hexo sync</span><br></pre></td></tr></table></figure>
+    
+    
+    
 
-<p>语雀图片设置了防盗链，需要有其他图床，七牛图床需要有域名，哎。</p>
-<ol start="4">
-<li>导入历史文档</li>
-<li>优化主题</li>
-</ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>写个文章发博客，操作真多，还记得最初的梦想吗？</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://nodejs.cn/download/current/">http://nodejs.cn/download/current/</a><br><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a><br><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/">https://theme-next.js.org/docs/getting-started/</a><br><a target="_blank" rel="noopener" href="https://github.com/x-cold/yuque-hexo">https://github.com/x-cold/yuque-hexo</a></p>
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/yuque/ubuntu1404%E5%8D%87%E7%BA%A7openssh%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mayi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 蚂蚁的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/06/29/yuque/ubuntu1404%E5%8D%87%E7%BA%A7openssh%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3/" class="post-title-link" itemprop="url">ubuntu1404升级openssh失败解决</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-06-29 11:29:07 / 修改时间：11:46:40" itemprop="dateCreated datePublished" datetime="2022-06-29T11:29:07+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>发表于 2018-07-20</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>一批服务器安装 ubuntu14.04.5 server 版系统，需要升级 opnessh-server 到比较安全版本。ubuntu14.04.5 软件源中的版本为 6.6，需要升级到 7.2.</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>不能通过为 ubuntu1404 server 版指定高版本源使用 apt 升级 openssh-server。目前实践成功的方法是手动编译安装。<a target="_blank" rel="noopener" href="http://blog.leanote.com/post/maya/ubuntu1404%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85openssh-server-7.5">参考</a></p>
+<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>以前的经验是在系统中添加一个高于系统版本的源 1704[zesty],然后使用下面命令</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt-get install openssh-server</span><br></pre></td></tr></table></figure>
+
+<p>ubuntu 14.04 desktop 版本在 2018 年前可以执行成功。<br>服务器安装 Ubuntu 14.04.5 server 版本后不能执行成功，报错’InRelease 错误’。到源服务器查看源内容，发现没有‘InRelease’相关文件。对比网易源，17 版本的主要软件都更新到‘artful’版本中。<br>Ubuntu 14.04.1 server 无法升级到 openssh-server 7.2</p>
+<h2 id="报错总结"><a href="#报错总结" class="headerlink" title="报错总结"></a>报错总结</h2><p>1 2018 年能用 zesty 源安装 openssh-server，之后不行，报错’InRelease 错误’。原因是网易官方将 17 版本源相关软件放到‘artful’版本。更新内网源后不报错’InRelease 错误’。<br>2 ubuntu14.04 桌面版能升级安装 18，17 版本的 openssh-server，ubuntu14.04server 版不能升级安装。报错</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/etc/apt<span class="comment"># apt-get check</span></span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree</span><br><span class="line">Reading state information... Done</span><br><span class="line">You might want to run <span class="string">&#x27;apt-get -f install&#x27;</span> to correct these.</span><br><span class="line">The following packages have unmet dependencies:</span><br><span class="line"> libc-<span class="built_in">bin</span> : Depends: libc6 (&lt; <span class="number">2.20</span>) but <span class="number">2.26</span>-0ubuntu2<span class="number">.1</span> <span class="keyword">is</span> installed</span><br><span class="line"> libc6 : Breaks: locales (&lt; <span class="number">2.26</span>) but <span class="number">2.13</span>+git20120306-<span class="number">12.1</span> <span class="keyword">is</span> installed</span><br><span class="line">E: Unmet dependencies. Try using -f.</span><br></pre></td></tr></table></figure>
+
+<p>原因是 1404 server 版中两个基础包 libc-bin,libc6 和系统版本有强依赖，依赖&lt;2.20,2,26 版本。1404 desktop 版本 libc-bin,libc6 依赖版本较高&gt;2.20.<br>通过使用 1404 的源，降级安装 libc 可以将安装 openssh-server 失败后，无法再安装其他软件的故障解决</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 配置1404源</span></span><br><span class="line">apt-get install libc6=<span class="number">2.19</span>-0ubuntu6<span class="number">.9</span></span><br><span class="line"><span class="comment">#或者</span></span><br><span class="line">aptitude install libc</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/openssh/">
+</a></p>
 
       
     </div>
@@ -420,7 +507,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/21/yuque/%E6%B5%AA%E6%BD%AEBMC%E7%99%BB%E5%BD%95-%E5%8A%A0%E5%AF%86%E5%A4%84%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/yuque/Play-k8s-on-win10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -438,7 +525,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/21/yuque/%E6%B5%AA%E6%BD%AEBMC%E7%99%BB%E5%BD%95-%E5%8A%A0%E5%AF%86%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">浪潮BMC登录-加密处理</a>
+          <a href="/2022/06/29/yuque/Play-k8s-on-win10/" class="post-title-link" itemprop="url">Play-k8s-on-win10</a>
         </h2>
 
         <div class="post-meta-container">
@@ -448,15 +535,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-21 13:39:31" itemprop="dateCreated datePublished" datetime="2022-06-21T13:39:31+08:00">2022-06-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:55" itemprop="dateModified" datetime="2022-06-29T11:46:55+08:00">2022-06-29</time>
+      <time title="创建时间：2022-06-29 11:22:27 / 修改时间：11:46:40" itemprop="dateCreated datePublished" datetime="2022-06-29T11:22:27+08:00">2022-06-29</time>
     </span>
 
   
@@ -469,93 +550,24 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>使用 python 登录浪潮服务器的 BMC 登录，发现传递的用户名密码经过了处理，需要在 python 程序中也做处理。</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>结论：浪潮 BMC 登录加密用户名密码信息有 2 中方式，不同版本用不同的加密方式。模拟登录对所有版本的 BMC，只要 post 的加密类型（encrypt_flag） 与密文能对应，服务端都能正确认证成功。为模拟登录方便，python 程序中都使用 encrypt_ctrl=1 ，异或编码。</p>
-<p>分析 ajax 传递登录信息的页面，发下有两种类型的密文。<br>第一种密文<br><img src="http://huilu-blog.colinspace.com//FmUA4DiOHZjzJhiuNw2feeX4vxr6.png"><br>观察页面的表单提交执行的函数为 doValidate 中的 doLogin 函数。doLogin 函数中定义了 ajax 传递的内容，username 使用了 bf.base64Encode()对表单中的内容进行加密和编码。加密函数 bf 由 Blowfish 创建。<br><img src="http://huilu-blog.colinspace.com//FnyOHRfoLhFEDfIARpwMDN_cZdHJ.png"><br><img src="http://huilu-blog.colinspace.com//FqzuSxqoJ9GvcPpY05wtCrBYyHha.png"><br>在浏览器 console 中手动运行 bf.base64Encode，输出与 playload 一致。<br><img src="http://huilu-blog.colinspace.com//FiNR6HRJWjjNq37uxYdPfSzuYC_D.png"><br>第二种密文<br><img src="http://huilu-blog.colinspace.com//Frjb_Roeg1CYoOoLStaX1J9YJXV7.png"><br>观察表单页面，也是关联到 doValidate。在 doValidate 函数中，ajax 传递的值是 encrypt_username.<br>encrypt_username 根据 encrypt_ctrl 值不同，有 2 中处理方式。encrypt_ctrl = 1，使用 encryStr 函数加密。encrypt_ctrl=2，使用 bf 函数加密编码。<br><img src="http://huilu-blog.colinspace.com//FgDKtvagmVq-7-XzcSwkUWvjDy_k.png"></p>
-<p>encryStr 函数内容.处理过程为字符串的 unicode 与 127 取异或，然后转换成 16 进制，用-连接起来。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">encryStr</span>(<span class="params">str</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> newStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">if</span> (str == <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; str.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> charCode = str.<span class="title function_">charCodeAt</span>(i);</span><br><span class="line"></span><br><span class="line">    charCode = charCode ^ <span class="number">127</span>;</span><br><span class="line">    <span class="keyword">if</span> (newStr == <span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">      newStr = newStr + <span class="built_in">parseInt</span>(charCode).<span class="title function_">toString</span>(<span class="number">16</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      newStr = newStr + <span class="string">&quot;-&quot;</span> + <span class="built_in">parseInt</span>(charCode).<span class="title function_">toString</span>(<span class="number">16</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//alert(newStr);</span></span><br><span class="line">  <span class="keyword">return</span> newStr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>发表于 2018-07-23<br>follow the offical guaide,install and play k8s on windows.</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>使用官方的 minikube，无法 pull k8s 需要的 docker 镜像，所以无法安装成功。使用阿里云修改的 minikube 安装成功。</p>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><ol>
+<li>安装 kubectl<br>use administrator open powershell</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Set</span>-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString(<span class="string">&#x27;https://chocolatey.org/install.ps1&#x27;</span>))</span><br><span class="line">choco install kubernetes-cli</span><br></pre></td></tr></table></figure>
 
-<p>相同功能的 python 函数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">encryStr</span>(<span class="params">_<span class="built_in">str</span></span>):</span><br><span class="line">    tmp_list = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> _<span class="built_in">str</span>.encode():</span><br><span class="line">        d = i ^ <span class="number">127</span></span><br><span class="line">        tmp_list.append(<span class="built_in">format</span>(d, <span class="string">&#x27;x&#x27;</span>))</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;-&#x27;</span>.join(tmp_list)</span><br></pre></td></tr></table></figure>
+<p>2 下载阿里修改版 minikube，运行集群<br><del>download minikube-windows from ~~[</del>link~~](<a target="_blank" rel="noopener" href="https://github-production-release-asset-2e65be.s3.amazonaws.com/56353740/fedf23ec-8998-11e8-8b9d-36d59b843abc?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A/20180723/us-east-1/s3/aws4_request&amp;X-Amz-Date=20180723T000142Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=6b14f2196a77049b8a1f968d04894261188b5900c94ea276fc19fb40b0de7905&amp;X-Amz-SignedHeaders=host&amp;actor_id=7894607&amp;response-content-disposition=attachment;%20filename=minikube-windows-amd64&amp;response-content-type=application/octet-stream">https://github-production-release-asset-2e65be.s3.amazonaws.com/56353740/fedf23ec-8998-11e8-8b9d-36d59b843abc?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20180723%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20180723T000142Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=6b14f2196a77049b8a1f968d04894261188b5900c94ea276fc19fb40b0de7905&amp;X-Amz-SignedHeaders=host&amp;actor_id=7894607&amp;response-content-disposition=attachment%3B%20filename%3Dminikube-windows-amd64&amp;response-content-type=application%2Foctet-stream</a>)<br>in china ,download from google is inposible,so we use aliyun’s minikube.<a target="_blank" rel="noopener" href="http://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/releases/v0.28.0/minikube-windows-amd64.exe?spm=a2c4e.11153940.blogcont221687.28.7dd57733hLwzpv&file=minikube-windows-amd64.exe">download</a><br>rename minikube-windows to minikube and mv to c:\windows\system32<br>add a hyper-v switch named “MinikubeSwitch” on hy-v control<br>start a k8s</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube.exe start --registry-mirror=https://registry.docker-cn.com --vm-driver=<span class="string">&quot;hyperv&quot;</span> --memory=<span class="number">4096</span> --hyperv-virtual-switch=<span class="string">&quot;MinikubeSwitch&quot;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过分析 post 页面具体的 js 程序，就能明确前端的加密方法，然后用 python 实现。</p>
+<p>check cluster status kubectl version</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-&gt; kubctl.exe version</span><br><span class="line">Client Version: version.Info&#123;Major:<span class="string">&quot;1&quot;</span>, Minor:<span class="string">&quot;9&quot;</span>, GitVersion:<span class="string">&quot;v1.9.2&quot;</span>, GitCommit:<span class="string">&quot;5fa2db2bd46ac79e5e00a4e6ed24191080aa463b&quot;</span>, GitTreeState:<span class="string">&quot;clean&quot;</span>, BuildDate:<span class="string">&quot;2018-01-18T10:09:24Z&quot;</span>, GoVersion:<span class="string">&quot;go1.9.2&quot;</span>, Compiler:<span class="string">&quot;gc&quot;</span>, Platform:<span class="string">&quot;windows/amd64&quot;</span>&#125;</span><br><span class="line">Server Version: version.Info&#123;Major:<span class="string">&quot;1&quot;</span>, Minor:<span class="string">&quot;10&quot;</span>, GitVersion:<span class="string">&quot;v1.10.0&quot;</span>, GitCommit:<span class="string">&quot;fc32d2f3698e36b93322a3465f63a14e9f0eaead&quot;</span>, GitTreeState:<span class="string">&quot;clean&quot;</span>, BuildDate:<span class="string">&quot;2018-03-26T16:44:10Z&quot;</span>, GoVersion:<span class="string">&quot;go1.9.3&quot;</span>, Compiler:<span class="string">&quot;gc&quot;</span>, Platform:<span class="string">&quot;linux/amd64&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
+<h2 id="怎么玩"><a href="#怎么玩" class="headerlink" title="怎么玩"></a>怎么玩</h2><p>1 打开 dashboard .\minikube.exe dashboard<br>2</p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>网上一些文章通过手动下载 minikube.iso 和 localkube，然后使用官方的 minikube 安装，安装到后面阶段会去拉取 k8s 集群需要的一些 docker 容器，由于官方的 minikube 需要到 google 去拉取，就会一直等待拉取失败。<br>minikube 创建好虚拟机后，使用 minikube ssh 可以直接 ssh 到虚拟机中。如果证书等错误，会 ssh 失败。通过 minikube delete 删除”.minikube”目录后重新安装解决。<br>kubernetes.go:119] error getting Pods with label selector “k8s-app=kube-proxy” [Get <a target="_blank" rel="noopener" href="https://192.168.199.105:8443/api/v1/namespaces/kube-system/pods?labelSelector=k8s-app=kube-proxy">https://192.168.199.105:8443/api/v1/namespaces/kube-system/pods?labelSelector=k8s-app%3Dkube-proxy</a>: dial tcp 192.168.199.105:8443: connectex: No connection could be made because the target machine actively refused it.]<br>停止 shadowsocks 后再重新运行启动命令解决。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube start --vm-driver=hyperv --hyperv-virtual-switch=minikube --v=<span class="number">7</span> --alsologtostderr</span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/20/yuque/%E3%80%8A%E8%BD%AF%E6%8A%80%E8%83%BD%E3%80%8B%E4%B9%A6%E6%91%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mayi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 蚂蚁的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/20/yuque/%E3%80%8A%E8%BD%AF%E6%8A%80%E8%83%BD%E3%80%8B%E4%B9%A6%E6%91%98/" class="post-title-link" itemprop="url">《软技能》书摘</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-20 17:15:45" itemprop="dateCreated datePublished" datetime="2022-06-20T17:15:45+08:00">2022-06-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-29 11:46:40" itemprop="dateModified" datetime="2022-06-29T11:46:40+08:00">2022-06-29</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>不要努力成为一个成功的人，而要努力成为一个有价值的人。 – 阿尔伯特.爱因斯坦<br>如果你能够帮助足够多的人得到他们想要的东西，你就会得到自己想要的东西。<br>如果你想要成功，你必须要学会收起自己脆弱的自尊心，勇敢走出去，别害怕让自己出丑。每一位著名的演员、音乐家、专业运动员和公共演说家都曾有过表现不佳的时候，他们自觉地选择了走出困境，尽力而为。成功终将会来。你不可能专注做某件事而毫无长进，你只要坚持足够长的时间就会有收获。你的生存之道就是不必太在意。别害怕被人当作傻瓜。<br>在我的职业生涯中，我一共错失了 9000 多次投篮，输掉了近 300 场比赛。我本来有 26 次绝杀的机会却投球不进。我失败了一次又一次。这就是我能成功的原因。 ——迈克尔.乔丹</p>
-<p>教育就是当一个人把在学校所学全部忘光之后剩下的东西。—— 阿尔伯特.爱因斯坦</p>
+<h2 id="related-links"><a href="#related-links" class="headerlink" title="related links"></a>related links</h2><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?timestamp=1532306214&src=3&ver=1&signature=QcXUm-wCYehMfkul962-YHQMWaAZzw49fSb5BLxUp*yH7CaHLonVfLEXq76Do6d08*Dgr8Xo*c66i-6-t0jHb4bkLx7qor3j3Oo2qcpR00jvvnrQS7SVivuxMEo-jGNiGQgk86KycRg8OCKeGwY8L0PhqBpJNzUaeDb5DqI03G4=">https://mp.weixin.qq.com/s?timestamp=1532306214&amp;src=3&amp;ver=1&amp;signature=QcXUm-wCYehMfkul962-YHQMWaAZzw49fSb5BLxUp<em>yH7CaHLonVfLEXq76Do6d08</em>Dgr8Xo*c66i-6-t0jHb4bkLx7qor3j3Oo2qcpR00jvvnrQS7SVivuxMEo-jGNiGQgk86KycRg8OCKeGwY8L0PhqBpJNzUaeDb5DqI03G4=</a><br><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/221687">https://yq.aliyun.com/articles/221687</a></p>
 
       
     </div>
@@ -575,7 +587,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/29/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/31/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/29/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/31/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

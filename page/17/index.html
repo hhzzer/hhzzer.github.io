@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">373</span>
+          <span class="site-state-item-count">379</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/python%E7%AE%97%E5%B7%A5%E8%B5%84/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85open-falcon-v0.2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +184,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/python%E7%AE%97%E5%B7%A5%E8%B5%84/" class="post-title-link" itemprop="url">python算工资</a>
+          <a href="/2022/07/04/yuque/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85open-falcon-v0.2/" class="post-title-link" itemprop="url">源码编译安装open-falcon-v0.2</a>
         </h2>
 
         <div class="post-meta-container">
@@ -196,7 +196,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 16:04:58 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:04:58+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 16:17:09 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:17:09+08:00">2022-07-04</time>
     </span>
 
   
@@ -209,17 +209,53 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-09-06<br>一直说了给妹子编个程序算工资，最近学完 python 基础，半天搞完基础版本</p>
-<h2 id="IPO-分析"><a href="#IPO-分析" class="headerlink" title="IPO 分析"></a>IPO 分析</h2><p>输入为 txt 文档，第一行为表头，之后每一行为一个员工人员信息。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">name    munber  title   workday     base-money</span><br><span class="line">zhang   001     master  <span class="number">21</span>          <span class="number">2000</span></span><br><span class="line">hui     002     employee    <span class="number">29</span>      <span class="number">1000</span></span><br><span class="line">huiz     002     employee    <span class="number">29</span>     <span class="number">300</span></span><br><span class="line">adfa     002     employee    <span class="number">29</span>     <span class="number">123</span></span><br><span class="line">吴波     002     master   <span class="number">29</span>     <span class="number">2500</span></span><br><span class="line">zfg    002     employee    <span class="number">29</span>     <span class="number">322</span></span><br><span class="line">pengke    002     employee    <span class="number">29</span>     <span class="number">3000</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <p>发表于 2017-09-21<br>整天被 nagios、zabbix 折腾，今天来折腾一下 open-falcon</p>
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>研究学习 open-falcon 系统，部署一套可以使用的监控监控主机系统资源，收集信息-展示图形-判断告警-触发邮件。<br>了解分布式系统基本结构和实现方法，下一篇文章分析</p>
+<h2 id="open-falcon-0-2-版本前后端单机部署"><a href="#open-falcon-0-2-版本前后端单机部署" class="headerlink" title="open-falcon 0.2 版本前后端单机部署"></a>open-falcon 0.2 版本前后端单机部署</h2><ol>
+<li>操作系统安装<br>操作系统使用 centos7.2 最小化安装，安装在 vmware workstation 上，磁盘空间 10G，默认分区。</li>
+<li>系统初始化</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">systemctl disable firewalld</span><br><span class="line">systemctl stop firewalld</span><br><span class="line">sed -i <span class="string">&#x27;s/SELINUX=enforcing/SELINUX=disabled/g&#x27;</span> /etc/selinux/config</span><br><span class="line">sed -i <span class="string">&#x27;$a\proxy=http://192.168.x.x:8888&#x27;</span> /etc/yum.conf <span class="comment">#配置yum代理</span></span><br><span class="line">yum install wget tree</span><br><span class="line">sed -i <span class="string">&#x27;$a\http_proxy=http://192.168.x.x:8888&#x27;</span> /etc/wgetrc  <span class="comment">#配置wget代理</span></span><br><span class="line">cd /tmp/</span><br><span class="line">wget http://repo.mysql.com/mysql-community-release-el7-<span class="number">5.</span>noarch.rpm</span><br><span class="line">rpm -ivh mysql-community-release-el7-<span class="number">5.</span>noarch.rpm</span><br><span class="line">wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-<span class="number">7.</span>repo</span><br><span class="line">yum makecache</span><br><span class="line">yum groupinstall <span class="string">&quot;Development tools&quot;</span></span><br><span class="line">yum update</span><br><span class="line">yum install golang</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>处理过程分为三个功能函数，一个主函数。readfile 读取输入文件，将文件内容转换为 list，list 的每一个项为一个字典，函数最后返回一个 list。compute 为计算函数，输入 list，输出添加字典 key 的 list。writefile 函数将 compute 返回的 list 写入到文件，输入 list、目标文件，无返回。<br>输出为 txt 文件，比输入文件多一列，total。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">name    title    base-money    workday    total    munber</span><br><span class="line">zhang    master    <span class="number">2000</span>    <span class="number">21</span>    <span class="number">4000.0</span>    001</span><br><span class="line">hui    employee    <span class="number">1000</span>    <span class="number">29</span>    <span class="number">1500.0</span>    002</span><br><span class="line">huiz    employee    <span class="number">300</span>    <span class="number">29</span>    <span class="number">450.0</span>    002</span><br><span class="line">adfa    employee    <span class="number">123</span>    <span class="number">29</span>    <span class="number">184.5</span>    002</span><br><span class="line">吴波    master    <span class="number">2500</span>    <span class="number">29</span>    <span class="number">5000.0</span>    002</span><br><span class="line">zfg    employee    <span class="number">322</span>    <span class="number">29</span>    <span class="number">483.0</span>    002</span><br><span class="line">pengke    employee    <span class="number">3000</span>    <span class="number">29</span>    <span class="number">4500.0</span>    002</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>安装并配置 redis、mysql</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yum install git redis mysql-server</span><br><span class="line">service mysqld start</span><br><span class="line">mysql -u root -p <span class="comment">#使用root登录测试，show databases; 查看是否能显示数据库。</span></span><br><span class="line">grep ^daemon /etc/redis.conf  <span class="comment">#查看配置</span></span><br><span class="line">sed -i <span class="string">&#x27;s/^daemon.*/daemonize yes/g&#x27;</span> /etc/redis.conf  <span class="comment">#修改redis配置为后端启动</span></span><br><span class="line">redis-cli <span class="comment">#连接redis数据库执行ping 返回pong证明启动ok</span></span><br><span class="line">sed -i <span class="string">&#x27;$a\redis-server /etc/redis.conf&#x27;</span> /etc/rc.local  <span class="comment">#设置redis开机自启动</span></span><br><span class="line">systemctl enable mysqld  <span class="comment">#mysql开机自启动</span></span><br><span class="line">reboot <span class="comment">#重启测试两个数据库是否启动正常</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">readfile</span>(<span class="params">filename</span>):</span><br><span class="line">    inputList=[]</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> f:</span><br><span class="line">       <span class="comment"># print(f.read())</span></span><br><span class="line">        fileList = f.readlines()</span><br><span class="line">        person = &#123;&#125;</span><br><span class="line">        keylist = fileList[<span class="number">0</span>].split()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(fileList)):</span><br><span class="line">            valuelist = fileList[i].split()</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(keylist)):</span><br><span class="line">                 person[keylist[j]] = valuelist[j]</span><br><span class="line">            inputList.append(person)</span><br><span class="line">            person = &#123;&#125;</span><br><span class="line">        f.close()</span><br><span class="line">       <span class="comment"># print(inputList)</span></span><br><span class="line">    <span class="keyword">return</span> inputList</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute</span>(<span class="params">inputList</span>):</span><br><span class="line">    outputList = inputList[:]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(outputList)):</span><br><span class="line">       <span class="keyword">if</span> outputList[i].get(<span class="string">&quot;title&quot;</span>) == <span class="string">&quot;master&quot;</span>:</span><br><span class="line">           outputList[i][<span class="string">&quot;total&quot;</span>] = <span class="built_in">float</span>(outputList[i].get(<span class="string">&quot;base-money&quot;</span>))*<span class="number">2</span></span><br><span class="line">       <span class="keyword">else</span>:</span><br><span class="line">           outputList[i][<span class="string">&quot;total&quot;</span>] = <span class="built_in">float</span>(outputList[i].get(<span class="string">&quot;base-money&quot;</span>))*<span class="number">1.5</span></span><br><span class="line">    <span class="comment">#print(outputList)</span></span><br><span class="line">    <span class="keyword">return</span> outputList</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">writefile</span>(<span class="params">outputList,outputfile</span>):</span><br><span class="line">    title = (outputList[<span class="number">0</span>].keys())[:]</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(outputfile,<span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> f :</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(title)):</span><br><span class="line">            f.write(title[i]+<span class="string">&quot;    &quot;</span>)</span><br><span class="line">        f.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(outputList)):</span><br><span class="line">            f.write(outputList[j][<span class="string">&quot;name&quot;</span>]+<span class="string">&quot;    &quot;</span>+outputList[j][<span class="string">&quot;title&quot;</span>]+<span class="string">&quot;    &quot;</span>+outputList[j][<span class="string">&quot;base-money&quot;</span>]+<span class="string">&quot;    &quot;</span>+outputList[j][<span class="string">&quot;workday&quot;</span>]+<span class="string">&quot;    &quot;</span>+<span class="built_in">str</span>(outputList[j][<span class="string">&quot;total&quot;</span>])+<span class="string">&quot;    &quot;</span>+outputList[j][<span class="string">&quot;munber&quot;</span>])</span><br><span class="line">            f.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">        f.close</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    inputfile = <span class="string">&quot;/home/hhzzer/PycharmProjects/gongzi/name.txt&quot;</span></span><br><span class="line">    output = <span class="string">&quot;./output.txt&quot;</span></span><br><span class="line">    inputlist = readfile(inputfile)</span><br><span class="line">    outputlist = compute(inputlist)</span><br><span class="line">    outputfile = writefile(outputlist,output)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>创建 go 编译环境，下载项目并初始化数据库</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">&#x27;export GOPATH=&quot;$HOME/workspace&quot;&#x27;</span> ~/.bashrc</span><br><span class="line">source ~/.bashrc</span><br><span class="line">mkdir -p $GOPATH/src/github.com/<span class="built_in">open</span>-falcon</span><br><span class="line">cd $GOPATH/src/github.com/<span class="built_in">open</span>-falcon</span><br><span class="line">git clone https://github.com/<span class="built_in">open</span>-falcon/falcon-plus.git</span><br><span class="line"><span class="comment">#确保mysql启动状态下初始化数据库</span></span><br><span class="line">cd $GOPATH/src/github.com/<span class="built_in">open</span>-falcon/falcon-plus/scripts/mysql/db_schema/</span><br><span class="line">mysql -h <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> -u root -p &lt; 1_uic-db-schema.sql</span><br><span class="line">mysql -h <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> -u root -p &lt; 2_portal-db-schema.sql</span><br><span class="line">mysql -h <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> -u root -p &lt; 3_dashboard-db-schema.sql</span><br><span class="line">mysql -h <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> -u root -p &lt; 4_graph-db-schema.sql</span><br><span class="line">mysql -h <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> -u root -p &lt; 5_alarms-db-schema.sql</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="遇到问题及后续改善"><a href="#遇到问题及后续改善" class="headerlink" title="遇到问题及后续改善"></a>遇到问题及后续改善</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>person 字典未重置，导致输入 list 重复<br>22 行缺少”)”，导致报错。<br>linux 换行符为”\n”,不需要转义。</p>
-<h3 id="改善"><a href="#改善" class="headerlink" title="改善"></a>改善</h3><p>使用 format 字符串格式化文件写入行，对齐准确。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/python/"># python</a></p>
+<ol start="5">
+<li>编译</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cd $GOPATH/src/github.com/<span class="built_in">open</span>-falcon/falcon-plus/</span><br><span class="line"></span><br><span class="line"><span class="comment"># make all modules</span></span><br><span class="line">make <span class="built_in">all</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># make specified module</span></span><br><span class="line">make agent</span><br><span class="line"></span><br><span class="line"><span class="comment"># pack all modules</span></span><br><span class="line">make pack</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>解压和部署后端</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export WorkDir=<span class="string">&quot;$HOME/open-falcon&quot;</span></span><br><span class="line">mkdir -p $WorkDir</span><br><span class="line">tar -xzvf <span class="built_in">open</span>-falcon-v0<span class="number">.2</span><span class="number">.1</span>.tar.gz -C $WorkDir</span><br><span class="line">cd $WorkDir</span><br><span class="line">./<span class="built_in">open</span>-falcon start</span><br><span class="line">./<span class="built_in">open</span>-falcon check</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>部署前端<br>使用浏览器打开<a target="_blank" rel="noopener" href="http://ip:8081/">http://ip:8081</a> ,注册一个用户即可登录前端。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">yum install -y python-virtualenv</span><br><span class="line">yum install -y python-devel</span><br><span class="line">yum install -y openldap-devel</span><br><span class="line">yum install -y mysql-devel</span><br><span class="line">yum groupinstall <span class="string">&quot;Development tools&quot;</span></span><br><span class="line">cd $HOME/<span class="built_in">open</span>-falcon</span><br><span class="line">git clone https://github.com/<span class="built_in">open</span>-falcon/dashboard.git</span><br><span class="line">cd $HOME/<span class="built_in">open</span>-falcon/dashboard/</span><br><span class="line">virtualenv ./env</span><br><span class="line"><span class="comment"># github上部署文档使用豆瓣源出错，这里使用阿里源，虚拟机无法联网使用代理链接</span></span><br><span class="line">./env/<span class="built_in">bin</span>/pip install -r pip_requirements.txt -i  http://mirrors.aliyun.com/pypi/simple --proxy <span class="number">192.168</span><span class="number">.13</span><span class="number">.1</span>:<span class="number">8888</span></span><br><span class="line">./control start <span class="comment">#启动前端</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>编译部署邮件服务<br>由于 open-falcon 使用 api 发送邮件，公司没有就需要自己部署一个邮件发送 api，open-falcon 项目中提供了源码，需要自己编译。<br>测试邮件端口<br>curl <a target="_blank" rel="noopener" href="http://127.0.0.1:4000/sender/mail">http://127.0.0.1:4000/sender/mail</a> -d “tos=<a href="mailto:&#x61;&#x62;&#99;&#100;&#x40;&#113;&#113;&#46;&#99;&#x6f;&#109;">&#x61;&#x62;&#99;&#100;&#x40;&#113;&#113;&#46;&#99;&#x6f;&#109;</a>&amp;subject=from-falcon&amp;content=sdfdfs” 返回 success,登录邮箱有发送的邮件则测试成功。<br>编译好的包下载地址<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1i5h7GLv">https://pan.baidu.com/s/1i5h7GLv</a><br>在 alarm 模块的配置文件中，mail 处写‘<a target="_blank" rel="noopener" href="http://127.0.0.1:4000/sender/mail%E2%80%99%E9%87%8D%E5%90%AFalarm%E6%A8%A1%E5%9D%97%E5%8D%B3%E5%8F%AF%E4%BA%8E%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%9B%86%E6%88%90%E3%80%82">http://127.0.0.1:4000/sender/mail’重启 alarm 模块即可于监控系统集成。</a></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cd $GOPATH/src/github.com/<span class="built_in">open</span>-falcon/</span><br><span class="line">git clone https://github.com/<span class="built_in">open</span>-falcon/mail-provider.git</span><br><span class="line">cd mail-provider</span><br><span class="line">go get ./...</span><br><span class="line"><span class="comment">#拉取编译需要的工具，如果拉取失败可以从https://github.com/toolkits项目拉取file,web,smtp 3个仓库文件到 $GOPATH/src/github.com/toolkits/</span></span><br><span class="line">./control build</span><br><span class="line">./control pack <span class="comment">#编译打包生成falcon-mail-provider-0.0.1.tar.gz，可复制到有外网的机器运行，作为邮件发送api，需要机器有mail命令。“yum install mailx”</span></span><br><span class="line">vi cfg.json <span class="comment">#在里面填写自己126或其他公网邮箱帐号后</span></span><br><span class="line">./control start <span class="comment">#启用邮件发送api，会在本地起一个4000端口</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>配置微信报警<br>暂时未配置，很有必要</li>
+</ol>
+<h2 id="系统使用"><a href="#系统使用" class="headerlink" title="系统使用"></a>系统使用</h2><p>系统使用参考官方文档</p>
+<h2 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h2><ol>
+<li>启动 agent，在主机的 1899 端口无数据<br>原因是开启了防火墙，关闭即可</li>
+<li>启用 agent，访问 1899 端口提示 404 页面不存在<br>问题原因还未找到</li>
+</ol>
+<h2 id="资源链接"><a href="#资源链接" class="headerlink" title="资源链接"></a>资源链接</h2><p>项目文档：<a target="_blank" rel="noopener" href="https://book.open-falcon.org/zh_0_2/index.html">https://book.open-falcon.org/zh_0_2/index.html</a><br>编译好的包：包括后端所有模块、邮件发送模块、项目文档 pdf <a target="_blank" rel="noopener" href="https://pan.baidu.com/share/link?shareid=646776913&uk=1728541809">https://pan.baidu.com/share/link?shareid=646776913&amp;uk=1728541809</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/open-falcon/"># open-falcon</a></p>
 
       
     </div>
@@ -246,7 +282,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E3%80%8A%E5%88%AB%E9%97%B9%E4%BA%86%E3%80%81%E8%B4%B9%E6%9B%BC%E5%85%88%E7%94%9F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E9%B9%BF%E9%BC%8E%E8%AE%B0-%E5%9C%A8%E7%BB%86%E9%9B%A8%E4%B8%AD%E5%91%BC%E5%96%8A-%E5%8A%A8%E7%89%A9%E5%87%B6%E7%8C%9B-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -264,7 +300,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E3%80%8A%E5%88%AB%E9%97%B9%E4%BA%86%E3%80%81%E8%B4%B9%E6%9B%BC%E5%85%88%E7%94%9F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《别闹了、费曼先生》读书笔记</a>
+          <a href="/2022/07/04/yuque/%E9%B9%BF%E9%BC%8E%E8%AE%B0-%E5%9C%A8%E7%BB%86%E9%9B%A8%E4%B8%AD%E5%91%BC%E5%96%8A-%E5%8A%A8%E7%89%A9%E5%87%B6%E7%8C%9B-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">鹿鼎记-在细雨中呼喊-动物凶猛-读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -276,7 +312,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 16:03:21 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:03:21+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 16:14:29 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:14:29+08:00">2022-07-04</time>
     </span>
 
   
@@ -289,7 +325,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-31<br>在万维钢和 marix 博客上都提及这本书，三天看完。<br>此书是费曼的自传，以给儿子讲故事的方式讲述费曼的经历。儿童时期擅长修收音机。上学时自学数学，发明自己的符号系统，数学运算能力强于他人。大学期间学习理论物理，在贝尔实验室实习。博士毕业后进入曼哈顿计划，解决计算问题。为军队工作期间擅长修理计算机、开锁（机械锁和密码锁），经常和别人开玩笑。曼哈顿计划结束在康奈尔大学教书，年假期间到巴西教书。批判巴西没有真正的科学研究，只有背诵。学习桑巴舞，达到业余高手参加比赛。学习葡萄牙语，用葡萄牙语讲课和汇报。学习绘画，能鉴赏作品，买画给按摩院，开个人画展。最后说了获得诺贝尔奖的过程和一些生活上的改变。<br>玩闹，就是费曼的一生写照。不停尝试新东西，不断学习，挑战自己的极限。<br>费曼学习法有必要再写一遍<br>要具有超强学习力，需要从输入、处理、输出上有进一步的认知和提高。处理信息有两种方式，1 是记住名称，2 是理解事情本质。<br>四步学习法<br>第一步，选择一个概念。这适用于任何学科的任何概念。<br>第二步，教授这个概念。把你的教授对象定位为小学生，用他们能听懂的语言去解释这个概念。<br>第三步，返工。这一步针对的是第二步你解释不清的地方，在返回到原材料中，重新学习。当你可以解释清楚后，合上课本，继续第二步教授这个概念。<br>最后一步，回顾和精简。把你刚刚对于概念的解释写下来，然后大声读出来。如果有不够简洁或者听起来让人困惑的地方，那就再一次精简，用最少的文字去解释清楚。而这时，你会发现自己真的理解了这个概念的实质。<br>（完）<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
+          <p>发表于 2017-09-20<br>读了冯唐的《活着活着就老了》，里面有篇文章写 20 种感动，推荐了一些书。动物凶猛、在细雨中呼喊是一气呵成读的，鹿鼎记是在读完天龙八部后读的。统一写一个概要笔记，避免浪费那些阅读时间。</p>
+<h2 id="鹿鼎记"><a href="#鹿鼎记" class="headerlink" title="鹿鼎记"></a>鹿鼎记</h2><p>《鹿鼎记》是金庸的最后一部小说，选取了清康熙时期做背景。金庸的祖上在这时期涉及明典受到文字狱迫害，家族教育过程中让他对这一时期有较深的认识。全书的主要观点我认为是<strong>识时务者为俊杰。根据环境形式和自生价值判断，选择最有利于自己的方式过完一生，就是幸福的</strong>。<br>妓院长大的韦小宝在丽春院误打误撞认识受伤的劫富济贫的茅十八，受道义影响一起上京杀熬拜。进宫遇海大富杀小桂子替他做太监混宫中。宫中为执行海大富盗经参与赌局，休息途中和康熙摔跤练习成朋友。帮康熙杀熬拜立功结识满清权贵。救曾柔劫沐剑萍反江湖入天地会做香主。杀龟大会遇见长平公主尼姑和阿柯，追求阿柯迫害郑克爽遇见赵庄鬼屋得双儿。受康熙命送建宁公主嫁云南，设计逼反吴三桂。识破假太后知康熙爹出家，受命五台山清凉寺出家。康熙父子相见未见，结束和尚生活。造神武大炮攻神龙岛，逃跑误入俄罗斯。助俄罗斯公主掌权荣归。吴三桂造反赴罗刹国签尼不楚条约结盟。韦小宝天地会身份被识破逃亡江南、通吃岛逍遥。</p>
+<h2 id="在细雨中呼喊"><a href="#在细雨中呼喊" class="headerlink" title="在细雨中呼喊"></a>在细雨中呼喊</h2><p>全书讲了一个村庄小孩在故乡和在被领养期间看到的、听到的、感受到的。<br>7 岁以前在南门的见闻。村里的大户欺负家里，哥和爸反击，勇猛。村里小芳威胁负心人、弟弟救人溺亡。村寡妇的风流，父亲、哥、医生。祖母被休、祖父修桥。和医生家两个孩子的友情。<br>7 岁以后被领养。养母抵抗力差、养父偷情。和同学情谊，一个小伙伴被父母抛弃送煤为生要取邻家妹妹。养父被揭发炸八婆后自尽，养母回娘家。自己回南门。</p>
+<h2 id="动物凶猛"><a href="#动物凶猛" class="headerlink" title="动物凶猛"></a>动物凶猛</h2><p>青春期少年的性幻想。好奇开锁、融入集体打架、显摆泡妞。占有欲嫉妒、幻想湮灭。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对事物、知识的认识通过概念来发展。鹿鼎记小说发展三条线交错：香主、大臣、白龙使，任务设定有原则的小混混。在细雨中呼喊讲述周围人的故事，祖母祖父、父母亲、哥哥、弟弟、医生一家、小芳一家、寡妇、村霸、养父母一家、买煤同学和独居奶奶、吹笛子弟兄，结合时代背景发展。动物凶猛以性冲动为基点发散。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
 
       
     </div>
@@ -316,7 +356,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%86%8D%E9%85%8D%E7%BD%AEzabbix%E9%82%AE%E4%BB%B6%E6%8A%A5%E8%AD%A6%E5%8F%8A%E9%82%AE%E4%BB%B6%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E3%80%8A%E7%A8%80%E7%BC%BA%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -334,7 +374,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E5%86%8D%E9%85%8D%E7%BD%AEzabbix%E9%82%AE%E4%BB%B6%E6%8A%A5%E8%AD%A6%E5%8F%8A%E9%82%AE%E4%BB%B6%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">再配置zabbix邮件报警及邮件原理分析</a>
+          <a href="/2022/07/04/yuque/%E3%80%8A%E7%A8%80%E7%BC%BA%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《稀缺》读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -346,7 +386,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 16:01:48 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:01:48+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 16:12:50 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:12:50+08:00">2022-07-04</time>
     </span>
 
   
@@ -359,18 +399,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-31<br>又一次配置 zabbix server 的邮件报警，配置了半天，这次总算理顺了。</p>
-<h2 id="zabbix3-0-告警方式"><a href="#zabbix3-0-告警方式" class="headerlink" title="zabbix3.0 告警方式"></a>zabbix3.0 告警方式</h2><p>zabbix3.0 之后支持告警方式有：电子邮件、脚本、短信、jabber。<br>电子邮件即使用 zabbix 系统自带的电子邮件配置模板，使用公共电子邮箱（126,qq）发送邮件。3.0 之前电子邮件方式不能添加有密码的邮箱，所以网上大多数教程都是使用脚本方式发邮件。3.0 版本使用电子邮件模板配置发邮件也不容易成功，建议不用此种方式。<br>脚本是使用服务器上的命令发送邮件。linux 系统常见发送邮件命令有 mail 和 sendmail。整个邮件传输过程有三个角色 MUA（mail user agnet）、MTA（mail transport agent）、MDA（mail delevery agent）。使用公网邮箱发邮件，只需要一个 MUA 即可。微信报警也是通过脚本方式实现。<br>短信需要接短信猫，jabber 不知道是什么。</p>
-<h2 id="邮件告警具体配置"><a href="#邮件告警具体配置" class="headerlink" title="邮件告警具体配置"></a>邮件告警具体配置</h2><p>操作系统：centos7.2<br>前提条件：服务器能连接外网 126 邮件服务器。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">which mail <span class="comment">#查看是否有mail命令，如果没有使用yum install mailx 安装</span></span><br><span class="line">systemctl stop postfix <span class="comment">#停止MTA，不需要邮件传输代理。直接通过mail登录到126的MAT发送邮件。</span></span><br><span class="line">vi /etc/mail.rc <span class="comment">#编辑配置文件，添加邮件登录信息</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#mail.rc 添加内容</span></span><br><span class="line"><span class="built_in">set</span> <span class="keyword">from</span>=xxxx@<span class="number">126.</span>com</span><br><span class="line"><span class="built_in">set</span> smtp=smtp<span class="number">.126</span>.com</span><br><span class="line"><span class="built_in">set</span> smtp-auth-user=xxxxx</span><br><span class="line"><span class="built_in">set</span> smtp-auth-password=xxxxx <span class="comment">#126邮箱需要授权码登录，不是邮箱帐号密码</span></span><br><span class="line"><span class="built_in">set</span> smtp-auth=login</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>测试</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">&quot;mail content &quot;</span> | mail -s <span class="string">&quot;Subject&quot;</span> abcd@qq.com</span><br><span class="line">tail /var/log/maillog <span class="comment">#查看发送日志，之后可登录邮箱查看。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="邮件发送过程分析"><a href="#邮件发送过程分析" class="headerlink" title="邮件发送过程分析"></a>邮件发送过程分析</h2><p>MUA 编写一封邮件–MUA 将邮件传递给 MTA–MTA 将邮件放在 MDA 保存-用户 2 使用 MUA 登录 MDA 查看邮件<br>postfix 可以担任 MUT、MUD 角色。可以使用 postfix 服务，给本机另一个用户发邮件，例 echo “mail content”|mail -s “mail subject” user1@localhost。要使用 user2 登录，而不能 su 切换到 user2,才能查看到邮件。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/chongchong88/p/6341639.html">http://www.cnblogs.com/chongchong88/p/6341639.html</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/fujinzhou/p/5687384.html">http://www.cnblogs.com/fujinzhou/p/5687384.html</a><br><a target="_blank" rel="noopener" href="https://www.zzxworld.com/blogs/install-mail-sender-in-centos7.html">https://www.zzxworld.com/blogs/install-mail-sender-in-centos7.html</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/jamesf/p/4751484.html">http://www.cnblogs.com/jamesf/p/4751484.html</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/zabbix/"># zabbix</a></p>
+          <p>发表于 2017-09-12<br>在每天听本书上听了稀缺音频解读版，看见公司图书馆有这本书，借来花 2 天读完。<br>稀缺和理性经济人是传统经济学的两大基本假设：资源是稀缺而有限的；人具有完全的理性，可以作出利益最大化的选择。这本书的观点是对这两个假设的重新审视–过度稀缺回导致人的非理性，从而进一步加剧这种稀缺。<br>经济学研究物品稀缺性对经济活动的影响，本书研究稀缺对人心态和行为的影响，进而影响人的经济活动。全书分为 3 部分：1）稀缺心态是一切稀缺的根源 2）贫穷和忙碌是如何把“带宽”变窄的 3）如何从稀缺走向富足。<br>稀缺是“拥有”少于“需要”的感觉，当我们产生稀缺感时，我们的思想会自动而强有力的转向未满足的需要，这就称为<strong>稀缺俘获大脑</strong>。怎么俘获我们大脑的呢？稀缺会让人过度关注稀缺对象，忽视其他事物，让我们对世界的认识视野变窄，就像从一个管子里面看我们需要的，看不见周围的环境和其他资源，这称为“管窥效应”。管窥效应使人专注、狭隘，关注眼前利益。对钱的稀缺让稀缺者只关注眼前的钱，忽略长期投资带来的价值，进而钱更稀缺。对时间的稀缺让人一直处理紧急事件，让子弹飞一会的忽略导致更多的紧急。稀缺会让人变笨且更冲动。心智容量包括认知能力和执行控制力，稀缺产生的噪声会占用我们的心智容量，让我们缺乏洞察力、前瞻性，减弱我们的执行控制力。<br>稀缺心态让我们一直处于权衡状态，权衡状态消耗判断力，判断容易失误带来更大的损失。稀缺导致借用，稀缺的管窥效应让我们关注借用的好处，忽略借用的代价，让我们越来越稀缺，一直处于杂耍状态。<br>规划和管理好认知资源和控制力，小事情选择默认值，大问题花费认知资源和控制力，获得收益，走出稀缺。<br>ps：再听一遍解读版，对比差异，形成观点，20170913 之前补充。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
 
       
     </div>
@@ -397,7 +426,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E3%80%8A%E5%A4%A9%E9%BE%99%E5%85%AB%E9%83%A8%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E3%80%8A%E7%89%9B%E5%A4%A9%E8%B5%90%E4%BC%A0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -415,7 +444,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E3%80%8A%E5%A4%A9%E9%BE%99%E5%85%AB%E9%83%A8%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《天龙八部》读书笔记</a>
+          <a href="/2022/07/04/yuque/%E3%80%8A%E7%89%9B%E5%A4%A9%E8%B5%90%E4%BC%A0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《牛天赐传》读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -427,7 +456,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 15:57:37 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:57:37+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 16:12:19 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:12:19+08:00">2022-07-04</time>
     </span>
 
   
@@ -440,7 +469,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-28<br>看书比看电视过瘾<br>花一周时间，看完《天龙八部》，回顾一下主要剧情。<br>无量山上段誉遇钟灵，逃跑过程遇木婉清，跌落山谷学北冥神功、凌波微步。南海恶神收徒反被收，段誉一家出场。少林大师大理遇害，慕容复出场埋伏笔。天龙寺枯荣为六脉神剑大战鸠摩智，段誉记剑普被鸠摩智抓去姑苏。<br>姑苏遇阿碧阿朱，易容术配合段誉脱险。误闯曼陀罗山庄，初遇王语嫣。救阿碧阿朱逃离曼陀罗，遇包不同等段誉与王姑娘分离。客栈赌酒遇乔峰，拜兄弟。遇丐帮杏子林大会揭露乔峰身世。西夏悲酥清风迷倒众人，段誉背王姑娘跑至磨坊大战西夏武士。乔峰救丐帮弟子。<br>阿朱少林偷易筋经受伤，乔峰求医聚贤庄大战群雄，黑衣人救走。剑门关外乔峰阿朱重逢，共同寻找带头大哥。剑门关相关人物一一遇害，马夫人识破易容阿朱，借乔峰之手杀段正淳。阿朱知身世替父受掌死，留阿紫托付乔峰。<br>阿紫与星宿师兄斗法，乔峰相助。暗算乔峰自受重伤。救阿紫寻药结识女真部族，冬雪夜捕熊俘虏耶律洪基。携阿紫游玩遇耶律洪基，助其平内乱封南院大王。阿紫练吸心大法找铁头人，铁头人练易筋经吃冰蝉功力大增。阿紫遇星宿老仙瞎双眼，铁头人救阿紫遇丐帮。丐帮策划选武林盟主走少林。星宿老仙抓铁头人知冰蝉，救捕蝉人，函谷八友出。<br>苏星河设珍龙棋局，段誉、慕容复、段延庆均不破，险些丧命。虚竹闭眼破局获无涯子功力。慕容复误入百仙大会，段誉救王语嫣，虚竹救天山童老。虚竹助天山童老练功闯西夏，遇梦姑。李秋水、天山童老对决，双双归西。虚竹回灵鸠宫大战 36 岛 72 洞，解生死符服众。<br>虚竹回少林受罚，武林豪杰聚少林选盟主。天竺盗书鸠摩智大败少林高僧，虚竹解围。丐帮大战丁春秋，抓阿紫为质庄聚贤拜丁春秋为师。丁春秋指使杀玄慈方丈，笑中原武林，乔峰入场。乔峰、段誉、虚竹大战丁春秋、慕容复、庄聚贤。慕容复战败自尽灰衣人出。灰衣人战乔峰，黑衣人出。坐树观战。虚竹受罚四大恶人出，叶二娘认虚竹，玄慈认子，揭晓真相。慕容博假传消息，玄慈率众误杀萧远山妻。萧远山报复夺玄慈子寄养少林。萧远山慕容博大战进藏经阁，扫地僧化恩怨。<br>西夏招驸马众人争，慕容复家国弃儿情。段誉救王语嫣为情争驸马，寺内池边诉真情。慕容复夜半禽段誉，丢枯井。慕容复为家国再伤有情人，王语嫣梦醒跳井殉情。鸠摩智慕容复大战双坠井。王段二人井内定终身，鸠摩智失功悟道，慕容复奸计逃井。<br>梦姑寻虚竹三问，最爱、何时、何面貌？虚竹如愿重逢佳人。<br>姑苏大恶人设局段正淳，段誉入套。段延庆抓段正淳及 4 夫人，与慕容复交易。刀白凤菩提树下做观音，段誉得佳人。<br>宋辽大战萧峰拒，为囚兄弟劫。一诺换和平，英明了一生。阿紫还眼复自尽，铁头不愿生。<br>为情为义为祖宗，不舍不平不甘心。仁义忠道释如来，命中已注定。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
+          <p>发表于 2017-09-08<br>冯唐推荐了这本书，一口气看完能电子版，3 小时。<br>全书讲述了清末一个商人少爷 20 年的成长经历，故事很连贯，语言风趣幽默。老舍是怎么做到的呢？怎么挑选事件、怎么安排顺序、怎么通过事件逐渐刻画出清晰的人物形象。要是我来写这个故事，肯定平淡无味，流水帐记法。<br>卖花生的在街口捡了一个小男孩，自己没能力养就带到云城富商牛老者家。牛老者夫妇 50 上下无子女，对于这个送来的孩子很是欢喜，决定当自己孩子养大，取名牛天赐。找来纪奶娘奶孩子，奶娘亲生子 2 年后去世。牛太太娘家祖上做过官，期望孩子学文做官。先请一个山东教书先生教，讲三字经和江湖故事，逐渐和孩子感情好。先生心里一直想做生意，教了 1 年就找牛老者借 1000 去天津做生意去。第二个山东先生当教书大爷，不合适 3 天就走。没了先生教就去上学堂，学校里由于跑不快不合群，只有回家跟佣人虎子讲故事。小学上了上中学，中学期间校主任更换，全校武力反抗，新主任武力接管，天赐被开出。牛太太带天赐去学校论理，道理胜利了，身体垮了，亡。牛太太办丧事，被牛家亲戚勒索。不上学堂后再请穷书生在家讲学，论红楼、作诗。看老黑家蜜蜂入神。结诗社，混权贵圈，识贵家小姐。战火起，牛老者的一处买卖烧完，其他几处买卖也不怎么挣钱，牛老者病。存钱的银庄倒闭，牛老者再也起不来，亡。送葬牛老者，凄凉。房产被抵押，家具被牛家族人抢走。租小房子，与虎子一起卖水果。买水果遇见第一位山东先生，发达后回来报恩。先生走动，将房子买了，还之前借的 1000 及利息，共计 4000.500 给虎子开水果店，3500 给天赐上北平读书。全书完。<br>写作用字，多练多思考。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a></p>
 
       
     </div>
@@ -467,7 +496,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E5%B0%8F%E5%AF%8C%E9%9D%A0%E8%BF%90%EF%BC%8C%E5%A4%A7%E5%AF%8C%E9%9D%A0%E5%91%BD/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/yuque/%E3%80%8A%E6%B4%BB%E7%9D%80%E6%B4%BB%E7%9D%80%E5%B0%B1%E8%80%81%E4%BA%86%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -485,7 +514,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/04/yuque/%E5%B0%8F%E5%AF%8C%E9%9D%A0%E8%BF%90%EF%BC%8C%E5%A4%A7%E5%AF%8C%E9%9D%A0%E5%91%BD/" class="post-title-link" itemprop="url">小富靠运，大富靠命</a>
+          <a href="/2022/07/04/yuque/%E3%80%8A%E6%B4%BB%E7%9D%80%E6%B4%BB%E7%9D%80%E5%B0%B1%E8%80%81%E4%BA%86%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《活着活着就老了》读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -497,7 +526,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-04 15:56:44 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T15:56:44+08:00">2022-07-04</time>
+      <time title="创建时间：2022-07-04 16:09:52 / 修改时间：17:28:53" itemprop="dateCreated datePublished" datetime="2022-07-04T16:09:52+08:00">2022-07-04</time>
     </span>
 
   
@@ -510,22 +539,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>发表于 2017-08-22<br>吴军老师这两天的来信，认真听了，能得到很多。</p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>小富靠运，大富靠命</p>
-<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><ul>
-<li>为什么小富靠运气？</li>
-</ul>
-<p>同门清华师姐高考运气好，本来上北京科技大学后来上了清华大学，运气好。后来的发展泯然众人，是命中注定。<br>美国通过中彩票获得大量才富的人的和在中国股市早期获得财富的探险家，后来都基本上败光，这也是运气好，命不好，无法大富。</p>
-<ul>
-<li>命的定义及获取财富的方法</li>
-</ul>
-<p>每个人对命的定义不同，吴军老师的定义我比较赞同：命运是环境因素和个人看问题、做事方法绘制的两条线。获取财富的方法是信命、认命。<br>相信改变自己看问题、做事方式能改变命。如果由于长期行为累积出的习惯无法改变，就认命，不妄想。</p>
-<ul>
-<li>为什么大富靠运</li>
-</ul>
-<p>Z 君看似经历一系列好运气，高盛、谷歌、亚马逊上市，但这都是由于他看问题、做事情方法给他带来的，命好是原因。出生只是运气，开始的好运气能让命好的概率大一点，但命运就像马拉松，塑造命运的过程才是跑完获胜的关键。<br>反证：李广难封，是由于命中注定。他又好运气可以上阵杀敌立军工，但都是已做士兵的心态行动。其实是不够资格封侯。</p>
-<h3 id="实践方法"><a href="#实践方法" class="headerlink" title="实践方法"></a>实践方法</h3><p>练习对“扇耳光”的反应，有可能可以改变命运。三种反应：1）扇回去，2）认怂，3）分析该不该被扇，该就改，不该就给对方教训。<br>日常的谈吐可以看出一个人的命运，就是看他怎么反应，举例袁腾飞判断他学生妈下岗。<br>三同学 A，B，C 聚会，分出三类人。A 官员，被扇后思考，加入强势阶级，有权扇人。B 教授抱怨认怂，不认命也不反抗，必然结果。C 学者，思考后强大自己，让人无法扇到。</p>
-<h3 id="我的思考"><a href="#我的思考" class="headerlink" title="我的思考"></a>我的思考</h3><p>以合作者姿态做事，与信命者共事，自私的自己把握命运。<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E7%A1%85%E8%B0%B7%E6%9D%A5%E4%BF%A1/"># 硅谷来信</a></p>
+          <p>发表于 2017-09-08<br>王小波、王朔、冯唐，近代有影响力的几个作家。1 天看完这本冯唐的杂文。<br>读完感受比较深刻的是第一卷“文字打败时间”，讲述的是他对文字、文学、国内国外文学的认识及自己的文学观。另外三卷“饭局酒色山河文章”、“如可成为一个怪物”、“择一城而终”分别写身边的朋友、自己的日常观点和对城市的认识。<br>文字打败时间这一卷开阔了我的视野，提供了好多书和几个作者。<br>人本性是追求不朽，通过基因传承和思想传承实现。“不肖有三，无后为大”讲的是基因的传承。“立身、立言、立德”是是思想传承的途径。著书，能流传下来的都是着眼于写书年代立身和有利于后代。社会需要什么，就写什么，就能在当时环境立身。比如商周时期对神的崇拜，需要装神弄鬼的伏羲八卦和周易；春秋战国混战需要治国思想就产生百家增鸣。温饱思淫欲，在国泰民安的时期就需要小黄文，如国内的《素女经》、《灯草和尚》、《三言三拍》、<del>《肉蒲团》李渔、《金瓶梅》、《亮出你的舌苔或空空荡荡》、《相遇》格非、《北京故事》；《查泰莱夫人的情人》劳伦斯、《在巴黎的屋顶下》亨利.米勒。</del> 看了北京故事 2 分钟，顿感不适，这些书还是不看了。<br>中文小说，二十二种美丽，二十二种感动。《战国策》、《世说新语》、《红楼梦》前四十回、《水浒传》金圣叹点评版、《肉蒲团》、《金瓶梅》、《牛天赐传》老舍、《围城》、《十八春》张爱玲、《边城》、《洗澡》、《白金的女体塑像》穆时英、《台北人》、《绿化树》、《鹿鼎记》、《大人物》古龙自传、《受戒》汪曾祺、《棋王》阿城、《在细雨中呼喊》余华、《动物凶猛》王朔、《黄金时代》、《窗外》琼瑶。<br>冯唐的文学观：感受在边缘、理解在高出、表达在当下。以卧底姿势感受人间百态，事物认识入木三分，从当下观点写当下看法和思考。<br>冯唐评王小波：优点是有趣、说真话、个人主义的边缘态度；缺点是文字寒碜、结构臃肿、流于趣味。王小波让现在汉语文学表达开始有了意义，之前的都是虚伪。我阅读王小波时只沉浸于故事，没有评价意识，因为视野不够或懒惰。<br>价值观是对一堆事情的取舍，视野决定了这一堆事情的多少。不断成长的价值观是扩大视野、清晰判断依据。–古典《超级个体》<br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a><br><a target="_blank" rel="noopener" href="https://hhzzer.github.io/posts/773082db/">
+</a></p>
+<p>© 2021 mayi</p>
 
       
     </div>
@@ -545,7 +561,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
